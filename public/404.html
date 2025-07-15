@@ -11,16 +11,6 @@
     <meta property="og:type" content="website" />
     <!-- Google Sign-In for Admin Only -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script>
-      // GitHub Pages SPA fallback: redirect all 404s to index.html, preserving path
-      var base = '/videocalc-db';
-      var isIndex = location.pathname === base + '/' || location.pathname === base + '/index.html';
-      var isAsset = location.pathname.startsWith(base + '/assets') || location.pathname.endsWith('.js') || location.pathname.endsWith('.css') || location.pathname.endsWith('.svg');
-      if (!isIndex && !isAsset) {
-        var redirectPath = base + '/?redirect=' + encodeURIComponent(location.pathname + location.search + location.hash);
-        window.location.replace(redirectPath);
-      }
-    </script>
   </head>
   <body>
     <div id="root"></div>
