@@ -1,0 +1,205 @@
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5a5a5a;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom focus styles */
+input:focus,
+select:focus,
+button:focus {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+}
+
+/* Animation for results */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Loading animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Hover effects */
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Glass effect */
+.glass {
+  backdrop-filter: blur(10px);
+  background: rgba(45, 45, 45, 0.8);
+}
+
+/* Portal dropdown styles - ensure they appear above everything */
+#dropdown-portal {
+  position: absolute !important;
+  z-index: 10000 !important;
+}
+
+/* Ensure portal dropdowns have proper styling */
+#dropdown-portal .bg-dark-secondary {
+  background-color: #2d2d2d !important;
+}
+
+#dropdown-portal .border-gray-700 {
+  border-color: #374151 !important;
+}
+
+#dropdown-portal .text-white {
+  color: white !important;
+}
+
+#dropdown-portal .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+/* Enhanced dropdown animations */
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dropdownSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+}
+
+.animate-in {
+  animation: dropdownSlideIn 0.2s ease-out forwards;
+}
+
+.animate-out {
+  animation: dropdownSlideOut 0.15s ease-in forwards;
+}
+
+/* Staggered option animations */
+@keyframes optionSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+#dropdown-portal button {
+  animation: optionSlideIn 0.2s ease-out forwards;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Prevent zoom on input focus */
+  input[type="text"],
+  input[type="search"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Improve touch targets */
+  button {
+    min-height: 44px;
+  }
+  
+  /* Smooth scrolling for mobile */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Better mobile dropdown positioning */
+  #dropdown-portal {
+    position: fixed !important;
+  }
+}
+
+/* Prevent body scroll when mobile dropdown is open */
+body.dropdown-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* Mobile dropdown overlay */
+.mobile-dropdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+/* Improve mobile touch responsiveness */
+@media (hover: none) and (pointer: coarse) {
+  .hover-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+}
