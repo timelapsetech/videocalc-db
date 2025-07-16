@@ -16,6 +16,8 @@ import { gdprCompliance, CookiePreferences } from './utils/gdprCompliance';
 import { googleAnalytics } from './utils/analytics';
 import './App.css';
 
+console.log("App component loaded");
+
 // Component to handle page tracking
 const AppWithTracking: React.FC = () => {
   usePageTracking();
@@ -23,6 +25,7 @@ const AppWithTracking: React.FC = () => {
   return (
     <div className="min-h-screen bg-dark-primary text-white">
       <Routes>
+        {/* Test route removed */}
         <Route path="/" element={<Calculator />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/about" element={<About />} />
@@ -39,6 +42,7 @@ function App() {
 
   // Handle cookie consent
   const handleCookieConsent = (preferences: CookiePreferences) => {
+    console.log("GDPR consent accepted, initializing app", preferences);
     gdprCompliance.updatePreferences(preferences);
     
     // Reinitialize analytics based on new preferences
@@ -73,13 +77,9 @@ function App() {
       <AuthProvider>
         <CodecProvider>
           <PresetProvider>
-            <Router>
+            <Router basename="/videocalc-db">
               <AppWithTracking />
-              
-              {/* GDPR Cookie Consent Banner */}
               <CookieConsent onAccept={handleCookieConsent} />
-              
-              {/* Privacy Notice - Only show once per session */}
               <PrivacyNotice 
                 isVisible={showPrivacyNotice} 
                 onClose={handlePrivacyNoticeClose} 
