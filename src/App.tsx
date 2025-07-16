@@ -77,7 +77,7 @@ function App() {
       <AuthProvider>
         <CodecProvider>
           <PresetProvider>
-            <Router basename="/videocalc-db">
+            <Router>
               <AppWithTracking />
               <CookieConsent onAccept={handleCookieConsent} />
               <PrivacyNotice 
