@@ -38,6 +38,11 @@ const Calculator: React.FC = () => {
   const [autoSelectionInProgress, setAutoSelectionInProgress] = useState(false);
   const [lastAutoSelectionTime, setLastAutoSelectionTime] = useState(0);
 
+  // New state for manual calculation
+  const [shouldAutoCalculate, setShouldAutoCalculate] = useState(false);
+  const [calculationTriggered, setCalculationTriggered] = useState(false);
+  const [manualResults, setManualResults] = useState<any>(null);
+
   // Initialize from URL parameters when component mounts or categories load
   useEffect(() => {
     if (loading || categories.length === 0) return; // Wait for categories to load
@@ -119,23 +124,32 @@ const Calculator: React.FC = () => {
     });
 
     setIsInitialized(true);
+    // If all required params are present, auto-calculate
+    if (validCategory && validCodec && validVariant && validResolution && validFrameRate) {
+      setShouldAutoCalculate(true);
+    }
   }, [categories, searchParams, loading]);
 
-  // Update URL when parameters change (but only after initialization and not during auto-selection)
+  // Only update URL params if user has made a selection (not just defaults)
   useEffect(() => {
     if (!isInitialized || autoSelectionInProgress) return;
-
-    const params = new URLSearchParams();
-    if (selectedCategory) params.set('category', selectedCategory);
-    if (selectedCodec) params.set('codec', selectedCodec);
-    if (selectedVariant) params.set('variant', selectedVariant);
-    if (selectedResolution) params.set('resolution', selectedResolution);
-    if (selectedFrameRate) params.set('framerate', selectedFrameRate);
-    params.set('hours', duration.hours.toString());
-    params.set('minutes', duration.minutes.toString());
-    params.set('seconds', duration.seconds.toString());
-    
-    setSearchParams(params, { replace: true });
+    // Only set params if at least one selection is made
+    if (
+      selectedCategory || selectedCodec || selectedVariant ||
+      selectedResolution !== '1080p' || selectedFrameRate !== '30' ||
+      duration.hours !== 1 || duration.minutes !== 0 || duration.seconds !== 0
+    ) {
+      const params = new URLSearchParams();
+      if (selectedCategory) params.set('category', selectedCategory);
+      if (selectedCodec) params.set('codec', selectedCodec);
+      if (selectedVariant) params.set('variant', selectedVariant);
+      if (selectedResolution && selectedResolution !== '1080p') params.set('resolution', selectedResolution);
+      if (selectedFrameRate && selectedFrameRate !== '30') params.set('framerate', selectedFrameRate);
+      if (duration.hours !== 1) params.set('hours', duration.hours.toString());
+      if (duration.minutes !== 0) params.set('minutes', duration.minutes.toString());
+      if (duration.seconds !== 0) params.set('seconds', duration.seconds.toString());
+      setSearchParams(params, { replace: true });
+    }
   }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, setSearchParams, isInitialized, autoSelectionInProgress]);
 
   // Get available codecs for selected category
@@ -342,6 +356,9 @@ const Calculator: React.FC = () => {
     // Clear the flag after preset is applied
     setTimeout(() => {
       setAutoSelectionInProgress(false);
+      // Auto-calculate when a preset is applied
+      setManualResults(calculateResults());
+      setCalculationTriggered(true);
     }, 300);
     
     // Track preset usage
@@ -500,31 +517,20 @@ const Calculator: React.FC = () => {
     }
   };
 
-  const results = calculateResults();
+  // Manual calculation trigger
+  const handleCalculate = () => {
+    setManualResults(calculateResults());
+    setCalculationTriggered(true);
+  };
 
-  // Update hasValidResult when results change
+  // Auto-calculate if loaded from URL with all params
   useEffect(() => {
-    setHasValidResult(!!results);
-  }, [results]);
-
-  // Track analytics only when a complete, valid result is displayed AND it's a new calculation
-  useEffect(() => {
-    if (!results || !isInitialized || !hasValidResult || autoSelectionInProgress) return;
-
-    // Create a unique identifier for this calculation (including duration for uniqueness)
-    const calculationId = `${selectedCategory}-${selectedCodec}-${selectedVariant}-${selectedResolution}-${selectedFrameRate}-${duration.hours}-${duration.minutes}-${duration.seconds}`;
-    
-    // Only track if this is a new calculation (different from the last one tracked)
-    if (calculationId !== lastTrackedCalculation) {
-      console.log('Tracking new calculation:', calculationId);
-      
-      // Track with Google Analytics only
-      googleAnalytics.trackCalculation(selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate);
-      
-      // Update the last tracked calculation
-      setLastTrackedCalculation(calculationId);
+    if (shouldAutoCalculate && !calculationTriggered) {
+      setManualResults(calculateResults());
+      setCalculationTriggered(true);
+      setShouldAutoCalculate(false);
     }
-  }, [results, selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, isInitialized, lastTrackedCalculation, hasValidResult, autoSelectionInProgress]);
+  }, [shouldAutoCalculate, calculationTriggered]);
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -915,12 +921,21 @@ const Calculator: React.FC = () => {
           {/* Results Panel */}
           <div className="lg:sticky lg:top-8">
             <ResultsPanel 
-              results={results} 
+              results={manualResults} 
               duration={duration}
               onDurationChange={setDuration}
             />
           </div>
         </div>
+        <button
+          className="mt-4 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors"
+          onClick={handleCalculate}
+          disabled={
+            !selectedCategory || !selectedCodec || !selectedVariant || !selectedResolution || !selectedFrameRate
+          }
+        >
+          Calculate
+        </button>
       </main>
 
       {/* Built with Bolt Badge - Footer */}
