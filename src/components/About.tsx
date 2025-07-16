@@ -162,7 +162,7 @@ const About: React.FC = () => {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="https://github.com/timelapsetech/videocalculator"
+                href="https://github.com/timelapsetech/videocalc-db"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-medium transition-colors text-sm sm:text-base"

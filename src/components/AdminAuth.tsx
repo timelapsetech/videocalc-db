@@ -229,33 +229,6 @@ const AdminAuth: React.FC<AdminAuthProps> = ({ onAuthSuccess }) => {
               <li>• Access is logged and monitored</li>
             </ul>
           </div>
-
-          {/* Firebase Setup Instructions */}
-          <div className="mt-6 p-4 bg-yellow-600/10 border border-yellow-600/20 rounded-lg">
-            <h3 className="text-yellow-400 font-medium mb-2 flex items-center">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Firebase Setup Required
-            </h3>
-            <div className="text-sm text-gray-300 space-y-2">
-              <p>To enable admin authentication, you need to:</p>
-              <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li>Go to <a href="https://console.firebase.google.com/" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">Firebase Console</a></li>
-                <li>Select your <code className="bg-yellow-600/20 px-1 rounded">videocalc-b1b43</code> project</li>
-                <li>Go to Project Settings → General → Your apps</li>
-                <li>Copy the config values and update <code className="bg-yellow-600/20 px-1 rounded">src/config/firebase.ts</code></li>
-                <li>Enable Authentication → Sign-in method → Google</li>
-                <li>Add your domain to authorized domains</li>
-              </ol>
-            </div>
-          </div>
-
-          {import.meta.env.DEV && (
-            <div className="mt-4 p-3 bg-gray-600/10 border border-gray-600/20 rounded-lg">
-              <p className="text-gray-400 text-xs">
-                <strong>Development Mode:</strong> Environment variables are loaded from .env file
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>
