@@ -238,6 +238,275 @@ class FirebaseService {
     });
   }
 
+  // Default Preset Management Methods
+  async getDefaultPresets(): Promise<any[]> {
+    try {
+      console.log('Fetching default presets from Firebase...');
+      
+      const presetsCollection = collection(db, 'defaultPresets');
+      const q = query(presetsCollection, orderBy('order', 'asc'));
+      const snapshot = await getDocs(q);
+      
+      if (snapshot.empty) {
+        console.log('No default presets found in Firebase');
+        return [];
+      }
+
+      const presets = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      console.log('Loaded default presets from Firebase:', presets);
+      return presets;
+    } catch (error) {
+      console.error('Error fetching default presets:', error);
+      throw new Error('Failed to fetch default presets from Firebase');
+    }
+  }
+
+  async saveDefaultPreset(preset: any): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Saving default preset to Firebase:', preset);
+      
+      const presetData = {
+        ...preset,
+        firebase_updated_at: new Date().toISOString(),
+        updated_by: this.getCurrentUser()?.email || 'unknown'
+      };
+
+      if (preset.id && preset.id.startsWith('preset-')) {
+        // Update existing preset
+        const docRef = doc(db, 'defaultPresets', preset.id);
+        await updateDoc(docRef, presetData);
+      } else {
+        // Create new preset
+        presetData.firebase_created_at = new Date().toISOString();
+        presetData.created_by = this.getCurrentUser()?.email || 'unknown';
+        const docRef = doc(collection(db, 'defaultPresets'));
+        await setDoc(docRef, presetData);
+      }
+      
+      console.log('Successfully saved default preset to Firebase');
+    } catch (error) {
+      console.error('Error saving default preset:', error);
+      throw new Error('Failed to save default preset to Firebase');
+    }
+  }
+
+  async deleteDefaultPreset(presetId: string): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Deleting default preset from Firebase:', presetId);
+      const docRef = doc(db, 'defaultPresets', presetId);
+      await deleteDoc(docRef);
+      console.log('Successfully deleted default preset from Firebase');
+    } catch (error) {
+      console.error('Error deleting default preset:', error);
+      throw new Error('Failed to delete default preset from Firebase');
+    }
+  }
+
+  async saveAllDefaultPresets(presets: any[]): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Saving all default presets to Firebase...');
+      const batch = writeBatch(db);
+      
+      // Clear existing presets
+      const existingPresets = await getDocs(collection(db, 'defaultPresets'));
+      existingPresets.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      // Add new presets
+      presets.forEach((preset, index) => {
+        const docRef = doc(collection(db, 'defaultPresets'));
+        const presetData = {
+          ...preset,
+          order: index,
+          isActive: true,
+          firebase_created_at: new Date().toISOString(),
+          firebase_updated_at: new Date().toISOString(),
+          created_by: this.getCurrentUser()?.email || 'unknown'
+        };
+        batch.set(docRef, presetData);
+      });
+      
+      await batch.commit();
+      console.log('Successfully saved all default presets to Firebase');
+    } catch (error) {
+      console.error('Error saving all default presets:', error);
+      throw new Error('Failed to save all default presets to Firebase');
+    }
+  }
+
+  // Real-time listener for default presets
+  subscribeToDefaultPresets(callback: (presets: any[]) => void): () => void {
+    const presetsCollection = collection(db, 'defaultPresets');
+    const q = query(presetsCollection, orderBy('order', 'asc'));
+    
+    return onSnapshot(q, (snapshot) => {
+      try {
+        console.log('Firebase default presets changed, updating...');
+        const presets = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        callback(presets);
+      } catch (error) {
+        console.error('Error in default presets subscription:', error);
+      }
+    });
+  }
+
+  // Individual Codec CRUD Operations
+  async createCodec(categoryId: string, codec: Codec): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Creating new codec in Firebase:', codec);
+      
+      const docRef = doc(collection(db, 'codecs'));
+      const codecData = {
+        id: codec.id,
+        name: codec.name,
+        description: codec.description || '',
+        workflowNotes: codec.workflowNotes || '',
+        category: categoryId, // This should be the category name
+        category_id: categoryId,
+        variants: codec.variants.map(variant => ({
+          name: variant.name,
+          description: variant.description || '',
+          bitrates: variant.bitrates
+        })),
+        firebase_created_at: new Date().toISOString(),
+        firebase_updated_at: new Date().toISOString(),
+        created_by: this.getCurrentUser()?.email || 'unknown',
+        source: 'admin_create'
+      };
+      
+      await setDoc(docRef, codecData);
+      console.log('Successfully created codec in Firebase');
+    } catch (error) {
+      console.error('Error creating codec:', error);
+      throw new Error('Failed to create codec in Firebase');
+    }
+  }
+
+  async updateCodec(codecId: string, updates: Partial<Codec>): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Updating codec in Firebase:', codecId, updates);
+      
+      // Find the document with the matching codec ID
+      const codecsCollection = collection(db, 'codecs');
+      const snapshot = await getDocs(codecsCollection);
+      
+      let docToUpdate: any = null;
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.id === codecId) {
+          docToUpdate = doc;
+        }
+      });
+      
+      if (!docToUpdate) {
+        throw new Error(`Codec with ID ${codecId} not found`);
+      }
+      
+      const updateData = {
+        ...updates,
+        firebase_updated_at: new Date().toISOString(),
+        updated_by: this.getCurrentUser()?.email || 'unknown'
+      };
+      
+      // If variants are being updated, format them properly
+      if (updates.variants) {
+        updateData.variants = updates.variants.map(variant => ({
+          name: variant.name,
+          description: variant.description || '',
+          bitrates: variant.bitrates
+        }));
+      }
+      
+      await updateDoc(docToUpdate.ref, updateData);
+      console.log('Successfully updated codec in Firebase');
+    } catch (error) {
+      console.error('Error updating codec:', error);
+      throw new Error('Failed to update codec in Firebase');
+    }
+  }
+
+  async deleteCodec(codecId: string): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Deleting codec from Firebase:', codecId);
+      
+      // Find the document with the matching codec ID
+      const codecsCollection = collection(db, 'codecs');
+      const snapshot = await getDocs(codecsCollection);
+      
+      let docToDelete: any = null;
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.id === codecId) {
+          docToDelete = doc;
+        }
+      });
+      
+      if (!docToDelete) {
+        throw new Error(`Codec with ID ${codecId} not found`);
+      }
+      
+      await deleteDoc(docToDelete.ref);
+      console.log('Successfully deleted codec from Firebase');
+    } catch (error) {
+      console.error('Error deleting codec:', error);
+      throw new Error('Failed to delete codec from Firebase');
+    }
+  }
+
+  async createCategory(category: CodecCategory): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Creating new category in Firebase:', category);
+      
+      // Create a placeholder codec for the category since our structure requires codecs
+      const placeholderCodec = {
+        id: `${category.id}_placeholder`,
+        name: 'Placeholder Codec',
+        description: 'Placeholder codec for new category',
+        workflowNotes: '',
+        category: category.name,
+        category_id: category.id,
+        variants: [{
+          name: 'Default',
+          description: 'Default variant',
+          bitrates: { '1080p': { '30': 10 } }
+        }],
+        firebase_created_at: new Date().toISOString(),
+        firebase_updated_at: new Date().toISOString(),
+        created_by: this.getCurrentUser()?.email || 'unknown',
+        source: 'admin_create_category'
+      };
+      
+      const docRef = doc(collection(db, 'codecs'));
+      await setDoc(docRef, placeholderCodec);
+      console.log('Successfully created category in Firebase');
+    } catch (error) {
+      console.error('Error creating category:', error);
+      throw new Error('Failed to create category in Firebase');
+    }
+  }
+
   // Check if Firebase is properly configured and accessible
   async testConnection(): Promise<boolean> {
     try {
