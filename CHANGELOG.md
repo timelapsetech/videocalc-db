@@ -7,7 +7,106 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Improved
+- **Statistics Tracking Accuracy**: Enhanced calculation tracking to prevent duplicate statistics entries
+  - Implemented deduplication logic to avoid tracking identical calculations multiple times
+  - Added unique calculation key generation based on codec parameters and bitrate
+  - Improved statistics data quality by eliminating redundant entries
+  - Enhanced debugging with detailed console logging for tracked and skipped calculations
+  - Maintains accurate usage analytics while preventing data inflation from repeated identical calculations
+
 ### Fixed
+- **Statistics Display**: Fixed codec configuration display in Community Usage Analytics section
+  - Added fallback values for undefined resolution and frameRate data
+  - Displays "Various" when resolution or frameRate data is not available
+  - Prevents display of "undefined" values in popular configurations list
+  - Improves data presentation reliability in statistics dashboard
+
+### Enhanced
+- **Community Usage Analytics Dashboard**: Major visual enhancement to statistics page overview section
+  - Transformed basic overview cards into an engaging Community Usage Analytics section
+  - Added gradient background with purple/blue theme and backdrop blur effects
+  - Enhanced header with descriptive text explaining community-driven insights
+  - Redesigned summary statistics with improved iconography and visual hierarchy
+  - Added "Most Popular Configurations" section showing top 5 codec configurations
+  - Implemented ranked list with numbered badges, progress bars, and detailed codec information
+  - Added "Live Data" indicator with animated pulse effect to emphasize real-time updates
+  - Improved responsive design for better mobile and desktop experience
+  - Enhanced visual appeal while maintaining accessibility and usability
+
+### Improved
+- **Chart Visualization Enhancement**: Improved center label display in Bitrate Distribution chart
+  - Enhanced doughnut chart center label positioning and styling
+  - Better visual hierarchy with total calculations prominently displayed
+  - Improved chart readability and user experience in statistics dashboard
+- **Statistics Service Debugging**: Enhanced Firebase integration debugging capabilities
+  - Added detailed console logging for statistics data being sent to Firebase
+  - Improved troubleshooting for statistics tracking issues
+  - Better visibility into data structure and timestamp formatting
+  - Helps developers and administrators diagnose Firebase connectivity issues
+
+### Fixed
+- **Preset Card Accessibility**: Fixed edit button in preset cards to use proper div element instead of nested button
+  - Changed edit icon from `<button>` to `<div>` with cursor pointer to prevent nested button accessibility issues
+  - Maintains all existing functionality while improving HTML semantic structure
+  - Resolves potential accessibility warnings about interactive elements nested within buttons
+
+### Fixed
+- **Statistics Session Management**: Fixed session ID tracking in calculation statistics
+  - Calculator component now properly retrieves session ID using `sessionManager.getSessionId()`
+  - Previously session ID was left empty, preventing proper anonymous session tracking
+  - Ensures statistics are properly associated with anonymous sessions for rate limiting and data integrity
+  - Improves accuracy of usage analytics and prevents potential data corruption
+- **Environment Variable Access**: Fixed statistics service configuration
+  - Corrected `VITE_STATS_APP_SIGNATURE` environment variable access to use proper Vite syntax
+  - Changed from `process.env.VITE_STATS_APP_SIGNATURE` to `import.meta.env.VITE_STATS_APP_SIGNATURE`
+  - Ensures statistics tracking works correctly in all deployment environments
+  - No user-facing changes, but improves reliability of anonymous usage tracking
+
+### Added
+- **Statistics Data Models**: Comprehensive TypeScript interfaces for codec usage tracking
+  - Added `CalculationData` interface for tracking individual codec calculations
+  - Created `CodecStatDocument` interface for Firestore document structure
+  - Implemented aggregated statistics interfaces (`CodecStat`, `ResolutionStat`, `TemporalStat`, `BitrateStat`)
+  - Added `StatsOverview` interface for dashboard summary metrics
+  - Created `ChartProps` interface for consistent chart component APIs
+  - Included validation and configuration interfaces for robust error handling
+  - Supports time-based filtering with `TimeRange` type ('7d', '30d', '90d', 'all')
+
+- **Developer Testing Utilities**: Comprehensive testing suite for statistics service
+  - Added `testStatsService` utility for browser console testing
+  - Implemented session manager testing with rate limiting validation
+  - Created Firebase connection testing for troubleshooting connectivity issues
+  - Added statistics tracking validation to verify data submission
+  - Included data retrieval testing for aggregation and query functionality
+  - Provides comprehensive test runner with detailed console output
+  - Available globally in development mode for easy debugging
+
+### Security
+- **Enhanced Statistics Security**: Improved application signature configuration
+  - Statistics service now uses configurable `VITE_STATS_APP_SIGNATURE` environment variable
+  - Replaced hardcoded app signature with environment-based configuration
+  - Provides fallback to 'default-signature' for development environments
+  - Enables unique signatures per deployment for better security isolation
+  - **Breaking Change**: Requires `VITE_STATS_APP_SIGNATURE` environment variable for production deployments
+
+### Improved
+- **Developer Documentation**: Enhanced Firebase integration guidance
+  - Added inline documentation for Firebase index creation in statsService
+  - Improved deployment instructions for Firebase Console setup
+  - Better guidance for developers on handling Firebase query indexes
+  - Added comprehensive testing documentation for statistics service
+- **Configuration Management**: Updated environment variable documentation
+  - Added `VITE_STATS_APP_SIGNATURE` to required environment variables
+  - Updated README.md with new environment variable requirements
+  - Improved security guidance for statistics feature deployment
+- **Development Experience**: Enhanced debugging capabilities
+  - Browser console testing utilities for statistics functionality
+  - Detailed test output with session information and connection status
+  - Individual test functions for targeted troubleshooting
+  - Comprehensive test runner for full system validation
+
+### Technical Improvements
 - **Code Cleanup**: Removed unused state variables from Calculator component
   - Cleaned up `hasValidResult` state references that were no longer needed
   - Improved code maintainability and reduced potential memory usage
@@ -61,6 +160,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved error handling for Firebase operations
 - Enhanced data validation for variant operations
 - Fixed potential memory leaks in component cleanup
+
+## [0.9.1] - July 2025
+
+### Added
+- Anonymous usage statistics tracking for codec calculations, fully GDPR compliant and opt-out supported
+- Clear privacy policy and documentation updates reflecting anonymous stats tracking and user rights
+- Enhanced About, Admin, and Cookie Consent language for transparency
+- Improved README with privacy and opt-out details
+
+### Changed
+- Privacy Policy now explicitly details what is and isn't collected, and how users can opt out
+- About page and Admin panel clarify anonymous stats tracking and user control
+- Cookie Consent and Privacy Notice updated for clarity and transparency
+- Privacy Policy 'Last Updated' date set to July 2025
+
+### Removed
+- Annoying GDPR overlay (PrivacyNotice) for a less intrusive user experience
+
+### Notes
+- This is the first public-facing release of the project on GitHub
+- All documentation and privacy language reviewed for public launch
 
 ## [Previous Versions]
 

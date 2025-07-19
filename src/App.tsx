@@ -4,9 +4,9 @@ import Calculator from './components/Calculator';
 import Admin from './components/Admin';
 import About from './components/About';
 import CodecData from './components/CodecData';
+import CodecStats from './components/CodecStats';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import CookieConsent from './components/CookieConsent';
-import PrivacyNotice from './components/PrivacyNotice';
 import ErrorBoundary from './components/ErrorBoundary';
 import { CodecProvider } from './context/CodecContext';
 import { AuthProvider } from './context/AuthContext';
@@ -15,6 +15,11 @@ import { usePageTracking } from './hooks/usePageTracking';
 import { gdprCompliance, CookiePreferences } from './utils/gdprCompliance';
 import { googleAnalytics } from './utils/analytics';
 import './App.css';
+
+// Import test utilities for development
+if (import.meta.env.DEV) {
+  import('./utils/testStatsService');
+}
 
 console.log("App component loaded");
 
@@ -30,6 +35,7 @@ const AppWithTracking: React.FC = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/about" element={<About />} />
         <Route path="/codec-data" element={<CodecData />} />
+        <Route path="/stats" element={<CodecStats />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
       </Routes>
     </div>
@@ -37,30 +43,12 @@ const AppWithTracking: React.FC = () => {
 };
 
 function App() {
-  const [showPrivacyNotice, setShowPrivacyNotice] = useState(false);
-  const [privacyNoticeShown, setPrivacyNoticeShown] = useState(false);
-
   // Handle cookie consent
   const handleCookieConsent = (preferences: CookiePreferences) => {
     console.log("GDPR consent accepted, initializing app", preferences);
     gdprCompliance.updatePreferences(preferences);
-    
     // Reinitialize analytics based on new preferences
     googleAnalytics.reinitializeWithConsent();
-    
-    // Show privacy notice only once per session and only if user consented to tracking
-    if (!privacyNoticeShown && (preferences.analytics || preferences.preferences)) {
-      setShowPrivacyNotice(true);
-      setPrivacyNoticeShown(true);
-      
-      // Auto-hide after 5 seconds
-      setTimeout(() => setShowPrivacyNotice(false), 5000);
-    }
-  };
-
-  // Handle privacy notice close
-  const handlePrivacyNoticeClose = () => {
-    setShowPrivacyNotice(false);
   };
 
   // Check if consent needs renewal on app start
@@ -80,10 +68,6 @@ function App() {
             <Router>
               <AppWithTracking />
               <CookieConsent onAccept={handleCookieConsent} />
-              <PrivacyNotice 
-                isVisible={showPrivacyNotice} 
-                onClose={handlePrivacyNoticeClose} 
-              />
             </Router>
           </PresetProvider>
         </CodecProvider>

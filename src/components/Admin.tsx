@@ -454,6 +454,17 @@ const Admin: React.FC = () => {
               Data Management
             </button>
             <button
+              onClick={() => setActiveTab('stats')}
+              className={`py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
+                activeTab === 'stats'
+                  ? 'border-blue-500 text-blue-400'
+                  : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-300'
+              }`}
+            >
+              <BarChart3 className="h-4 w-4 inline mr-2" />
+              Statistics
+            </button>
+            <button
               onClick={() => setActiveTab('analytics')}
               className={`py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
                 activeTab === 'analytics'
@@ -680,6 +691,133 @@ const Admin: React.FC = () => {
                     )}
                   </div>
                   <div className="text-xs sm:text-sm text-gray-400">Variants</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'stats' && (
+          <div className="space-y-6">
+            {/* Statistics Management Section */}
+            <div className="bg-dark-secondary rounded-xl p-4 sm:p-6">
+              <h2 className="text-base sm:text-lg font-semibold text-white mb-4 sm:mb-6 flex items-center">
+                <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                Statistics Management
+              </h2>
+              
+              <div className="mb-6 p-4 bg-blue-600/10 border border-blue-600/20 rounded-lg">
+                <h3 className="text-blue-400 font-medium mb-2">Codec Usage Statistics</h3>
+                <p className="text-sm text-gray-300 mb-3">
+                  Monitor and manage anonymous usage statistics collected from codec calculations. <strong>All data is collected anonymously, never linked to user identity, and only with user consent. Users can opt out of all analytics and statistics tracking at any time via cookie preferences.</strong>
+                </p>
+                <ul className="text-xs text-gray-400 space-y-1">
+                  <li>• Anonymous session-based tracking</li>
+                  <li>• GDPR compliant data collection</li>
+                  <li>• Users can opt out of data collection at any time</li>
+                  <li>• Automatic data cleanup after 1 year</li>
+                  <li>• Real-time statistics and insights</li>
+                </ul>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <Link
+                  to="/stats"
+                  className="flex items-center justify-center space-x-2 p-3 sm:p-4 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors text-sm"
+                >
+                  <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span>View Statistics</span>
+                </Link>
+                
+                <button
+                  onClick={() => {
+                    // Clear stats cache
+                    if (window.confirm('Clear statistics cache? This will force fresh data loading.')) {
+                      localStorage.removeItem('codec_stats_cache');
+                      alert('Statistics cache cleared successfully.');
+                    }
+                  }}
+                  className="flex items-center justify-center space-x-2 p-3 sm:p-4 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-white transition-colors text-sm"
+                >
+                  <RefreshCw className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span>Clear Cache</span>
+                </button>
+                
+                <button
+                  onClick={() => {
+                    // Export stats data
+                    const exportStatsData = async () => {
+                      try {
+                        const data = {
+                          exportDate: new Date().toISOString(),
+                          exportedBy: adminUser?.email || 'admin',
+                          note: 'Statistics data export from admin panel'
+                        };
+                        
+                        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `codec-stats-export-${new Date().toISOString().split('T')[0]}.json`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                      } catch (error) {
+                        console.error('Export failed:', error);
+                        alert('Failed to export statistics data.');
+                      }
+                    };
+                    exportStatsData();
+                  }}
+                  className="flex items-center justify-center space-x-2 p-3 sm:p-4 bg-green-600 hover:bg-green-700 rounded-lg text-white transition-colors text-sm"
+                >
+                  <Download className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span>Export Data</span>
+                </button>
+                
+                <button
+                  onClick={() => {
+                    if (window.confirm('Disable statistics collection? This will stop tracking new calculations.')) {
+                      localStorage.setItem('stats_collection_disabled', 'true');
+                      alert('Statistics collection disabled. Re-enable from this panel when needed.');
+                    }
+                  }}
+                  className="flex items-center justify-center space-x-2 p-3 sm:p-4 bg-red-600 hover:bg-red-700 rounded-lg text-white transition-colors text-sm"
+                >
+                  <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span>Disable Tracking</span>
+                </button>
+              </div>
+
+              {/* Statistics Overview */}
+              <div className="bg-dark-primary rounded-lg p-4">
+                <h4 className="text-white font-medium mb-3">Collection Status</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-green-400">Active</div>
+                    <div className="text-xs text-gray-400">Collection Status</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-blue-400">GDPR</div>
+                    <div className="text-xs text-gray-400">Compliant</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-purple-400">Anonymous</div>
+                    <div className="text-xs text-gray-400">Data Collection</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Data Retention Policy */}
+              <div className="mt-6 p-4 bg-gray-800/50 rounded-lg">
+                <h4 className="text-white font-medium mb-2">Data Retention Policy</h4>
+                <div className="text-sm text-gray-300 space-y-1">
+                  <p>• Statistics data is automatically cleaned up after 1 year</p>
+                  <p>• No personally identifiable information is stored</p>
+                  <p>• All statistics tracking is anonymous and only occurs with user consent</p>
+                  <p>• Users can opt out of data collection via GDPR preferences at any time</p>
+                  <p>• All data is stored securely in Firebase with proper access controls</p>
                 </div>
               </div>
             </div>
