@@ -999,53 +999,24 @@ const Calculator: React.FC = () => {
 
       </main>
 
-      {/* Built with Bolt Badge - Footer */}
+      {/* Footer */}
       <footer className="border-t border-gray-800 bg-dark-secondary/30 backdrop-blur-sm mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-            <div className="text-center sm:text-left">
-              <p className="text-gray-400 text-sm">
-                © 2025 Time Lapse Technologies LLC. Supported by{' '}
-                <a 
-                  href="https://mediasupplychain.org" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 underline"
-                >
-                  mediasupplychain.org
-                </a>
-              </p>
-              <p className="text-gray-500 text-xs mt-1">
-                Free forever for the media industry
-              </p>
-            </div>
-            
-            {/* Built with Bolt Badge */}
-            <div className="flex items-center space-x-4">
-              <a
-                href="https://bolt.new"
-                target="_blank"
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">
+              © 2025 Time Lapse Technologies LLC. Supported by{' '}
+              <a 
+                href="https://mediasupplychain.org" 
+                target="_blank" 
                 rel="noopener noreferrer"
-                className="group flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 rounded-lg hover:from-purple-600/30 hover:to-blue-600/30 hover:border-purple-400/50 transition-all duration-200 hover:scale-105"
-                title="Built with Bolt - AI-powered web development"
+                className="text-blue-400 hover:text-blue-300 underline"
               >
-                <div className="flex items-center space-x-2">
-                  <div className="w-5 h-5 bg-gradient-to-br from-purple-400 to-blue-400 rounded flex items-center justify-center">
-                    <svg 
-                      viewBox="0 0 24 24" 
-                      className="w-3 h-3 text-white fill-current"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M13 0L0 13l7 7 13-13L13 0zm-1 6l4 4-4 4-4-4 4-4z"/>
-                    </svg>
-                  </div>
-                  <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
-                    Built with Bolt
-                  </span>
-                </div>
-                <ExternalLink className="h-3 w-3 text-gray-400 group-hover:text-gray-300 transition-colors" />
+                mediasupplychain.org
               </a>
-            </div>
+            </p>
+            <p className="text-gray-500 text-xs mt-1">
+              Free forever for the media industry
+            </p>
           </div>
         </div>
       </footer>
