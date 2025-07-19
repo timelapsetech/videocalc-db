@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "name": "Documentation Sync",
+  "description": "Listens to TypeScript source files and configuration changes to automatically update README.md and generate/update CHANGELOG.md with relevant documentation changes",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "src/**/*.tsx",
+      "src/**/*.ts",
+      "src/**/*.css",
+      "package.json",
+      "tsconfig.json",
+      "vite.config.ts",
+      "tailwind.config.js",
+      "eslint.config.js",
+      "postcss.config.js"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Source files have been modified in this TypeScript React project. Please review the changes and update the README.md file to reflect any new features, components, or functionality. Also generate or update a CHANGELOG.md file in standard format documenting the changes made. Focus on user-facing changes, new components, configuration updates, and any breaking changes. Ensure the documentation is accurate and helpful for developers and users."
+  }
+}

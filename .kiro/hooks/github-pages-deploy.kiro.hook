@@ -1,0 +1,22 @@
+{
+  "enabled": true,
+  "name": "GitHub Pages Deploy Config",
+  "description": "Monitors file changes and ensures GitHub Actions workflow is properly configured for building and deploying to GitHub Pages with static hosting",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "package.json",
+      "vite.config.ts",
+      "index.html",
+      "src/**/*",
+      ".github/workflows/*",
+      "tsconfig.json",
+      "tailwind.config.js"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A file has been updated that may affect the GitHub Pages deployment. Please review and update the GitHub Actions workflow configuration in .github/workflows/ to ensure:\n\n1. The build process correctly handles all dependencies and build steps\n2. The deployment targets GitHub Pages with proper static hosting configuration\n3. The workflow includes proper build artifacts and deployment steps\n4. Any new dependencies or build configurations are properly integrated\n5. The base URL and routing are configured correctly for GitHub Pages\n\nMake sure the application will build and deploy successfully to GitHub Pages through GitHub Actions."
+  }
+}
