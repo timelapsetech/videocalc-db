@@ -12,6 +12,15 @@ import CustomSelect from './CustomSelect';
 import ResultsPanel from './ResultsPanel';
 import EditablePresetCard from './EditablePresetCard';
 
+// Debounce utility
+function useDebouncedEffect(effect: () => void, deps: any[], delay: number) {
+  useEffect(() => {
+    const handler = setTimeout(() => effect(), delay);
+    return () => clearTimeout(handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...deps, delay]);
+}
+
 const Calculator: React.FC = () => {
   const { categories, loading, error } = useCodecContext();
   const { customPresets, updatePreset, addPreset, resetToDefaults, deletePreset } = usePresetContext();
@@ -540,8 +549,8 @@ const Calculator: React.FC = () => {
 
 
 
-  // Auto-calculate whenever any parameter changes
-  useEffect(() => {
+  // Debounced auto-calculate whenever any parameter changes
+  useDebouncedEffect(() => {
     if (!isInitialized || autoSelectionInProgress) return;
     
     // Auto-calculate if we have all required parameters
@@ -558,7 +567,7 @@ const Calculator: React.FC = () => {
       // Clear results if parameters are incomplete
       setManualResults(null);
     }
-  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, isInitialized, autoSelectionInProgress]);
+  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, isInitialized, autoSelectionInProgress], 250);
 
   // Auto-calculate if loaded from URL with all params
   useEffect(() => {
