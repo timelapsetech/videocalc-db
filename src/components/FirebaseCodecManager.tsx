@@ -1,16 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X, Folder, Video, Upload, Download, RefreshCw, AlertCircle, CheckCircle, Database } from 'lucide-react';
+import React, { useState } from 'react';
+import { Plus, Edit2, Trash2, Folder, Video, Upload, Download, RefreshCw, AlertCircle, CheckCircle, Database, ChevronDown, ChevronRight } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import firebaseService from '../services/firebaseService';
-import { defaultCodecData } from '../data/codecData';
+import VariantEditor from './VariantEditor';
 
 const FirebaseCodecManager: React.FC = () => {
-  const { categories, loading, error, refreshCategories, exportToFirebase } = useCodecContext();
+  const { categories, loading, error, refreshCategories } = useCodecContext();
   const [isImporting, setIsImporting] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [exportStatus, setExportStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
+
+  // Variant management state
+  const [expandedCodecs, setExpandedCodecs] = useState<Set<string>>(new Set());
+  const [editingVariant, setEditingVariant] = useState<{
+    categoryId: string;
+    codecId: string;
+    variantName: string;
+    variant: any;
+  } | null>(null);
+  const [addingVariant, setAddingVariant] = useState<{
+    categoryId: string;
+    codecId: string;
+  } | null>(null);
+  const [variantOperationLoading, setVariantOperationLoading] = useState(false);
 
   // Import default codec data to Firebase
   const handleImportDefaults = async () => {
@@ -125,6 +139,83 @@ const FirebaseCodecManager: React.FC = () => {
     
     reader.readAsText(file);
     event.target.value = '';
+  };
+
+  // Variant management functions
+  const toggleCodecExpansion = (codecKey: string) => {
+    const newExpanded = new Set(expandedCodecs);
+    if (newExpanded.has(codecKey)) {
+      newExpanded.delete(codecKey);
+    } else {
+      newExpanded.add(codecKey);
+    }
+    setExpandedCodecs(newExpanded);
+  };
+
+  const handleAddVariant = async (categoryId: string, codecId: string, variant: any) => {
+    setVariantOperationLoading(true);
+    try {
+      await firebaseService.addVariant(categoryId, codecId, variant);
+      await refreshCategories();
+      setAddingVariant(null);
+      setImportStatus('success');
+      setStatusMessage(`Variant "${variant.name}" added successfully!`);
+    } catch (error) {
+      console.error('Error adding variant:', error);
+      setImportStatus('error');
+      setStatusMessage(error instanceof Error ? error.message : 'Failed to add variant');
+    } finally {
+      setVariantOperationLoading(false);
+      setTimeout(() => {
+        setImportStatus('idle');
+        setStatusMessage('');
+      }, 3000);
+    }
+  };
+
+  const handleUpdateVariant = async (categoryId: string, codecId: string, originalName: string, variant: any) => {
+    setVariantOperationLoading(true);
+    try {
+      await firebaseService.updateVariant(categoryId, codecId, originalName, variant);
+      await refreshCategories();
+      setEditingVariant(null);
+      setImportStatus('success');
+      setStatusMessage(`Variant "${variant.name}" updated successfully!`);
+    } catch (error) {
+      console.error('Error updating variant:', error);
+      setImportStatus('error');
+      setStatusMessage(error instanceof Error ? error.message : 'Failed to update variant');
+    } finally {
+      setVariantOperationLoading(false);
+      setTimeout(() => {
+        setImportStatus('idle');
+        setStatusMessage('');
+      }, 3000);
+    }
+  };
+
+  const handleDeleteVariant = async (categoryId: string, codecId: string, variantName: string) => {
+    if (!confirm(`Are you sure you want to delete the variant "${variantName}"? This cannot be undone.`)) {
+      return;
+    }
+
+    setVariantOperationLoading(true);
+    try {
+      await firebaseService.deleteVariant(categoryId, codecId, variantName);
+      await refreshCategories();
+      setImportStatus('success');
+      setStatusMessage(`Variant "${variantName}" deleted successfully!`);
+    } catch (error) {
+      console.error('Error deleting variant:', error);
+      setImportStatus('error');
+      setStatusMessage(error instanceof Error ? error.message : 'Failed to delete variant');
+    } finally {
+      setVariantOperationLoading(false);
+      setTimeout(() => {
+        setImportStatus('idle');
+        setStatusMessage('');
+      }, 3000);
+    }
   };
 
   if (loading && categories.length === 0) {
@@ -272,7 +363,7 @@ const FirebaseCodecManager: React.FC = () => {
         </div>
       </div>
 
-      {/* Categories Display */}
+      {/* Categories Display with Variant Management */}
       {categories.length > 0 ? (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-white">Categories in Firebase</h3>
@@ -289,22 +380,123 @@ const FirebaseCodecManager: React.FC = () => {
               </div>
 
               <div className="space-y-3">
-                {category.codecs.map((codec) => (
-                  <div key={codec.id} className="bg-dark-primary rounded-lg p-4">
-                    <div className="flex items-center space-x-3">
-                      <Video className="h-5 w-5 text-green-400" />
-                      <div>
-                        <div className="font-medium text-white">{codec.name}</div>
-                        {codec.description && (
-                          <div className="text-sm text-gray-400">{codec.description}</div>
-                        )}
-                        <div className="text-xs text-gray-500">
-                          {codec.variants.length} variant{codec.variants.length !== 1 ? 's' : ''}
+                {category.codecs.map((codec) => {
+                  const codecKey = `${category.id}-${codec.id}`;
+                  const isExpanded = expandedCodecs.has(codecKey);
+                  
+                  return (
+                    <div key={codec.id} className="bg-dark-primary rounded-lg">
+                      {/* Codec Header */}
+                      <div className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <Video className="h-5 w-5 text-green-400" />
+                            <div>
+                              <div className="font-medium text-white">{codec.name}</div>
+                              {codec.description && (
+                                <div className="text-sm text-gray-400">{codec.description}</div>
+                              )}
+                              <div className="text-xs text-gray-500">
+                                {codec.variants.length} variant{codec.variants.length !== 1 ? 's' : ''}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => setAddingVariant({ categoryId: category.id, codecId: codec.id })}
+                              className="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-600/20 rounded-lg transition-colors"
+                              title="Add Variant"
+                            >
+                              <Plus className="h-4 w-4" />
+                            </button>
+                            
+                            <button
+                              onClick={() => toggleCodecExpansion(codecKey)}
+                              className="p-2 text-gray-400 hover:text-white hover:bg-gray-600/20 rounded-lg transition-colors"
+                              title={isExpanded ? "Collapse Variants" : "Expand Variants"}
+                            >
+                              {isExpanded ? (
+                                <ChevronDown className="h-4 w-4" />
+                              ) : (
+                                <ChevronRight className="h-4 w-4" />
+                              )}
+                            </button>
+                          </div>
                         </div>
                       </div>
+
+                      {/* Variants List */}
+                      {isExpanded && (
+                        <div className="border-t border-gray-700 p-4 space-y-3">
+                          {codec.variants.map((variant, variantIndex) => (
+                            <div key={variantIndex} className="bg-gray-800/50 rounded-lg p-3">
+                              {editingVariant?.categoryId === category.id && 
+                               editingVariant?.codecId === codec.id && 
+                               editingVariant?.variantName === variant.name ? (
+                                <VariantEditor
+                                  variant={editingVariant.variant}
+                                  onSave={(updatedVariant) => handleUpdateVariant(category.id, codec.id, variant.name, updatedVariant)}
+                                  onCancel={() => setEditingVariant(null)}
+                                  isLoading={variantOperationLoading}
+                                />
+                              ) : (
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <div className="font-medium text-white text-sm">{variant.name}</div>
+                                    {variant.description && (
+                                      <div className="text-xs text-gray-400 mt-1">{variant.description}</div>
+                                    )}
+                                    <div className="text-xs text-gray-500 mt-1">
+                                      {Object.keys(variant.bitrates || {}).length} resolution{Object.keys(variant.bitrates || {}).length !== 1 ? 's' : ''}
+                                    </div>
+                                  </div>
+                                  
+                                  <div className="flex items-center space-x-1">
+                                    <button
+                                      onClick={() => setEditingVariant({
+                                        categoryId: category.id,
+                                        codecId: codec.id,
+                                        variantName: variant.name,
+                                        variant: { ...variant }
+                                      })}
+                                      className="p-1.5 text-blue-400 hover:text-blue-300 hover:bg-blue-600/20 rounded transition-colors"
+                                      title="Edit Variant"
+                                    >
+                                      <Edit2 className="h-3 w-3" />
+                                    </button>
+                                    
+                                    <button
+                                      onClick={() => handleDeleteVariant(category.id, codec.id, variant.name)}
+                                      className="p-1.5 text-red-400 hover:text-red-300 hover:bg-red-600/20 rounded transition-colors"
+                                      title="Delete Variant"
+                                      disabled={codec.variants.length === 1}
+                                    >
+                                      <Trash2 className="h-3 w-3" />
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                          
+                          {/* Add New Variant Form */}
+                          {addingVariant?.categoryId === category.id && addingVariant?.codecId === codec.id && (
+                            <div className="bg-gray-800/50 rounded-lg p-3 border-2 border-blue-500/30">
+                              <VariantEditor
+                                variant={{ name: '', description: '', bitrates: {} }}
+                                onSave={(newVariant) => handleAddVariant(category.id, codec.id, newVariant)}
+                                onCancel={() => setAddingVariant(null)}
+                                isLoading={variantOperationLoading}
+                                isNew={true}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
                 
                 {category.codecs.length === 0 && (
                   <div className="text-center py-4 text-gray-500">

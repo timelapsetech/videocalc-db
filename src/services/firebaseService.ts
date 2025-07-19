@@ -2,13 +2,7 @@ import {
   collection, 
   doc, 
   getDocs, 
-  getDoc, 
-  setDoc, 
   updateDoc, 
-  deleteDoc, 
-  addDoc,
-  query,
-  orderBy,
   onSnapshot,
   writeBatch
 } from 'firebase/firestore';
@@ -236,6 +230,179 @@ class FirebaseService {
         console.error('Error in categories subscription:', error);
       }
     });
+  }
+
+  // Variant CRUD operations (admin only)
+  async addVariant(categoryId: string, codecId: string, variant: CodecVariant): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Adding variant to codec:', codecId, 'in category:', categoryId);
+      
+      // Find the document that contains this codec
+      const codecsCollection = collection(db, 'codecs');
+      const snapshot = await getDocs(codecsCollection);
+      
+      let targetDocId: string | null = null;
+      let targetDocData: any = null;
+      
+      for (const docSnapshot of snapshot.docs) {
+        const data = docSnapshot.data();
+        if (data.category_id === categoryId && data.id === codecId) {
+          targetDocId = docSnapshot.id;
+          targetDocData = data;
+          break;
+        }
+      }
+      
+      if (!targetDocId || !targetDocData) {
+        throw new Error(`Codec ${codecId} not found in category ${categoryId}`);
+      }
+      
+      // Check if variant name already exists
+      const existingVariants = targetDocData.variants || [];
+      if (existingVariants.some((v: any) => v.name === variant.name)) {
+        throw new Error(`Variant "${variant.name}" already exists in this codec`);
+      }
+      
+      // Add the new variant
+      const updatedVariants = [...existingVariants, {
+        name: variant.name,
+        description: variant.description || '',
+        bitrates: variant.bitrates
+      }];
+      
+      // Update the document
+      const docRef = doc(db, 'codecs', targetDocId);
+      await updateDoc(docRef, {
+        variants: updatedVariants,
+        firebase_updated_at: new Date().toISOString()
+      });
+      
+      console.log('Successfully added variant to Firebase');
+    } catch (error) {
+      console.error('Error adding variant:', error);
+      throw new Error(error instanceof Error ? error.message : 'Failed to add variant');
+    }
+  }
+
+  async updateVariant(categoryId: string, codecId: string, variantName: string, updatedVariant: CodecVariant): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Updating variant:', variantName, 'in codec:', codecId);
+      
+      // Find the document that contains this codec
+      const codecsCollection = collection(db, 'codecs');
+      const snapshot = await getDocs(codecsCollection);
+      
+      let targetDocId: string | null = null;
+      let targetDocData: any = null;
+      
+      for (const docSnapshot of snapshot.docs) {
+        const data = docSnapshot.data();
+        if (data.category_id === categoryId && data.id === codecId) {
+          targetDocId = docSnapshot.id;
+          targetDocData = data;
+          break;
+        }
+      }
+      
+      if (!targetDocId || !targetDocData) {
+        throw new Error(`Codec ${codecId} not found in category ${categoryId}`);
+      }
+      
+      // Find and update the variant
+      const existingVariants = targetDocData.variants || [];
+      const variantIndex = existingVariants.findIndex((v: any) => v.name === variantName);
+      
+      if (variantIndex === -1) {
+        throw new Error(`Variant "${variantName}" not found in codec ${codecId}`);
+      }
+      
+      // Check if new name conflicts with existing variants (if name is being changed)
+      if (updatedVariant.name !== variantName) {
+        if (existingVariants.some((v: any, index: number) => index !== variantIndex && v.name === updatedVariant.name)) {
+          throw new Error(`Variant "${updatedVariant.name}" already exists in this codec`);
+        }
+      }
+      
+      // Update the variant
+      const updatedVariants = [...existingVariants];
+      updatedVariants[variantIndex] = {
+        name: updatedVariant.name,
+        description: updatedVariant.description || '',
+        bitrates: updatedVariant.bitrates
+      };
+      
+      // Update the document
+      const docRef = doc(db, 'codecs', targetDocId);
+      await updateDoc(docRef, {
+        variants: updatedVariants,
+        firebase_updated_at: new Date().toISOString()
+      });
+      
+      console.log('Successfully updated variant in Firebase');
+    } catch (error) {
+      console.error('Error updating variant:', error);
+      throw new Error(error instanceof Error ? error.message : 'Failed to update variant');
+    }
+  }
+
+  async deleteVariant(categoryId: string, codecId: string, variantName: string): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Deleting variant:', variantName, 'from codec:', codecId);
+      
+      // Find the document that contains this codec
+      const codecsCollection = collection(db, 'codecs');
+      const snapshot = await getDocs(codecsCollection);
+      
+      let targetDocId: string | null = null;
+      let targetDocData: any = null;
+      
+      for (const docSnapshot of snapshot.docs) {
+        const data = docSnapshot.data();
+        if (data.category_id === categoryId && data.id === codecId) {
+          targetDocId = docSnapshot.id;
+          targetDocData = data;
+          break;
+        }
+      }
+      
+      if (!targetDocId || !targetDocData) {
+        throw new Error(`Codec ${codecId} not found in category ${categoryId}`);
+      }
+      
+      // Find and remove the variant
+      const existingVariants = targetDocData.variants || [];
+      const variantIndex = existingVariants.findIndex((v: any) => v.name === variantName);
+      
+      if (variantIndex === -1) {
+        throw new Error(`Variant "${variantName}" not found in codec ${codecId}`);
+      }
+      
+      // Prevent deletion if it's the last variant
+      if (existingVariants.length === 1) {
+        throw new Error('Cannot delete the last variant from a codec');
+      }
+      
+      // Remove the variant
+      const updatedVariants = existingVariants.filter((v: any) => v.name !== variantName);
+      
+      // Update the document
+      const docRef = doc(db, 'codecs', targetDocId);
+      await updateDoc(docRef, {
+        variants: updatedVariants,
+        firebase_updated_at: new Date().toISOString()
+      });
+      
+      console.log('Successfully deleted variant from Firebase');
+    } catch (error) {
+      console.error('Error deleting variant:', error);
+      throw new Error(error instanceof Error ? error.message : 'Failed to delete variant');
+    }
   }
 
   // Check if Firebase is properly configured and accessible

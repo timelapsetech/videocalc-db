@@ -6,10 +6,11 @@ A professional-grade video file size calculator for the media industry, built wi
 
 - **Professional Codec Database**: Comprehensive support for industry-standard codecs including ProRes, DNxHD, RAW formats, and broadcast standards
 - **Firebase Integration**: Real-time codec database stored in Firebase Firestore with admin management
+- **Real-time Calculations**: Automatic file size calculations as you adjust parameters - no calculate button needed
 - **Frame Rate Accuracy**: Precise calculations supporting all professional frame rates from 23.98 to 240 fps
 - **Workflow Presets**: Quick-start configurations for common workflows like YouTube delivery, Netflix specs, and broadcast standards
 - **Shareable Links**: Generate shareable URLs for specific calculations to collaborate with team members
-- **Admin Panel**: Comprehensive management system for codec database and default presets
+- **Admin Panel**: Comprehensive management system for codec database and default presets with full CRUD operations
 - **Usage Analytics**: Track popular configurations and usage patterns (shared across all users)
 - **Mobile Responsive**: Optimized for all device sizes with touch-friendly interface
 
