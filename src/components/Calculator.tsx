@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Settings, Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, BarChart3, Menu, X, ExternalLink, AlertTriangle } from 'lucide-react';
+import { Settings, Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, ExternalLink, AlertTriangle } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { usePresetContext } from '../context/PresetContext';
 import { resolutions, frameRates } from '../data/resolutions';
-import { analytics, googleAnalytics } from '../utils/analytics';
+import { googleAnalytics } from '../utils/analytics';
 import { generateShareableLink } from '../utils/urlSharing';
 import CustomSelect from './CustomSelect';
 import ResultsPanel from './ResultsPanel';
@@ -30,9 +30,7 @@ const Calculator: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   
-  // Track the last calculation that was tracked to prevent duplicate tracking
-  const [lastTrackedCalculation, setLastTrackedCalculation] = useState<string | null>(null);
-  const [hasValidResult, setHasValidResult] = useState(false);
+
 
   // Enhanced auto-selection state control to prevent all UI loops
   const [autoSelectionInProgress, setAutoSelectionInProgress] = useState(false);
@@ -516,11 +514,7 @@ const Calculator: React.FC = () => {
     }
   };
 
-  // Manual calculation trigger
-  const handleCalculate = () => {
-    setManualResults(calculateResults());
-    setCalculationTriggered(true);
-  };
+
 
   // Auto-calculate whenever any parameter changes
   useEffect(() => {
@@ -943,15 +937,7 @@ const Calculator: React.FC = () => {
             />
           </div>
         </div>
-        <button
-          className="mt-4 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors"
-          onClick={handleCalculate}
-          disabled={
-            !selectedCategory || !selectedCodec || !selectedVariant || !selectedResolution || !selectedFrameRate
-          }
-        >
-          Calculate
-        </button>
+
       </main>
 
       {/* Built with Bolt Badge - Footer */}

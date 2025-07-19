@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X, Folder, Video, Upload, Download, RefreshCw, AlertCircle, CheckCircle, Database, Settings } from 'lucide-react';
-import { useCodecContext, CodecCategory, Codec, CodecVariant } from '../context/CodecContext';
+
+import React, { useState } from 'react';
+import { Plus, Edit2, Trash2, Folder, Video, Upload, Download, RefreshCw, AlertCircle, CheckCircle, Database, ChevronDown, ChevronRight } from 'lucide-react';
+import { useCodecContext } from '../context/CodecContext';
 import firebaseService from '../services/firebaseService';
-import { defaultCodecData } from '../data/codecData';
+import VariantEditor from './VariantEditor';
 
 const FirebaseCodecManager: React.FC = () => {
-  const { categories, loading, error, refreshCategories, exportToFirebase } = useCodecContext();
+  const { categories, loading, error, refreshCategories } = useCodecContext();
   const [isImporting, setIsImporting] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -19,6 +20,20 @@ const FirebaseCodecManager: React.FC = () => {
   const [isCreatingCodec, setIsCreatingCodec] = useState(false);
   const [isCreatingCategory, setIsCreatingCategory] = useState(false);
   const [newCategoryForm, setNewCategoryForm] = useState({ id: '', name: '', description: '' });
+
+  // Variant management state
+  const [expandedCodecs, setExpandedCodecs] = useState<Set<string>>(new Set());
+  const [editingVariant, setEditingVariant] = useState<{
+    categoryId: string;
+    codecId: string;
+    variantName: string;
+    variant: any;
+  } | null>(null);
+  const [addingVariant, setAddingVariant] = useState<{
+    categoryId: string;
+    codecId: string;
+  } | null>(null);
+  const [variantOperationLoading, setVariantOperationLoading] = useState(false);
 
   // Import default codec data to Firebase
   const handleImportDefaults = async () => {
@@ -134,72 +149,82 @@ const FirebaseCodecManager: React.FC = () => {
     reader.readAsText(file);
     event.target.value = '';
   };
-
-  // Individual codec CRUD operations
-  const handleEditCodec = (codec: Codec) => {
-    setEditingCodec(codec.id);
-    setEditForm({
-      id: codec.id,
-      name: codec.name,
-      description: codec.description,
-      workflowNotes: codec.workflowNotes,
-      variants: codec.variants
-    });
+  
+  // Variant management functions
+  const toggleCodecExpansion = (codecKey: string) => {
+    const newExpanded = new Set(expandedCodecs);
+    if (newExpanded.has(codecKey)) {
+      newExpanded.delete(codecKey);
+    } else {
+      newExpanded.add(codecKey);
+    }
+    setExpandedCodecs(newExpanded);
   };
 
-  const handleSaveCodec = async () => {
-    if (!editingCodec || !editForm.name) return;
-    
+  const handleAddVariant = async (categoryId: string, codecId: string, variant: any) => {
+    setVariantOperationLoading(true);
     try {
-      await firebaseService.updateCodec(editingCodec, editForm);
+      await firebaseService.addVariant(categoryId, codecId, variant);
       await refreshCategories();
-      setEditingCodec(null);
-      setEditForm({});
-      setStatusMessage('Codec updated successfully!');
+      setAddingVariant(null);
       setImportStatus('success');
+      setStatusMessage(`Variant "${variant.name}" added successfully!`);
+    } catch (error) {
+      console.error('Error adding variant:', error);
+      setImportStatus('error');
+      setStatusMessage(error instanceof Error ? error.message : 'Failed to add variant');
+    } finally {
+      setVariantOperationLoading(false);
       setTimeout(() => {
         setImportStatus('idle');
         setStatusMessage('');
       }, 3000);
-    } catch (error) {
-      console.error('Failed to update codec:', error);
-      setStatusMessage('Failed to update codec. Please try again.');
-      setImportStatus('error');
-      setTimeout(() => {
-        setImportStatus('idle');
-        setStatusMessage('');
-      }, 5000);
     }
   };
 
-  const handleDeleteCodec = async (codecId: string, codecName: string) => {
-    if (!confirm(`Are you sure you want to delete the codec "${codecName}"? This cannot be undone.`)) {
+  const handleUpdateVariant = async (categoryId: string, codecId: string, originalName: string, variant: any) => {
+    setVariantOperationLoading(true);
+    try {
+      await firebaseService.updateVariant(categoryId, codecId, originalName, variant);
+      await refreshCategories();
+      setEditingVariant(null);
+      setImportStatus('success');
+      setStatusMessage(`Variant "${variant.name}" updated successfully!`);
+    } catch (error) {
+      console.error('Error updating variant:', error);
+      setImportStatus('error');
+      setStatusMessage(error instanceof Error ? error.message : 'Failed to update variant');
+    } finally {
+      setVariantOperationLoading(false);
+      setTimeout(() => {
+        setImportStatus('idle');
+        setStatusMessage('');
+      }, 3000);
+    }
+  };
+
+  const handleDeleteVariant = async (categoryId: string, codecId: string, variantName: string) => {
+    if (!confirm(`Are you sure you want to delete the variant "${variantName}"? This cannot be undone.`)) {
       return;
     }
-    
+
+    setVariantOperationLoading(true);
     try {
-      await firebaseService.deleteCodec(codecId);
+      await firebaseService.deleteVariant(categoryId, codecId, variantName);
       await refreshCategories();
-      setStatusMessage('Codec deleted successfully!');
       setImportStatus('success');
+      setStatusMessage(`Variant "${variantName}" deleted successfully!`);
+    } catch (error) {
+      console.error('Error deleting variant:', error);
+      setImportStatus('error');
+      setStatusMessage(error instanceof Error ? error.message : 'Failed to delete variant');
+    } finally {
+      setVariantOperationLoading(false);
       setTimeout(() => {
         setImportStatus('idle');
         setStatusMessage('');
       }, 3000);
-    } catch (error) {
-      console.error('Failed to delete codec:', error);
-      setStatusMessage('Failed to delete codec. Please try again.');
-      setImportStatus('error');
-      setTimeout(() => {
-        setImportStatus('idle');
-        setStatusMessage('');
-      }, 5000);
     }
-  };
-
-  const handleCancelEdit = () => {
-    setEditingCodec(null);
-    setEditForm({});
   };
 
   if (loading && categories.length === 0) {
@@ -347,7 +372,7 @@ const FirebaseCodecManager: React.FC = () => {
         </div>
       </div>
 
-      {/* Categories Display */}
+      {/* Categories Display with Variant Management */}
       {categories.length > 0 ? (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-white">Categories in Firebase</h3>
@@ -364,115 +389,123 @@ const FirebaseCodecManager: React.FC = () => {
               </div>
 
               <div className="space-y-3">
-                {category.codecs.map((codec) => (
-                  <div key={codec.id} className="bg-dark-primary rounded-lg p-4">
-                    {editingCodec === codec.id ? (
-                      // Edit form for codec
-                      <div className="space-y-4">
+                {category.codecs.map((codec) => {
+                  const codecKey = `${category.id}-${codec.id}`;
+                  const isExpanded = expandedCodecs.has(codecKey);
+                  
+                  return (
+                    <div key={codec.id} className="bg-dark-primary rounded-lg">
+                      {/* Codec Header */}
+                      <div className="p-4">
                         <div className="flex items-center justify-between">
-                          <h4 className="text-white font-medium">Edit Codec</h4>
-                          <div className="flex space-x-2">
-                            <button
-                              onClick={handleSaveCodec}
-                              className="flex items-center space-x-1 px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-white text-sm transition-colors"
-                            >
-                              <Save className="h-3 w-3" />
-                              <span>Save</span>
-                            </button>
-                            <button
-                              onClick={handleCancelEdit}
-                              className="flex items-center space-x-1 px-3 py-1 bg-gray-600 hover:bg-gray-700 rounded text-white text-sm transition-colors"
-                            >
-                              <X className="h-3 w-3" />
-                              <span>Cancel</span>
-                            </button>
-                          </div>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-1">Name</label>
-                            <input
-                              type="text"
-                              value={editForm.name || ''}
-                              onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                              className="w-full px-3 py-2 bg-dark-secondary border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-1">ID</label>
-                            <input
-                              type="text"
-                              value={editForm.id || ''}
-                              onChange={(e) => setEditForm({ ...editForm, id: e.target.value })}
-                              className="w-full px-3 py-2 bg-dark-secondary border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                            />
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-1">Description</label>
-                          <textarea
-                            value={editForm.description || ''}
-                            onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                            rows={2}
-                            className="w-full px-3 py-2 bg-dark-secondary border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          />
-                        </div>
-                        
-                        <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-1">Workflow Notes</label>
-                          <textarea
-                            value={editForm.workflowNotes || ''}
-                            onChange={(e) => setEditForm({ ...editForm, workflowNotes: e.target.value })}
-                            rows={2}
-                            className="w-full px-3 py-2 bg-dark-secondary border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          />
-                        </div>
-                        
-                        <div className="text-sm text-gray-400">
-                          <p><strong>Variants:</strong> {codec.variants.length} variant{codec.variants.length !== 1 ? 's' : ''}</p>
-                          <p className="text-xs mt-1">Note: Variant editing will be available in a future update</p>
-                        </div>
-                      </div>
-                    ) : (
-                      // Display mode for codec
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <Video className="h-5 w-5 text-green-400" />
-                          <div>
-                            <div className="font-medium text-white">{codec.name}</div>
-                            {codec.description && (
-                              <div className="text-sm text-gray-400">{codec.description}</div>
-                            )}
-                            <div className="text-xs text-gray-500">
-                              ID: {codec.id} • {codec.variants.length} variant{codec.variants.length !== 1 ? 's' : ''}
+                          <div className="flex items-center space-x-3">
+                            <Video className="h-5 w-5 text-green-400" />
+                            <div>
+                              <div className="font-medium text-white">{codec.name}</div>
+                              {codec.description && (
+                                <div className="text-sm text-gray-400">{codec.description}</div>
+                              )}
+                              <div className="text-xs text-gray-500">
+                                {codec.variants.length} variant{codec.variants.length !== 1 ? 's' : ''}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        
-                        <div className="flex items-center space-x-2">
-                          <button
-                            onClick={() => handleEditCodec(codec)}
-                            className="flex items-center space-x-1 px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-white text-xs transition-colors"
-                            title="Edit codec"
-                          >
-                            <Edit2 className="h-3 w-3" />
-                            <span>Edit</span>
-                          </button>
-                          <button
-                            onClick={() => handleDeleteCodec(codec.id, codec.name)}
-                            className="flex items-center space-x-1 px-2 py-1 bg-red-600 hover:bg-red-700 rounded text-white text-xs transition-colors"
-                            title="Delete codec"
-                          >
-                            <Trash2 className="h-3 w-3" />
-                            <span>Delete</span>
-                          </button>
+                          
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => setAddingVariant({ categoryId: category.id, codecId: codec.id })}
+                              className="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-600/20 rounded-lg transition-colors"
+                              title="Add Variant"
+                            >
+                              <Plus className="h-4 w-4" />
+                            </button>
+                            
+                            <button
+                              onClick={() => toggleCodecExpansion(codecKey)}
+                              className="p-2 text-gray-400 hover:text-white hover:bg-gray-600/20 rounded-lg transition-colors"
+                              title={isExpanded ? "Collapse Variants" : "Expand Variants"}
+                            >
+                              {isExpanded ? (
+                                <ChevronDown className="h-4 w-4" />
+                              ) : (
+                                <ChevronRight className="h-4 w-4" />
+                              )}
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    )}
-                  </div>
-                ))}
+
+                      {/* Variants List */}
+                      {isExpanded && (
+                        <div className="border-t border-gray-700 p-4 space-y-3">
+                          {codec.variants.map((variant, variantIndex) => (
+                            <div key={variantIndex} className="bg-gray-800/50 rounded-lg p-3">
+                              {editingVariant?.categoryId === category.id && 
+                               editingVariant?.codecId === codec.id && 
+                               editingVariant?.variantName === variant.name ? (
+                                <VariantEditor
+                                  variant={editingVariant.variant}
+                                  onSave={(updatedVariant) => handleUpdateVariant(category.id, codec.id, variant.name, updatedVariant)}
+                                  onCancel={() => setEditingVariant(null)}
+                                  isLoading={variantOperationLoading}
+                                />
+                              ) : (
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <div className="font-medium text-white text-sm">{variant.name}</div>
+                                    {variant.description && (
+                                      <div className="text-xs text-gray-400 mt-1">{variant.description}</div>
+                                    )}
+                                    <div className="text-xs text-gray-500 mt-1">
+                                      {Object.keys(variant.bitrates || {}).length} resolution{Object.keys(variant.bitrates || {}).length !== 1 ? 's' : ''}
+                                    </div>
+                                  </div>
+                                  
+                                  <div className="flex items-center space-x-1">
+                                    <button
+                                      onClick={() => setEditingVariant({
+                                        categoryId: category.id,
+                                        codecId: codec.id,
+                                        variantName: variant.name,
+                                        variant: { ...variant }
+                                      })}
+                                      className="p-1.5 text-blue-400 hover:text-blue-300 hover:bg-blue-600/20 rounded transition-colors"
+                                      title="Edit Variant"
+                                    >
+                                      <Edit2 className="h-3 w-3" />
+                                    </button>
+                                    
+                                    <button
+                                      onClick={() => handleDeleteVariant(category.id, codec.id, variant.name)}
+                                      className="p-1.5 text-red-400 hover:text-red-300 hover:bg-red-600/20 rounded transition-colors"
+                                      title="Delete Variant"
+                                      disabled={codec.variants.length === 1}
+                                    >
+                                      <Trash2 className="h-3 w-3" />
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                          
+                          {/* Add New Variant Form */}
+                          {addingVariant?.categoryId === category.id && addingVariant?.codecId === codec.id && (
+                            <div className="bg-gray-800/50 rounded-lg p-3 border-2 border-blue-500/30">
+                              <VariantEditor
+                                variant={{ name: '', description: '', bitrates: {} }}
+                                onSave={(newVariant) => handleAddVariant(category.id, codec.id, newVariant)}
+                                onCancel={() => setAddingVariant(null)}
+                                isLoading={variantOperationLoading}
+                                isNew={true}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
                 
                 {category.codecs.length === 0 && (
                   <div className="text-center py-4 text-gray-500">
