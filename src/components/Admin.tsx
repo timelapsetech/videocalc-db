@@ -7,6 +7,7 @@ import AdminAuth from './AdminAuth';
 import FirebaseCodecManager from './FirebaseCodecManager';
 import PresetManager from './PresetManager';
 import AnalyticsConfig from './AnalyticsConfig';
+import { statsService } from '../services/statsService';
 
 interface AdminUser {
   id: string;
@@ -42,6 +43,10 @@ const Admin: React.FC = () => {
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [showImportPreview, setShowImportPreview] = useState(false);
   const [importPreviewData, setImportPreviewData] = useState<any>(null);
+
+  // Add state for stats reset
+  const [isResettingStats, setIsResettingStats] = useState(false);
+  const [resetStatsResult, setResetStatsResult] = useState<string | null>(null);
 
   useEffect(() => {
     // Check if already authenticated
@@ -788,7 +793,44 @@ const Admin: React.FC = () => {
                   <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span>Disable Tracking</span>
                 </button>
+                <button
+                  onClick={async () => {
+                    if (window.confirm('Are you sure you want to delete ALL usage statistics? This cannot be undone.')) {
+                      setIsResettingStats(true);
+                      setResetStatsResult(null);
+                      try {
+                        const deleted = await statsService.deleteAllStats();
+                        setResetStatsResult(`Successfully deleted ${deleted} usage statistics.`);
+                      } catch (error: any) {
+                        setResetStatsResult(error.message || 'Failed to delete usage statistics.');
+                      } finally {
+                        setIsResettingStats(false);
+                      }
+                    }
+                  }}
+                  className="flex items-center justify-center space-x-2 p-3 sm:p-4 bg-red-700 hover:bg-red-800 rounded-lg text-white transition-colors text-sm"
+                  disabled={isResettingStats}
+                >
+                  <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span>{isResettingStats ? 'Resetting...' : 'Reset Usage Statistics'}</span>
+                </button>
               </div>
+
+              {/* Show result message after reset */}
+              {resetStatsResult && (
+                <div className={`mb-6 p-4 rounded-lg border ${resetStatsResult.startsWith('Successfully') ? 'bg-green-600/10 border-green-600/20' : 'bg-red-600/10 border-red-600/20'}`}>
+                  <div className="flex items-center">
+                    {resetStatsResult.startsWith('Successfully') ? (
+                      <CheckCircle className="h-5 w-5 text-green-400 mr-2" />
+                    ) : (
+                      <AlertTriangle className="h-5 w-5 text-red-400 mr-2" />
+                    )}
+                    <div>
+                      <p className={`font-medium ${resetStatsResult.startsWith('Successfully') ? 'text-green-400' : 'text-red-400'}`}>{resetStatsResult}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Statistics Overview */}
               <div className="bg-dark-primary rounded-lg p-4">

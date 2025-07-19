@@ -7,7 +7,10 @@ import {
   orderBy,
   limit,
   Timestamp,
-  QueryConstraint
+  QueryConstraint,
+  deleteDoc,
+  DocumentData,
+  DocumentReference
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import {
@@ -412,6 +415,28 @@ class StatsService {
     } catch (error) {
       console.error('Error fetching stats overview:', error);
       throw new Error('Failed to fetch statistics overview');
+    }
+  }
+
+  /**
+   * Deletes all usage statistics from the codec_stats collection
+   */
+  async deleteAllStats(): Promise<number> {
+    try {
+      const q = query(collection(db, COLLECTION_NAME));
+      const snapshot = await getDocs(q);
+      let deleteCount = 0;
+      const deletePromises: Promise<void>[] = [];
+      snapshot.forEach(doc => {
+        deletePromises.push(deleteDoc(doc.ref));
+        deleteCount++;
+      });
+      await Promise.all(deletePromises);
+      this.clearRelevantCaches();
+      return deleteCount;
+    } catch (error) {
+      console.error('Error deleting all usage statistics:', error);
+      throw new Error('Failed to delete usage statistics');
     }
   }
 
