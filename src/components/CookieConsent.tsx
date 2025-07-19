@@ -104,8 +104,7 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
             <div className="space-y-4">
               <div className="text-sm text-gray-300 leading-relaxed">
                 <p className="mb-3">
-                  We use cookies and similar technologies to enhance your experience, remember your preferences, 
-                  and analyze how our calculator is used to improve our service.
+                  We use cookies and similar technologies to enhance your experience, remember your preferences, and analyze how our calculator is used to improve our service. <strong>Anonymous statistics about codec calculations are only collected with your consent, are never linked to your identity, and you can opt out at any time.</strong>
                 </p>
                 
                 <div className="bg-blue-600/10 border border-blue-600/20 rounded-lg p-3 mb-4">
@@ -153,8 +152,7 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
                         <span className="px-2 py-0.5 bg-blue-600/20 text-blue-400 text-xs rounded">Optional</span>
                       </div>
                       <p className="text-xs text-gray-400">
-                        Google Analytics helps us understand which codecs are popular and improve the calculator. 
-                        All data is anonymized.
+                        Google Analytics and anonymous statistics tracking help us understand which codecs are popular and improve the calculator. <strong>All data is fully anonymized, never linked to your identity, and you can opt out at any time.</strong>
                       </p>
                     </div>
                     <div className="ml-4">

@@ -42,8 +42,7 @@ const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({ isVisible, onClose }) => 
         </div>
         
         <p className="text-xs text-gray-300 leading-relaxed">
-          Your calculations are processed locally in your browser. We use cookies to remember your preferences 
-          and Google Analytics to improve our service. You can manage these settings anytime.
+          Your calculations are processed locally in your browser. Anonymous statistics about codec calculations are only collected with your consent, are never linked to your identity, and you can opt out at any time. We use cookies to remember your preferences and Google Analytics to improve our service.
         </p>
         
         <div className="mt-3 flex items-center justify-between">

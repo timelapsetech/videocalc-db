@@ -108,7 +108,7 @@ const PrivacyPolicy: React.FC = () => {
               <Calendar className="h-5 w-5 text-blue-400 mr-2" />
               <span className="text-blue-400 font-medium">Last Updated</span>
             </div>
-            <p className="text-gray-300">December 2024</p>
+            <p className="text-gray-300">July 2025</p>
           </div>
 
           {/* GDPR Compliance Notice */}
@@ -176,7 +176,7 @@ const PrivacyPolicy: React.FC = () => {
               <div>
                 <h3 className="text-lg font-semibold text-white mb-3">How We Handle Cookies</h3>
                 <p className="text-gray-300 mb-4">
-                  We use a comprehensive cookie consent system that gives you full control over what data is collected:
+                  We use a comprehensive cookie consent system that gives you full control over what data is collected, including anonymous statistics tracking. You can opt out of analytics and statistics tracking at any time while still using the calculator.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -235,9 +235,9 @@ const PrivacyPolicy: React.FC = () => {
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-white mb-3">Anonymous Usage Analytics</h3>
+                <h3 className="text-lg font-semibold text-white mb-3">Anonymous Usage Statistics</h3>
                 <p className="text-gray-300 mb-3">
-                  <strong>Only collected with your explicit consent.</strong> We collect anonymous information about how our calculator is used to improve the service:
+                  <strong>Only collected with your explicit consent.</strong> We collect anonymous information about how our calculator is used to improve the service and provide community usage insights. This includes statistics about which codec configurations are calculated, resolution, frame rate, and bitrate. <strong>This data is never linked to your identity or personal information.</strong> You can opt out of all analytics and statistics tracking at any time via our cookie preferences.
                 </p>
                 <ul className="text-gray-300 space-y-2 ml-6">
                   <li className="flex items-start">
@@ -257,6 +257,14 @@ const PrivacyPolicy: React.FC = () => {
                     <span>Page views and navigation patterns</span>
                   </li>
                 </ul>
+                <div className="bg-blue-600/10 border border-blue-600/20 rounded-lg p-4 mt-4">
+                  <h4 className="text-blue-400 font-medium mb-2">How We Protect Your Privacy</h4>
+                  <ul className="text-sm text-gray-300 space-y-1">
+                    <li>• No user identity, IP address, or personal data is ever stored in statistics</li>
+                    <li>• All tracking is fully anonymous and session-based</li>
+                    <li>• You can opt out of all analytics and statistics tracking at any time</li>
+                  </ul>
+                </div>
               </div>
 
               <div>
@@ -324,7 +332,7 @@ const PrivacyPolicy: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                  <span className="text-white">IP addresses (anonymized in analytics)</span>
+                  <span className="text-white">IP addresses (not stored in statistics; anonymized in analytics)</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full"></div>
@@ -350,7 +358,7 @@ const PrivacyPolicy: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                  <span className="text-white">Tracking cookies without consent</span>
+                  <span className="text-white">Tracking cookies or statistics without your consent</span>
                 </div>
               </div>
             </div>
@@ -410,7 +418,7 @@ const PrivacyPolicy: React.FC = () => {
               <div>
                 <h3 className="text-white font-medium mb-2">Withdraw Consent</h3>
                 <p className="text-gray-300 text-sm mb-2">
-                  You can withdraw your consent at any time by updating your cookie preferences or clearing your browser data.
+                  You can withdraw your consent at any time by updating your cookie preferences or clearing your browser data. This will immediately disable all analytics and anonymous statistics tracking.
                 </p>
                 <button
                   onClick={() => {

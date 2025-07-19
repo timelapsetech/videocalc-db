@@ -212,16 +212,16 @@ const EditablePresetCard: React.FC<EditablePresetCardProps> = ({
         </h3>
         <div className="flex items-center space-x-1">
           {isActive && <Zap className="h-4 w-4 text-blue-400" />}
-          <button
+          <div
             onClick={(e) => {
               e.stopPropagation();
               handleStartEditing();
             }}
-            className="p-1 rounded hover:bg-gray-700 transition-colors opacity-0 group-hover:opacity-100"
+            className="p-1 rounded hover:bg-gray-700 transition-colors opacity-0 group-hover:opacity-100 cursor-pointer"
             title="Edit preset"
           >
             <Edit2 className="h-3 w-3 text-gray-400 hover:text-white" />
-          </button>
+          </div>
         </div>
       </div>
       <div className="text-xs text-gray-400 space-y-1">

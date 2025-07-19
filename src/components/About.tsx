@@ -277,7 +277,7 @@ const About: React.FC = () => {
                 </li>
               </ul>
               <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                All calculations are performed client-side for privacy and speed, with no data sent to external servers.
+                Anonymous usage statistics are tracked to improve the tool, but you can opt out of this tracking at any time in your cookie preferences.
               </p>
             </div>
           </div>
@@ -336,8 +336,7 @@ const About: React.FC = () => {
               <h2 className="text-xl sm:text-2xl font-bold text-white">Privacy & Data Protection</h2>
             </div>
             <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-4 sm:mb-6">
-              We respect your privacy and are committed to protecting your data. We collect anonymous usage statistics 
-              to improve the tool, but never collect personal information.
+              We respect your privacy and are committed to protecting your data. We collect anonymous usage statistics to improve the tool, but never collect personal information. <strong>All statistics tracking is fully anonymous, never linked to your identity, and only occurs with your consent. You can opt out of analytics and statistics tracking at any time in your cookie preferences.</strong>
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Settings, Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, ExternalLink, AlertTriangle } from 'lucide-react';
+import { Settings, Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, ExternalLink, AlertTriangle, BarChart3 } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { usePresetContext } from '../context/PresetContext';
 import { resolutions, frameRates } from '../data/resolutions';
 import { googleAnalytics } from '../utils/analytics';
 import { generateShareableLink } from '../utils/urlSharing';
+import { statsService } from '../services/statsService';
+import { sessionManager } from '../utils/sessionManager';
 import CustomSelect from './CustomSelect';
 import ResultsPanel from './ResultsPanel';
 import EditablePresetCard from './EditablePresetCard';
@@ -181,7 +183,7 @@ const Calculator: React.FC = () => {
           return false;
         });
         
-        console.log('Available resolutions for variant:', variant.name, validResolutions.map(r => r.id));
+        // console.log('Available resolutions for variant:', variant.name, validResolutions.map(r => r.id));
         return validResolutions;
       })()
     : resolutions;
@@ -210,7 +212,7 @@ const Calculator: React.FC = () => {
             return false;
           });
           
-          console.log('Available frame rates for', variant.name, 'at', selectedResolution, ':', validFrameRates.map(fr => fr.id));
+          // console.log('Available frame rates for', variant.name, 'at', selectedResolution, ':', validFrameRates.map(fr => fr.id));
           return validFrameRates;
         }
         
@@ -391,6 +393,40 @@ const Calculator: React.FC = () => {
     }
   };
 
+  // Track calculation for statistics with deduplication using useRef to avoid dependency loops
+  const lastTrackedCalculationRef = useRef<string | null>(null);
+  
+  const trackCalculation = useCallback(async (results: any) => {
+    try {
+      if (results && results.bitrateMbps && results.codec && results.variant) {
+        // Create a unique key for this calculation to prevent duplicates
+        const calculationKey = `${selectedCategory}-${results.codec.name}-${results.variant.name}-${selectedResolution}-${selectedFrameRate}-${results.bitrateMbps}`;
+        
+        // Only track if this is a different calculation than the last one
+        if (calculationKey !== lastTrackedCalculationRef.current) {
+          await statsService.trackCalculation({
+            codecCategory: selectedCategory,
+            codecName: results.codec.name,
+            variantName: results.variant.name,
+            resolution: selectedResolution,
+            frameRate: selectedFrameRate,
+            bitrateMbps: results.bitrateMbps,
+            timestamp: new Date(),
+            sessionId: sessionManager.getSessionId() // Get proper session ID
+          });
+          
+          lastTrackedCalculationRef.current = calculationKey;
+          console.log('📊 Calculation tracked:', calculationKey);
+        } else {
+          console.log('📊 Duplicate calculation skipped:', calculationKey);
+        }
+      }
+    } catch (error) {
+      // Don't let tracking errors affect the user experience
+      console.warn('Failed to track calculation statistics:', error);
+    }
+  }, [selectedCategory, selectedResolution, selectedFrameRate]);
+
   // Enhanced calculate results with better error handling and validation
   const calculateResults = () => {
     if (!selectedCategory || !selectedCodec || !selectedVariant || !selectedResolution) {
@@ -425,33 +461,21 @@ const Calculator: React.FC = () => {
         return null;
       }
 
-      console.log('Calculating with:', {
-        variant: variant.name,
-        resolution: selectedResolution,
-        frameRate: selectedFrameRate,
-        bitrates: variant.bitrates
-      });
-
       // Get bitrate for this resolution and frame rate
       let bitrateMbps: number;
       const resolutionBitrates = variant.bitrates[selectedResolution];
       
       if (!resolutionBitrates) {
         console.log('No bitrates found for resolution:', selectedResolution);
-        console.log('Available resolutions:', Object.keys(variant.bitrates));
         return null;
       }
 
       if (typeof resolutionBitrates === 'number') {
         // Simple number format (legacy support)
         bitrateMbps = resolutionBitrates;
-        console.log('Using simple bitrate:', bitrateMbps);
       } else if (typeof resolutionBitrates === 'object' && resolutionBitrates !== null) {
         // Frame rate specific bitrates
         bitrateMbps = resolutionBitrates[selectedFrameRate];
-        console.log('Frame rate specific bitrates:', resolutionBitrates);
-        console.log('Selected frame rate:', selectedFrameRate);
-        console.log('Found bitrate:', bitrateMbps);
         
         if (!bitrateMbps || typeof bitrateMbps !== 'number') {
           // Try to find closest frame rate or use a default
@@ -525,6 +549,11 @@ const Calculator: React.FC = () => {
       const results = calculateResults();
       setManualResults(results);
       setCalculationTriggered(true);
+      
+      // Track the calculation for statistics
+      if (results) {
+        trackCalculation(results);
+      }
     } else {
       // Clear results if parameters are incomplete
       setManualResults(null);
@@ -534,9 +563,15 @@ const Calculator: React.FC = () => {
   // Auto-calculate if loaded from URL with all params
   useEffect(() => {
     if (shouldAutoCalculate && !calculationTriggered) {
-      setManualResults(calculateResults());
+      const results = calculateResults();
+      setManualResults(results);
       setCalculationTriggered(true);
       setShouldAutoCalculate(false);
+      
+      // Track the calculation for statistics
+      if (results) {
+        trackCalculation(results);
+      }
     }
   }, [shouldAutoCalculate, calculationTriggered]);
 
@@ -640,6 +675,14 @@ const Calculator: React.FC = () => {
                 <span className="text-sm text-gray-300">Database</span>
               </Link>
               <Link
+                to="/stats"
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
+                title="Usage Statistics"
+              >
+                <BarChart3 className="h-4 w-4 text-gray-400" />
+                <span className="text-sm text-gray-300">Stats</span>
+              </Link>
+              <Link
                 to="/about"
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
                 title="About"
@@ -708,6 +751,15 @@ const Calculator: React.FC = () => {
                 >
                   <Database className="h-5 w-5 text-gray-400" />
                   <span className="text-gray-300">Codec Database</span>
+                </Link>
+                
+                <Link
+                  to="/stats"
+                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <BarChart3 className="h-5 w-5 text-gray-400" />
+                  <span className="text-gray-300">Usage Statistics</span>
                 </Link>
                 
                 <Link
