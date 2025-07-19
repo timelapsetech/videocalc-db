@@ -351,12 +351,11 @@ const Calculator: React.FC = () => {
     setSelectedResolution(preset.resolution);
     setSelectedFrameRate(preset.frameRate);
     
-    // Clear the flag after preset is applied
+    // Clear the flag after preset is applied and trigger auto-calculation
     setTimeout(() => {
       setAutoSelectionInProgress(false);
-      // Auto-calculate when a preset is applied
-      setManualResults(calculateResults());
-      setCalculationTriggered(true);
+      // The useEffect for auto-calculation will handle the calculation automatically
+      // No need to manually trigger calculation here since the useEffect will detect the parameter changes
     }, 300);
     
     // Track preset usage
@@ -516,6 +515,23 @@ const Calculator: React.FC = () => {
   };
 
 
+
+  // Auto-calculate whenever any parameter changes
+  useEffect(() => {
+    if (!isInitialized || autoSelectionInProgress) return;
+    
+    // Auto-calculate if we have all required parameters
+    if (selectedCategory && selectedCodec && selectedVariant && selectedResolution && selectedFrameRate) {
+      const results = calculateResults();
+      setManualResults(results);
+      setCalculationTriggered(true);
+      setHasValidResult(!!results);
+    } else {
+      // Clear results if parameters are incomplete
+      setManualResults(null);
+      setHasValidResult(false);
+    }
+  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, isInitialized, autoSelectionInProgress]);
 
   // Auto-calculate if loaded from URL with all params
   useEffect(() => {

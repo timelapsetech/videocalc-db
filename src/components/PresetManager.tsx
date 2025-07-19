@@ -3,65 +3,95 @@ import { Star, Save, RotateCcw, AlertCircle } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { resolutions, frameRates } from '../data/resolutions';
 import { CustomPreset } from '../context/PresetContext';
+import firebaseService from '../services/firebaseService';
 
 const PresetManager: React.FC = () => {
   const { categories } = useCodecContext();
   
-  // Load default presets from localStorage or use hardcoded defaults
-  const getDefaultPresets = (): CustomPreset[] => {
-    const saved = localStorage.getItem('adminDefaultPresets');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch {
-        // Fall back to hardcoded defaults if parsing fails
-      }
+  // Hardcoded fallback defaults
+  const getHardcodedDefaults = (): CustomPreset[] => [
+    {
+      id: 'preset-1',
+      name: 'YouTube 1080p',
+      category: 'delivery',
+      codec: 'h264',
+      variant: 'High Profile',
+      resolution: '1080p',
+      frameRate: '30'
+    },
+    {
+      id: 'preset-2',
+      name: 'Netflix 4K',
+      category: 'broadcast',
+      codec: 'jpeg2000',
+      variant: 'J2K IMF 4K',
+      resolution: '4K',
+      frameRate: '24'
+    },
+    {
+      id: 'preset-3',
+      name: 'News TV',
+      category: 'camera',
+      codec: 'xdcam',
+      variant: 'XDCAM HD422',
+      resolution: '1080i',
+      frameRate: '29.97'
+    },
+    {
+      id: 'preset-4',
+      name: 'Episodic TV',
+      category: 'professional',
+      codec: 'dnxhd',
+      variant: 'DNxHD 145',
+      resolution: '1080p',
+      frameRate: '23.98'
     }
-    
-    // Updated hardcoded defaults with proper frame rates and NTSC references
-    return [
-      {
-        id: 'preset-1',
-        name: 'YouTube 1080p',
-        category: 'delivery',
-        codec: 'h264',
-        variant: 'High Profile',
-        resolution: '1080p',
-        frameRate: '30'
-      },
-      {
-        id: 'preset-2',
-        name: 'Netflix 4K',
-        category: 'broadcast',
-        codec: 'jpeg2000',
-        variant: 'J2K IMF 4K',
-        resolution: '4K',
-        frameRate: '24'
-      },
-      {
-        id: 'preset-3',
-        name: 'News TV',
-        category: 'camera',
-        codec: 'xdcam',
-        variant: 'XDCAM HD422',
-        resolution: '1080i',
-        frameRate: '29.97'
-      },
-      {
-        id: 'preset-4',
-        name: 'Episodic TV',
-        category: 'professional',
-        codec: 'dnxhd',
-        variant: 'DNxHD 145',
-        resolution: '1080p',
-        frameRate: '23.98'
-      }
-    ];
-  };
+  ];
 
-  const [defaultPresets, setDefaultPresets] = useState<CustomPreset[]>(getDefaultPresets());
+  const [defaultPresets, setDefaultPresets] = useState<CustomPreset[]>(getHardcodedDefaults());
   const [hasChanges, setHasChanges] = useState(false);
   const [validationErrors, setValidationErrors] = useState<{ [key: number]: string }>({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load presets from Firebase on component mount
+  useEffect(() => {
+    const loadPresetsFromFirebase = async () => {
+      try {
+        setIsLoading(true);
+        console.log('Loading default presets from Firebase for admin...');
+        
+        const firebasePresets = await firebaseService.getDefaultPresets();
+        if (firebasePresets && firebasePresets.length > 0) {
+          console.log('Loaded presets from Firebase:', firebasePresets);
+          setDefaultPresets(firebasePresets);
+        } else {
+          console.log('No presets found in Firebase, using hardcoded defaults');
+          setDefaultPresets(getHardcodedDefaults());
+        }
+      } catch (error) {
+        console.error('Failed to load presets from Firebase:', error);
+        // Try localStorage fallback
+        const saved = localStorage.getItem('adminDefaultPresets');
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            console.log('Loaded presets from localStorage fallback');
+            setDefaultPresets(parsed);
+          } catch {
+            console.log('Failed to parse localStorage presets, using hardcoded defaults');
+            setDefaultPresets(getHardcodedDefaults());
+          }
+        } else {
+          console.log('Using hardcoded defaults');
+          setDefaultPresets(getHardcodedDefaults());
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadPresetsFromFirebase();
+  }, []);
 
   // Validate a preset configuration
   const validatePreset = (preset: CustomPreset, index: number): string | null => {
@@ -162,17 +192,27 @@ const PresetManager: React.FC = () => {
     setHasChanges(true);
   };
 
-  // Save presets to localStorage and update the global default
-  const savePresets = () => {
+  // Save presets to Firebase and update the global default
+  const savePresets = async () => {
     if (!validateAllPresets()) {
       alert('Please fix all validation errors before saving.');
       return;
     }
 
-    localStorage.setItem('adminDefaultPresets', JSON.stringify(defaultPresets));
-    localStorage.setItem('defaultPresets', JSON.stringify(defaultPresets));
-    setHasChanges(false);
-    alert('Default presets saved successfully!');
+    try {
+      // Save to Firebase
+      await firebaseService.saveAllDefaultPresets(defaultPresets);
+      
+      // Also save to localStorage as backup
+      localStorage.setItem('adminDefaultPresets', JSON.stringify(defaultPresets));
+      localStorage.setItem('defaultPresets', JSON.stringify(defaultPresets));
+      
+      setHasChanges(false);
+      alert('Default presets saved successfully to Firebase!');
+    } catch (error) {
+      console.error('Failed to save presets to Firebase:', error);
+      alert('Failed to save presets to Firebase. Please try again.');
+    }
   };
 
   // Reset to hardcoded defaults
@@ -227,6 +267,19 @@ const PresetManager: React.FC = () => {
   useEffect(() => {
     validateAllPresets();
   }, [defaultPresets, categories]);
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <div className="bg-dark-secondary rounded-xl p-6">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
+            <p className="text-gray-400">Loading default presets from Firebase...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

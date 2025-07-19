@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import firebaseService from '../services/firebaseService';
 
 export interface CustomPreset {
   id: string;
@@ -17,16 +18,46 @@ interface PresetContextType {
   deletePreset: (index: number) => void;
   resetToDefaults: () => void;
   syncStatus: 'idle' | 'syncing' | 'synced' | 'error';
+  refreshDefaultPresets: () => Promise<void>;
 }
 
-// Function to get admin-configured defaults or fallback to hardcoded
-const getAdminDefaults = (): CustomPreset[] => {
-  // First check for admin-configured defaults
+// Function to get default presets with Firebase → localStorage → hardcoded fallback
+const getDefaultPresets = async (): Promise<CustomPreset[]> => {
+  try {
+    // First try to load from Firebase
+    console.log('Loading default presets from Firebase...');
+    const firebasePresets = await firebaseService.getDefaultPresets();
+    if (firebasePresets && firebasePresets.length > 0) {
+      console.log('Loaded default presets from Firebase:', firebasePresets);
+      // Cache in localStorage for offline access
+      localStorage.setItem('firebaseDefaultPresets', JSON.stringify(firebasePresets));
+      return firebasePresets;
+    }
+  } catch (error) {
+    console.log('Failed to load from Firebase, trying localStorage cache:', error);
+  }
+
+  // Fallback to localStorage cache
+  const cachedPresets = localStorage.getItem('firebaseDefaultPresets');
+  if (cachedPresets) {
+    try {
+      const parsed = JSON.parse(cachedPresets);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        console.log('Loaded default presets from localStorage cache');
+        return parsed;
+      }
+    } catch {
+      console.log('Failed to parse cached presets');
+    }
+  }
+
+  // Check for legacy admin-configured defaults
   const adminDefaults = localStorage.getItem('adminDefaultPresets');
   if (adminDefaults) {
     try {
       const parsed = JSON.parse(adminDefaults);
       if (Array.isArray(parsed) && parsed.length > 0) {
+        console.log('Loaded default presets from legacy admin defaults');
         return parsed;
       }
     } catch {
@@ -34,20 +65,8 @@ const getAdminDefaults = (): CustomPreset[] => {
     }
   }
 
-  // Check for the general default presets (set by admin)
-  const defaultPresets = localStorage.getItem('defaultPresets');
-  if (defaultPresets) {
-    try {
-      const parsed = JSON.parse(defaultPresets);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
-      }
-    } catch {
-      // Fall through to hardcoded defaults
-    }
-  }
-
-  // Updated hardcoded fallback defaults with proper frame rates
+  // Final fallback to hardcoded defaults
+  console.log('Using hardcoded default presets');
   return [
     {
       id: 'preset-1',
@@ -99,47 +118,91 @@ export const PresetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     loadPresets();
   }, []);
 
-  // Listen for changes to admin defaults and reload if needed
+  // Listen for Firebase preset changes and reload if needed
   useEffect(() => {
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'adminDefaultPresets' || e.key === 'defaultPresets') {
-        // If user doesn't have custom presets, update to new admin defaults
+    let unsubscribe: (() => void) | null = null;
+
+    // Set up Firebase listener for default presets
+    try {
+      unsubscribe = firebaseService.subscribeToDefaultPresets(async (firebasePresets) => {
+        // Only update if user doesn't have custom presets
         if (!localStorage.getItem('customPresets')) {
-          setCustomPresets(getAdminDefaults());
+          console.log('Firebase default presets updated, refreshing...');
+          setCustomPresets(firebasePresets);
+          // Update cache
+          localStorage.setItem('firebaseDefaultPresets', JSON.stringify(firebasePresets));
         }
-      }
-    };
-
-    // Also listen for direct localStorage changes (same tab)
-    const handleLocalStorageUpdate = () => {
-      if (!localStorage.getItem('customPresets')) {
-        setCustomPresets(getAdminDefaults());
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Check for updates every few seconds
-    const interval = setInterval(handleLocalStorageUpdate, 2000);
+      });
+    } catch (error) {
+      console.log('Failed to set up Firebase listener:', error);
+    }
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(interval);
+      if (unsubscribe) {
+        unsubscribe();
+      }
     };
   }, []);
 
-  const loadPresets = () => {
-    // Load from local storage only (no cloud sync)
+  const loadPresets = async () => {
+    // Check if user has custom presets first
     const localPresets = localStorage.getItem('customPresets');
     if (localPresets) {
       try {
-        setCustomPresets(JSON.parse(localPresets));
+        const parsed = JSON.parse(localPresets);
+        console.log('Loaded user custom presets');
+        setCustomPresets(parsed);
+        return;
       } catch {
-        setCustomPresets(getAdminDefaults());
+        console.log('Failed to parse custom presets, loading defaults');
       }
-    } else {
-      // No custom presets, use admin defaults
-      setCustomPresets(getAdminDefaults());
+    }
+
+    // No custom presets, load defaults from Firebase
+    try {
+      const defaults = await getDefaultPresets();
+      setCustomPresets(defaults);
+    } catch (error) {
+      console.error('Failed to load default presets:', error);
+      // Use hardcoded fallback
+      setCustomPresets([
+        {
+          id: 'preset-1',
+          name: 'YouTube 1080p',
+          category: 'delivery',
+          codec: 'h264',
+          variant: 'High Profile',
+          resolution: '1080p',
+          frameRate: '30'
+        },
+        {
+          id: 'preset-2',
+          name: 'Netflix 4K',
+          category: 'broadcast',
+          codec: 'jpeg2000',
+          variant: 'J2K IMF 4K',
+          resolution: '4K',
+          frameRate: '24'
+        },
+        {
+          id: 'preset-3',
+          name: 'News TV',
+          category: 'camera',
+          codec: 'xdcam',
+          variant: 'XDCAM HD422',
+          resolution: '1080i',
+          frameRate: '29.97'
+        },
+        {
+          id: 'preset-4',
+          name: 'Episodic TV',
+          category: 'professional',
+          codec: 'dnxhd',
+          variant: 'DNxHD 145',
+          resolution: '1080p',
+          frameRate: '23.98'
+        }
+      ]);
     }
   };
 
@@ -165,9 +228,27 @@ export const PresetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     savePresets(newPresets);
   };
 
-  const resetToDefaults = () => {
-    const defaults = getAdminDefaults();
-    savePresets(defaults);
+  const resetToDefaults = async () => {
+    try {
+      const defaults = await getDefaultPresets();
+      // Clear custom presets to force reload from Firebase
+      localStorage.removeItem('customPresets');
+      savePresets(defaults);
+    } catch (error) {
+      console.error('Failed to reset to defaults:', error);
+    }
+  };
+
+  const refreshDefaultPresets = async () => {
+    try {
+      const defaults = await getDefaultPresets();
+      // Only update if user doesn't have custom presets
+      if (!localStorage.getItem('customPresets')) {
+        setCustomPresets(defaults);
+      }
+    } catch (error) {
+      console.error('Failed to refresh default presets:', error);
+    }
   };
 
   return (
@@ -177,7 +258,8 @@ export const PresetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       addPreset, 
       deletePreset, 
       resetToDefaults, 
-      syncStatus 
+      syncStatus,
+      refreshDefaultPresets
     }}>
       {children}
     </PresetContext.Provider>

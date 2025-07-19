@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Folder, Video, Upload, Download, RefreshCw, AlertCircle, CheckCircle, Database, ChevronDown, ChevronRight } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
@@ -11,6 +12,14 @@ const FirebaseCodecManager: React.FC = () => {
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [exportStatus, setExportStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
+  
+  // Individual codec editing state
+  const [editingCodec, setEditingCodec] = useState<string | null>(null);
+  const [editingCategory, setEditingCategory] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<Partial<Codec>>({});
+  const [isCreatingCodec, setIsCreatingCodec] = useState(false);
+  const [isCreatingCategory, setIsCreatingCategory] = useState(false);
+  const [newCategoryForm, setNewCategoryForm] = useState({ id: '', name: '', description: '' });
 
   // Variant management state
   const [expandedCodecs, setExpandedCodecs] = useState<Set<string>>(new Set());
@@ -140,7 +149,7 @@ const FirebaseCodecManager: React.FC = () => {
     reader.readAsText(file);
     event.target.value = '';
   };
-
+  
   // Variant management functions
   const toggleCodecExpansion = (codecKey: string) => {
     const newExpanded = new Set(expandedCodecs);
