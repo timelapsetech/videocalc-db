@@ -525,11 +525,9 @@ const Calculator: React.FC = () => {
       const results = calculateResults();
       setManualResults(results);
       setCalculationTriggered(true);
-      setHasValidResult(!!results);
     } else {
       // Clear results if parameters are incomplete
       setManualResults(null);
-      setHasValidResult(false);
     }
   }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, isInitialized, autoSelectionInProgress]);
 
