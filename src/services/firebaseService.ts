@@ -477,6 +477,11 @@ class FirebaseService {
 
   // Save all default presets to Firebase (admin only)
   async saveAllDefaultPresets(presets: any[]): Promise<void> {
+    console.log('🔐 Checking admin access for saveAllDefaultPresets...');
+    console.log('👤 Current user:', this.getCurrentUser()?.email);
+    console.log('📧 Admin emails:', import.meta.env.VITE_ADMIN_EMAILS);
+    console.log('✅ Is authorized admin:', this.isAuthorizedAdmin());
+    
     this.checkAdminAccess();
     
     try {

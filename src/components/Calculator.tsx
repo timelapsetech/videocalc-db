@@ -178,7 +178,37 @@ const Calculator: React.FC = () => {
         if (!variant || !variant.bitrates) return resolutions;
         
         const supportedResolutions = Object.keys(variant.bitrates);
-        const validResolutions = resolutions.filter(res => {
+        
+        // Apply technical constraints based on codec category and variant
+        let technicallyValidResolutions = resolutions;
+        
+        // Filter based on codec category and variant characteristics
+        if (selectedCategory === 'camera') {
+          // Camera formats typically support broadcast and HD resolutions
+          technicallyValidResolutions = resolutions.filter(res => 
+            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '4K'].includes(res.id)
+          );
+        } else if (selectedCategory === 'professional') {
+          // Professional formats support a wide range but may exclude some cinema formats
+          technicallyValidResolutions = resolutions.filter(res => 
+            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '4K', '2K DCI'].includes(res.id)
+          );
+        } else if (selectedCategory === 'broadcast') {
+          // Broadcast formats focus on standard resolutions
+          technicallyValidResolutions = resolutions.filter(res => 
+            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '4K'].includes(res.id)
+          );
+        } else if (selectedCategory === 'cinema') {
+          // Cinema formats support cinema-specific resolutions
+          technicallyValidResolutions = resolutions.filter(res => 
+            ['2K DCI', '4K DCI', '8K DCI'].includes(res.id)
+          );
+        } else if (selectedCategory === 'raw') {
+          // Raw formats support all resolutions
+          technicallyValidResolutions = resolutions;
+        }
+        
+        const validResolutions = technicallyValidResolutions.filter(res => {
           const isSupported = supportedResolutions.includes(res.id);
           if (isSupported) {
             // Additional validation: check if bitrates are valid
@@ -192,10 +222,58 @@ const Calculator: React.FC = () => {
           return false;
         });
         
-        // console.log('Available resolutions for variant:', variant.name, validResolutions.map(r => r.id));
+        console.log('Available resolutions for variant:', variant.name, validResolutions.map(r => r.id));
+        console.log('Technically valid resolutions for category:', selectedCategory, ':', technicallyValidResolutions.map(r => r.id));
+        console.log('Supported resolutions from bitrates:', supportedResolutions);
         return validResolutions;
       })()
     : resolutions;
+
+  // Helper function to get technical constraints explanation
+  const getFrameRateConstraintExplanation = (resolution: string) => {
+    switch (resolution) {
+      case '1080i':
+        return 'Interlaced content typically uses 25, 29.97, or 30 fps';
+      case '720p':
+      case '1080p':
+        return 'Progressive HD supports 23.98-60 fps';
+      case '4K':
+      case '8K':
+        return 'UHD supports 23.98-60 fps';
+      case '4K DCI':
+      case '8K DCI':
+      case '2K DCI':
+        return 'Cinema formats support 23.98-30 fps';
+      default:
+        return 'Standard broadcast frame rates';
+    }
+  };
+
+  // Helper function to validate current selection and provide feedback
+  const getSelectionValidationMessage = () => {
+    if (!selectedVariant || !selectedResolution || !selectedFrameRate) {
+      return null;
+    }
+
+    const variant = availableVariants.find(v => v.name === selectedVariant);
+    if (!variant || !variant.bitrates) {
+      return null;
+    }
+
+    const resolutionBitrates = variant.bitrates[selectedResolution];
+    if (!resolutionBitrates) {
+      return 'This resolution is not supported by the selected codec variant';
+    }
+
+    if (typeof resolutionBitrates === 'object') {
+      const bitrate = resolutionBitrates[selectedFrameRate];
+      if (!bitrate || bitrate <= 0) {
+        return 'This frame rate is not supported for the selected resolution and codec';
+      }
+    }
+
+    return null;
+  };
 
   // Get available frame rates for selected variant and resolution (filtered and validated)
   const availableFrameRates = (selectedVariant && selectedResolution)
@@ -212,7 +290,46 @@ const Calculator: React.FC = () => {
         } else if (typeof resolutionBitrates === 'object') {
           // Frame rate specific bitrates - only show supported frame rates with valid bitrates
           const supportedFrameRates = Object.keys(resolutionBitrates);
-          const validFrameRates = frameRates.filter(fr => {
+          
+          // Apply technical constraints based on resolution type
+          let technicallyValidFrameRates = frameRates;
+          
+          // For interlaced resolutions, apply stricter frame rate constraints
+          if (selectedResolution === '1080i') {
+            // Standard interlaced frame rates: 25, 29.97, 30
+            // Note: Some codecs support 23.98/24 for film-to-video conversion, but these are less common
+            technicallyValidFrameRates = frameRates.filter(fr => 
+              ['25', '29.97', '30'].includes(fr.id)
+            );
+          } else if (selectedResolution === '720p' || selectedResolution === '1080p') {
+            // Progressive HD resolutions support a wider range
+            technicallyValidFrameRates = frameRates.filter(fr => 
+              ['23.98', '24', '25', '29.97', '30', '50', '59.94', '60'].includes(fr.id)
+            );
+          } else if (selectedResolution === '4K' || selectedResolution === '8K') {
+            // UHD resolutions support most frame rates except very high ones for some codecs
+            technicallyValidFrameRates = frameRates.filter(fr => 
+              ['23.98', '24', '25', '29.97', '30', '50', '59.94', '60'].includes(fr.id)
+            );
+          } else if (selectedResolution === '4K DCI' || selectedResolution === '8K DCI') {
+            // Cinema resolutions support film and standard frame rates
+            technicallyValidFrameRates = frameRates.filter(fr => 
+              ['23.98', '24', '25', '29.97', '30'].includes(fr.id)
+            );
+          } else if (selectedResolution === '2K DCI') {
+            // 2K DCI supports film and standard frame rates
+            technicallyValidFrameRates = frameRates.filter(fr => 
+              ['23.98', '24', '25', '29.97', '30'].includes(fr.id)
+            );
+          } else {
+            // SD resolutions support standard broadcast frame rates
+            technicallyValidFrameRates = frameRates.filter(fr => 
+              ['23.98', '24', '25', '29.97', '30'].includes(fr.id)
+            );
+          }
+          
+          // Combine technical constraints with codec support
+          const validFrameRates = technicallyValidFrameRates.filter(fr => {
             const isSupported = supportedFrameRates.includes(fr.id);
             if (isSupported) {
               const bitrate = resolutionBitrates[fr.id];
@@ -221,7 +338,9 @@ const Calculator: React.FC = () => {
             return false;
           });
           
-          // console.log('Available frame rates for', variant.name, 'at', selectedResolution, ':', validFrameRates.map(fr => fr.id));
+          console.log('Available frame rates for', variant.name, 'at', selectedResolution, ':', validFrameRates.map(fr => fr.id));
+          console.log('Technically valid frame rates for', selectedResolution, ':', technicallyValidFrameRates.map(fr => fr.id));
+          console.log('Supported frame rates from bitrates:', supportedFrameRates);
           return validFrameRates;
         }
         
@@ -323,9 +442,29 @@ const Calculator: React.FC = () => {
             setSelectedFrameRate(availableFrameRates[0].id);
           });
         } else {
-          // Reset to first available if current selection is invalid
-          console.log('Resetting frame rate due to resolution change, available:', availableFrameRates.map(fr => fr.id));
-          setSelectedFrameRate(availableFrameRates[0].id);
+          // Smart selection based on resolution type
+          let preferredFrameRate = availableFrameRates[0];
+          
+          if (selectedResolution === '1080i') {
+            // For interlaced, prefer 29.97 or 30 over 25
+            const preferred = availableFrameRates.find(fr => ['29.97', '30'].includes(fr.id));
+            if (preferred) preferredFrameRate = preferred;
+          } else if (selectedResolution === '1080p' || selectedResolution === '720p') {
+            // For progressive HD, prefer 30 or 29.97
+            const preferred = availableFrameRates.find(fr => ['30', '29.97'].includes(fr.id));
+            if (preferred) preferredFrameRate = preferred;
+          } else if (selectedResolution === '4K' || selectedResolution === '8K') {
+            // For UHD, prefer 30 or 29.97
+            const preferred = availableFrameRates.find(fr => ['30', '29.97'].includes(fr.id));
+            if (preferred) preferredFrameRate = preferred;
+          } else if (selectedResolution.includes('DCI')) {
+            // For cinema, prefer 24
+            const preferred = availableFrameRates.find(fr => fr.id === '24');
+            if (preferred) preferredFrameRate = preferred;
+          }
+          
+          console.log('Smart-selecting frame rate:', preferredFrameRate.id, 'for resolution:', selectedResolution);
+          setSelectedFrameRate(preferredFrameRate.id);
         }
       }
     }
@@ -971,18 +1110,35 @@ const Calculator: React.FC = () => {
                   disabled={!selectedVariant || availableResolutions.length === 0}
                 />
 
-                <CustomSelect
-                  label="Frame Rate"
-                  value={selectedFrameRate}
-                  onChange={setSelectedFrameRate}
-                  options={availableFrameRates.map(fr => ({ 
-                    value: fr.id, 
-                    label: fr.name, 
-                    description: fr.category 
-                  }))}
-                  placeholder={availableFrameRates.length === 1 ? "Auto-selected" : "Select frame rate..."}
-                  disabled={!selectedVariant || !selectedResolution || availableFrameRates.length === 0}
-                />
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-sm font-medium text-gray-300">Frame Rate</label>
+                    {selectedResolution && (
+                      <div className="flex items-center text-xs text-gray-400">
+                        <Info className="h-3 w-3 mr-1" />
+                        <span>{getFrameRateConstraintExplanation(selectedResolution)}</span>
+                      </div>
+                    )}
+                  </div>
+                  <CustomSelect
+                    label=""
+                    value={selectedFrameRate}
+                    onChange={setSelectedFrameRate}
+                    options={availableFrameRates.map(fr => ({ 
+                      value: fr.id, 
+                      label: fr.name, 
+                      description: fr.category 
+                    }))}
+                    placeholder={availableFrameRates.length === 1 ? "Auto-selected" : "Select frame rate..."}
+                    disabled={!selectedVariant || !selectedResolution || availableFrameRates.length === 0}
+                  />
+                  {getSelectionValidationMessage() && (
+                    <div className="flex items-center text-xs text-red-400 mt-1">
+                      <AlertTriangle className="h-3 w-3 mr-1" />
+                      <span>{getSelectionValidationMessage()}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
