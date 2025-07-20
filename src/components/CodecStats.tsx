@@ -202,14 +202,6 @@ const CodecStats: React.FC = () => {
                   {refreshing ? 'Refreshing...' : 'Refresh'}
                 </span>
               </button>
-              <button
-                onClick={handleExport}
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="Export data"
-              >
-                <Download className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300 hidden sm:inline">Export</span>
-              </button>
             </div>
           </div>
         </div>
