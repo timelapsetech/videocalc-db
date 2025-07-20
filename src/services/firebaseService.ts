@@ -71,7 +71,7 @@ class FirebaseService {
     if (!user) return false;
 
     // Get admin emails from environment or use default
-    const adminEmails = (import.meta.env.VITE_ADMIN_EMAILS || '').split(',').map(email => email.trim()).filter(Boolean);
+    const adminEmails = (import.meta.env.VITE_ADMIN_EMAILS || '').split(',').map((email: string) => email.trim()).filter(Boolean);
     
     // If no admin emails configured, deny access for security
     if (adminEmails.length === 0) {
@@ -416,6 +416,103 @@ class FirebaseService {
     } catch (error) {
       console.error('Firebase connection test failed:', error);
       return false;
+    }
+  }
+
+  // Default presets methods
+  async getDefaultPresets(): Promise<any[]> {
+    try {
+      console.log('Fetching default presets from Firebase...');
+      const presetsCollection = collection(db, 'default_presets');
+      const snapshot = await getDocs(presetsCollection);
+      
+      if (snapshot.empty) {
+        console.log('No default presets found in Firebase');
+        return [];
+      }
+
+      const presets: any[] = [];
+      snapshot.forEach((doc) => {
+        presets.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+
+      console.log('Loaded default presets from Firebase:', presets);
+      return presets;
+    } catch (error) {
+      console.error('Error fetching default presets:', error);
+      throw new Error('Failed to fetch default presets from Firebase');
+    }
+  }
+
+  subscribeToDefaultPresets(callback: (presets: any[]) => void): () => void {
+    try {
+      console.log('Setting up default presets subscription...');
+      const presetsCollection = collection(db, 'default_presets');
+      
+      return onSnapshot(presetsCollection, (snapshot) => {
+        try {
+          const presets: any[] = [];
+          snapshot.forEach((doc) => {
+            presets.push({
+              id: doc.id,
+              ...doc.data()
+            });
+          });
+          
+          console.log('Default presets updated:', presets);
+          callback(presets);
+        } catch (error) {
+          console.error('Error in default presets subscription:', error);
+        }
+      });
+    } catch (error) {
+      console.error('Error setting up default presets subscription:', error);
+      // Return a no-op function if subscription fails
+      return () => {};
+    }
+  }
+
+  // Save all default presets to Firebase (admin only)
+  async saveAllDefaultPresets(presets: any[]): Promise<void> {
+    this.checkAdminAccess();
+    
+    try {
+      console.log('Saving default presets to Firebase...');
+      const batch = writeBatch(db);
+      const presetsCollection = collection(db, 'default_presets');
+      
+      // Clear existing presets
+      const existingSnapshot = await getDocs(presetsCollection);
+      existingSnapshot.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+      
+      // Add new presets
+      presets.forEach((preset) => {
+        const docRef = doc(presetsCollection);
+        const presetData = {
+          name: preset.name,
+          category: preset.category,
+          codec: preset.codec,
+          variant: preset.variant,
+          resolution: preset.resolution,
+          frameRate: preset.frameRate,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          created_by: this.getCurrentUser()?.email || 'unknown'
+        };
+        
+        batch.set(docRef, presetData);
+      });
+      
+      await batch.commit();
+      console.log('Successfully saved default presets to Firebase');
+    } catch (error) {
+      console.error('Error saving default presets:', error);
+      throw new Error(error instanceof Error ? error.message : 'Failed to save default presets to Firebase');
     }
   }
 }
