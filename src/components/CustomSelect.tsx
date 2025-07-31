@@ -57,25 +57,63 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
       const dropdownHeight = Math.min(300, filteredOptions.length * 60 + 80);
       
       let top = rect.bottom + window.scrollY + 8;
+      let left = rect.left + window.scrollX;
+      let width = rect.width;
       
-      // Check if dropdown would go below viewport
-      if (rect.bottom + dropdownHeight > viewportHeight) {
-        // Position above the button instead
-        top = rect.top + window.scrollY - dropdownHeight - 8;
+      if (isMobile) {
+        // Mobile-specific positioning
+        const mobileDropdownWidth = Math.min(viewportWidth * 0.9, 400); // 90vw or 400px max
+        const mobileDropdownHeight = Math.min(viewportHeight * 0.7, dropdownHeight); // 70vh or calculated height
         
-        // If still not enough space above, center it in viewport
-        if (top < window.scrollY + 20) {
-          top = window.scrollY + (viewportHeight - dropdownHeight) / 2;
+        // Center horizontally with proper margins
+        left = Math.max(16, (viewportWidth - mobileDropdownWidth) / 2);
+        width = mobileDropdownWidth;
+        
+        // Position vertically to stay within viewport
+        const spaceBelow = viewportHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        
+        if (spaceBelow >= mobileDropdownHeight + 16) {
+          // Position below button
+          top = rect.bottom + 8;
+        } else if (spaceAbove >= mobileDropdownHeight + 16) {
+          // Position above button
+          top = rect.top - mobileDropdownHeight - 8;
+        } else {
+          // Center in viewport with margins
+          top = Math.max(16, (viewportHeight - mobileDropdownHeight) / 2);
+        }
+        
+        // Ensure final position is within viewport bounds
+        top = Math.max(16, Math.min(viewportHeight - mobileDropdownHeight - 16, top));
+        left = Math.max(16, Math.min(viewportWidth - mobileDropdownWidth - 16, left));
+      } else {
+        // Desktop positioning (existing logic)
+        // Check if dropdown would go below viewport
+        if (rect.bottom + dropdownHeight > viewportHeight) {
+          // Position above the button instead
+          top = rect.top + window.scrollY - dropdownHeight - 8;
+          
+          // If still not enough space above, center it in viewport
+          if (top < window.scrollY + 20) {
+            top = window.scrollY + (viewportHeight - dropdownHeight) / 2;
+          }
+        }
+        
+        // Ensure dropdown doesn't go off-screen horizontally
+        if (left + width > viewportWidth - 16) {
+          left = Math.max(16, viewportWidth - width - 16);
         }
       }
       
       setDropdownPosition({
         top,
-        left: rect.left + window.scrollX,
-        width: rect.width
+        left,
+        width
       });
     }
   };
@@ -101,7 +139,10 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
     const handleResize = () => {
       if (isOpen) {
-        updateDropdownPosition();
+        // Add a small delay to ensure the resize is complete
+        setTimeout(() => {
+          updateDropdownPosition();
+        }, 100);
       }
     };
 
@@ -130,6 +171,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
             e.preventDefault();
           }
         }, { passive: false });
+        // Handle orientation change
+        window.addEventListener('orientationchange', handleResize);
       }
       
       updateDropdownPosition();
@@ -140,6 +183,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('orientationchange', handleResize);
     };
   }, [isOpen, isMobile]);
 
@@ -183,17 +227,16 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       ref={dropdownRef}
       style={{
         position: 'fixed',
-        top: isMobile ? '50%' : dropdownPosition.top,
-        left: isMobile ? '50%' : dropdownPosition.left,
-        width: isMobile ? '90vw' : dropdownPosition.width,
+        top: dropdownPosition.top,
+        left: dropdownPosition.left,
+        width: dropdownPosition.width,
         maxWidth: isMobile ? '400px' : 'none',
-        transform: isMobile ? 'translate(-50%, -50%)' : 'none',
+        transform: 'none',
         zIndex: 10000,
         maxHeight: isMobile ? '70vh' : '300px'
       }}
       className={`
         bg-dark-secondary border border-gray-700 rounded-lg shadow-2xl overflow-hidden
-        ${isMobile ? 'mx-4' : ''}
         ${isAnimating ? 'animate-in' : ''}
         transition-all duration-200 ease-out
         ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
@@ -203,7 +246,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       {/* Mobile overlay background */}
       {isMobile && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 -z-10 transition-opacity duration-200"
+          className="fixed inset-0 bg-black bg-opacity-50 z-[-1] transition-opacity duration-200"
           onClick={() => {
             setIsOpen(false);
             setSearchTerm('');
