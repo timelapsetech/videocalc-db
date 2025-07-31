@@ -16,15 +16,17 @@ export const resolutions: Resolution[] = [
   { id: '720p', name: '720p HD (1280×720)', width: 1280, height: 720, category: 'HD' },
   { id: '1080i', name: '1080i (1920×1080 interlaced)', width: 1920, height: 1080, category: 'HD' },
   { id: '1080p', name: '1080p FHD (1920×1080)', width: 1920, height: 1080, category: 'HD' },
+  { id: '1440x1080', name: '1440×1080 (HDV)', width: 1440, height: 1080, category: 'HD' },
   
   // Cinema
-  { id: '2K DCI', name: '2K DCI (2048×1080)', width: 2048, height: 1080, category: 'Cinema' },
-  { id: '4K DCI', name: '4K DCI (4096×2160)', width: 4096, height: 2160, category: 'Cinema' },
-  { id: '8K DCI', name: '8K DCI (8192×4320)', width: 8192, height: 4320, category: 'Cinema' },
+  { id: '2K', name: '2K (2048×1080)', width: 2048, height: 1080, category: 'Cinema' },
+  { id: '4K', name: '4K (4096×2160)', width: 4096, height: 2160, category: 'Cinema' },
+  { id: '6K', name: '6K (6144×3240)', width: 6144, height: 3240, category: 'Cinema' },
+  { id: '8K', name: '8K (8192×4320)', width: 8192, height: 4320, category: 'Cinema' },
   
   // UHD
-  { id: '4K', name: '4K UHD (3840×2160)', width: 3840, height: 2160, category: 'UHD' },
-  { id: '8K', name: '8K UHD (7680×4320)', width: 7680, height: 4320, category: 'UHD' }
+  { id: 'UHD', name: 'UHD (3840×2160)', width: 3840, height: 2160, category: 'UHD' },
+  { id: '8K UHD', name: '8K UHD (7680×4320)', width: 7680, height: 4320, category: 'UHD' }
 ];
 
 export const frameRates = [
@@ -52,7 +54,7 @@ export const workflowPresets = {
     category: 'broadcast', 
     codec: 'jpeg2000', 
     variant: 'J2K IMF 4K', 
-    resolution: '4K' 
+    resolution: 'UHD' 
   },
   'News TV': { 
     category: 'camera', 
@@ -76,12 +78,18 @@ export const workflowPresets = {
     category: 'professional', 
     codec: 'prores', 
     variant: 'ProRes 4444', 
-    resolution: '4K' 
+    resolution: 'UHD' 
   },
   'RAW Cinema': { 
     category: 'raw', 
     codec: 'braw', 
     variant: 'BRAW 5:1', 
-    resolution: '4K' 
+    resolution: 'UHD' 
+  },
+  'Cinema 2K': { 
+    category: 'raw', 
+    codec: 'arri_raw', 
+    variant: 'ARRIRAW 3.2K', 
+    resolution: '2K' 
   }
 };

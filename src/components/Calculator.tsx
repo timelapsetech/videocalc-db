@@ -186,22 +186,22 @@ const Calculator: React.FC = () => {
         if (selectedCategory === 'camera') {
           // Camera formats typically support broadcast and HD resolutions
           technicallyValidResolutions = resolutions.filter(res => 
-            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '4K'].includes(res.id)
+            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '1440x1080', '4K', '2K'].includes(res.id)
           );
         } else if (selectedCategory === 'professional') {
           // Professional formats support a wide range but may exclude some cinema formats
           technicallyValidResolutions = resolutions.filter(res => 
-            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '4K', '2K DCI'].includes(res.id)
+            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '1440x1080', '4K', 'UHD', '2K', '6K', '8K UHD'].includes(res.id)
           );
         } else if (selectedCategory === 'broadcast') {
           // Broadcast formats focus on standard resolutions
           technicallyValidResolutions = resolutions.filter(res => 
-            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '4K'].includes(res.id)
+            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '1440x1080', '4K', '2K'].includes(res.id)
           );
         } else if (selectedCategory === 'cinema') {
           // Cinema formats support cinema-specific resolutions
           technicallyValidResolutions = resolutions.filter(res => 
-            ['2K DCI', '4K DCI', '8K DCI'].includes(res.id)
+            ['2K', '4K', '6K', '8K'].includes(res.id)
           );
         } else if (selectedCategory === 'raw') {
           // Raw formats support all resolutions
@@ -236,13 +236,15 @@ const Calculator: React.FC = () => {
         return 'Interlaced content typically uses 25, 29.97, or 30 fps';
       case '720p':
       case '1080p':
+      case '1440x1080':
         return 'Progressive HD supports 23.98-60 fps';
-      case '4K':
-      case '8K':
+      case 'UHD':
+      case '8K UHD':
         return 'UHD supports 23.98-60 fps';
-      case '4K DCI':
-      case '8K DCI':
-      case '2K DCI':
+      case '2K':
+      case '4K':
+      case '6K':
+      case '8K':
         return 'Cinema formats support 23.98-30 fps';
       default:
         return 'Standard broadcast frame rates';
@@ -301,23 +303,18 @@ const Calculator: React.FC = () => {
             technicallyValidFrameRates = frameRates.filter(fr => 
               ['25', '29.97', '30'].includes(fr.id)
             );
-          } else if (selectedResolution === '720p' || selectedResolution === '1080p') {
+          } else if (selectedResolution === '720p' || selectedResolution === '1080p' || selectedResolution === '1440x1080') {
             // Progressive HD resolutions support a wider range
             technicallyValidFrameRates = frameRates.filter(fr => 
               ['23.98', '24', '25', '29.97', '30', '50', '59.94', '60'].includes(fr.id)
             );
-          } else if (selectedResolution === '4K' || selectedResolution === '8K') {
+          } else if (selectedResolution === 'UHD' || selectedResolution === '8K UHD') {
             // UHD resolutions support most frame rates except very high ones for some codecs
             technicallyValidFrameRates = frameRates.filter(fr => 
               ['23.98', '24', '25', '29.97', '30', '50', '59.94', '60'].includes(fr.id)
             );
-          } else if (selectedResolution === '4K DCI' || selectedResolution === '8K DCI') {
+          } else if (selectedResolution === '2K' || selectedResolution === '4K' || selectedResolution === '6K' || selectedResolution === '8K') {
             // Cinema resolutions support film and standard frame rates
-            technicallyValidFrameRates = frameRates.filter(fr => 
-              ['23.98', '24', '25', '29.97', '30'].includes(fr.id)
-            );
-          } else if (selectedResolution === '2K DCI') {
-            // 2K DCI supports film and standard frame rates
             technicallyValidFrameRates = frameRates.filter(fr => 
               ['23.98', '24', '25', '29.97', '30'].includes(fr.id)
             );
@@ -449,15 +446,15 @@ const Calculator: React.FC = () => {
             // For interlaced, prefer 29.97 or 30 over 25
             const preferred = availableFrameRates.find(fr => ['29.97', '30'].includes(fr.id));
             if (preferred) preferredFrameRate = preferred;
-          } else if (selectedResolution === '1080p' || selectedResolution === '720p') {
+          } else if (selectedResolution === '1080p' || selectedResolution === '720p' || selectedResolution === '1440x1080') {
             // For progressive HD, prefer 30 or 29.97
             const preferred = availableFrameRates.find(fr => ['30', '29.97'].includes(fr.id));
             if (preferred) preferredFrameRate = preferred;
-          } else if (selectedResolution === '4K' || selectedResolution === '8K') {
+          } else if (selectedResolution === 'UHD' || selectedResolution === '8K UHD') {
             // For UHD, prefer 30 or 29.97
             const preferred = availableFrameRates.find(fr => ['30', '29.97'].includes(fr.id));
             if (preferred) preferredFrameRate = preferred;
-          } else if (selectedResolution.includes('DCI')) {
+          } else if (selectedResolution === '2K' || selectedResolution === '4K' || selectedResolution === '6K' || selectedResolution === '8K') {
             // For cinema, prefer 24
             const preferred = availableFrameRates.find(fr => fr.id === '24');
             if (preferred) preferredFrameRate = preferred;
