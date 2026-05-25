@@ -62,11 +62,22 @@ export class GoogleAnalytics {
     script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
     document.head.appendChild(script);
 
-    // Initialize dataLayer and gtag
+    // Initialize dataLayer and gtag using Google's expected arguments object.
     window.dataLayer = window.dataLayer || [];
-    window.gtag = (...args: unknown[]) => {
-      window.dataLayer.push(args);
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
     };
+
+    // Set consent mode for GDPR compliance
+    window.gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied', // Always deny ad storage for privacy
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'functionality_storage': isGDPRAllowed('preferences') ? 'granted' : 'denied',
+      'personalization_storage': 'denied', // Always deny for privacy
+      'security_storage': 'granted' // Always allow security storage
+    });
 
     window.gtag('js', new Date());
 
@@ -84,15 +95,6 @@ export class GoogleAnalytics {
       send_page_view: true,
       custom_map: {}, // No custom dimensions for privacy
       transport_type: 'beacon', // More reliable for privacy-focused users
-    });
-
-    // Set consent mode for GDPR compliance
-    window.gtag('consent', 'default', {
-      'analytics_storage': 'granted',
-      'ad_storage': 'denied', // Always deny ad storage for privacy
-      'functionality_storage': isGDPRAllowed('preferences') ? 'granted' : 'denied',
-      'personalization_storage': 'denied', // Always deny for privacy
-      'security_storage': 'granted' // Always allow security storage
     });
 
     this.isInitialized = true;
