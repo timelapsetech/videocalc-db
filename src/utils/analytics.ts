@@ -62,10 +62,10 @@ export class GoogleAnalytics {
     script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
     document.head.appendChild(script);
 
-    // Initialize dataLayer and gtag using Google's expected arguments object.
+    // Initialize dataLayer and gtag using Google's expected command array.
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      window.dataLayer.push(arguments);
+    window.gtag = (...args: unknown[]) => {
+      window.dataLayer.push(args);
     };
 
     // Set consent mode for GDPR compliance

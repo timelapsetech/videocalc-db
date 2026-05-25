@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, AlertTriangle, Shield, Search } from 'lucide-react';
+import { Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, AlertTriangle, Shield, Search, Volume2 } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { usePresetContext } from '../context/PresetContext';
 import { resolutions, frameRates } from '../data/resolutions';
@@ -8,6 +8,14 @@ import type { Resolution } from '../data/resolutions';
 import type { Codec, CodecVariant } from '../types/codecs';
 import type { CustomPreset } from '../types/presets';
 import { googleAnalytics } from '../utils/analytics';
+import {
+  describeAudioConfiguration,
+  formatAudioRate,
+  getAudioProfiles,
+  getDefaultAudioSelection,
+  resolveAudioConfiguration,
+} from '../utils/audioConfigurations';
+import type { AudioSelection, ResolvedAudioConfiguration } from '../utils/audioConfigurations';
 import { generateShareableLink } from '../utils/urlSharing';
 import CustomSelect from './CustomSelect';
 import ResultsPanel from './ResultsPanel';
@@ -15,6 +23,8 @@ import EditablePresetCard from './EditablePresetCard';
 
 interface CalculationResult {
   bitrateMbps: number;
+  videoBitrateMbps: number;
+  audioBitrateMbps: number;
   fileSizeMB: number;
   fileSizeGB: number;
   fileSizeTB: number;
@@ -24,6 +34,7 @@ interface CalculationResult {
   resolution: Resolution;
   frameRate: (typeof frameRates)[number];
   category: string;
+  audioConfiguration?: ResolvedAudioConfiguration;
 }
 
 interface CodecSearchResult {
@@ -62,6 +73,11 @@ const Calculator: React.FC = () => {
     minutes: 0,
     seconds: 0
   });
+  const [audioSelection, setAudioSelection] = useState<AudioSelection>({
+    enabled: false,
+    profileId: '',
+    configurationId: ''
+  });
   const [copied, setCopied] = useState(false);
   const [codecSearchTerm, setCodecSearchTerm] = useState('');
   const [isInitialized, setIsInitialized] = useState(false);
@@ -89,13 +105,19 @@ const Calculator: React.FC = () => {
     const urlHours = parseInt(searchParams.get('hours') || '1');
     const urlMinutes = parseInt(searchParams.get('minutes') || '0');
     const urlSeconds = parseInt(searchParams.get('seconds') || '0');
+    const urlAudioEnabled = searchParams.get('audio') === '1';
+    const urlAudioProfile = searchParams.get('audioProfile') || '';
+    const urlAudioConfiguration = searchParams.get('audioConfig') || '';
 
     console.log('URL Parameters:', {
       category: urlCategory,
       codec: urlCodec,
       variant: urlVariant,
       resolution: urlResolution,
-      frameRate: urlFrameRate
+      frameRate: urlFrameRate,
+      audioEnabled: urlAudioEnabled,
+      audioProfile: urlAudioProfile,
+      audioConfiguration: urlAudioConfiguration
     });
 
     // Validate that the URL parameters correspond to actual data
@@ -136,6 +158,15 @@ const Calculator: React.FC = () => {
     // Validate resolution and frame rate
     const validResolution = resolutions.find(r => r.id === urlResolution) ? urlResolution : '1080p';
     const validFrameRate = frameRates.find(fr => fr.id === urlFrameRate) ? urlFrameRate : '30';
+    const validCategoryData = categories.find(cat => cat.id === validCategory);
+    const validCodecData = validCategoryData?.codecs.find(codec => codec.id === validCodec);
+    const validVariantData = validCodecData?.variants.find(variant => variant.name === validVariant);
+    const defaultAudioSelection = getDefaultAudioSelection(validCodecData, validVariantData);
+    const validAudioProfiles = getAudioProfiles(validCodecData, validVariantData);
+    const validAudioProfile = validAudioProfiles.find(profile => profile.id === urlAudioProfile);
+    const validAudioConfiguration = validAudioProfile?.configurations.find(
+      configuration => configuration.id === urlAudioConfiguration
+    );
 
     console.log('Setting validated values:', {
       category: validCategory,
@@ -155,6 +186,11 @@ const Calculator: React.FC = () => {
       hours: Math.max(0, urlHours),
       minutes: Math.max(0, Math.min(59, urlMinutes)),
       seconds: Math.max(0, Math.min(59, urlSeconds))
+    });
+    setAudioSelection({
+      enabled: urlAudioEnabled && validAudioProfiles.length > 0,
+      profileId: validAudioProfile?.id ?? defaultAudioSelection.profileId,
+      configurationId: validAudioConfiguration?.id ?? defaultAudioSelection.configurationId
     });
 
     setIsInitialized(true);
@@ -182,19 +218,80 @@ const Calculator: React.FC = () => {
       if (duration.hours !== 1) params.set('hours', duration.hours.toString());
       if (duration.minutes !== 0) params.set('minutes', duration.minutes.toString());
       if (duration.seconds !== 0) params.set('seconds', duration.seconds.toString());
+      if (audioSelection.enabled && audioSelection.profileId && audioSelection.configurationId) {
+        params.set('audio', '1');
+        params.set('audioProfile', audioSelection.profileId);
+        params.set('audioConfig', audioSelection.configurationId);
+      }
       setSearchParams(params, { replace: true });
     }
-  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, setSearchParams, isInitialized, autoSelectionInProgress]);
+  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, audioSelection, setSearchParams, isInitialized, autoSelectionInProgress]);
 
   // Get available codecs for selected category
-  const availableCodecs = selectedCategory 
-    ? categories.find(cat => cat.id === selectedCategory)?.codecs || []
-    : [];
+  const availableCodecs = useMemo(
+    () => selectedCategory
+      ? categories.find(cat => cat.id === selectedCategory)?.codecs || []
+      : [],
+    [categories, selectedCategory]
+  );
 
   // Get available variants for selected codec
-  const availableVariants = selectedCodec
-    ? availableCodecs.find(codec => codec.id === selectedCodec)?.variants || []
-    : [];
+  const availableVariants = useMemo(
+    () => selectedCodec
+      ? availableCodecs.find(codec => codec.id === selectedCodec)?.variants || []
+      : [],
+    [availableCodecs, selectedCodec]
+  );
+
+  const selectedCodecData = useMemo(
+    () => availableCodecs.find(codec => codec.id === selectedCodec),
+    [availableCodecs, selectedCodec]
+  );
+  const selectedVariantData = useMemo(
+    () => availableVariants.find(variant => variant.name === selectedVariant),
+    [availableVariants, selectedVariant]
+  );
+  const availableAudioProfiles = useMemo(
+    () => getAudioProfiles(selectedCodecData, selectedVariantData),
+    [selectedCodecData, selectedVariantData]
+  );
+  const selectedAudioProfile = availableAudioProfiles.find(profile => profile.id === audioSelection.profileId);
+  const selectedAudioConfiguration = selectedAudioProfile?.configurations.find(
+    configuration => configuration.id === audioSelection.configurationId
+  );
+
+  useEffect(() => {
+    if (!isInitialized || autoSelectionInProgress) return;
+
+    const defaultSelection = getDefaultAudioSelection(selectedCodecData, selectedVariantData);
+
+    setAudioSelection(previousSelection => {
+      if (availableAudioProfiles.length === 0) {
+        if (!previousSelection.profileId && !previousSelection.configurationId) {
+          return previousSelection;
+        }
+
+        return {
+          ...previousSelection,
+          enabled: false,
+          profileId: '',
+          configurationId: ''
+        };
+      }
+
+      const profile = availableAudioProfiles.find(item => item.id === previousSelection.profileId);
+      const configuration = profile?.configurations.find(item => item.id === previousSelection.configurationId);
+
+      if (profile && configuration) {
+        return previousSelection;
+      }
+
+      return {
+        ...defaultSelection,
+        enabled: previousSelection.enabled
+      };
+    });
+  }, [availableAudioProfiles, autoSelectionInProgress, isInitialized, selectedCodecData, selectedVariantData]);
 
   const normalizedCodecSearchTerm = codecSearchTerm.trim().toLowerCase();
   const codecSearchResults: CodecSearchResult[] = normalizedCodecSearchTerm
@@ -544,6 +641,33 @@ const Calculator: React.FC = () => {
     }
   }, [selectedVariant, selectedResolution, availableFrameRates, selectedFrameRate, isInitialized, autoSelectionInProgress]);
 
+  const handleAudioEnabledChange = (enabled: boolean) => {
+    const defaultSelection = getDefaultAudioSelection(selectedCodecData, selectedVariantData);
+
+    setAudioSelection(previousSelection => ({
+      enabled,
+      profileId: previousSelection.profileId || defaultSelection.profileId,
+      configurationId: previousSelection.configurationId || defaultSelection.configurationId
+    }));
+  };
+
+  const handleAudioProfileChange = (profileId: string) => {
+    const profile = availableAudioProfiles.find(item => item.id === profileId);
+
+    setAudioSelection(previousSelection => ({
+      ...previousSelection,
+      profileId,
+      configurationId: profile?.defaultConfigurationId ?? profile?.configurations[0]?.id ?? ''
+    }));
+  };
+
+  const handleAudioConfigurationChange = (configurationId: string) => {
+    setAudioSelection(previousSelection => ({
+      ...previousSelection,
+      configurationId
+    }));
+  };
+
   const copyShareLink = async () => {
     try {
       const shareUrl = generateShareableLink(
@@ -552,7 +676,8 @@ const Calculator: React.FC = () => {
         selectedVariant,
         selectedResolution,
         selectedFrameRate,
-        duration
+        duration,
+        audioSelection
       );
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -697,19 +822,27 @@ const Calculator: React.FC = () => {
         return null;
       }
 
-      const fileSizeMB = (bitrateMbps * totalSeconds) / 8; // Convert bits to bytes
+      const videoBitrateMbps = bitrateMbps;
+      const audioConfiguration = resolveAudioConfiguration(getAudioProfiles(codec, variant), audioSelection);
+      const audioBitrateMbps = audioConfiguration?.bitrateMbps ?? 0;
+      const totalBitrateMbps = videoBitrateMbps + audioBitrateMbps;
+      const fileSizeMB = (totalBitrateMbps * totalSeconds) / 8; // Convert bits to bytes
       const fileSizeGB = fileSizeMB / 1024;
       const fileSizeTB = fileSizeGB / 1024;
 
       console.log('Calculation result:', {
-        bitrateMbps,
+        videoBitrateMbps,
+        audioBitrateMbps,
+        totalBitrateMbps,
         totalSeconds,
         fileSizeMB,
         fileSizeGB
       });
 
       return {
-        bitrateMbps,
+        bitrateMbps: totalBitrateMbps,
+        videoBitrateMbps,
+        audioBitrateMbps,
         fileSizeMB,
         fileSizeGB,
         fileSizeTB,
@@ -718,7 +851,8 @@ const Calculator: React.FC = () => {
         variant: variant,
         resolution: resolution,
         frameRate: frameRate!,
-        category: selectedCategory // Include category in results
+        category: selectedCategory, // Include category in results
+        audioConfiguration: audioConfiguration ?? undefined
       };
     } catch (error) {
       console.error('Error during calculation:', error);
@@ -751,7 +885,7 @@ const Calculator: React.FC = () => {
       // Clear results if parameters are incomplete
       setManualResults(null);
     }
-  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, isInitialized, autoSelectionInProgress], 250);
+  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, audioSelection, isInitialized, autoSelectionInProgress], 250);
 
   // Auto-calculate if loaded from URL with all params
   useEffect(() => {
@@ -1243,6 +1377,85 @@ const Calculator: React.FC = () => {
                     </div>
                   )}
                 </div>
+              </div>
+            </div>
+
+            <div className="bg-dark-secondary rounded-xl p-4 sm:p-6 shadow-lg hover-lift">
+              <h2 className="text-base sm:text-lg font-semibold text-white mb-4 sm:mb-6 flex items-center">
+                <Volume2 className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-400" />
+                Audio Configuration
+              </h2>
+
+              <div className="space-y-4">
+                <label className="flex items-start justify-between gap-4 rounded-lg border border-gray-700 bg-dark-primary p-4">
+                  <div>
+                    <div className="text-sm font-medium text-white">Include audio in calculation</div>
+                    <p className="mt-1 text-xs text-gray-400">
+                      Audio is off by default. Enable it to add a valid bundled audio profile to the total bitrate.
+                    </p>
+                    {!selectedVariant && (
+                      <p className="mt-2 text-xs text-gray-500">Select a video codec variant to see audio options.</p>
+                    )}
+                    {selectedVariant && availableAudioProfiles.length === 0 && (
+                      <p className="mt-2 text-xs text-yellow-400">No audio profiles are available for this video configuration.</p>
+                    )}
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={audioSelection.enabled}
+                    onChange={(event) => handleAudioEnabledChange(event.target.checked)}
+                    disabled={!selectedVariant || availableAudioProfiles.length === 0}
+                    className="mt-1 h-5 w-5 rounded border-gray-600 bg-gray-800 text-blue-600 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                </label>
+
+                {audioSelection.enabled && (
+                  <div className="space-y-4">
+                    <CustomSelect
+                      label="Audio Profile"
+                      value={audioSelection.profileId}
+                      onChange={handleAudioProfileChange}
+                      options={availableAudioProfiles.map(profile => ({
+                        value: profile.id,
+                        label: profile.name,
+                        description: `${profile.codec}${profile.description ? ` - ${profile.description}` : ''}`
+                      }))}
+                      placeholder="Select audio profile..."
+                      disabled={availableAudioProfiles.length === 0}
+                    />
+
+                    <CustomSelect
+                      label="Audio Channels"
+                      value={audioSelection.configurationId}
+                      onChange={handleAudioConfigurationChange}
+                      options={(selectedAudioProfile?.configurations ?? []).map(configuration => ({
+                        value: configuration.id,
+                        label: configuration.label,
+                        description: selectedAudioProfile
+                          ? describeAudioConfiguration(selectedAudioProfile, configuration)
+                          : configuration.description
+                      }))}
+                      placeholder="Select channel configuration..."
+                      disabled={!selectedAudioProfile}
+                    />
+
+                    {selectedAudioProfile && selectedAudioConfiguration && (
+                      <div className="rounded-lg border border-blue-600/20 bg-blue-600/10 p-3">
+                        <div className="flex items-center justify-between gap-3 text-sm">
+                          <span className="text-gray-300">Audio bitrate contribution</span>
+                          <span className="font-semibold text-blue-300">
+                            {formatAudioRate(selectedAudioProfile, selectedAudioConfiguration)}
+                          </span>
+                        </div>
+                        {(selectedAudioProfile.notes || selectedAudioConfiguration.notes) && (
+                          <p className="mt-2 text-xs text-gray-400">
+                            {selectedAudioConfiguration.notes ?? selectedAudioProfile.notes}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

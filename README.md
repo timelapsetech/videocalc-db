@@ -5,8 +5,9 @@ A professional-grade static video file size calculator for the media industry, b
 ## Features
 
 - **Professional Codec Database**: Comprehensive support for industry-standard codecs including ProRes, DNxHD, RAW formats, and broadcast standards
-- **Repo-backed codec data**: Codec catalog and default presets ship as JSON (`data/codecs.json`, `data/default-presets.json`) and are updated via pull requests
+- **Repo-backed codec data**: Codec catalog, audio configurations, and default presets ship as JSON (`data/codecs.json`, `data/audio-configurations.json`, `data/default-presets.json`) and are updated via pull requests
 - **Real-time Calculations**: Automatic file size calculations as you adjust parameters - no calculate button needed
+- **Optional Audio Calculations**: Add valid source-backed audio configurations to the total bitrate when audio should be included in storage estimates
 - **Frame Rate Accuracy**: Precise calculations supporting all professional frame rates from 23.98 to 240 fps
 - **Workflow Presets**: Quick-start configurations for common workflows like YouTube delivery, Netflix specs, and broadcast standards
 - **Shareable Links**: Generate shareable URLs for specific calculations to collaborate with team members
@@ -18,6 +19,7 @@ A professional-grade static video file size calculator for the media industry, b
 
 ```text
 data/
+  audio-configurations.json Static audio profile catalog keyed by codec and variant
   codecs.json              Static codec catalog bundled into the app
   default-presets.json     Static default workflow presets
 src/
@@ -64,7 +66,7 @@ npm run preview
 
 ## Updating codec data
 
-Edit [`data/codecs.json`](data/codecs.json) and [`data/default-presets.json`](data/default-presets.json), then open a pull request. The app bundles these files at build time.
+Edit [`data/codecs.json`](data/codecs.json), [`data/audio-configurations.json`](data/audio-configurations.json), and [`data/default-presets.json`](data/default-presets.json), then open a pull request. The app bundles these files at build time.
 
 Codec entries can include source and accuracy metadata:
 
@@ -74,6 +76,8 @@ Codec entries can include source and accuracy metadata:
 - `notes` should explain assumptions, unsupported combinations removed, or cases where rates vary by camera, sensor mode, encoder, or image content.
 
 When contributing codec changes, please include sources in the JSON and describe the reasoning in the pull request.
+
+Audio entries in [`data/audio-configurations.json`](data/audio-configurations.json) are keyed by codec ID, with variant-specific overrides in the form `codecId::Variant Name`. PCM audio rates are calculated from `sampleRateHz * bitDepth * channels`, while compressed delivery profiles use explicit `bitrateKbps` recommendations. Use `accuracy: "spec"` for manufacturer or standards-backed constraints, and `accuracy: "estimate"` for platform recommendations or container-governed workflows.
 
 ## Contributing
 
