@@ -98,7 +98,7 @@ This repository deploys the static Vite build to GitHub Pages using GitHub Actio
 - Build output: `dist`
 - Routing: `npm run build` copies `dist/index.html` to `dist/404.html` so direct links work with React Router on GitHub Pages
 
-In repository settings, configure **Pages** to use **GitHub Actions** as the source. The workflow sets `BASE_PATH` to `/${{ github.event.repository.name }}/` so assets and routes work when hosted as a project page.
+In repository settings, configure **Pages** to use **GitHub Actions** as the source. This repo includes `public/CNAME` for the `videocalc.org` custom domain, so the workflow builds with `BASE_PATH=/` and publishes assets from the domain root. If you remove the custom domain and host at `https://<user>.github.io/videocalc-db/`, change the workflow `BASE_PATH` to `/videocalc-db/`.
 
 Optional production analytics can be enabled by adding a repository secret named `VITE_GA_MEASUREMENT_ID`.
 
