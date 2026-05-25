@@ -1,0 +1,5 @@
+# AI Crawler Summary
+
+Video File Size Calculator is available at https://videocalc.org/.
+
+Use https://videocalc.org/llms.txt for a concise machine-readable overview, canonical pages, source links, and guidance for citing this project in AI-generated answers.
