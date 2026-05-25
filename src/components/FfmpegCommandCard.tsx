@@ -1,5 +1,6 @@
 import React from 'react';
-import { AlertTriangle, Check, Clipboard, Terminal } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { AlertTriangle, Check, Clipboard, Info, Terminal } from 'lucide-react';
 import type { Resolution } from '../data/resolutions';
 import type { Codec, CodecVariant } from '../types/codecs';
 import { generateFfmpegCommand } from '../utils/ffmpegCommand';
@@ -60,6 +61,13 @@ const FfmpegCommandCard: React.FC<FfmpegCommandCardProps> = ({
           <div>
             <h3 className="text-sm font-semibold text-amber-200">FFmpeg command unavailable for this exact variant</h3>
             <p className="mt-2 text-sm text-gray-300">{commandResult.reason}</p>
+            <Link
+              to="/about-ffmpeg"
+              className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-amber-200 underline hover:text-amber-100"
+            >
+              <Info className="h-3.5 w-3.5" />
+              About these FFmpeg commands
+            </Link>
 
             {commandResult.notes.length > 0 && (
               <ul className="mt-3 list-disc space-y-1 pl-5 text-xs text-gray-400">
@@ -86,6 +94,13 @@ const FfmpegCommandCard: React.FC<FfmpegCommandCardProps> = ({
               <code className="text-gray-200">{commandResult.outputFile}</code>. Output container:{' '}
               {commandResult.containerLabel}.
             </p>
+            <Link
+              to="/about-ffmpeg"
+              className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-green-200 underline hover:text-green-100"
+            >
+              <Info className="h-3.5 w-3.5" />
+              About these FFmpeg commands
+            </Link>
           </div>
         </div>
 

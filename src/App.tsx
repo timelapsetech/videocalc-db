@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Calculator from './components/Calculator';
 import About from './components/About';
+import AboutFfmpeg from './components/AboutFfmpeg';
 import CodecData from './components/CodecData';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import CookieConsent from './components/CookieConsent';
@@ -21,6 +22,7 @@ const AppWithTracking: React.FC = () => {
       <Routes>
         <Route path="/" element={<Calculator />} />
         <Route path="/about" element={<About />} />
+        <Route path="/about-ffmpeg" element={<AboutFfmpeg />} />
         <Route path="/codec-data" element={<CodecData />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
       </Routes>
