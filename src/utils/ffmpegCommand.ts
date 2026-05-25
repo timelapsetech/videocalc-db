@@ -277,11 +277,15 @@ function buildHevcRecipe(input: FfmpegCommandInput): VideoRecipe | null {
   };
 }
 
-function buildAv1Recipe(input: FfmpegCommandInput): VideoRecipe | null {
+function buildAv1Recipe(input: FfmpegCommandInput): VideoRecipe | FfmpegCommandResult | null {
   const profile = av1Profiles[input.variant.name];
 
   if (!profile) {
     return null;
+  }
+
+  if (profile.profile !== '0') {
+    return unsupported('The FFmpeg SVT-AV1 encoder used by this command generator supports AV1 Main Profile 4:2:0 output, but this variant requires a higher-chroma AV1 profile.');
   }
 
   const usesMp4Audio = input.audioConfiguration?.profile.id === 'mp4-aac';
@@ -290,11 +294,11 @@ function buildAv1Recipe(input: FfmpegCommandInput): VideoRecipe | null {
   return {
     codecOptions: [
       '-c:v',
-      'libaom-av1',
+      'libsvtav1',
       '-profile:v',
       profile.profile,
-      '-cpu-used',
-      '4',
+      '-preset',
+      '8',
       '-b:v',
       bitrateArg(input.videoBitrateMbps),
       '-g',
@@ -306,7 +310,7 @@ function buildAv1Recipe(input: FfmpegCommandInput): VideoRecipe | null {
     pixelFormat: profile.pixelFormat,
     allowAudio: true,
     movFastStart: usesMp4Audio,
-    requirements: ['FFmpeg built with libaom-av1'],
+    requirements: ['FFmpeg built with libsvtav1'],
   };
 }
 

@@ -63,6 +63,9 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Validate generated FFmpeg command variants
+npm run validate:ffmpeg -- --input samples/HD_INPUT.mp4
 ```
 
 ## Updating codec data
@@ -81,6 +84,20 @@ When contributing codec changes, please include sources in the JSON and describe
 Audio entries in [`data/audio-configurations.json`](data/audio-configurations.json) are keyed by codec ID, with variant-specific overrides in the form `codecId::Variant Name`. PCM audio rates are calculated from `sampleRateHz * bitDepth * channels`, while compressed delivery profiles use explicit `bitrateKbps` recommendations. Use `accuracy: "spec"` for manufacturer or standards-backed constraints, and `accuracy: "estimate"` for platform recommendations or container-governed workflows.
 
 FFmpeg commands are generated from the resolved video codec/variant plus the selected audio profile. Recipes live in [`src/utils/ffmpegCommand.ts`](src/utils/ffmpegCommand.ts) and are intentionally conservative: if FFmpeg cannot author the exact camera-original, RAW, package-level, or vendor-specific output, the app shows an unsupported message instead of an approximate command.
+
+## Validating FFmpeg command support
+
+Use [`scripts/validate_ffmpeg_commands.py`](scripts/validate_ffmpeg_commands.py) to re-run the FFmpeg command matrix whenever codec or audio data changes.
+
+```bash
+# Full validation matrix using the bundled sample
+npm run validate:ffmpeg -- --input samples/HD_INPUT.mp4
+
+# Faster focused checks while developing
+npm run validate:ffmpeg -- --audio-mode default --match h264 --duration 0.5
+```
+
+The validator reads the current codec and audio JSON, enumerates supported command combinations, runs FFmpeg, probes each output with `ffprobe`, and writes Markdown/JSON reports to `.ffmpeg-validation/`. If the input has no audio stream, it creates a temporary silent-audio input so audio command variants can still be tested. Generated validation outputs are ignored by git.
 
 ## Contributing
 

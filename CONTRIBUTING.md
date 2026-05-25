@@ -28,6 +28,12 @@ npm run lint
 
 `npm run lint` may report existing warnings, but it should not report errors.
 
+If your change affects codec data, audio profiles, or FFmpeg command recipes, also run a focused or full FFmpeg validation pass:
+
+```bash
+npm run validate:ffmpeg -- --input samples/HD_INPUT.mp4
+```
+
 ## Codec Data Contributions
 
 Codec and audio data should be practical, sourced, and clear about uncertainty.
@@ -56,7 +62,7 @@ For FFmpeg command changes:
 - Keep recipes exact. If FFmpeg cannot author the true file type or vendor-specific camera package, return an unsupported reason instead of an approximation.
 - Prefer single-pass commands with one `INPUT_FILE` and one `OUTPUT_FILE.ext` placeholder.
 - Include both video and audio muxer constraints when adding support for a new container.
-- Validate representative commands locally with FFmpeg before opening the pull request.
+- Validate representative commands locally with `npm run validate:ffmpeg` before opening the pull request.
 
 Good sources include manufacturer documentation, standards bodies, official platform upload guidance, codec white papers, and vendor data-rate calculators.
 

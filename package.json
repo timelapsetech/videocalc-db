@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "validate:ffmpeg": "python3 scripts/validate_ffmpeg_commands.py",
     "postbuild": "cp dist/index.html dist/404.html"
   },
   "dependencies": {
