@@ -115,6 +115,7 @@ PIX_FMT_EQUIVALENTS: dict[str, set[str]] = {
     "yuv420p": {"yuv420p", "yuvj420p"},
     "yuv422p": {"yuv422p", "yuvj422p"},
     "yuv444p": {"yuv444p", "yuvj444p"},
+    "yuva444p10le": {"yuva444p10le", "yuva444p12le"},
 }
 
 
@@ -449,6 +450,8 @@ def build_dnx_recipe(variant_name: str, video_bitrate: float) -> VideoRecipe | s
         )
     if not variant_name.startswith("DNxHD "):
         return unsupported(f"No DNxHD/DNxHR recipe for {variant_name}.")
+    if variant_name == "DNxHD 220x":
+        return unsupported("FFmpeg rejected the catalog DNxHD 220x operating points; exact Avid metadata is needed before generating this command.")
     return VideoRecipe(
         options=["-c:v", "dnxhd", "-b:v", bitrate_arg(video_bitrate)],
         muxer="mov",
@@ -459,13 +462,17 @@ def build_dnx_recipe(variant_name: str, video_bitrate: float) -> VideoRecipe | s
     )
 
 
-def build_avc_intra_recipe(variant_name: str, frame_rate_id: str) -> VideoRecipe | str:
+def build_avc_intra_recipe(variant_name: str, resolution_id: str, frame_rate_id: str) -> VideoRecipe | str:
     match = re.match(r"^AVC-Intra (\d+)$", variant_name)
     if not match:
         return unsupported(f"No AVC-Intra recipe for {variant_name}.")
-    if frame_rate_id in {"30", "60"}:
-        return unsupported("AVC-Intra validation skips exact 30/60 fps because libx264 supports the fractional NTSC rates for this mode.")
     avc_intra_class = match.group(1)
+    if avc_intra_class == "50":
+        return unsupported("FFmpeg rejects the AVC-Intra 50 full-raster combinations in this catalog.")
+    if frame_rate_id in {"24", "30", "60"}:
+        return unsupported("FFmpeg libx264 rejects exact 24/30/60 fps for these AVC-Intra catalog modes.")
+    if avc_intra_class == "200" and resolution_id == "720p" and frame_rate_id not in {"50", "59.94"}:
+        return unsupported("FFmpeg libx264 AVC-Intra 200 accepts only the 720p high-frame-rate modes represented in this catalog.")
     return VideoRecipe(
         options=["-c:v", "libx264", "-avcintra-class", avc_intra_class],
         muxer="mxf",
@@ -575,7 +582,7 @@ def build_video_recipe(
     if codec_id == "cineform":
         return unsupported("CineForm recipes are not exact because the catalog does not map variants to CFHD encoder settings.")
     if codec_id == "avc_intra":
-        return build_avc_intra_recipe(variant_name, frame_rate_id)
+        return build_avc_intra_recipe(variant_name, resolution_id, frame_rate_id)
     if codec_id == "xavc":
         return unsupported("Sony XAVC needs Sony-specific operating-point metadata not yet represented in the catalog.")
     if codec_id == "xdcam":
@@ -593,8 +600,9 @@ def build_video_recipe(
     if codec_id == "uncompressed":
         if "4:2:2" not in variant_name:
             return unsupported(f"No uncompressed video recipe for {variant_name}.")
-        pix_fmt = "yuv422p10le" if "10-bit" in variant_name else "yuv422p"
-        return VideoRecipe(["-c:v", "rawvideo"], "mov", "mov", "QuickTime MOV", "rawvideo", pix_fmt)
+        if "10-bit" in variant_name:
+            return VideoRecipe(["-c:v", "v210"], "mov", "mov", "QuickTime MOV", "v210", "yuv422p10le")
+        return VideoRecipe(["-c:v", "rawvideo", "-tag:v", "2vuy"], "mov", "mov", "QuickTime MOV", "rawvideo", "uyvy422")
     return unsupported(f"FFmpeg command generation has not been researched for {codec_name}.")
 
 

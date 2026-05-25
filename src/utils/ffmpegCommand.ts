@@ -378,7 +378,7 @@ function buildProResRecipe(input: FfmpegCommandInput): VideoRecipe | null {
   };
 }
 
-function buildDnxRecipe(input: FfmpegCommandInput): VideoRecipe | null {
+function buildDnxRecipe(input: FfmpegCommandInput): VideoRecipe | FfmpegCommandResult | null {
   const dnxHrProfile = dnxHrProfiles[input.variant.name];
 
   if (dnxHrProfile) {
@@ -394,6 +394,10 @@ function buildDnxRecipe(input: FfmpegCommandInput): VideoRecipe | null {
 
   if (!input.variant.name.startsWith('DNxHD ')) {
     return null;
+  }
+
+  if (input.variant.name === 'DNxHD 220x') {
+    return unsupported('FFmpeg rejected the catalog DNxHD 220x operating points in validation. This variant is disabled until the catalog includes the exact Avid raster, frame-rate, bit-depth, and bitrate combinations FFmpeg accepts.');
   }
 
   return {
@@ -414,11 +418,24 @@ function buildAvcIntraRecipe(input: FfmpegCommandInput): VideoRecipe | FfmpegCom
     return null;
   }
 
-  if (input.frameRate.id === '30' || input.frameRate.id === '60') {
-    return unsupported('FFmpeg libx264 AVC-Intra encoding supports NTSC fractional rates such as 29.97 and 59.94, but not exact 30 or 60 fps for this AVC-Intra mode.');
+  const avcIntraClass = match[1];
+
+  if (avcIntraClass === '50') {
+    return unsupported('FFmpeg libx264 rejects the AVC-Intra 50 full-raster combinations in this catalog. This command is disabled until coded-raster metadata for AVC-Intra 50 is represented separately.');
   }
 
-  const avcIntraClass = match[1];
+  if (input.frameRate.id === '24' || input.frameRate.id === '30' || input.frameRate.id === '60') {
+    return unsupported('FFmpeg libx264 AVC-Intra encoding supports only a subset of Panasonic AVC-Intra frame rates here; exact 24, 30, and 60 fps are rejected by the encoder for these catalog modes.');
+  }
+
+  if (
+    avcIntraClass === '200' &&
+    input.resolution.id === '720p' &&
+    input.frameRate.id !== '50' &&
+    input.frameRate.id !== '59.94'
+  ) {
+    return unsupported('FFmpeg libx264 AVC-Intra 200 only accepts the 720p high-frame-rate modes represented in this catalog.');
+  }
 
   return {
     codecOptions: ['-c:v', 'libx264', '-avcintra-class', avcIntraClass],
@@ -552,18 +569,27 @@ function buildFfv1Recipe(): VideoRecipe {
 }
 
 function buildUncompressedRecipe(input: FfmpegCommandInput): VideoRecipe | null {
-  const pixelFormat = input.variant.name.includes('10-bit') ? 'yuv422p10le' : 'yuv422p';
-
   if (!input.variant.name.includes('4:2:2')) {
     return null;
   }
 
+  if (input.variant.name.includes('10-bit')) {
+    return {
+      codecOptions: ['-c:v', 'v210'],
+      muxer: 'mov',
+      outputExtension: 'mov',
+      containerLabel: 'QuickTime MOV',
+      pixelFormat: 'yuv422p10le',
+      allowAudio: true,
+    };
+  }
+
   return {
-    codecOptions: ['-c:v', 'rawvideo'],
+    codecOptions: ['-c:v', 'rawvideo', '-tag:v', '2vuy'],
     muxer: 'mov',
     outputExtension: 'mov',
     containerLabel: 'QuickTime MOV',
-    pixelFormat,
+    pixelFormat: 'uyvy422',
     allowAudio: true,
   };
 }
