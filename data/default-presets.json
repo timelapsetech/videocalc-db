@@ -10,12 +10,15 @@
   },
   {
     "id": "9XoYztCoVCCAwCIDsrnO",
-    "name": "Netflix 4K",
+    "name": "Netflix IMF 4K",
     "category": "broadcast",
     "codec": "jpeg2000",
     "variant": "J2K IMF 4K",
-    "resolution": "4K",
-    "frameRate": "24"
+    "resolution": "UHD",
+    "frameRate": "24",
+    "audioEnabled": true,
+    "audioProfileId": "dcp-imf-pcm-48k-24bit",
+    "audioConfigurationId": "surround-5-1"
   },
   {
     "id": "xN868hHZ6pp9XkKzycue",

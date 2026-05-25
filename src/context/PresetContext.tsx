@@ -14,6 +14,34 @@ interface PresetContextType {
 
 const PresetContext = createContext<PresetContextType | undefined>(undefined);
 
+const NETFLIX_PRESET_ID = '9XoYztCoVCCAwCIDsrnO';
+
+const netflixImfPreset: CustomPreset = {
+  id: NETFLIX_PRESET_ID,
+  name: 'Netflix IMF 4K',
+  category: 'broadcast',
+  codec: 'jpeg2000',
+  variant: 'J2K IMF 4K',
+  resolution: 'UHD',
+  frameRate: '24',
+  audioEnabled: true,
+  audioProfileId: 'dcp-imf-pcm-48k-24bit',
+  audioConfigurationId: 'surround-5-1',
+};
+
+const migrateBundledPreset = (preset: CustomPreset): CustomPreset => {
+  const isBundledNetflixPreset =
+    preset.id === NETFLIX_PRESET_ID ||
+    (
+      preset.name === 'Netflix 4K' &&
+      preset.category === 'broadcast' &&
+      preset.codec === 'jpeg2000' &&
+      preset.variant === 'J2K IMF 4K'
+    );
+
+  return isBundledNetflixPreset ? netflixImfPreset : preset;
+};
+
 export const PresetProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [customPresets, setCustomPresets] = useState<CustomPreset[]>([]);
 
@@ -25,9 +53,10 @@ export const PresetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const localPresets = localStorage.getItem('customPresets');
     if (localPresets) {
       try {
-        const parsed = JSON.parse(localPresets) as CustomPreset[];
+        const parsed = (JSON.parse(localPresets) as CustomPreset[]).map(migrateBundledPreset);
         console.log('Loaded user custom presets');
         setCustomPresets(parsed);
+        localStorage.setItem('customPresets', JSON.stringify(parsed));
         return;
       } catch {
         console.log('Failed to parse custom presets, loading defaults');

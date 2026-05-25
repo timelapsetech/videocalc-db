@@ -699,6 +699,11 @@ const Calculator: React.FC = () => {
     setSelectedVariant(preset.variant);
     setSelectedResolution(preset.resolution);
     setSelectedFrameRate(preset.frameRate);
+    setAudioSelection({
+      enabled: preset.audioEnabled ?? false,
+      profileId: preset.audioProfileId ?? '',
+      configurationId: preset.audioConfigurationId ?? ''
+    });
     
     // Clear the flag after preset is applied and trigger auto-calculation
     setTimeout(() => {
@@ -728,7 +733,10 @@ const Calculator: React.FC = () => {
       codec: selectedCodec,
       variant: selectedVariant,
       resolution: selectedResolution,
-      frameRate: selectedFrameRate
+      frameRate: selectedFrameRate,
+      audioEnabled: audioSelection.enabled,
+      audioProfileId: audioSelection.profileId,
+      audioConfigurationId: audioSelection.configurationId
     };
 
     addPreset(newPreset);
@@ -1183,7 +1191,10 @@ const Calculator: React.FC = () => {
                                 selectedCodec === preset.codec && 
                                 selectedVariant === preset.variant && 
                                 selectedResolution === preset.resolution &&
-                                selectedFrameRate === preset.frameRate;
+                                selectedFrameRate === preset.frameRate &&
+                                (preset.audioEnabled ?? false) === audioSelection.enabled &&
+                                (preset.audioProfileId ?? '') === audioSelection.profileId &&
+                                (preset.audioConfigurationId ?? '') === audioSelection.configurationId;
                 
                 return (
                   <EditablePresetCard

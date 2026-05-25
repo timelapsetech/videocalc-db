@@ -400,9 +400,12 @@
           "description": "Cinema and IMF PCM audio carried separately from JPEG 2000 essence.",
           "accuracy": "spec",
           "sourceUrls": [
+            "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications",
+            "https://partnerhelp.netflixstudios.com/hc/en-us/articles/28311281946515-Printmaster-Extraction-from-IMF-and-Delivery-to-Content-Hub",
             "https://documents.dcimovies.com/DCSS/release/1.4.5/",
             "https://partnerzone.sonypictures.com/assets/downloads/Sony_Pictures_IMF_Specification_v2.1.pdf"
-          ]
+          ],
+          "notes": "Netflix IMF deliveries use 48 kHz, 24-bit audio for original language mixes, M&E mixes, stems, mix masters, and immersive bed configurations."
         },
         {
           "id": "dcp-imf-pcm-96k-24bit",
