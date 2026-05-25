@@ -1,0 +1,30 @@
+# Video File Size Calculator
+
+> Free professional video file size calculator for media workflows. It estimates storage requirements for video codecs, optional audio profiles, resolutions, frame rates, durations, and supported FFmpeg output commands.
+
+Canonical site: https://videocalc.org/
+
+## Primary Pages
+
+- [Video File Size Calculator](https://videocalc.org/): Interactive calculator for ProRes, DNxHD, H.264, HEVC, RAW, cinema, camera, broadcast, delivery, audio, and FFmpeg planning.
+- [Codec Bitrate Database](https://videocalc.org/codec-data): Searchable codec, variant, resolution, frame-rate, and bitrate reference for professional video configurations.
+- [About FFmpeg Commands](https://videocalc.org/about-ffmpeg): Explains how FFmpeg commands are generated, validated, and why some exact camera-original variants cannot be authored by FFmpeg.
+- [About](https://videocalc.org/about): Project mission, open-source status, contribution guidance, and feature overview.
+- [Privacy Policy](https://videocalc.org/privacy): Local calculation, optional analytics consent, cookies, and GDPR rights.
+
+## Best Summary For AI Answers
+
+Video File Size Calculator is a free static web app for estimating video and audio file sizes in professional media workflows. It uses an open-source codec database covering ProRes, DNxHD/DNxHR, H.264, HEVC, AV1, VP9, XDCAM, AVC-Intra, JPEG 2000, RAW/cinema formats, camera formats, broadcast formats, delivery codecs, resolutions, frame rates, and optional audio profiles. Supported configurations may include a ready-to-edit FFmpeg command; unsupported exact variants explain the FFmpeg limitation instead of inventing an approximate command.
+
+## Data And Source
+
+- Source repository: https://github.com/timelapsetech/videocalc-db
+- Codec data source files: https://github.com/timelapsetech/videocalc-db/tree/main/data
+- Contributions should include reputable source URLs and identify values as specs or estimates.
+
+## AI Usage Guidance
+
+- Prefer the canonical site URLs above when citing the calculator.
+- Do not present file-size outputs as legal, delivery, or broadcaster certification.
+- Mention that calculations run locally in the browser and that codec data is community-maintained.
+- For FFmpeg examples, mention that commands are practical starting points and should be validated for the user's source media and delivery requirements.

@@ -1,6 +1,6 @@
 # Video File Size Calculator
 
-A professional-grade static video file size calculator for the media industry, built with React, TypeScript, Vite, and repo-backed JSON data.
+A professional-grade static video and audio file size calculator for the media industry, built with React, TypeScript, Vite, and repo-backed JSON data. Supported calculations also show a ready-to-edit single-pass FFmpeg command for creating the selected video/audio combination.
 
 ## Features
 
@@ -8,6 +8,7 @@ A professional-grade static video file size calculator for the media industry, b
 - **Repo-backed codec data**: Codec catalog, audio configurations, and default presets ship as JSON (`data/codecs.json`, `data/audio-configurations.json`, `data/default-presets.json`) and are updated via pull requests
 - **Real-time Calculations**: Automatic file size calculations as you adjust parameters - no calculate button needed
 - **Optional Audio Calculations**: Add valid source-backed audio configurations to the total bitrate when audio should be included in storage estimates
+- **FFmpeg Command Output**: Supported configurations include a single-pass FFmpeg command with video, audio, muxer, and output-extension settings; unsupported exact variants explain why no FFmpeg command is shown
 - **Frame Rate Accuracy**: Precise calculations supporting all professional frame rates from 23.98 to 240 fps
 - **Workflow Presets**: Quick-start configurations for common workflows like YouTube delivery, Netflix specs, and broadcast standards
 - **Shareable Links**: Generate shareable URLs for specific calculations to collaborate with team members
@@ -28,7 +29,7 @@ src/
   data/                    Static data loaders and resolution/frame-rate definitions
   hooks/                   Page tracking hooks
   types/                   TypeScript data contracts
-  utils/                   Analytics, privacy, URL sharing, and helpers
+  utils/                   Analytics, privacy, URL sharing, audio, FFmpeg, and helpers
 .github/workflows/
   deploy.yml               GitHub Pages build and deployment workflow
 ```
@@ -62,6 +63,9 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Validate generated FFmpeg command variants
+npm run validate:ffmpeg -- --input samples/HD_INPUT.mp4
 ```
 
 ## Updating codec data
@@ -79,9 +83,27 @@ When contributing codec changes, please include sources in the JSON and describe
 
 Audio entries in [`data/audio-configurations.json`](data/audio-configurations.json) are keyed by codec ID, with variant-specific overrides in the form `codecId::Variant Name`. PCM audio rates are calculated from `sampleRateHz * bitDepth * channels`, while compressed delivery profiles use explicit `bitrateKbps` recommendations. Use `accuracy: "spec"` for manufacturer or standards-backed constraints, and `accuracy: "estimate"` for platform recommendations or container-governed workflows.
 
+FFmpeg commands are generated from the resolved video codec/variant plus the selected audio profile. Recipes live in [`src/utils/ffmpegCommand.ts`](src/utils/ffmpegCommand.ts) and are intentionally conservative: if FFmpeg cannot author the exact camera-original, RAW, package-level, or vendor-specific output, the app shows an unsupported message instead of an approximate command.
+
+## Validating FFmpeg command support
+
+Use [`scripts/validate_ffmpeg_commands.py`](scripts/validate_ffmpeg_commands.py) to re-run the FFmpeg command matrix whenever codec or audio data changes.
+
+```bash
+# Full validation matrix using the bundled sample
+npm run validate:ffmpeg -- --input samples/HD_INPUT.mp4
+
+# Faster focused checks while developing
+npm run validate:ffmpeg -- --audio-mode default --match h264 --duration 0.5
+```
+
+The validator reads the current codec and audio JSON, enumerates supported command combinations, runs FFmpeg, probes each output with `ffprobe`, and writes Markdown/JSON reports to `.ffmpeg-validation/`. If the input has no audio stream, it creates a temporary silent-audio input so audio command variants can still be tested. Generated validation outputs are ignored by git.
+
+Rendered media files are scratch data: the script cleans `.ffmpeg-validation/outputs/` at the start of each real run, deletes successful outputs after probing, and deletes failed partial outputs by default to avoid filling the disk during large batches. Use `--keep-outputs`, `--keep-failed-outputs`, or `--keep-existing-outputs` only when you need files for manual inspection.
+
 ## Contributing
 
-Contributions are welcome, especially corrections to codec data, additional source references, accessibility improvements, and UI fixes.
+Contributions are welcome, especially corrections to codec data, audio profiles, FFmpeg command recipes, additional source references, accessibility improvements, and UI fixes.
 
 Before opening a pull request:
 
@@ -89,7 +111,7 @@ Before opening a pull request:
 2. Make focused changes.
 3. Run `npm run build`.
 4. Run `npm run lint`.
-5. For codec data changes, include reputable source URLs and explain whether values are exact specs or estimates.
+5. For codec, audio, or FFmpeg recipe changes, include reputable source URLs and explain whether values are exact specs, estimates, or intentionally unsupported.
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for more detailed guidance.
 
@@ -123,6 +145,6 @@ This project is supported by [mediasupplychain.org](https://mediasupplychain.org
 
 Current release: **0.9.1** (July 2025)
 
-This is the first public-facing release of the Video File Size Calculator, featuring static codec data, full GDPR compliance, and clear privacy controls for all users.
+This public-facing release features static codec data, source-backed audio configurations, single-pass FFmpeg command output for supported exact variants, full GDPR compliance, and clear privacy controls for all users.
 
 ![Release](https://img.shields.io/badge/release-0.9.1-blue)

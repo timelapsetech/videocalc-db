@@ -13,7 +13,8 @@ import {
   Shield,
   Github,
   AlertTriangle,
-  GitPullRequest
+  GitPullRequest,
+  Terminal
 } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { resolutions, frameRates } from '../data/resolutions';
@@ -188,6 +189,13 @@ const CodecData: React.FC = () => {
                 <span className="text-sm text-gray-300">About</span>
               </Link>
               <Link
+                to="/about-ffmpeg"
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
+              >
+                <Terminal className="h-4 w-4 text-gray-400" />
+                <span className="text-sm text-gray-300">FFmpeg</span>
+              </Link>
+              <Link
                 to="/privacy"
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
               >
@@ -208,6 +216,14 @@ const CodecData: React.FC = () => {
                 >
                   <Info className="h-5 w-5 text-gray-400" />
                   <span className="text-gray-300">About</span>
+                </Link>
+                <Link
+                  to="/about-ffmpeg"
+                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Terminal className="h-5 w-5 text-gray-400" />
+                  <span className="text-gray-300">About FFmpeg Commands</span>
                 </Link>
                 <Link
                   to="/privacy"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Heart, Mail, Globe, Users, Database, Menu, X, Github, GitPullRequest, AlertTriangle, Shield, Zap, Bot, Cloud, Cpu, Code } from 'lucide-react';
+import { ArrowLeft, Heart, Mail, Globe, Users, Database, Menu, X, Github, GitPullRequest, AlertTriangle, Shield, Zap, Bot, Cloud, Cpu, Code, Terminal } from 'lucide-react';
 
 const About: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -45,6 +45,13 @@ const About: React.FC = () => {
                 <span className="text-sm text-gray-300">Database</span>
               </Link>
               <Link
+                to="/about-ffmpeg"
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
+              >
+                <Terminal className="h-4 w-4 text-gray-400" />
+                <span className="text-sm text-gray-300">FFmpeg</span>
+              </Link>
+              <Link
                 to="/privacy"
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
               >
@@ -65,6 +72,14 @@ const About: React.FC = () => {
                 >
                   <Database className="h-5 w-5 text-gray-400" />
                   <span className="text-gray-300">Codec Database</span>
+                </Link>
+                <Link
+                  to="/about-ffmpeg"
+                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Terminal className="h-5 w-5 text-gray-400" />
+                  <span className="text-gray-300">About FFmpeg Commands</span>
                 </Link>
                 <Link
                   to="/privacy"
@@ -97,7 +112,7 @@ const About: React.FC = () => {
               </span>
             </h1>
             <p className="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              A professional tool for the media industry, built with love and shared freely
+              A professional video, audio, and FFmpeg planning tool for the media industry, built with love and shared freely
             </p>
           </div>
         </div>
@@ -152,7 +167,7 @@ const About: React.FC = () => {
                 <div>
                   <h3 className="text-yellow-400 font-medium mb-2">Help Us Improve the Data</h3>
                   <p className="text-sm text-gray-300 mb-3">
-                    We have over 1,000 unique configurations of video bitrates, but that is far from a complete list.  
+                    We have over 1,000 unique configurations of video bitrates, plus source-backed audio profiles and FFmpeg command recipes, but that is far from a complete list.
                     Catch an issue or want to suggest an addition? Feel free to open an issue on GitHub, or better yet, 
                     make your own updates and open a Pull Request. Let's all work together to make this data accessible to everyone!
                   </p>
@@ -171,7 +186,7 @@ const About: React.FC = () => {
                 <span>View on GitHub</span>
               </a>
               <a
-                href="https://github.com/timelapsetech/videocalculator/issues"
+                href="https://github.com/timelapsetech/videocalc-db/issues"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-colors text-sm sm:text-base"
@@ -180,7 +195,7 @@ const About: React.FC = () => {
                 <span>Report an Issue</span>
               </a>
               <a
-                href="https://github.com/timelapsetech/videocalculator/pulls"
+                href="https://github.com/timelapsetech/videocalc-db/pulls"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg text-white font-medium transition-colors text-sm sm:text-base"
@@ -209,8 +224,8 @@ const About: React.FC = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm sm:text-base">Frame Rate Accuracy</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">Precise calculations supporting all professional frame rates from 23.98 to 240 fps.</p>
+                    <h3 className="font-semibold text-white text-sm sm:text-base">Audio-aware estimates</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">Optional source-backed audio profiles add PCM or compressed audio rates to the total file-size estimate.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -225,8 +240,8 @@ const About: React.FC = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2"></div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm sm:text-base">Shareable Links</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">Generate shareable URLs for specific calculations to collaborate with team members.</p>
+                    <h3 className="font-semibold text-white text-sm sm:text-base">FFmpeg Commands</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">Supported calculations show a single-pass FFmpeg command, while exact unsupported variants explain what FFmpeg cannot author.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -239,8 +254,8 @@ const About: React.FC = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full mt-2"></div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm sm:text-base">Static Data Updates</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">Codec and preset data live in repo JSON, so updates can be reviewed and shipped with the app.</p>
+                    <h3 className="font-semibold text-white text-sm sm:text-base">Shareable Links</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">Generate shareable URLs for specific calculations, including selected audio settings, to collaborate with team members.</p>
                   </div>
                 </div>
               </div>
@@ -255,8 +270,8 @@ const About: React.FC = () => {
             </h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-4 text-sm sm:text-base">
-                Built with modern web technologies and designed for accuracy, this calculator uses industry-standard 
-                bitrate specifications for each codec variant. The database includes detailed configurations for:
+                Built with modern web technologies and designed for accuracy, this calculator uses industry-standard
+                bitrate specifications for video variants, source-backed audio options, and conservative FFmpeg command recipes. The database includes detailed configurations for:
               </p>
               <ul className="text-gray-300 space-y-2 mb-6 text-sm sm:text-base">
                 <li className="flex items-center space-x-2">
@@ -275,9 +290,17 @@ const About: React.FC = () => {
                   <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
                   <span>Camera-native formats from major manufacturers</span>
                 </li>
+                <li className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                  <span>PCM, AAC, Opus, AC-3, E-AC-3, and MPEG Layer II audio profiles</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                  <span>Single-pass FFmpeg commands for supported exact output variants</span>
+                </li>
               </ul>
               <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                Codec data is bundled with the static app, and calculations run locally in your browser.
+                Codec data, audio data, and FFmpeg recipes are bundled with the static app, and calculations run locally in your browser.
               </p>
             </div>
           </div>

@@ -1,11 +1,13 @@
 # Contributing
 
-Thanks for helping improve the Video File Size Calculator. This project is a static React app, so most contributions fall into two areas: improving the calculator UI or improving the static codec data.
+Thanks for helping improve the Video File Size Calculator. This project is a static React app, so most contributions fall into three areas: improving the calculator UI, improving static codec/audio data, or improving FFmpeg command support.
 
 ## How The App Works
 
 - The app is built with React, TypeScript, Tailwind CSS, and Vite.
 - Codec data lives in `data/codecs.json`.
+- Audio profile data lives in `data/audio-configurations.json`.
+- FFmpeg command recipes live in `src/utils/ffmpegCommand.ts`.
 - Default workflow presets live in `data/default-presets.json`.
 - The app imports those JSON files at build time through the `@repo-data` alias.
 - There is no runtime database, admin panel, stats backend, Firebase, Firestore, or Cloudflare D1 dependency.
@@ -26,9 +28,15 @@ npm run lint
 
 `npm run lint` may report existing warnings, but it should not report errors.
 
+If your change affects codec data, audio profiles, or FFmpeg command recipes, also run a focused or full FFmpeg validation pass:
+
+```bash
+npm run validate:ffmpeg -- --input samples/HD_INPUT.mp4
+```
+
 ## Codec Data Contributions
 
-Codec data should be practical, sourced, and clear about uncertainty.
+Codec and audio data should be practical, sourced, and clear about uncertainty.
 
 Use `accuracy: "spec"` when the value comes from a published manufacturer spec, standards document, official data-rate table, or a direct formula such as uncompressed video bitrate.
 
@@ -42,6 +50,20 @@ For codec changes:
 - Keep preset references valid after renaming codecs or variants.
 - Prefer preserving stable IDs unless a structural cleanup clearly requires changing them.
 
+For audio changes:
+
+- Add codec-level profiles in `data/audio-configurations.json` unless a variant needs a stricter override.
+- Use `codecId::Variant Name` for variant-specific audio assignments.
+- For PCM, include sample rate, bit depth, and channel count so the app can calculate bitrate.
+- For compressed audio, include explicit `bitrateKbps` values and source whether they are specs or platform recommendations.
+
+For FFmpeg command changes:
+
+- Keep recipes exact. If FFmpeg cannot author the true file type or vendor-specific camera package, return an unsupported reason instead of an approximation.
+- Prefer single-pass commands with one `INPUT_FILE` and one `OUTPUT_FILE.ext` placeholder.
+- Include both video and audio muxer constraints when adding support for a new container.
+- Validate representative commands locally with `npm run validate:ffmpeg` before opening the pull request.
+
 Good sources include manufacturer documentation, standards bodies, official platform upload guidance, codec white papers, and vendor data-rate calculators.
 
 ## Pull Request Guidance
@@ -52,6 +74,7 @@ For data changes, include a short summary of:
 
 - Which codecs or variants changed.
 - Whether the rates are exact specs or estimates.
+- Whether audio profiles or FFmpeg command recipes changed.
 - Which source documents support the change.
 - Any presets that needed updating.
 

@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Calculator from './components/Calculator';
 import About from './components/About';
+import AboutFfmpeg from './components/AboutFfmpeg';
 import CodecData from './components/CodecData';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import CookieConsent from './components/CookieConsent';
 import ErrorBoundary from './components/ErrorBoundary';
+import Seo from './components/Seo';
 import { CodecProvider } from './context/CodecContext';
 import { PresetProvider } from './context/PresetContext';
 import { usePageTracking } from './hooks/usePageTracking';
@@ -17,14 +19,18 @@ const AppWithTracking: React.FC = () => {
   usePageTracking();
 
   return (
-    <div className="min-h-screen bg-dark-primary text-white">
-      <Routes>
-        <Route path="/" element={<Calculator />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/codec-data" element={<CodecData />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-      </Routes>
-    </div>
+    <>
+      <Seo />
+      <div className="min-h-screen bg-dark-primary text-white">
+        <Routes>
+          <Route path="/" element={<Calculator />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/about-ffmpeg" element={<AboutFfmpeg />} />
+          <Route path="/codec-data" element={<CodecData />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+        </Routes>
+      </div>
+    </>
   );
 };
 

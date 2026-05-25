@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "postbuild": "cp dist/index.html dist/404.html"
+    "validate:ffmpeg": "python3 scripts/validate_ffmpeg_commands.py",
+    "postbuild": "node scripts/build_static_pages.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
