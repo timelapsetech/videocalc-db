@@ -97,7 +97,7 @@ const About: React.FC = () => {
               </span>
             </h1>
             <p className="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              A professional tool for the media industry, built with love and shared freely
+              A professional video, audio, and FFmpeg planning tool for the media industry, built with love and shared freely
             </p>
           </div>
         </div>
@@ -152,7 +152,7 @@ const About: React.FC = () => {
                 <div>
                   <h3 className="text-yellow-400 font-medium mb-2">Help Us Improve the Data</h3>
                   <p className="text-sm text-gray-300 mb-3">
-                    We have over 1,000 unique configurations of video bitrates, but that is far from a complete list.  
+                    We have over 1,000 unique configurations of video bitrates, plus source-backed audio profiles and FFmpeg command recipes, but that is far from a complete list.
                     Catch an issue or want to suggest an addition? Feel free to open an issue on GitHub, or better yet, 
                     make your own updates and open a Pull Request. Let's all work together to make this data accessible to everyone!
                   </p>
@@ -209,8 +209,8 @@ const About: React.FC = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm sm:text-base">Frame Rate Accuracy</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">Precise calculations supporting all professional frame rates from 23.98 to 240 fps.</p>
+                    <h3 className="font-semibold text-white text-sm sm:text-base">Audio-aware estimates</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">Optional source-backed audio profiles add PCM or compressed audio rates to the total file-size estimate.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -225,8 +225,8 @@ const About: React.FC = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2"></div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm sm:text-base">Shareable Links</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">Generate shareable URLs for specific calculations to collaborate with team members.</p>
+                    <h3 className="font-semibold text-white text-sm sm:text-base">FFmpeg Commands</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">Supported calculations show a single-pass FFmpeg command, while exact unsupported variants explain what FFmpeg cannot author.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -239,8 +239,8 @@ const About: React.FC = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full mt-2"></div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm sm:text-base">Static Data Updates</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">Codec and preset data live in repo JSON, so updates can be reviewed and shipped with the app.</p>
+                    <h3 className="font-semibold text-white text-sm sm:text-base">Shareable Links</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">Generate shareable URLs for specific calculations, including selected audio settings, to collaborate with team members.</p>
                   </div>
                 </div>
               </div>
@@ -255,8 +255,8 @@ const About: React.FC = () => {
             </h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-4 text-sm sm:text-base">
-                Built with modern web technologies and designed for accuracy, this calculator uses industry-standard 
-                bitrate specifications for each codec variant. The database includes detailed configurations for:
+                Built with modern web technologies and designed for accuracy, this calculator uses industry-standard
+                bitrate specifications for video variants, source-backed audio options, and conservative FFmpeg command recipes. The database includes detailed configurations for:
               </p>
               <ul className="text-gray-300 space-y-2 mb-6 text-sm sm:text-base">
                 <li className="flex items-center space-x-2">
@@ -275,9 +275,17 @@ const About: React.FC = () => {
                   <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
                   <span>Camera-native formats from major manufacturers</span>
                 </li>
+                <li className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                  <span>PCM, AAC, Opus, AC-3, E-AC-3, and MPEG Layer II audio profiles</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                  <span>Single-pass FFmpeg commands for supported exact output variants</span>
+                </li>
               </ul>
               <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                Codec data is bundled with the static app, and calculations run locally in your browser.
+                Codec data, audio data, and FFmpeg recipes are bundled with the static app, and calculations run locally in your browser.
               </p>
             </div>
           </div>

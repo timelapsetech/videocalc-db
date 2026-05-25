@@ -1125,8 +1125,8 @@ const Calculator: React.FC = () => {
               </span>
             </h1>
             <p className="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              Professional-grade file size estimation for video production workflows. 
-              Calculate storage requirements for any codec, resolution, and duration.
+              Professional-grade file size estimation for video production workflows.
+              Calculate storage requirements for video, optional audio, and supported FFmpeg outputs.
             </p>
             <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-400">
               <div className="flex items-center space-x-2">
@@ -1140,6 +1140,14 @@ const Calculator: React.FC = () => {
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
                 <span>Broadcast Standards</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span>Audio Profiles</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                <span>FFmpeg Commands</span>
               </div>
             </div>
           </div>

@@ -5,6 +5,16 @@ All notable changes to the Video File Size Calculator project will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Audio-aware calculations**: Added source-backed audio configurations that can be included in file-size estimates.
+- **FFmpeg Command Panel**: Supported calculations now show a single-pass FFmpeg command for the selected video/audio combination.
+- **Unsupported FFmpeg messaging**: Exact variants that FFmpeg cannot author now explain why no command is available instead of showing an approximate command.
+
+### Changed
+- **Public documentation and marketing copy**: Updated README, contribution guidance, homepage, and About page language to reflect audio and FFmpeg support.
+
 ## [0.9.1] - 2025-07-19
 
 ### Improved

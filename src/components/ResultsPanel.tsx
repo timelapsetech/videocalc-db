@@ -5,6 +5,7 @@ import type { Codec, CodecVariant } from '../types/codecs';
 import { describeAudioConfiguration, formatAudioRate } from '../utils/audioConfigurations';
 import type { ResolvedAudioConfiguration } from '../utils/audioConfigurations';
 import { generateShareableLink } from '../utils/urlSharing';
+import FfmpegCommandCard from './FfmpegCommandCard';
 
 interface Duration {
   hours: number;
@@ -546,6 +547,15 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
           <span className="shrink-0 text-gray-600">(hover for details)</span>
         </div>
       )}
+
+      <FfmpegCommandCard
+        codec={results.codec}
+        variant={results.variant}
+        resolution={results.resolution}
+        frameRate={results.frameRate}
+        videoBitrateMbps={results.videoBitrateMbps}
+        audioConfiguration={results.audioConfiguration}
+      />
 
       {/* Share Link Button */}
       <div className="flex justify-center">
