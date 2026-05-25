@@ -99,6 +99,8 @@ npm run validate:ffmpeg -- --audio-mode default --match h264 --duration 0.5
 
 The validator reads the current codec and audio JSON, enumerates supported command combinations, runs FFmpeg, probes each output with `ffprobe`, and writes Markdown/JSON reports to `.ffmpeg-validation/`. If the input has no audio stream, it creates a temporary silent-audio input so audio command variants can still be tested. Generated validation outputs are ignored by git.
 
+Rendered media files are scratch data: the script cleans `.ffmpeg-validation/outputs/` at the start of each real run, deletes successful outputs after probing, and deletes failed partial outputs by default to avoid filling the disk during large batches. Use `--keep-outputs`, `--keep-failed-outputs`, or `--keep-existing-outputs` only when you need files for manual inspection.
+
 ## Contributing
 
 Contributions are welcome, especially corrections to codec data, audio profiles, FFmpeg command recipes, additional source references, accessibility improvements, and UI fixes.

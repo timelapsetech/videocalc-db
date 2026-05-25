@@ -186,6 +186,7 @@ class ValidationResult:
     command: list[str]
     output_path: Path
     elapsed_seconds: float
+    output_size_bytes: int = 0
     details: list[str] = field(default_factory=list)
     stderr_tail: str = ""
 
@@ -900,6 +901,28 @@ def tail_text(text: str, lines: int = 12) -> str:
     return "\n".join(text.strip().splitlines()[-lines:])
 
 
+def output_size(path: Path) -> int:
+    try:
+        return path.stat().st_size
+    except FileNotFoundError:
+        return 0
+
+
+def remove_output(path: Path) -> bool:
+    try:
+        path.unlink()
+        return True
+    except FileNotFoundError:
+        return False
+
+
+def cleanup_failed_output(path: Path, keep_failed_outputs: bool, details: list[str]) -> int:
+    size = output_size(path)
+    if size and not keep_failed_outputs and remove_output(path):
+        details.append(f"deleted partial/failed output to conserve disk ({size / 1024 / 1024:.1f} MiB)")
+    return size
+
+
 def validate_case(
     case: CommandCase,
     input_path: Path,
@@ -909,6 +932,7 @@ def validate_case(
     timeout: int,
     ffmpeg_log_level: str,
     keep_outputs: bool,
+    keep_failed_outputs: bool,
 ) -> ValidationResult:
     source_input = audio_input_path if case.audio_recipe else input_path
     assert source_input is not None
@@ -919,24 +943,32 @@ def validate_case(
     try:
         result = run(command, timeout=timeout)
     except subprocess.TimeoutExpired as error:
-        return ValidationResult(case, "failed", "ffmpeg-timeout", command, output_path, time.monotonic() - started, [f"timed out after {timeout}s"], tail_text(error.stderr or ""))
+        details = [f"timed out after {timeout}s"]
+        size = cleanup_failed_output(output_path, keep_failed_outputs, details)
+        return ValidationResult(case, "failed", "ffmpeg-timeout", command, output_path, time.monotonic() - started, size, details, tail_text(error.stderr or ""))
 
     elapsed = time.monotonic() - started
     if result.returncode != 0:
-        return ValidationResult(case, "failed", "ffmpeg-render", command, output_path, elapsed, [f"ffmpeg exited with {result.returncode}"], tail_text(result.stderr))
+        details = [f"ffmpeg exited with {result.returncode}"]
+        size = cleanup_failed_output(output_path, keep_failed_outputs, details)
+        return ValidationResult(case, "failed", "ffmpeg-render", command, output_path, elapsed, size, details, tail_text(result.stderr))
 
     try:
         probe_data = probe(output_path)
     except Exception as error:  # noqa: BLE001 - report validation failures without crashing the whole run.
-        return ValidationResult(case, "failed", "ffprobe", command, output_path, elapsed, [str(error)], tail_text(result.stderr))
+        details = [str(error)]
+        size = cleanup_failed_output(output_path, keep_failed_outputs, details)
+        return ValidationResult(case, "failed", "ffprobe", command, output_path, elapsed, size, details, tail_text(result.stderr))
 
     errors = validate_probe(case, probe_data)
     if errors:
-        return ValidationResult(case, "failed", "spec-validation", command, output_path, elapsed, errors, tail_text(result.stderr))
+        size = cleanup_failed_output(output_path, keep_failed_outputs, errors)
+        return ValidationResult(case, "failed", "spec-validation", command, output_path, elapsed, size, errors, tail_text(result.stderr))
 
+    size = output_size(output_path)
     if not keep_outputs:
-        output_path.unlink(missing_ok=True)
-    return ValidationResult(case, "passed", "ok", command, output_path, elapsed)
+        remove_output(output_path)
+    return ValidationResult(case, "passed", "ok", command, output_path, elapsed, size)
 
 
 def command_to_shell(command: list[str]) -> str:
@@ -971,6 +1003,7 @@ def result_to_dict(result: ValidationResult) -> dict[str, Any]:
         "outputExtension": case.video_recipe.extension,
         "command": result.command,
         "outputPath": str(result.output_path),
+        "outputSizeBytes": result.output_size_bytes,
         "details": result.details,
         "stderrTail": result.stderr_tail,
     }
@@ -1011,7 +1044,7 @@ def write_reports(output_dir: Path, input_path: Path, results: list[ValidationRe
         "results": [result_to_dict(result) for result in results],
         "unsupported": [unsupported_to_dict(case) for case in unsupported_cases],
     }
-    report_json.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    report_json.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
 
     lines = [
         "# FFmpeg Command Validation Report",
@@ -1076,7 +1109,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--match", default="", help="Only run cases whose id contains this substring.")
     parser.add_argument("--dry-run", action="store_true", help="Enumerate and report without running FFmpeg.")
     parser.add_argument("--fail-fast", action="store_true", help="Stop after the first failure.")
-    parser.add_argument("--keep-outputs", action="store_true", help="Keep successful rendered outputs. Failed outputs are always left for inspection if present.")
+    parser.add_argument("--keep-outputs", action="store_true", help="Keep successful rendered outputs. By default, successful outputs are deleted after probing.")
+    parser.add_argument("--keep-failed-outputs", action="store_true", help="Keep failed or partial outputs for inspection. By default, they are deleted to conserve disk.")
+    parser.add_argument("--keep-existing-outputs", action="store_true", help="Do not clean the validation outputs directory before running.")
     parser.add_argument("--ffmpeg-log-level", default="error", help="FFmpeg log level for render commands. Default: error")
     return parser.parse_args()
 
@@ -1095,7 +1130,6 @@ def main() -> int:
         return 2
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "outputs").mkdir(parents=True, exist_ok=True)
 
     cases, unsupported_cases = enumerate_cases(args.audio_mode, include_video_only=not args.no_video_only)
     if args.match:
@@ -1111,6 +1145,12 @@ def main() -> int:
         report_md, report_json = write_reports(output_dir, input_path, results, unsupported_cases, duration, planned_count=len(cases))
         print(f"Dry run complete. Reports: {report_md} and {report_json}")
         return 0
+
+    outputs_dir = output_dir / "outputs"
+    if outputs_dir.exists() and not args.keep_existing_outputs:
+        print(f"Cleaning previous validation outputs in {outputs_dir}")
+        shutil.rmtree(outputs_dir)
+    outputs_dir.mkdir(parents=True, exist_ok=True)
 
     audio_input_path: Path | None = None
     if any(case.audio_recipe for case in cases):
@@ -1131,6 +1171,7 @@ def main() -> int:
             timeout=args.timeout,
             ffmpeg_log_level=args.ffmpeg_log_level,
             keep_outputs=args.keep_outputs,
+            keep_failed_outputs=args.keep_failed_outputs,
         )
         results.append(result)
         print(result.status.upper() if result.status == "passed" else f"FAILED ({result.stage})")
