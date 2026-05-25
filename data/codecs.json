@@ -4,35 +4,51 @@
     "source": "Firestore export with source-backed audit updates",
     "projectId": "videocalc-b1b43",
     "totalCategories": 6,
-    "totalCodecs": 24,
-    "totalVariants": 87,
+    "totalCodecs": 21,
+    "totalVariants": 92,
     "auditDate": "2026-05-25",
     "accuracyConvention": {
       "spec": "Published manufacturer, standards, or formula-derived target rate for supported modes.",
       "estimate": "Practical storage estimate for variable, content-dependent, or recommendation-based codecs."
     },
     "sourceUrls": [
+      "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf",
+      "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications",
+      "https://blogs.library.duke.edu/bitstreams/2021/03/12/ffv1-the-gains-of-lossless/",
       "https://canon.a.bigcontent.io/v1/static/eos-c500-mark-ii_raw_light_recording_em_final_cc3a7923af334a9cab6cd8e4bd4bdfb1",
       "https://datatracker.ietf.org/doc/rfc9043/",
+      "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+      "https://developers.google.com/media/vp9/settings",
       "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm",
+      "https://docs.red.com/955-0179/REV-A/955-0179%20Rev-A%20RED%20PS%2C%20Benefits%20of%20REDCODE%20RAW.pdf",
+      "https://documents.dcimovies.com/DCSS/release/1.4.5/",
       "https://gopro.github.io/cineform-sdk/",
       "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines",
       "https://helpx.adobe.com/after-effects/using/gopro-cineform-codec-settings.html",
       "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications",
+      "https://netflixtechblog.com/av1-now-powering-30-of-netflix-streaming-02f592242d80",
       "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications",
       "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf",
+      "https://pro-av.panasonic.net/en/products/aj-pg50/features.html",
       "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf",
       "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
       "https://pub.smpte.org/pub/st292-1/st292-1-2018.pdf",
       "https://support.google.com/youtube/answer/1722171",
+      "https://support.google.com/youtube/answer/1722171?hl=en",
+      "https://support.google.com/youtube/answer/2853702?hl=en",
       "https://tools.arri.com/fileadmin/adapps/afdc/index.html",
       "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf",
       "https://www.apple.com/final-cut-pro/docs/Apple_ProRes_RAW_White_Paper.pdf",
       "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling/arriraw-faq",
+      "https://www.arri.com/resource/blob/390890/0ecfdcb70ea22c5fc489f0fb7267aa30/2025-11-arri-formatsandresolutionsoverview-v6-1-data.pdf",
+      "https://www.blackmagicdesign.com/products/blackmagicpocketcinemacamera/techspecs/W-CIN-16",
       "https://www.blackmagicdesign.com/products/blackmagicraw",
       "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf",
+      "https://www.loc.gov/preservation/digital/formats/fdd/fdd000034.shtml",
+      "https://www.loc.gov/preservation/digital/formats/fdd/fdd000138.shtml",
       "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
       "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html",
+      "https://www.sony.co.uk/electronics/support/articles/00353570",
       "https://www.sony.co.uk/electronics/support/decks-and-recorders-xdcam-disc-memory/articles/00353570",
       "https://www.ti.com/lit/an/snla232/snla232.pdf"
     ]
@@ -50,318 +66,191 @@
             {
               "name": "Main Profile",
               "bitrates": {
-                "NTSC_DV": {
-                  "23.98": 0.95,
-                  "24": 0.95,
-                  "25": 0.95,
-                  "29.97": 0.95,
-                  "30": 0.95,
-                  "50": 1.52,
-                  "59.94": 1.52,
-                  "60": 1.52
-                },
-                "NTSC_D1": {
-                  "23.98": 0.95,
-                  "24": 0.95,
-                  "25": 0.95,
-                  "29.97": 0.95,
-                  "30": 0.95,
-                  "50": 1.52,
-                  "59.94": 1.52,
-                  "60": 1.52
-                },
-                "PAL": {
-                  "23.98": 0.95,
-                  "24": 0.95,
-                  "25": 0.95,
-                  "29.97": 0.95,
-                  "30": 0.95,
-                  "50": 1.52,
-                  "59.94": 1.52,
-                  "60": 1.52
-                },
                 "720p": {
-                  "23.98": 1.9,
-                  "24": 1.9,
-                  "25": 1.9,
-                  "29.97": 1.9,
-                  "30": 1.9,
-                  "50": 2.85,
-                  "59.94": 2.85,
-                  "60": 2.85
+                  "23.98": 2.5,
+                  "24": 2.5,
+                  "25": 2.5,
+                  "29.97": 2.5,
+                  "30": 2.5,
+                  "50": 4,
+                  "59.94": 4,
+                  "60": 4
                 },
                 "1080p": {
-                  "23.98": 3.04,
-                  "24": 3.04,
-                  "25": 3.04,
-                  "29.97": 3.04,
-                  "30": 3.04,
-                  "50": 4.56,
-                  "59.94": 4.56,
-                  "60": 4.56
-                },
-                "2K": {
-                  "23.98": 6.08,
-                  "24": 6.08,
-                  "25": 6.08,
-                  "29.97": 6.08,
-                  "30": 6.08,
-                  "50": 9.12,
-                  "59.94": 9.12,
-                  "60": 9.12
+                  "23.98": 5,
+                  "24": 5,
+                  "25": 5,
+                  "29.97": 5,
+                  "30": 5,
+                  "50": 7,
+                  "59.94": 7,
+                  "60": 7
                 },
                 "4K": {
-                  "23.98": 15.2,
-                  "24": 15.2,
-                  "25": 15.2,
-                  "29.97": 15.2,
-                  "30": 15.2,
-                  "50": 22.8,
-                  "59.94": 22.8,
-                  "60": 22.8
+                  "23.98": 16,
+                  "24": 16,
+                  "25": 16,
+                  "29.97": 16,
+                  "30": 16,
+                  "50": 25,
+                  "59.94": 25,
+                  "60": 25
                 },
                 "UHD": {
-                  "23.98": 15.2,
-                  "24": 15.2,
-                  "25": 15.2,
-                  "29.97": 15.2,
-                  "30": 15.2,
-                  "50": 22.8,
-                  "59.94": 22.8,
-                  "60": 22.8
+                  "23.98": 16,
+                  "24": 16,
+                  "25": 16,
+                  "29.97": 16,
+                  "30": 16,
+                  "50": 25,
+                  "59.94": 25,
+                  "60": 25
                 },
                 "8K UHD": {
-                  "23.98": 45.6,
-                  "24": 45.6,
-                  "25": 45.6,
-                  "29.97": 45.6,
-                  "30": 45.6,
-                  "50": 68.4,
-                  "59.94": 68.4,
-                  "60": 68.4
+                  "23.98": 50,
+                  "24": 50,
+                  "25": 50,
+                  "29.97": 50,
+                  "30": 50,
+                  "50": 75,
+                  "59.94": 75,
+                  "60": 75
                 }
               },
               "description": "Standard AV1 profile",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://netflixtechblog.com/av1-now-powering-30-of-netflix-streaming-02f592242d80",
+                "https://support.google.com/youtube/answer/2853702?hl=en"
               ],
-              "notes": "AV1 Main profile estimate; AV1 profiles are capability profiles, not quality tiers."
+              "notes": "AV1 estimate; AV1 profiles describe bit-depth/chroma capability, not fixed quality tiers."
             },
             {
               "name": "High Profile",
               "bitrates": {
-                "NTSC_DV": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
-                "NTSC_D1": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
-                "PAL": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
                 "720p": {
-                  "23.98": 2.25,
-                  "24": 2.25,
-                  "25": 2.25,
-                  "29.97": 2.25,
-                  "30": 2.25,
-                  "50": 3.375,
-                  "59.94": 3.375,
-                  "60": 3.375
+                  "23.98": 3,
+                  "24": 3,
+                  "25": 3,
+                  "29.97": 3,
+                  "30": 3,
+                  "50": 4.5,
+                  "59.94": 4.5,
+                  "60": 4.5
                 },
                 "1080p": {
-                  "23.98": 3.6,
-                  "24": 3.6,
-                  "25": 3.6,
-                  "29.97": 3.6,
-                  "30": 3.6,
-                  "50": 5.4,
-                  "59.94": 5.4,
-                  "60": 5.4
-                },
-                "2K": {
-                  "23.98": 7.2,
-                  "24": 7.2,
-                  "25": 7.2,
-                  "29.97": 7.2,
-                  "30": 7.2,
-                  "50": 10.8,
-                  "59.94": 10.8,
-                  "60": 10.8
+                  "23.98": 6,
+                  "24": 6,
+                  "25": 6,
+                  "29.97": 6,
+                  "30": 6,
+                  "50": 8,
+                  "59.94": 8,
+                  "60": 8
                 },
                 "4K": {
-                  "23.98": 18.0,
-                  "24": 18.0,
-                  "25": 18.0,
-                  "29.97": 18.0,
-                  "30": 18.0,
-                  "50": 27.0,
-                  "59.94": 27.0,
-                  "60": 27.0
+                  "23.98": 18,
+                  "24": 18,
+                  "25": 18,
+                  "29.97": 18,
+                  "30": 18,
+                  "50": 28,
+                  "59.94": 28,
+                  "60": 28
                 },
                 "UHD": {
-                  "23.98": 18.0,
-                  "24": 18.0,
-                  "25": 18.0,
-                  "29.97": 18.0,
-                  "30": 18.0,
-                  "50": 27.0,
-                  "59.94": 27.0,
-                  "60": 27.0
+                  "23.98": 18,
+                  "24": 18,
+                  "25": 18,
+                  "29.97": 18,
+                  "30": 18,
+                  "50": 28,
+                  "59.94": 28,
+                  "60": 28
                 },
                 "8K UHD": {
-                  "23.98": 54.0,
-                  "24": 54.0,
-                  "25": 54.0,
-                  "29.97": 54.0,
-                  "30": 54.0,
-                  "50": 81.0,
-                  "59.94": 81.0,
-                  "60": 81.0
+                  "23.98": 60,
+                  "24": 60,
+                  "25": 60,
+                  "29.97": 60,
+                  "30": 60,
+                  "50": 90,
+                  "59.94": 90,
+                  "60": 90
                 }
               },
               "description": "Advanced AV1 profile with enhanced features",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://netflixtechblog.com/av1-now-powering-30-of-netflix-streaming-02f592242d80",
+                "https://support.google.com/youtube/answer/2853702?hl=en"
               ],
-              "notes": "AV1 High profile capability estimate; not a fixed bitrate tier."
+              "notes": "AV1 estimate; AV1 profiles describe bit-depth/chroma capability, not fixed quality tiers."
             },
             {
               "name": "Professional Profile",
               "bitrates": {
-                "NTSC_DV": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
-                "NTSC_D1": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
-                "PAL": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
                 "720p": {
-                  "23.98": 2.75,
-                  "24": 2.75,
-                  "25": 2.75,
-                  "29.97": 2.75,
-                  "30": 2.75,
-                  "50": 4.125,
-                  "59.94": 4.125,
-                  "60": 4.125
+                  "23.98": 3.5,
+                  "24": 3.5,
+                  "25": 3.5,
+                  "29.97": 3.5,
+                  "30": 3.5,
+                  "50": 5.5,
+                  "59.94": 5.5,
+                  "60": 5.5
                 },
                 "1080p": {
-                  "23.98": 4.4,
-                  "24": 4.4,
-                  "25": 4.4,
-                  "29.97": 4.4,
-                  "30": 4.4,
-                  "50": 6.6,
-                  "59.94": 6.6,
-                  "60": 6.6
-                },
-                "2K": {
-                  "23.98": 8.8,
-                  "24": 8.8,
-                  "25": 8.8,
-                  "29.97": 8.8,
-                  "30": 8.8,
-                  "50": 13.2,
-                  "59.94": 13.2,
-                  "60": 13.2
+                  "23.98": 7,
+                  "24": 7,
+                  "25": 7,
+                  "29.97": 7,
+                  "30": 7,
+                  "50": 10,
+                  "59.94": 10,
+                  "60": 10
                 },
                 "4K": {
-                  "23.98": 22.0,
-                  "24": 22.0,
-                  "25": 22.0,
-                  "29.97": 22.0,
-                  "30": 22.0,
-                  "50": 33.0,
-                  "59.94": 33.0,
-                  "60": 33.0
+                  "23.98": 22,
+                  "24": 22,
+                  "25": 22,
+                  "29.97": 22,
+                  "30": 22,
+                  "50": 35,
+                  "59.94": 35,
+                  "60": 35
                 },
                 "UHD": {
-                  "23.98": 22.0,
-                  "24": 22.0,
-                  "25": 22.0,
-                  "29.97": 22.0,
-                  "30": 22.0,
-                  "50": 33.0,
-                  "59.94": 33.0,
-                  "60": 33.0
-                },
-                "8K UHD": {
-                  "23.98": 66.0,
-                  "24": 66.0,
-                  "25": 66.0,
-                  "29.97": 66.0,
-                  "30": 66.0,
-                  "50": 99.0,
-                  "59.94": 99.0,
-                  "60": 99.0
+                  "23.98": 22,
+                  "24": 22,
+                  "25": 22,
+                  "29.97": 22,
+                  "30": 22,
+                  "50": 35,
+                  "59.94": 35,
+                  "60": 35
                 }
               },
               "description": "Professional AV1 profile for high-end applications",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://netflixtechblog.com/av1-now-powering-30-of-netflix-streaming-02f592242d80",
+                "https://support.google.com/youtube/answer/2853702?hl=en"
               ],
-              "notes": "AV1 Professional profile capability estimate for higher bit depth/chroma use cases."
+              "notes": "AV1 estimate; AV1 profiles describe bit-depth/chroma capability, not fixed quality tiers."
             }
           ],
           "description": "Latest open-source codec with superior compression",
           "workflowNotes": "Future-proof codec with excellent compression efficiency. Slower encoding but significantly smaller file sizes.",
           "accuracy": "estimate",
           "sourceUrls": [
-            "https://support.google.com/youtube/answer/1722171",
-            "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+            "https://developers.google.com/media/vp9/settings",
+            "https://netflixtechblog.com/av1-now-powering-30-of-netflix-streaming-02f592242d80",
+            "https://support.google.com/youtube/answer/1722171?hl=en",
+            "https://support.google.com/youtube/answer/2853702?hl=en"
           ],
-          "notes": "Delivery codec bitrates are recommended estimates; standards define codec constraints, not universal bitrates."
+          "notes": "Delivery bitrates are platform recommendations or content-dependent estimates, not codec-standard requirements."
         },
         {
           "id": "h264",
@@ -371,205 +260,143 @@
               "name": "Baseline Profile",
               "bitrates": {
                 "NTSC_DV": {
-                  "23.98": 2.875,
-                  "24": 2.875,
-                  "25": 2.875,
-                  "29.97": 2.875,
-                  "30": 2.875,
-                  "50": 4.6,
-                  "59.94": 4.6,
-                  "60": 4.6
+                  "23.98": 2.75,
+                  "24": 2.75,
+                  "25": 2.75,
+                  "29.97": 2.75,
+                  "30": 2.75,
+                  "50": 4.4,
+                  "59.94": 4.4,
+                  "60": 4.4
                 },
                 "NTSC_D1": {
-                  "23.98": 2.875,
-                  "24": 2.875,
-                  "25": 2.875,
-                  "29.97": 2.875,
-                  "30": 2.875,
-                  "50": 4.6,
-                  "59.94": 4.6,
-                  "60": 4.6
+                  "23.98": 2.75,
+                  "24": 2.75,
+                  "25": 2.75,
+                  "29.97": 2.75,
+                  "30": 2.75,
+                  "50": 4.4,
+                  "59.94": 4.4,
+                  "60": 4.4
                 },
                 "PAL": {
-                  "23.98": 2.875,
-                  "24": 2.875,
-                  "25": 2.875,
-                  "29.97": 2.875,
-                  "30": 2.875,
-                  "50": 4.6,
-                  "59.94": 4.6,
-                  "60": 4.6
+                  "23.98": 2.75,
+                  "24": 2.75,
+                  "25": 2.75,
+                  "29.97": 2.75,
+                  "30": 2.75,
+                  "50": 4.4,
+                  "59.94": 4.4,
+                  "60": 4.4
                 },
                 "720p": {
-                  "23.98": 5.75,
-                  "24": 5.75,
-                  "25": 5.75,
-                  "29.97": 5.75,
-                  "30": 5.75,
-                  "50": 8.625,
-                  "59.94": 8.625,
-                  "60": 8.625
+                  "23.98": 5.5,
+                  "24": 5.5,
+                  "25": 5.5,
+                  "29.97": 5.5,
+                  "30": 5.5,
+                  "50": 8.25,
+                  "59.94": 8.25,
+                  "60": 8.25
                 },
                 "1080p": {
-                  "23.98": 9.2,
-                  "24": 9.2,
-                  "25": 9.2,
-                  "29.97": 9.2,
-                  "30": 9.2,
-                  "50": 13.8,
-                  "59.94": 13.8,
-                  "60": 13.8
-                },
-                "2K": {
-                  "23.98": 18.4,
-                  "24": 18.4,
-                  "25": 18.4,
-                  "29.97": 18.4,
-                  "30": 18.4,
-                  "50": 27.6,
-                  "59.94": 27.6,
-                  "60": 27.6
-                },
-                "4K": {
-                  "23.98": 46.0,
-                  "24": 46.0,
-                  "25": 46.0,
-                  "29.97": 46.0,
-                  "30": 46.0,
-                  "50": 69.0,
-                  "59.94": 69.0,
-                  "60": 69.0
-                },
-                "UHD": {
-                  "23.98": 46.0,
-                  "24": 46.0,
-                  "25": 46.0,
-                  "29.97": 46.0,
-                  "30": 46.0,
-                  "50": 69.0,
-                  "59.94": 69.0,
-                  "60": 69.0
-                },
-                "8K UHD": {
-                  "23.98": 138.0,
-                  "24": 138.0,
-                  "25": 138.0,
-                  "29.97": 138.0,
-                  "30": 138.0,
-                  "50": 207.0,
-                  "59.94": 207.0,
-                  "60": 207.0
+                  "23.98": 8.8,
+                  "24": 8.8,
+                  "25": 8.8,
+                  "29.97": 8.8,
+                  "30": 8.8,
+                  "50": 13.2,
+                  "59.94": 13.2,
+                  "60": 13.2
                 }
               },
               "description": "Basic profile for maximum compatibility",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://support.google.com/youtube/answer/1722171?hl=en"
               ],
-              "notes": "Legacy H.264 Baseline compatibility estimate; modern upload platforms generally recommend High Profile."
+              "notes": "Legacy H.264 Baseline estimate; modern platforms generally recommend High Profile."
             },
             {
               "name": "Main Profile",
               "bitrates": {
                 "NTSC_DV": {
-                  "23.98": 2.625,
-                  "24": 2.625,
-                  "25": 2.625,
-                  "29.97": 2.625,
-                  "30": 2.625,
-                  "50": 4.2,
-                  "59.94": 4.2,
-                  "60": 4.2
+                  "23.98": 2.5,
+                  "24": 2.5,
+                  "25": 2.5,
+                  "29.97": 2.5,
+                  "30": 2.5,
+                  "50": 4,
+                  "59.94": 4,
+                  "60": 4
                 },
                 "NTSC_D1": {
-                  "23.98": 2.625,
-                  "24": 2.625,
-                  "25": 2.625,
-                  "29.97": 2.625,
-                  "30": 2.625,
-                  "50": 4.2,
-                  "59.94": 4.2,
-                  "60": 4.2
+                  "23.98": 2.5,
+                  "24": 2.5,
+                  "25": 2.5,
+                  "29.97": 2.5,
+                  "30": 2.5,
+                  "50": 4,
+                  "59.94": 4,
+                  "60": 4
                 },
                 "PAL": {
-                  "23.98": 2.625,
-                  "24": 2.625,
-                  "25": 2.625,
-                  "29.97": 2.625,
-                  "30": 2.625,
-                  "50": 4.2,
-                  "59.94": 4.2,
-                  "60": 4.2
+                  "23.98": 2.5,
+                  "24": 2.5,
+                  "25": 2.5,
+                  "29.97": 2.5,
+                  "30": 2.5,
+                  "50": 4,
+                  "59.94": 4,
+                  "60": 4
                 },
                 "720p": {
-                  "23.98": 5.25,
-                  "24": 5.25,
-                  "25": 5.25,
-                  "29.97": 5.25,
-                  "30": 5.25,
-                  "50": 7.875,
-                  "59.94": 7.875,
-                  "60": 7.875
+                  "23.98": 5,
+                  "24": 5,
+                  "25": 5,
+                  "29.97": 5,
+                  "30": 5,
+                  "50": 7.5,
+                  "59.94": 7.5,
+                  "60": 7.5
                 },
                 "1080p": {
-                  "23.98": 8.4,
-                  "24": 8.4,
-                  "25": 8.4,
-                  "29.97": 8.4,
-                  "30": 8.4,
-                  "50": 12.6,
-                  "59.94": 12.6,
-                  "60": 12.6
+                  "23.98": 8,
+                  "24": 8,
+                  "25": 8,
+                  "29.97": 8,
+                  "30": 8,
+                  "50": 12,
+                  "59.94": 12,
+                  "60": 12
                 },
                 "2K": {
-                  "23.98": 16.8,
-                  "24": 16.8,
-                  "25": 16.8,
-                  "29.97": 16.8,
-                  "30": 16.8,
-                  "50": 25.2,
-                  "59.94": 25.2,
-                  "60": 25.2
-                },
-                "4K": {
-                  "23.98": 42.0,
-                  "24": 42.0,
-                  "25": 42.0,
-                  "29.97": 42.0,
-                  "30": 42.0,
-                  "50": 63.0,
-                  "59.94": 63.0,
-                  "60": 63.0
+                  "23.98": 16,
+                  "24": 16,
+                  "25": 16,
+                  "29.97": 16,
+                  "30": 16,
+                  "50": 24,
+                  "59.94": 24,
+                  "60": 24
                 },
                 "UHD": {
-                  "23.98": 42.0,
-                  "24": 42.0,
-                  "25": 42.0,
-                  "29.97": 42.0,
-                  "30": 42.0,
-                  "50": 63.0,
-                  "59.94": 63.0,
-                  "60": 63.0
-                },
-                "8K UHD": {
-                  "23.98": 126.0,
-                  "24": 126.0,
-                  "25": 126.0,
-                  "29.97": 126.0,
-                  "30": 126.0,
-                  "50": 189.0,
-                  "59.94": 189.0,
-                  "60": 189.0
+                  "23.98": 40,
+                  "24": 40,
+                  "25": 40,
+                  "29.97": 40,
+                  "30": 40,
+                  "50": 60,
+                  "59.94": 60,
+                  "60": 60
                 }
               },
               "description": "Standard profile for broadcast and streaming",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://support.google.com/youtube/answer/1722171?hl=en"
               ],
-              "notes": "H.264 Main compatibility estimate derived from platform guidance."
+              "notes": "H.264 Main estimate derived from upload guidance; use High Profile for broad modern delivery."
             },
             {
               "name": "High Profile",
@@ -580,9 +407,9 @@
                   "25": 2.5,
                   "29.97": 2.5,
                   "30": 2.5,
-                  "50": 4.0,
-                  "59.94": 4.0,
-                  "60": 4.0
+                  "50": 4,
+                  "59.94": 4,
+                  "60": 4
                 },
                 "NTSC_D1": {
                   "23.98": 2.5,
@@ -590,9 +417,9 @@
                   "25": 2.5,
                   "29.97": 2.5,
                   "30": 2.5,
-                  "50": 4.0,
-                  "59.94": 4.0,
-                  "60": 4.0
+                  "50": 4,
+                  "59.94": 4,
+                  "60": 4
                 },
                 "PAL": {
                   "23.98": 2.5,
@@ -600,88 +427,90 @@
                   "25": 2.5,
                   "29.97": 2.5,
                   "30": 2.5,
-                  "50": 4.0,
-                  "59.94": 4.0,
-                  "60": 4.0
+                  "50": 4,
+                  "59.94": 4,
+                  "60": 4
                 },
                 "720p": {
-                  "23.98": 5.0,
-                  "24": 5.0,
-                  "25": 5.0,
-                  "29.97": 5.0,
-                  "30": 5.0,
+                  "23.98": 5,
+                  "24": 5,
+                  "25": 5,
+                  "29.97": 5,
+                  "30": 5,
                   "50": 7.5,
                   "59.94": 7.5,
                   "60": 7.5
                 },
                 "1080p": {
-                  "23.98": 8.0,
-                  "24": 8.0,
-                  "25": 8.0,
-                  "29.97": 8.0,
-                  "30": 8.0,
-                  "50": 12.0,
-                  "59.94": 12.0,
-                  "60": 12.0
+                  "23.98": 8,
+                  "24": 8,
+                  "25": 8,
+                  "29.97": 8,
+                  "30": 8,
+                  "50": 12,
+                  "59.94": 12,
+                  "60": 12
                 },
                 "2K": {
-                  "23.98": 16.0,
-                  "24": 16.0,
-                  "25": 16.0,
-                  "29.97": 16.0,
-                  "30": 16.0,
-                  "50": 24.0,
-                  "59.94": 24.0,
-                  "60": 24.0
+                  "23.98": 16,
+                  "24": 16,
+                  "25": 16,
+                  "29.97": 16,
+                  "30": 16,
+                  "50": 24,
+                  "59.94": 24,
+                  "60": 24
                 },
                 "4K": {
-                  "23.98": 40.0,
-                  "24": 40.0,
-                  "25": 40.0,
-                  "29.97": 40.0,
-                  "30": 40.0,
-                  "50": 60.0,
-                  "59.94": 60.0,
-                  "60": 60.0
+                  "23.98": 40,
+                  "24": 40,
+                  "25": 40,
+                  "29.97": 40,
+                  "30": 40,
+                  "50": 60,
+                  "59.94": 60,
+                  "60": 60
                 },
                 "UHD": {
-                  "23.98": 40.0,
-                  "24": 40.0,
-                  "25": 40.0,
-                  "29.97": 40.0,
-                  "30": 40.0,
-                  "50": 60.0,
-                  "59.94": 60.0,
-                  "60": 60.0
+                  "23.98": 40,
+                  "24": 40,
+                  "25": 40,
+                  "29.97": 40,
+                  "30": 40,
+                  "50": 60,
+                  "59.94": 60,
+                  "60": 60
                 },
                 "8K UHD": {
-                  "23.98": 120.0,
-                  "24": 120.0,
-                  "25": 120.0,
-                  "29.97": 120.0,
-                  "30": 120.0,
-                  "50": 180.0,
-                  "59.94": 180.0,
-                  "60": 180.0
+                  "23.98": 120,
+                  "24": 120,
+                  "25": 120,
+                  "29.97": 120,
+                  "30": 120,
+                  "50": 180,
+                  "59.94": 180,
+                  "60": 180
                 }
               },
               "description": "Advanced profile for high-quality delivery",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://support.google.com/youtube/answer/1722171?hl=en"
               ],
-              "notes": "Recommended SDR upload estimate from YouTube/Vimeo guidance."
+              "notes": "YouTube SDR upload midpoint estimates split by standard and high frame rates."
             }
           ],
           "description": "Most widely supported codec for delivery",
           "workflowNotes": "Best for web streaming, social media, and general distribution. Excellent compatibility across all devices and platforms.",
           "accuracy": "estimate",
           "sourceUrls": [
-            "https://support.google.com/youtube/answer/1722171",
-            "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+            "https://developers.google.com/media/vp9/settings",
+            "https://netflixtechblog.com/av1-now-powering-30-of-netflix-streaming-02f592242d80",
+            "https://support.google.com/youtube/answer/1722171?hl=en",
+            "https://support.google.com/youtube/answer/2853702?hl=en"
           ],
-          "notes": "Delivery codec bitrates are recommended estimates; standards define codec constraints, not universal bitrates."
+          "notes": "Delivery bitrates are platform recommendations or content-dependent estimates, not codec-standard requirements."
         },
         {
           "id": "h265",
@@ -690,318 +519,191 @@
             {
               "name": "Main Profile",
               "bitrates": {
-                "NTSC_DV": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
-                "NTSC_D1": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
-                "PAL": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
                 "720p": {
-                  "23.98": 2.25,
-                  "24": 2.25,
-                  "25": 2.25,
-                  "29.97": 2.25,
-                  "30": 2.25,
-                  "50": 3.375,
-                  "59.94": 3.375,
-                  "60": 3.375
+                  "23.98": 2.4,
+                  "24": 2.4,
+                  "25": 2.4,
+                  "29.97": 2.4,
+                  "30": 2.4,
+                  "50": 3.4,
+                  "59.94": 3.4,
+                  "60": 3.4
                 },
                 "1080p": {
-                  "23.98": 3.6,
-                  "24": 3.6,
-                  "25": 3.6,
-                  "29.97": 3.6,
-                  "30": 3.6,
-                  "50": 5.4,
-                  "59.94": 5.4,
-                  "60": 5.4
-                },
-                "2K": {
-                  "23.98": 7.2,
-                  "24": 7.2,
-                  "25": 7.2,
-                  "29.97": 7.2,
-                  "30": 7.2,
-                  "50": 10.8,
-                  "59.94": 10.8,
-                  "60": 10.8
+                  "23.98": 4.5,
+                  "24": 4.5,
+                  "25": 4.5,
+                  "29.97": 4.5,
+                  "30": 4.5,
+                  "50": 5.8,
+                  "59.94": 5.8,
+                  "60": 5.8
                 },
                 "4K": {
-                  "23.98": 18.0,
-                  "24": 18.0,
-                  "25": 18.0,
-                  "29.97": 18.0,
-                  "30": 18.0,
-                  "50": 27.0,
-                  "59.94": 27.0,
-                  "60": 27.0
+                  "23.98": 11.6,
+                  "24": 11.6,
+                  "25": 11.6,
+                  "29.97": 11.6,
+                  "30": 11.6,
+                  "50": 16.8,
+                  "59.94": 16.8,
+                  "60": 16.8
                 },
                 "UHD": {
-                  "23.98": 18.0,
-                  "24": 18.0,
-                  "25": 18.0,
-                  "29.97": 18.0,
-                  "30": 18.0,
-                  "50": 27.0,
-                  "59.94": 27.0,
-                  "60": 27.0
+                  "23.98": 11.6,
+                  "24": 11.6,
+                  "25": 11.6,
+                  "29.97": 11.6,
+                  "30": 11.6,
+                  "50": 16.8,
+                  "59.94": 16.8,
+                  "60": 16.8
                 },
                 "8K UHD": {
-                  "23.98": 54.0,
-                  "24": 54.0,
-                  "25": 54.0,
-                  "29.97": 54.0,
-                  "30": 54.0,
-                  "50": 81.0,
-                  "59.94": 81.0,
-                  "60": 81.0
+                  "23.98": 50,
+                  "24": 50,
+                  "25": 50,
+                  "29.97": 50,
+                  "30": 50,
+                  "50": 75,
+                  "59.94": 75,
+                  "60": 75
                 }
               },
               "description": "Standard HEVC profile for 8-bit content",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+                "https://support.google.com/youtube/answer/2853702?hl=en"
               ],
-              "notes": "HEVC estimate derived from common delivery guidance; actual rate depends on encoder and content."
+              "notes": "HEVC/H.265 delivery estimate from Apple HLS and YouTube live guidance; actual rate depends on encoder/content/HDR."
             },
             {
               "name": "Main 10",
               "bitrates": {
-                "NTSC_DV": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
-                "NTSC_D1": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
-                "PAL": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
                 "720p": {
-                  "23.98": 2.75,
-                  "24": 2.75,
-                  "25": 2.75,
-                  "29.97": 2.75,
-                  "30": 2.75,
-                  "50": 4.125,
-                  "59.94": 4.125,
-                  "60": 4.125
+                  "23.98": 2.8,
+                  "24": 2.8,
+                  "25": 2.8,
+                  "29.97": 2.8,
+                  "30": 2.8,
+                  "50": 4,
+                  "59.94": 4,
+                  "60": 4
                 },
                 "1080p": {
-                  "23.98": 4.4,
-                  "24": 4.4,
-                  "25": 4.4,
-                  "29.97": 4.4,
-                  "30": 4.4,
-                  "50": 6.6,
-                  "59.94": 6.6,
-                  "60": 6.6
-                },
-                "2K": {
-                  "23.98": 8.8,
-                  "24": 8.8,
-                  "25": 8.8,
-                  "29.97": 8.8,
-                  "30": 8.8,
-                  "50": 13.2,
-                  "59.94": 13.2,
-                  "60": 13.2
+                  "23.98": 5,
+                  "24": 5,
+                  "25": 5,
+                  "29.97": 5,
+                  "30": 5,
+                  "50": 6.5,
+                  "59.94": 6.5,
+                  "60": 6.5
                 },
                 "4K": {
-                  "23.98": 22.0,
-                  "24": 22.0,
-                  "25": 22.0,
-                  "29.97": 22.0,
-                  "30": 22.0,
-                  "50": 33.0,
-                  "59.94": 33.0,
-                  "60": 33.0
+                  "23.98": 13.9,
+                  "24": 13.9,
+                  "25": 13.9,
+                  "29.97": 13.9,
+                  "30": 13.9,
+                  "50": 20,
+                  "59.94": 20,
+                  "60": 20
                 },
                 "UHD": {
-                  "23.98": 22.0,
-                  "24": 22.0,
-                  "25": 22.0,
-                  "29.97": 22.0,
-                  "30": 22.0,
-                  "50": 33.0,
-                  "59.94": 33.0,
-                  "60": 33.0
+                  "23.98": 13.9,
+                  "24": 13.9,
+                  "25": 13.9,
+                  "29.97": 13.9,
+                  "30": 13.9,
+                  "50": 20,
+                  "59.94": 20,
+                  "60": 20
                 },
                 "8K UHD": {
-                  "23.98": 66.0,
-                  "24": 66.0,
-                  "25": 66.0,
-                  "29.97": 66.0,
-                  "30": 66.0,
-                  "50": 99.0,
-                  "59.94": 99.0,
-                  "60": 99.0
+                  "23.98": 60,
+                  "24": 60,
+                  "25": 60,
+                  "29.97": 60,
+                  "30": 60,
+                  "50": 90,
+                  "59.94": 90,
+                  "60": 90
                 }
               },
               "description": "10-bit profile for HDR content",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+                "https://support.google.com/youtube/answer/2853702?hl=en"
               ],
-              "notes": "10-bit HEVC estimate; actual rate depends on encoder, content, and HDR/SDR settings."
+              "notes": "HEVC/H.265 delivery estimate from Apple HLS and YouTube live guidance; actual rate depends on encoder/content/HDR."
             },
             {
               "name": "Main 4:2:2 10",
               "bitrates": {
-                "NTSC_DV": {
-                  "23.98": 1.875,
-                  "24": 1.875,
-                  "25": 1.875,
-                  "29.97": 1.875,
-                  "30": 1.875,
-                  "50": 3.0,
-                  "59.94": 3.0,
-                  "60": 3.0
-                },
-                "NTSC_D1": {
-                  "23.98": 1.875,
-                  "24": 1.875,
-                  "25": 1.875,
-                  "29.97": 1.875,
-                  "30": 1.875,
-                  "50": 3.0,
-                  "59.94": 3.0,
-                  "60": 3.0
-                },
-                "PAL": {
-                  "23.98": 1.875,
-                  "24": 1.875,
-                  "25": 1.875,
-                  "29.97": 1.875,
-                  "30": 1.875,
-                  "50": 3.0,
-                  "59.94": 3.0,
-                  "60": 3.0
-                },
                 "720p": {
-                  "23.98": 3.75,
-                  "24": 3.75,
-                  "25": 3.75,
-                  "29.97": 3.75,
-                  "30": 3.75,
-                  "50": 5.625,
-                  "59.94": 5.625,
-                  "60": 5.625
+                  "23.98": 4,
+                  "24": 4,
+                  "25": 4,
+                  "29.97": 4,
+                  "30": 4,
+                  "50": 6,
+                  "59.94": 6,
+                  "60": 6
                 },
                 "1080p": {
-                  "23.98": 6.0,
-                  "24": 6.0,
-                  "25": 6.0,
-                  "29.97": 6.0,
-                  "30": 6.0,
-                  "50": 9.0,
-                  "59.94": 9.0,
-                  "60": 9.0
-                },
-                "2K": {
-                  "23.98": 12.0,
-                  "24": 12.0,
-                  "25": 12.0,
-                  "29.97": 12.0,
-                  "30": 12.0,
-                  "50": 18.0,
-                  "59.94": 18.0,
-                  "60": 18.0
+                  "23.98": 8,
+                  "24": 8,
+                  "25": 8,
+                  "29.97": 8,
+                  "30": 8,
+                  "50": 12,
+                  "59.94": 12,
+                  "60": 12
                 },
                 "4K": {
-                  "23.98": 30.0,
-                  "24": 30.0,
-                  "25": 30.0,
-                  "29.97": 30.0,
-                  "30": 30.0,
-                  "50": 45.0,
-                  "59.94": 45.0,
-                  "60": 45.0
+                  "23.98": 25,
+                  "24": 25,
+                  "25": 25,
+                  "29.97": 25,
+                  "30": 25,
+                  "50": 38,
+                  "59.94": 38,
+                  "60": 38
                 },
                 "UHD": {
-                  "23.98": 30.0,
-                  "24": 30.0,
-                  "25": 30.0,
-                  "29.97": 30.0,
-                  "30": 30.0,
-                  "50": 45.0,
-                  "59.94": 45.0,
-                  "60": 45.0
-                },
-                "8K UHD": {
-                  "23.98": 90.0,
-                  "24": 90.0,
-                  "25": 90.0,
-                  "29.97": 90.0,
-                  "30": 90.0,
-                  "50": 135.0,
-                  "59.94": 135.0,
-                  "60": 135.0
+                  "23.98": 25,
+                  "24": 25,
+                  "25": 25,
+                  "29.97": 25,
+                  "30": 25,
+                  "50": 38,
+                  "59.94": 38,
+                  "60": 38
                 }
               },
               "description": "Professional 10-bit 4:2:2 profile",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+                "https://support.google.com/youtube/answer/2853702?hl=en"
               ],
-              "notes": "Professional 4:2:2 HEVC estimate, less broadly compatible for consumer streaming."
+              "notes": "HEVC/H.265 delivery estimate from Apple HLS and YouTube live guidance; actual rate depends on encoder/content/HDR."
             }
           ],
           "description": "Next-generation codec with superior compression efficiency",
           "workflowNotes": "Better compression than H.264, ideal for 4K/8K streaming. Requires more processing power but delivers smaller file sizes.",
           "accuracy": "estimate",
           "sourceUrls": [
-            "https://support.google.com/youtube/answer/1722171",
-            "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+            "https://developers.google.com/media/vp9/settings",
+            "https://netflixtechblog.com/av1-now-powering-30-of-netflix-streaming-02f592242d80",
+            "https://support.google.com/youtube/answer/1722171?hl=en",
+            "https://support.google.com/youtube/answer/2853702?hl=en"
           ],
-          "notes": "Delivery codec bitrates are recommended estimates; standards define codec constraints, not universal bitrates."
+          "notes": "Delivery bitrates are platform recommendations or content-dependent estimates, not codec-standard requirements."
         },
         {
           "id": "vp9",
@@ -1010,216 +712,117 @@
             {
               "name": "Profile 0",
               "bitrates": {
-                "NTSC_DV": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
-                "NTSC_D1": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
-                "PAL": {
-                  "23.98": 1.125,
-                  "24": 1.125,
-                  "25": 1.125,
-                  "29.97": 1.125,
-                  "30": 1.125,
-                  "50": 1.8,
-                  "59.94": 1.8,
-                  "60": 1.8
-                },
                 "720p": {
-                  "23.98": 2.25,
-                  "24": 2.25,
-                  "25": 2.25,
-                  "29.97": 2.25,
-                  "30": 2.25,
-                  "50": 3.375,
-                  "59.94": 3.375,
-                  "60": 3.375
+                  "23.98": 1.024,
+                  "24": 1.024,
+                  "25": 1.024,
+                  "29.97": 1.024,
+                  "30": 1.024,
+                  "50": 1.8,
+                  "59.94": 1.8,
+                  "60": 1.8
                 },
                 "1080p": {
-                  "23.98": 3.6,
-                  "24": 3.6,
-                  "25": 3.6,
-                  "29.97": 3.6,
-                  "30": 3.6,
-                  "50": 5.4,
-                  "59.94": 5.4,
-                  "60": 5.4
-                },
-                "2K": {
-                  "23.98": 7.2,
-                  "24": 7.2,
-                  "25": 7.2,
-                  "29.97": 7.2,
-                  "30": 7.2,
-                  "50": 10.8,
-                  "59.94": 10.8,
-                  "60": 10.8
+                  "23.98": 1.8,
+                  "24": 1.8,
+                  "25": 1.8,
+                  "29.97": 1.8,
+                  "30": 1.8,
+                  "50": 3,
+                  "59.94": 3,
+                  "60": 3
                 },
                 "4K": {
-                  "23.98": 18.0,
-                  "24": 18.0,
-                  "25": 18.0,
-                  "29.97": 18.0,
-                  "30": 18.0,
-                  "50": 27.0,
-                  "59.94": 27.0,
-                  "60": 27.0
+                  "23.98": 12,
+                  "24": 12,
+                  "25": 12,
+                  "29.97": 12,
+                  "30": 12,
+                  "50": 18,
+                  "59.94": 18,
+                  "60": 18
                 },
                 "UHD": {
-                  "23.98": 18.0,
-                  "24": 18.0,
-                  "25": 18.0,
-                  "29.97": 18.0,
-                  "30": 18.0,
-                  "50": 27.0,
-                  "59.94": 27.0,
-                  "60": 27.0
-                },
-                "8K UHD": {
-                  "23.98": 54.0,
-                  "24": 54.0,
-                  "25": 54.0,
-                  "29.97": 54.0,
-                  "30": 54.0,
-                  "50": 81.0,
-                  "59.94": 81.0,
-                  "60": 81.0
+                  "23.98": 12,
+                  "24": 12,
+                  "25": 12,
+                  "29.97": 12,
+                  "30": 12,
+                  "50": 18,
+                  "59.94": 18,
+                  "60": 18
                 }
               },
               "description": "8-bit 4:2:0 profile",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://developers.google.com/media/vp9/settings"
               ],
-              "notes": "VP9 8-bit 4:2:0 delivery estimate."
+              "notes": "VP9 VOD estimate from Google settings; Profile 2 does not automatically require more bitrate than Profile 0."
             },
             {
               "name": "Profile 2",
               "bitrates": {
-                "NTSC_DV": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
-                "NTSC_D1": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
-                "PAL": {
-                  "23.98": 1.375,
-                  "24": 1.375,
-                  "25": 1.375,
-                  "29.97": 1.375,
-                  "30": 1.375,
-                  "50": 2.2,
-                  "59.94": 2.2,
-                  "60": 2.2
-                },
                 "720p": {
-                  "23.98": 2.75,
-                  "24": 2.75,
-                  "25": 2.75,
-                  "29.97": 2.75,
-                  "30": 2.75,
-                  "50": 4.125,
-                  "59.94": 4.125,
-                  "60": 4.125
+                  "23.98": 1.024,
+                  "24": 1.024,
+                  "25": 1.024,
+                  "29.97": 1.024,
+                  "30": 1.024,
+                  "50": 1.8,
+                  "59.94": 1.8,
+                  "60": 1.8
                 },
                 "1080p": {
-                  "23.98": 4.4,
-                  "24": 4.4,
-                  "25": 4.4,
-                  "29.97": 4.4,
-                  "30": 4.4,
-                  "50": 6.6,
-                  "59.94": 6.6,
-                  "60": 6.6
-                },
-                "2K": {
-                  "23.98": 8.8,
-                  "24": 8.8,
-                  "25": 8.8,
-                  "29.97": 8.8,
-                  "30": 8.8,
-                  "50": 13.2,
-                  "59.94": 13.2,
-                  "60": 13.2
+                  "23.98": 1.8,
+                  "24": 1.8,
+                  "25": 1.8,
+                  "29.97": 1.8,
+                  "30": 1.8,
+                  "50": 3,
+                  "59.94": 3,
+                  "60": 3
                 },
                 "4K": {
-                  "23.98": 22.0,
-                  "24": 22.0,
-                  "25": 22.0,
-                  "29.97": 22.0,
-                  "30": 22.0,
-                  "50": 33.0,
-                  "59.94": 33.0,
-                  "60": 33.0
+                  "23.98": 12,
+                  "24": 12,
+                  "25": 12,
+                  "29.97": 12,
+                  "30": 12,
+                  "50": 18,
+                  "59.94": 18,
+                  "60": 18
                 },
                 "UHD": {
-                  "23.98": 22.0,
-                  "24": 22.0,
-                  "25": 22.0,
-                  "29.97": 22.0,
-                  "30": 22.0,
-                  "50": 33.0,
-                  "59.94": 33.0,
-                  "60": 33.0
-                },
-                "8K UHD": {
-                  "23.98": 66.0,
-                  "24": 66.0,
-                  "25": 66.0,
-                  "29.97": 66.0,
-                  "30": 66.0,
-                  "50": 99.0,
-                  "59.94": 99.0,
-                  "60": 99.0
+                  "23.98": 12,
+                  "24": 12,
+                  "25": 12,
+                  "29.97": 12,
+                  "30": 12,
+                  "50": 18,
+                  "59.94": 18,
+                  "60": 18
                 }
               },
               "description": "10-bit 4:2:0 profile for HDR",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://support.google.com/youtube/answer/1722171",
-                "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+                "https://developers.google.com/media/vp9/settings"
               ],
-              "notes": "VP9 10/12-bit 4:2:0 delivery estimate."
+              "notes": "VP9 VOD estimate from Google settings; Profile 2 does not automatically require more bitrate than Profile 0."
             }
           ],
           "description": "Google's open-source codec for web streaming",
           "workflowNotes": "Used by YouTube and other Google services. Good compression efficiency with royalty-free licensing.",
           "accuracy": "estimate",
           "sourceUrls": [
-            "https://support.google.com/youtube/answer/1722171",
-            "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+            "https://developers.google.com/media/vp9/settings",
+            "https://netflixtechblog.com/av1-now-powering-30-of-netflix-streaming-02f592242d80",
+            "https://support.google.com/youtube/answer/1722171?hl=en",
+            "https://support.google.com/youtube/answer/2853702?hl=en"
           ],
-          "notes": "Delivery codec bitrates are recommended estimates; standards define codec constraints, not universal bitrates."
+          "notes": "Delivery bitrates are platform recommendations or content-dependent estimates, not codec-standard requirements."
         }
       ]
     },
@@ -1286,34 +889,34 @@
                   "60": 90
                 },
                 "2K": {
-                  "23.98": 38,
-                  "24": 38,
-                  "25": 40,
-                  "29.97": 48,
-                  "30": 48,
-                  "50": 80,
-                  "59.94": 96,
-                  "60": 96
+                  "23.98": 41,
+                  "24": 41,
+                  "25": 43,
+                  "29.97": 52,
+                  "30": 52,
+                  "50": 86,
+                  "59.94": 103,
+                  "60": 103
                 },
                 "4K": {
-                  "23.98": 154,
-                  "24": 154,
-                  "25": 160,
-                  "29.97": 192,
-                  "30": 192,
-                  "50": 320,
-                  "59.94": 384,
-                  "60": 384
+                  "23.98": 155,
+                  "24": 155,
+                  "25": 162,
+                  "29.97": 194,
+                  "30": 194,
+                  "50": 324,
+                  "59.94": 388,
+                  "60": 388
                 },
                 "UHD": {
-                  "23.98": 144,
-                  "24": 144,
-                  "25": 150,
-                  "29.97": 180,
-                  "30": 180,
-                  "50": 300,
-                  "59.94": 360,
-                  "60": 360
+                  "23.98": 145,
+                  "24": 145,
+                  "25": 152,
+                  "29.97": 182,
+                  "30": 182,
+                  "50": 304,
+                  "59.94": 364,
+                  "60": 364
                 }
               },
               "description": "Lowest quality for offline editing and proxies",
@@ -1321,7 +924,7 @@
               "sourceUrls": [
                 "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
               ],
-              "notes": "Target data rate scaled from Apple ProRes 1920x1080 29.97 fps reference values."
+              "notes": "Apple ProRes target data-rate table values; UHD scaled from DCI 4K by active raster area."
             },
             {
               "name": "ProRes 422 LT",
@@ -1369,42 +972,42 @@
                 "1080p": {
                   "23.98": 82,
                   "24": 82,
-                  "25": 85,
+                  "25": 87,
                   "29.97": 102,
                   "30": 102,
-                  "50": 170,
+                  "50": 171,
                   "59.94": 204,
                   "60": 204
                 },
                 "2K": {
-                  "23.98": 87,
-                  "24": 87,
-                  "25": 91,
-                  "29.97": 109,
-                  "30": 109,
-                  "50": 182,
-                  "59.94": 218,
-                  "60": 218
+                  "23.98": 93,
+                  "24": 93,
+                  "25": 97,
+                  "29.97": 116,
+                  "30": 116,
+                  "50": 194,
+                  "59.94": 232,
+                  "60": 232
                 },
                 "4K": {
-                  "23.98": 348,
-                  "24": 349,
-                  "25": 363,
-                  "29.97": 435,
-                  "30": 436,
-                  "50": 726,
-                  "59.94": 870,
-                  "60": 871
+                  "23.98": 350,
+                  "24": 350,
+                  "25": 365,
+                  "29.97": 438,
+                  "30": 438,
+                  "50": 729,
+                  "59.94": 874,
+                  "60": 876
                 },
                 "UHD": {
-                  "23.98": 326,
-                  "24": 327,
-                  "25": 340,
-                  "29.97": 408,
-                  "30": 408,
-                  "50": 681,
-                  "59.94": 816,
-                  "60": 817
+                  "23.98": 328,
+                  "24": 328,
+                  "25": 342,
+                  "29.97": 411,
+                  "30": 411,
+                  "50": 683,
+                  "59.94": 819,
+                  "60": 821
                 }
               },
               "description": "Lower quality for basic editing workflows",
@@ -1412,7 +1015,7 @@
               "sourceUrls": [
                 "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
               ],
-              "notes": "Target data rate scaled from Apple ProRes 1920x1080 29.97 fps reference values."
+              "notes": "Apple ProRes target data-rate table values; UHD scaled from DCI 4K by active raster area."
             },
             {
               "name": "ProRes 422",
@@ -1458,9 +1061,9 @@
                   "60": 131
                 },
                 "1080p": {
-                  "23.98": 118,
-                  "24": 118,
-                  "25": 123,
+                  "23.98": 117,
+                  "24": 117,
+                  "25": 126,
                   "29.97": 147,
                   "30": 147,
                   "50": 245,
@@ -1468,34 +1071,34 @@
                   "60": 294
                 },
                 "2K": {
-                  "23.98": 125,
-                  "24": 126,
-                  "25": 131,
-                  "29.97": 157,
-                  "30": 157,
-                  "50": 262,
-                  "59.94": 314,
-                  "60": 314
+                  "23.98": 134,
+                  "24": 134,
+                  "25": 140,
+                  "29.97": 168,
+                  "30": 168,
+                  "50": 280,
+                  "59.94": 335,
+                  "60": 335
                 },
                 "4K": {
-                  "23.98": 502,
-                  "24": 502,
-                  "25": 523,
-                  "29.97": 627,
-                  "30": 628,
-                  "50": 1046,
-                  "59.94": 1254,
-                  "60": 1256
+                  "23.98": 503,
+                  "24": 503,
+                  "25": 524,
+                  "29.97": 629,
+                  "30": 629,
+                  "50": 1048,
+                  "59.94": 1256,
+                  "60": 1258
                 },
                 "UHD": {
-                  "23.98": 470,
-                  "24": 471,
-                  "25": 490,
-                  "29.97": 588,
-                  "30": 589,
-                  "50": 981,
-                  "59.94": 1176,
-                  "60": 1177
+                  "23.98": 472,
+                  "24": 472,
+                  "25": 491,
+                  "29.97": 590,
+                  "30": 590,
+                  "50": 982,
+                  "59.94": 1178,
+                  "60": 1179
                 }
               },
               "description": "Standard quality for professional editing",
@@ -1503,7 +1106,7 @@
               "sourceUrls": [
                 "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
               ],
-              "notes": "Target data rate scaled from Apple ProRes 1920x1080 29.97 fps reference values."
+              "notes": "Apple ProRes target data-rate table values; UHD scaled from DCI 4K by active raster area."
             },
             {
               "name": "ProRes 422 HQ",
@@ -1551,7 +1154,7 @@
                 "1080p": {
                   "23.98": 176,
                   "24": 176,
-                  "25": 184,
+                  "25": 189,
                   "29.97": 220,
                   "30": 220,
                   "50": 367,
@@ -1559,34 +1162,34 @@
                   "60": 440
                 },
                 "2K": {
-                  "23.98": 188,
-                  "24": 188,
-                  "25": 196,
-                  "29.97": 235,
-                  "30": 235,
-                  "50": 392,
-                  "59.94": 469,
-                  "60": 470
+                  "23.98": 201,
+                  "24": 201,
+                  "25": 210,
+                  "29.97": 251,
+                  "30": 251,
+                  "50": 419,
+                  "59.94": 503,
+                  "60": 503
                 },
                 "4K": {
-                  "23.98": 751,
-                  "24": 752,
-                  "25": 783,
-                  "29.97": 939,
-                  "30": 940,
-                  "50": 1566,
-                  "59.94": 1877,
-                  "60": 1879
+                  "23.98": 754,
+                  "24": 754,
+                  "25": 786,
+                  "29.97": 943,
+                  "30": 943,
+                  "50": 1572,
+                  "59.94": 1885,
+                  "60": 1886
                 },
                 "UHD": {
-                  "23.98": 704,
-                  "24": 705,
-                  "25": 734,
-                  "29.97": 880,
-                  "30": 881,
-                  "50": 1468,
-                  "59.94": 1760,
-                  "60": 1762
+                  "23.98": 707,
+                  "24": 707,
+                  "25": 737,
+                  "29.97": 884,
+                  "30": 884,
+                  "50": 1474,
+                  "59.94": 1767,
+                  "60": 1768
                 }
               },
               "description": "High quality for demanding workflows",
@@ -1594,7 +1197,7 @@
               "sourceUrls": [
                 "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
               ],
-              "notes": "Target data rate scaled from Apple ProRes 1920x1080 29.97 fps reference values."
+              "notes": "Apple ProRes target data-rate table values; UHD scaled from DCI 4K by active raster area."
             },
             {
               "name": "ProRes 4444",
@@ -1642,42 +1245,42 @@
                 "1080p": {
                   "23.98": 264,
                   "24": 264,
-                  "25": 275,
+                  "25": 283,
                   "29.97": 330,
                   "30": 330,
-                  "50": 551,
+                  "50": 550,
                   "59.94": 660,
-                  "60": 661
+                  "60": 660
                 },
                 "2K": {
-                  "23.98": 282,
-                  "24": 282,
-                  "25": 294,
-                  "29.97": 352,
-                  "30": 352,
-                  "50": 587,
-                  "59.94": 704,
-                  "60": 705
+                  "23.98": 302,
+                  "24": 302,
+                  "25": 315,
+                  "29.97": 377,
+                  "30": 377,
+                  "50": 629,
+                  "59.94": 754,
+                  "60": 754
                 },
                 "4K": {
-                  "23.98": 1127,
-                  "24": 1128,
-                  "25": 1175,
-                  "29.97": 1408,
-                  "30": 1409,
-                  "50": 2349,
-                  "59.94": 2816,
-                  "60": 2819
+                  "23.98": 1131,
+                  "24": 1131,
+                  "25": 1179,
+                  "29.97": 1414,
+                  "30": 1414,
+                  "50": 2358,
+                  "59.94": 2827,
+                  "60": 2829
                 },
                 "UHD": {
-                  "23.98": 1056,
-                  "24": 1057,
-                  "25": 1101,
-                  "29.97": 1320,
-                  "30": 1321,
-                  "50": 2202,
-                  "59.94": 2640,
-                  "60": 2643
+                  "23.98": 1060,
+                  "24": 1060,
+                  "25": 1105,
+                  "29.97": 1326,
+                  "30": 1326,
+                  "50": 2211,
+                  "59.94": 2650,
+                  "60": 2652
                 }
               },
               "description": "Highest quality with alpha channel support",
@@ -1685,7 +1288,7 @@
               "sourceUrls": [
                 "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
               ],
-              "notes": "Target data rate scaled from Apple ProRes 1920x1080 29.97 fps reference values."
+              "notes": "Apple ProRes target data-rate table values; UHD scaled from DCI 4K by active raster area."
             },
             {
               "name": "ProRes 4444 XQ",
@@ -1731,44 +1334,44 @@
                   "60": 445
                 },
                 "1080p": {
-                  "23.98": 400,
-                  "24": 400,
-                  "25": 417,
-                  "29.97": 500,
-                  "30": 501,
-                  "50": 834,
-                  "59.94": 1000,
-                  "60": 1001
+                  "23.98": 396,
+                  "24": 396,
+                  "25": 424,
+                  "29.97": 495,
+                  "30": 495,
+                  "50": 825,
+                  "59.94": 990,
+                  "60": 990
                 },
                 "2K": {
-                  "23.98": 427,
-                  "24": 427,
-                  "25": 445,
-                  "29.97": 533,
-                  "30": 534,
-                  "50": 890,
-                  "59.94": 1067,
-                  "60": 1068
+                  "23.98": 453,
+                  "24": 453,
+                  "25": 472,
+                  "29.97": 566,
+                  "30": 566,
+                  "50": 943,
+                  "59.94": 1131,
+                  "60": 1131
                 },
                 "4K": {
-                  "23.98": 1707,
-                  "24": 1708,
-                  "25": 1780,
-                  "29.97": 2133,
-                  "30": 2135,
-                  "50": 3559,
-                  "59.94": 4267,
-                  "60": 4271
+                  "23.98": 1697,
+                  "24": 1697,
+                  "25": 1768,
+                  "29.97": 2120,
+                  "30": 2120,
+                  "50": 3537,
+                  "59.94": 4240,
+                  "60": 4243
                 },
                 "UHD": {
-                  "23.98": 1600,
-                  "24": 1602,
-                  "25": 1668,
-                  "29.97": 2000,
-                  "30": 2002,
-                  "50": 3337,
-                  "59.94": 4000,
-                  "60": 4004
+                  "23.98": 1591,
+                  "24": 1591,
+                  "25": 1658,
+                  "29.97": 1988,
+                  "30": 1988,
+                  "50": 3316,
+                  "59.94": 3975,
+                  "60": 3978
                 }
               },
               "description": "Extreme quality for high-end color grading",
@@ -1776,7 +1379,7 @@
               "sourceUrls": [
                 "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
               ],
-              "notes": "Target data rate scaled from Apple ProRes 1920x1080 29.97 fps reference values."
+              "notes": "Apple ProRes target data-rate table values; UHD scaled from DCI 4K by active raster area."
             }
           ],
           "description": "Industry standard for professional editing and color grading",
@@ -1785,7 +1388,7 @@
           "sourceUrls": [
             "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
           ],
-          "notes": "Apple target data rates scaled by frame size and frame rate from the ProRes white paper."
+          "notes": "Apple ProRes target data rates; table values used where published, with UHD scaled from Apple HD/DCI targets."
         },
         {
           "id": "dnxhd",
@@ -1802,9 +1405,10 @@
               "description": "Lowest quality DNxHD for offline editing",
               "accuracy": "spec",
               "sourceUrls": [
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications",
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "Documented DNxHD bitrate mode; unsupported resolution/frame-rate combinations removed."
+              "notes": "Documented DNxHD bitrate mode; unsupported combinations intentionally omitted."
             },
             {
               "name": "DNxHD 115",
@@ -1817,9 +1421,10 @@
               "description": "Medium quality DNxHD for 720p workflows",
               "accuracy": "spec",
               "sourceUrls": [
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications",
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "Documented DNxHD bitrate mode; unsupported resolution/frame-rate combinations removed."
+              "notes": "Documented DNxHD bitrate mode; unsupported combinations intentionally omitted."
             },
             {
               "name": "DNxHD 120",
@@ -1834,9 +1439,10 @@
               "description": "Standard quality DNxHD for 25p/50i workflows",
               "accuracy": "spec",
               "sourceUrls": [
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications",
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "Documented DNxHD bitrate mode; unsupported resolution/frame-rate combinations removed."
+              "notes": "Documented DNxHD bitrate mode; unsupported combinations intentionally omitted."
             },
             {
               "name": "DNxHD 145",
@@ -1853,9 +1459,10 @@
               "description": "Standard quality DNxHD for online editing",
               "accuracy": "spec",
               "sourceUrls": [
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications",
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "Documented DNxHD bitrate mode; unsupported resolution/frame-rate combinations removed."
+              "notes": "Documented DNxHD bitrate mode; unsupported combinations intentionally omitted."
             },
             {
               "name": "DNxHD 175",
@@ -1868,62 +1475,63 @@
               "description": "High quality DNxHD for 23.98/24/25/29.97/30 workflows (10-bit variant is 175x)",
               "accuracy": "spec",
               "sourceUrls": [
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications",
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "Documented DNxHD bitrate mode; unsupported resolution/frame-rate combinations removed."
+              "notes": "Documented DNxHD bitrate mode; unsupported combinations intentionally omitted."
             },
             {
               "name": "DNxHR LB",
               "bitrates": {
                 "720p": {
-                  "23.98": 16,
-                  "24": 16,
-                  "25": 17,
-                  "29.97": 20,
-                  "30": 20,
-                  "50": 33,
-                  "59.94": 40,
-                  "60": 40
+                  "23.98": 20,
+                  "24": 20,
+                  "25": 21,
+                  "29.97": 25,
+                  "30": 25,
+                  "50": 42,
+                  "59.94": 50,
+                  "60": 50
                 },
                 "1080p": {
-                  "23.98": 36,
-                  "24": 36,
-                  "25": 38,
-                  "29.97": 45,
-                  "30": 45,
-                  "50": 75,
-                  "59.94": 90,
-                  "60": 90
+                  "23.98": 45,
+                  "24": 45,
+                  "25": 47,
+                  "29.97": 56,
+                  "30": 56,
+                  "50": 94,
+                  "59.94": 112,
+                  "60": 113
                 },
                 "2K": {
-                  "23.98": 38,
-                  "24": 38,
-                  "25": 40,
-                  "29.97": 48,
-                  "30": 48,
-                  "50": 80,
-                  "59.94": 96,
-                  "60": 96
-                },
-                "4K": {
-                  "23.98": 154,
-                  "24": 154,
-                  "25": 160,
-                  "29.97": 192,
-                  "30": 192,
-                  "50": 320,
-                  "59.94": 384,
-                  "60": 384
+                  "23.98": 48,
+                  "24": 48,
+                  "25": 50,
+                  "29.97": 60,
+                  "30": 60,
+                  "50": 100,
+                  "59.94": 120,
+                  "60": 120
                 },
                 "UHD": {
-                  "23.98": 144,
-                  "24": 144,
-                  "25": 150,
-                  "29.97": 180,
-                  "30": 180,
-                  "50": 300,
-                  "59.94": 360,
-                  "60": 360
+                  "23.98": 180,
+                  "24": 180,
+                  "25": 188,
+                  "29.97": 225,
+                  "30": 225,
+                  "50": 375,
+                  "59.94": 450,
+                  "60": 450
+                },
+                "4K": {
+                  "23.98": 192,
+                  "24": 192,
+                  "25": 200,
+                  "29.97": 240,
+                  "30": 240,
+                  "50": 400,
+                  "59.94": 480,
+                  "60": 480
                 }
               },
               "description": "Low Bandwidth DNxHR for proxy workflows",
@@ -1931,60 +1539,60 @@
               "sourceUrls": [
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "DNxHR target bandwidth scaled by raster and frame rate from Avid bandwidth guidance."
+              "notes": "Converted from Avid DNxHR bandwidth tables using HD 23.976 anchor values and raster/frame-rate scaling; SQ corrected from previous undercount."
             },
             {
               "name": "DNxHR SQ",
               "bitrates": {
                 "720p": {
-                  "23.98": 39,
-                  "24": 39,
-                  "25": 41,
-                  "29.97": 49,
-                  "30": 49,
-                  "50": 82,
-                  "59.94": 98,
-                  "60": 98
+                  "23.98": 49,
+                  "24": 49,
+                  "25": 51,
+                  "29.97": 61,
+                  "30": 61,
+                  "50": 102,
+                  "59.94": 122,
+                  "60": 122
                 },
                 "1080p": {
-                  "23.98": 88,
-                  "24": 88,
-                  "25": 92,
-                  "29.97": 110,
-                  "30": 110,
-                  "50": 184,
-                  "59.94": 220,
-                  "60": 220
+                  "23.98": 110,
+                  "24": 110,
+                  "25": 115,
+                  "29.97": 138,
+                  "30": 138,
+                  "50": 229,
+                  "59.94": 275,
+                  "60": 275
                 },
                 "2K": {
-                  "23.98": 94,
-                  "24": 94,
-                  "25": 98,
-                  "29.97": 117,
-                  "30": 117,
-                  "50": 196,
-                  "59.94": 235,
-                  "60": 235
-                },
-                "4K": {
-                  "23.98": 376,
-                  "24": 376,
-                  "25": 392,
-                  "29.97": 469,
-                  "30": 470,
-                  "50": 783,
-                  "59.94": 939,
-                  "60": 940
+                  "23.98": 117,
+                  "24": 117,
+                  "25": 122,
+                  "29.97": 147,
+                  "30": 147,
+                  "50": 245,
+                  "59.94": 293,
+                  "60": 294
                 },
                 "UHD": {
-                  "23.98": 352,
-                  "24": 352,
-                  "25": 367,
-                  "29.97": 440,
-                  "30": 440,
-                  "50": 734,
-                  "59.94": 880,
-                  "60": 881
+                  "23.98": 440,
+                  "24": 440,
+                  "25": 459,
+                  "29.97": 550,
+                  "30": 551,
+                  "50": 918,
+                  "59.94": 1100,
+                  "60": 1101
+                },
+                "4K": {
+                  "23.98": 469,
+                  "24": 470,
+                  "25": 489,
+                  "29.97": 587,
+                  "30": 587,
+                  "50": 979,
+                  "59.94": 1173,
+                  "60": 1175
                 }
               },
               "description": "Standard Quality DNxHR",
@@ -1992,7 +1600,7 @@
               "sourceUrls": [
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "DNxHR target bandwidth scaled by raster and frame rate from Avid bandwidth guidance."
+              "notes": "Converted from Avid DNxHR bandwidth tables using HD 23.976 anchor values and raster/frame-rate scaling; SQ corrected from previous undercount."
             },
             {
               "name": "DNxHR HQ",
@@ -2027,16 +1635,6 @@
                   "59.94": 469,
                   "60": 470
                 },
-                "4K": {
-                  "23.98": 751,
-                  "24": 752,
-                  "25": 783,
-                  "29.97": 939,
-                  "30": 940,
-                  "50": 1566,
-                  "59.94": 1877,
-                  "60": 1879
-                },
                 "UHD": {
                   "23.98": 704,
                   "24": 705,
@@ -2046,6 +1644,16 @@
                   "50": 1468,
                   "59.94": 1760,
                   "60": 1762
+                },
+                "4K": {
+                  "23.98": 751,
+                  "24": 752,
+                  "25": 783,
+                  "29.97": 939,
+                  "30": 940,
+                  "50": 1566,
+                  "59.94": 1877,
+                  "60": 1879
                 }
               },
               "description": "High Quality DNxHR (8-bit)",
@@ -2053,60 +1661,60 @@
               "sourceUrls": [
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "DNxHR target bandwidth scaled by raster and frame rate from Avid bandwidth guidance."
+              "notes": "Converted from Avid DNxHR bandwidth tables using HD 23.976 anchor values and raster/frame-rate scaling; SQ corrected from previous undercount."
             },
             {
               "name": "DNxHR HQX",
               "bitrates": {
                 "720p": {
-                  "23.98": 78,
-                  "24": 78,
-                  "25": 82,
-                  "29.97": 98,
-                  "30": 98,
-                  "50": 163,
-                  "59.94": 196,
-                  "60": 196
+                  "23.98": 98,
+                  "24": 98,
+                  "25": 102,
+                  "29.97": 122,
+                  "30": 122,
+                  "50": 204,
+                  "59.94": 244,
+                  "60": 245
                 },
                 "1080p": {
-                  "23.98": 176,
-                  "24": 176,
-                  "25": 184,
-                  "29.97": 220,
-                  "30": 220,
-                  "50": 367,
-                  "59.94": 440,
-                  "60": 440
+                  "23.98": 220,
+                  "24": 220,
+                  "25": 229,
+                  "29.97": 275,
+                  "30": 275,
+                  "50": 459,
+                  "59.94": 550,
+                  "60": 551
                 },
                 "2K": {
-                  "23.98": 188,
-                  "24": 188,
-                  "25": 196,
-                  "29.97": 235,
-                  "30": 235,
-                  "50": 392,
-                  "59.94": 469,
-                  "60": 470
-                },
-                "4K": {
-                  "23.98": 751,
-                  "24": 752,
-                  "25": 783,
-                  "29.97": 939,
-                  "30": 940,
-                  "50": 1566,
-                  "59.94": 1877,
-                  "60": 1879
+                  "23.98": 235,
+                  "24": 235,
+                  "25": 245,
+                  "29.97": 293,
+                  "30": 294,
+                  "50": 489,
+                  "59.94": 587,
+                  "60": 587
                 },
                 "UHD": {
-                  "23.98": 704,
-                  "24": 705,
-                  "25": 734,
-                  "29.97": 880,
-                  "30": 881,
-                  "50": 1468,
-                  "59.94": 1760,
-                  "60": 1762
+                  "23.98": 880,
+                  "24": 881,
+                  "25": 918,
+                  "29.97": 1100,
+                  "30": 1101,
+                  "50": 1835,
+                  "59.94": 2200,
+                  "60": 2202
+                },
+                "4K": {
+                  "23.98": 939,
+                  "24": 940,
+                  "25": 979,
+                  "29.97": 1173,
+                  "30": 1175,
+                  "50": 1958,
+                  "59.94": 2347,
+                  "60": 2349
                 }
               },
               "description": "High Quality DNxHR (10-bit)",
@@ -2114,7 +1722,7 @@
               "sourceUrls": [
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "DNxHR target bandwidth scaled by raster and frame rate from Avid bandwidth guidance."
+              "notes": "Converted from Avid DNxHR bandwidth tables using HD 23.976 anchor values and raster/frame-rate scaling; SQ corrected from previous undercount."
             },
             {
               "name": "DNxHR 444",
@@ -2149,16 +1757,6 @@
                   "59.94": 939,
                   "60": 940
                 },
-                "4K": {
-                  "23.98": 1502,
-                  "24": 1503,
-                  "25": 1566,
-                  "29.97": 1877,
-                  "30": 1879,
-                  "50": 3132,
-                  "59.94": 3755,
-                  "60": 3758
-                },
                 "UHD": {
                   "23.98": 1408,
                   "24": 1409,
@@ -2168,6 +1766,16 @@
                   "50": 2936,
                   "59.94": 3520,
                   "60": 3524
+                },
+                "4K": {
+                  "23.98": 1502,
+                  "24": 1503,
+                  "25": 1566,
+                  "29.97": 1877,
+                  "30": 1879,
+                  "50": 3132,
+                  "59.94": 3755,
+                  "60": 3758
                 }
               },
               "description": "Highest quality DNxHR (12-bit, 4:4:4)",
@@ -2175,16 +1783,101 @@
               "sourceUrls": [
                 "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
               ],
-              "notes": "DNxHR target bandwidth scaled by raster and frame rate from Avid bandwidth guidance."
+              "notes": "Converted from Avid DNxHR bandwidth tables using HD 23.976 anchor values and raster/frame-rate scaling; SQ corrected from previous undercount."
+            },
+            {
+              "name": "DNxHD 185",
+              "bitrates": {
+                "1080p": {
+                  "25": 185
+                },
+                "1080i": {
+                  "25": 185
+                }
+              },
+              "description": "DNxHD 185 documented DNxHD mode",
+              "accuracy": "spec",
+              "sourceUrls": [
+                "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications",
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications"
+              ],
+              "notes": "Added from DNxHD naming/bandwidth references."
+            },
+            {
+              "name": "DNxHD 185x",
+              "bitrates": {
+                "1080p": {
+                  "25": 185
+                },
+                "1080i": {
+                  "25": 185
+                }
+              },
+              "description": "DNxHD 185x documented DNxHD mode",
+              "accuracy": "spec",
+              "sourceUrls": [
+                "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications",
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications"
+              ],
+              "notes": "Added from DNxHD naming/bandwidth references."
+            },
+            {
+              "name": "DNxHD 220",
+              "bitrates": {
+                "1080p": {
+                  "29.97": 220,
+                  "30": 220
+                },
+                "1080i": {
+                  "29.97": 220,
+                  "30": 220
+                },
+                "720p": {
+                  "59.94": 220,
+                  "60": 220
+                }
+              },
+              "description": "DNxHD 220 documented DNxHD mode",
+              "accuracy": "spec",
+              "sourceUrls": [
+                "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications",
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications"
+              ],
+              "notes": "Added from DNxHD naming/bandwidth references."
+            },
+            {
+              "name": "DNxHD 220x",
+              "bitrates": {
+                "1080p": {
+                  "29.97": 220,
+                  "30": 220
+                },
+                "1080i": {
+                  "29.97": 220,
+                  "30": 220
+                },
+                "720p": {
+                  "59.94": 220,
+                  "60": 220
+                }
+              },
+              "description": "DNxHD 220x documented DNxHD mode",
+              "accuracy": "spec",
+              "sourceUrls": [
+                "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications",
+                "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications"
+              ],
+              "notes": "Added from DNxHD naming/bandwidth references."
             }
           ],
           "description": "Avid's professional codec family optimized for editorial workflows",
           "workflowNotes": "Designed for Avid Media Composer and broadcast workflows. Excellent for collaborative editing environments.",
           "accuracy": "spec",
           "sourceUrls": [
+            "https://audioperception.com/pro-tools/11001-hd-and-sd-media-bandwidth-specifications",
             "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
           ],
-          "notes": "DNxHD variants are limited to documented HD modes; DNxHR families are scaled estimates from Avid bandwidth tables."
+          "notes": "DNxHD entries are documented HD modes; DNxHR entries are converted from Avid bandwidth tables where available."
         },
         {
           "id": "cineform",
@@ -2473,8 +2166,8 @@
                   "60": 50
                 },
                 "1080p": {
-                  "23.98": 50,
-                  "24": 50,
+                  "23.98": 45,
+                  "24": 45,
                   "25": 50,
                   "29.97": 50,
                   "30": 50
@@ -2485,87 +2178,90 @@
                 }
               },
               "description": "Standard quality AVC-Intra",
-              "accuracy": "spec",
+              "accuracy": "estimate",
               "sourceUrls": [
-                "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf"
+                "https://pro-av.panasonic.net/en/products/aj-pg50/features.html"
               ],
-              "notes": "Nominal Panasonic AVC-Intra class bitrate for supported HD modes."
+              "notes": "Nominal AVC-Intra operating point by class and frame rate; exact support depends on AVC-ULTRA device/mode."
             },
             {
               "name": "AVC-Intra 100",
               "bitrates": {
                 "720p": {
-                  "23.98": 100,
-                  "24": 100,
-                  "25": 100,
-                  "29.97": 100,
-                  "30": 100,
-                  "50": 100,
-                  "59.94": 100,
-                  "60": 100
+                  "23.98": 89,
+                  "24": 89,
+                  "25": 89,
+                  "29.97": 89,
+                  "30": 89,
+                  "50": 178,
+                  "59.94": 178,
+                  "60": 178
                 },
                 "1080p": {
-                  "23.98": 100,
-                  "24": 100,
-                  "25": 100,
-                  "29.97": 100,
-                  "30": 100
+                  "23.98": 89,
+                  "24": 89,
+                  "25": 111,
+                  "29.97": 112,
+                  "30": 112,
+                  "50": 222,
+                  "59.94": 223,
+                  "60": 223
                 },
                 "1080i": {
-                  "25": 100,
-                  "29.97": 100
+                  "25": 111,
+                  "29.97": 112
                 }
               },
               "description": "High quality AVC-Intra",
-              "accuracy": "spec",
+              "accuracy": "estimate",
               "sourceUrls": [
-                "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf"
+                "https://pro-av.panasonic.net/en/products/aj-pg50/features.html"
               ],
-              "notes": "Nominal Panasonic AVC-Intra class bitrate for supported HD modes."
+              "notes": "Nominal AVC-Intra operating point by class and frame rate; exact support depends on AVC-ULTRA device/mode."
             },
             {
               "name": "AVC-Intra 200",
               "bitrates": {
                 "720p": {
-                  "23.98": 200,
-                  "24": 200,
-                  "25": 200,
-                  "29.97": 200,
-                  "30": 200,
-                  "50": 200,
-                  "59.94": 200,
-                  "60": 200
+                  "23.98": 181,
+                  "24": 181,
+                  "25": 181,
+                  "29.97": 181,
+                  "30": 181,
+                  "50": 362,
+                  "59.94": 362,
+                  "60": 362
                 },
                 "1080p": {
-                  "23.98": 200,
-                  "24": 200,
-                  "25": 200,
-                  "29.97": 200,
-                  "30": 200,
-                  "50": 400,
-                  "59.94": 400,
-                  "60": 400
+                  "23.98": 181,
+                  "24": 181,
+                  "25": 226,
+                  "29.97": 227,
+                  "30": 227,
+                  "50": 452,
+                  "59.94": 454,
+                  "60": 454
                 },
                 "1080i": {
-                  "25": 200,
-                  "29.97": 200
+                  "25": 226,
+                  "29.97": 227
                 }
               },
               "description": "Highest quality AVC-Intra",
-              "accuracy": "spec",
+              "accuracy": "estimate",
               "sourceUrls": [
-                "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf"
+                "https://pro-av.panasonic.net/en/products/aj-pg50/features.html"
               ],
-              "notes": "Nominal Panasonic AVC-Intra class bitrate for supported HD modes."
+              "notes": "Nominal AVC-Intra operating point by class and frame rate; exact support depends on AVC-ULTRA device/mode."
             }
           ],
           "description": "Panasonic's intraframe codec for professional cameras",
           "workflowNotes": "Used in Panasonic professional cameras. Intraframe compression for easy editing and color grading.",
-          "accuracy": "spec",
+          "accuracy": "estimate",
           "sourceUrls": [
-            "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf"
+            "https://pro-av.panasonic.net/en/products/aj-pg50/features.html"
           ],
-          "notes": "Panasonic AVC-Intra classes use nominal class bitrates; unsupported broad 4K placeholder values removed."
+          "notes": "AVC-Intra classes are nominal operating points; values vary by class/frame rate and unsupported SD/4K catchalls are omitted."
         },
         {
           "id": "xavc",
@@ -2575,8 +2271,8 @@
               "name": "XAVC-L",
               "bitrates": {
                 "1080p": {
-                  "23.98": 35,
-                  "24": 35,
+                  "23.98": 25,
+                  "24": 25,
                   "25": 35,
                   "29.97": 35,
                   "30": 35,
@@ -2608,40 +2304,41 @@
               "description": "Long GOP XAVC for efficient recording",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://www.sony.co.uk/electronics/support/decks-and-recorders-xdcam-disc-memory/articles/00353570"
+                "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf",
+                "https://www.sony.co.uk/electronics/support/articles/00353570"
               ],
-              "notes": "Common Sony XAVC mode target; exact support depends on camera model and recording mode."
+              "notes": "Common XAVC operating-point estimate; exact support depends on profile/camera/system frequency."
             },
             {
               "name": "XAVC-I",
               "bitrates": {
                 "1080p": {
-                  "23.98": 111,
-                  "24": 111,
+                  "23.98": 89,
+                  "24": 89,
                   "25": 111,
-                  "29.97": 111,
-                  "30": 111,
+                  "29.97": 112,
+                  "30": 112,
                   "50": 222,
-                  "59.94": 222,
-                  "60": 222
+                  "59.94": 223,
+                  "60": 223
                 },
                 "4K": {
-                  "23.98": 300,
-                  "24": 300,
-                  "25": 300,
+                  "23.98": 240,
+                  "24": 240,
+                  "25": 250,
                   "29.97": 300,
                   "30": 300,
-                  "50": 600,
+                  "50": 500,
                   "59.94": 600,
                   "60": 600
                 },
                 "UHD": {
-                  "23.98": 300,
-                  "24": 300,
-                  "25": 300,
+                  "23.98": 240,
+                  "24": 240,
+                  "25": 250,
                   "29.97": 300,
                   "30": 300,
-                  "50": 600,
+                  "50": 500,
                   "59.94": 600,
                   "60": 600
                 }
@@ -2649,9 +2346,10 @@
               "description": "Intraframe XAVC for professional workflows",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://www.sony.co.uk/electronics/support/decks-and-recorders-xdcam-disc-memory/articles/00353570"
+                "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf",
+                "https://www.sony.co.uk/electronics/support/articles/00353570"
               ],
-              "notes": "Common Sony XAVC mode target; exact support depends on camera model and recording mode."
+              "notes": "Common XAVC operating-point estimate; exact support depends on profile/camera/system frequency."
             },
             {
               "name": "XAVC-HS",
@@ -2670,55 +2368,57 @@
                   "23.98": 100,
                   "24": 100,
                   "25": 100,
-                  "29.97": 100,
-                  "30": 100,
+                  "29.97": 150,
+                  "30": 150,
                   "50": 200,
-                  "59.94": 200,
-                  "60": 200
+                  "59.94": 240,
+                  "60": 240
                 },
                 "UHD": {
                   "23.98": 100,
                   "24": 100,
                   "25": 100,
-                  "29.97": 100,
-                  "30": 100,
+                  "29.97": 150,
+                  "30": 150,
                   "50": 200,
-                  "59.94": 200,
-                  "60": 200
+                  "59.94": 240,
+                  "60": 240
                 },
                 "8K UHD": {
-                  "23.98": 300,
-                  "24": 300,
-                  "25": 300,
-                  "29.97": 300,
-                  "30": 300,
-                  "50": 600,
-                  "59.94": 600,
-                  "60": 600
+                  "23.98": 200,
+                  "24": 200,
+                  "25": 240,
+                  "29.97": 280,
+                  "30": 280,
+                  "50": 400,
+                  "59.94": 400,
+                  "60": 400
                 }
               },
               "description": "High-speed XAVC for slow motion",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://www.sony.co.uk/electronics/support/decks-and-recorders-xdcam-disc-memory/articles/00353570"
+                "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf",
+                "https://www.sony.co.uk/electronics/support/articles/00353570"
               ],
-              "notes": "Common Sony XAVC mode target; exact support depends on camera model and recording mode."
+              "notes": "Common XAVC operating-point estimate; exact support depends on profile/camera/system frequency."
             }
           ],
           "description": "Sony's modern acquisition format for high-end cameras",
           "workflowNotes": "Used in Sony's professional and cinema cameras. Excellent image quality with efficient compression.",
           "accuracy": "estimate",
           "sourceUrls": [
-            "https://www.sony.co.uk/electronics/support/decks-and-recorders-xdcam-disc-memory/articles/00353570"
+            "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf",
+            "https://www.sony.co.uk/electronics/support/articles/00353570"
           ],
-          "notes": "Sony XAVC modes vary by camera and system frequency; values use common published mode targets."
+          "notes": "XAVC operating points vary by Sony profile, camera, raster, and frame rate; values use common published operating points."
         },
         {
-          "id": "xdcam_ex",
-          "name": "XDCAM EX",
+          "id": "xdcam",
+          "name": "Sony XDCAM",
           "variants": [
             {
-              "name": "EX HQ 35 Mb/s",
+              "name": "XDCAM EX HQ 35 Mb/s",
               "bitrates": {
                 "1080p": {
                   "23.98": 35,
@@ -2738,66 +2438,34 @@
                   "60": 35
                 }
               },
-              "description": "35 Mb/s, 4:2:0, MP4, SxS. Supports SD fallback.",
+              "description": "XDCAM EX: 35 Mb/s, 4:2:0, MP4, SxS. Supports SD fallback.",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "XDCAM EX HQ mode, VBR maximum 35 Mb/s."
+              "notes": "XDCAM EX HQ mode, VBR maximum 35 Mb/s. Family: Used for field acquisition, SxS cards, 4:2:0 chroma. Also known as XDCAM EX. Supports SD fallback."
             },
             {
-              "name": "EX SP 25 Mb/s",
+              "name": "XDCAM EX SP 25 Mb/s",
               "bitrates": {
                 "1440x1080": {
                   "25": 25,
                   "29.97": 25
                 }
               },
-              "description": "25 Mb/s, 4:2:0, MP4, SxS. Supports SD fallback.",
+              "description": "XDCAM EX: 25 Mb/s, 4:2:0, MP4, SxS. Supports SD fallback.",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "XDCAM EX SP mode, CBR 25 Mb/s at 1440x1080 compatibility mode."
+              "notes": "XDCAM EX SP mode, CBR 25 Mb/s at 1440x1080 compatibility mode. Family: Used for field acquisition, SxS cards, 4:2:0 chroma. Also known as XDCAM EX. Supports SD fallback."
             },
             {
-              "name": "EX LP 18 Mb/s",
-              "bitrates": {
-                "1440x1080": {
-                  "25": 18,
-                  "29.97": 18
-                }
-              },
-              "description": "18 Mb/s, 4:2:0, MP4, SxS. Supports SD fallback.",
-              "accuracy": "spec",
-              "sourceUrls": [
-                "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
-                "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
-                "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
-              ],
-              "notes": "XDCAM HD/EX LP-style 18 Mb/s estimate; playback/support depends on device."
-            }
-          ],
-          "description": "SxS card-based, 35/25/18 Mb/s, 4:2:0",
-          "workflowNotes": "Used for field acquisition, SxS cards, 4:2:0 chroma. Also known as XDCAM EX. Supports SD fallback.",
-          "accuracy": "spec",
-          "sourceUrls": [
-            "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
-            "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
-            "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
-          ],
-          "notes": "Sony XDCAM documented recording modes; unsupported placeholder combinations removed."
-        },
-        {
-          "id": "xdcam_hd",
-          "name": "XDCAM HD (XDCAM35)",
-          "variants": [
-            {
-              "name": "HD HQ 35 Mb/s",
+              "name": "XDCAM HD HQ 35 Mb/s",
               "bitrates": {
                 "1080i": {
                   "25": 35,
@@ -2821,66 +2489,51 @@
                   "60": 35
                 }
               },
-              "description": "35 Mb/s, 4:2:0, MXF, Professional Disc. Supports SD fallback.",
+              "description": "XDCAM HD: 35 Mb/s, 4:2:0, MXF, Professional Disc. Supports SD fallback.",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "XDCAM HD HQ mode, VBR maximum 35 Mb/s."
+              "notes": "XDCAM HD HQ mode, VBR maximum 35 Mb/s. Family: Used for general HD acquisition, 4:2:0 chroma. Also known as XDCAM35 or XDCAM HD. Supports SD fallback."
             },
             {
-              "name": "HD SP 25 Mb/s",
+              "name": "XDCAM HD SP 25 Mb/s",
               "bitrates": {
                 "1440x1080": {
                   "25": 25,
                   "29.97": 25
                 }
               },
-              "description": "25 Mb/s, 4:2:0, MXF, Professional Disc. Supports SD fallback.",
+              "description": "XDCAM HD: 25 Mb/s, 4:2:0, MXF, Professional Disc. Supports SD fallback.",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "XDCAM HD SP/HDV-compatible 25 Mb/s mode."
+              "notes": "XDCAM HD SP/HDV-compatible 25 Mb/s mode. Family: Used for general HD acquisition, 4:2:0 chroma. Also known as XDCAM35 or XDCAM HD. Supports SD fallback."
             },
             {
-              "name": "HD LP 18 Mb/s",
+              "name": "XDCAM HD LP 18 Mb/s",
               "bitrates": {
                 "1080i": {
                   "25": 18,
                   "29.97": 18
                 }
               },
-              "description": "18 Mb/s, 4:2:0, MXF, Professional Disc. Supports SD fallback.",
+              "description": "XDCAM HD: 18 Mb/s, 4:2:0, MXF, Professional Disc. Supports SD fallback.",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "XDCAM HD LP mode, VBR maximum 18 Mb/s."
-            }
-          ],
-          "description": "35 Mb/s MPEG-2 4:2:0, Professional Disc",
-          "workflowNotes": "Used for general HD acquisition, 4:2:0 chroma. Also known as XDCAM35 or XDCAM HD. Supports SD fallback.",
-          "accuracy": "spec",
-          "sourceUrls": [
-            "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
-            "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
-            "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
-          ],
-          "notes": "Sony XDCAM documented recording modes; unsupported placeholder combinations removed."
-        },
-        {
-          "id": "xdcam_hd422",
-          "name": "XDCAM HD422 (XDCAM50)",
-          "variants": [
+              "notes": "XDCAM HD LP mode, VBR maximum 18 Mb/s. Family: Used for general HD acquisition, 4:2:0 chroma. Also known as XDCAM35 or XDCAM HD. Supports SD fallback."
+            },
             {
-              "name": "HD422 50 Mb/s",
+              "name": "XDCAM HD422 50 Mb/s",
               "bitrates": {
                 "1080i": {
                   "25": 50,
@@ -2904,32 +2557,17 @@
                   "60": 50
                 }
               },
-              "description": "50 Mb/s, 4:2:2, MXF, Professional Disc/SxS. Supports SD fallback.",
+              "description": "XDCAM HD422: 50 Mb/s, 4:2:2, MXF, Professional Disc/SxS. Supports SD fallback.",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "XDCAM HD422 MPEG-2 4:2:2P@HL CBR 50 Mb/s mode."
-            }
-          ],
-          "description": "50 Mb/s MPEG-2 4:2:2P@HL, broadcast standard",
-          "workflowNotes": "Used for broadcast delivery, supports 4:2:2 chroma, 8 audio channels. Also known as XDCAM50 or XDCAM HD422.",
-          "accuracy": "spec",
-          "sourceUrls": [
-            "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
-            "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
-            "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
-          ],
-          "notes": "Sony XDCAM documented recording modes; unsupported placeholder combinations removed."
-        },
-        {
-          "id": "xdcam_sd",
-          "name": "XDCAM SD",
-          "variants": [
+              "notes": "XDCAM HD422 MPEG-2 4:2:2P@HL CBR 50 Mb/s mode. Family: Used for broadcast delivery, supports 4:2:2 chroma, 8 audio channels. Also known as XDCAM50 or XDCAM HD422."
+            },
             {
-              "name": "IMX 50 Mb/s",
+              "name": "XDCAM SD IMX 50 Mb/s",
               "bitrates": {
                 "NTSC_D1": {
                   "29.97": 50
@@ -2938,17 +2576,17 @@
                   "25": 50
                 }
               },
-              "description": "MPEG-2 4:2:2P@ML, 50 Mb/s, MXF",
+              "description": "XDCAM SD: MPEG-2 4:2:2P@ML, 50 Mb/s, MXF",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "SD-only XDCAM MPEG IMX/DVCAM mode."
+              "notes": "SD-only XDCAM MPEG IMX/DVCAM mode. Family: Standard definition, IMX and DVCAM, 4:2:2 and 4:1:1. Also known as XDCAM SD."
             },
             {
-              "name": "IMX 40 Mb/s",
+              "name": "XDCAM SD IMX 40 Mb/s",
               "bitrates": {
                 "NTSC_D1": {
                   "29.97": 40
@@ -2957,17 +2595,17 @@
                   "25": 40
                 }
               },
-              "description": "MPEG-2 4:2:2P@ML, 40 Mb/s, MXF",
+              "description": "XDCAM SD: MPEG-2 4:2:2P@ML, 40 Mb/s, MXF",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "SD-only XDCAM MPEG IMX/DVCAM mode."
+              "notes": "SD-only XDCAM MPEG IMX/DVCAM mode. Family: Standard definition, IMX and DVCAM, 4:2:2 and 4:1:1. Also known as XDCAM SD."
             },
             {
-              "name": "IMX 30 Mb/s",
+              "name": "XDCAM SD IMX 30 Mb/s",
               "bitrates": {
                 "NTSC_D1": {
                   "29.97": 30
@@ -2976,17 +2614,17 @@
                   "25": 30
                 }
               },
-              "description": "MPEG-2 4:2:2P@ML, 30 Mb/s, MXF",
+              "description": "XDCAM SD: MPEG-2 4:2:2P@ML, 30 Mb/s, MXF",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "SD-only XDCAM MPEG IMX/DVCAM mode."
+              "notes": "SD-only XDCAM MPEG IMX/DVCAM mode. Family: Standard definition, IMX and DVCAM, 4:2:2 and 4:1:1. Also known as XDCAM SD."
             },
             {
-              "name": "DVCAM 25 Mb/s",
+              "name": "XDCAM SD DVCAM 25 Mb/s",
               "bitrates": {
                 "NTSC_D1": {
                   "29.97": 25
@@ -2995,25 +2633,25 @@
                   "25": 25
                 }
               },
-              "description": "DV, 25 Mb/s, MXF",
+              "description": "XDCAM SD: DV, 25 Mb/s, MXF",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
                 "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
                 "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
               ],
-              "notes": "SD-only XDCAM MPEG IMX/DVCAM mode."
+              "notes": "SD-only XDCAM MPEG IMX/DVCAM mode. Family: Standard definition, IMX and DVCAM, 4:2:2 and 4:1:1. Also known as XDCAM SD."
             }
           ],
-          "description": "SD MPEG IMX and DVCAM, Professional Disc",
-          "workflowNotes": "Standard definition, IMX and DVCAM, 4:2:2 and 4:1:1. Also known as XDCAM SD.",
+          "description": "Sony XDCAM recording families including XDCAM EX, XDCAM HD, XDCAM HD422, and XDCAM SD.",
+          "workflowNotes": "Select Sony XDCAM first, then choose the XDCAM family and recording mode as the codec variant.",
           "accuracy": "spec",
           "sourceUrls": [
             "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
             "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
             "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html"
           ],
-          "notes": "Sony XDCAM documented recording modes; unsupported placeholder combinations removed."
+          "notes": "Merged XDCAM families into one codec. XDCAM EX LP 18 Mb/s removed because Sony EX docs list HQ 35 VBR and SP 25 CBR; 18 Mb/s belongs to XDCAM HD Professional Disc."
         }
       ]
     },
@@ -3029,179 +2667,245 @@
             {
               "name": "J2K Lossless",
               "bitrates": {
-                "NTSC_DV": {
-                  "24": 400,
-                  "30": 400,
-                  "25": 400,
-                  "23.98": 400,
-                  "29.97": 400
+                "NTSC_D1": {
+                  "23.98": 50,
+                  "24": 50,
+                  "25": 52,
+                  "29.97": 63,
+                  "30": 63,
+                  "50": 105,
+                  "59.94": 126,
+                  "60": 126
                 },
                 "PAL": {
-                  "23.98": 400,
-                  "29.97": 400,
-                  "24": 400,
-                  "30": 400,
-                  "25": 400
-                },
-                "NTSC_D1": {
-                  "29.97": 400,
-                  "23.98": 400,
-                  "24": 400,
-                  "30": 400,
-                  "25": 400
-                },
-                "1080p": {
-                  "23.98": 800,
-                  "29.97": 800,
-                  "24": 800,
-                  "25": 800,
-                  "30": 800,
-                  "59.94": 800,
-                  "60": 800
+                  "23.98": 60,
+                  "24": 60,
+                  "25": 62,
+                  "29.97": 75,
+                  "30": 75,
+                  "50": 124,
+                  "59.94": 149,
+                  "60": 149
                 },
                 "720p": {
-                  "23.98": 400,
-                  "29.97": 400,
-                  "59.94": 400,
-                  "30": 400,
-                  "25": 400,
-                  "60": 400,
-                  "24": 400
+                  "23.98": 133,
+                  "24": 133,
+                  "25": 138,
+                  "29.97": 166,
+                  "30": 166,
+                  "50": 276,
+                  "59.94": 331,
+                  "60": 332
+                },
+                "1080p": {
+                  "23.98": 298,
+                  "24": 299,
+                  "25": 311,
+                  "29.97": 373,
+                  "30": 373,
+                  "50": 622,
+                  "59.94": 746,
+                  "60": 746
+                },
+                "2K": {
+                  "23.98": 318,
+                  "24": 319,
+                  "25": 332,
+                  "29.97": 398,
+                  "30": 398,
+                  "50": 664,
+                  "59.94": 795,
+                  "60": 796
                 },
                 "4K": {
-                  "25": 3200,
-                  "59.94": 3200,
-                  "30": 3200,
-                  "60": 3200,
-                  "24": 3200,
-                  "29.97": 3200,
-                  "23.98": 3200
+                  "23.98": 1273,
+                  "24": 1274,
+                  "25": 1327,
+                  "29.97": 1591,
+                  "30": 1593,
+                  "50": 2654,
+                  "59.94": 3182,
+                  "60": 3185
+                },
+                "UHD": {
+                  "23.98": 1193,
+                  "24": 1194,
+                  "25": 1244,
+                  "29.97": 1491,
+                  "30": 1493,
+                  "50": 2488,
+                  "59.94": 2983,
+                  "60": 2986
                 }
               },
               "description": "Mathematically lossless compression",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications"
+                "https://www.loc.gov/preservation/digital/formats/fdd/fdd000138.shtml"
               ],
-              "notes": "Generic JPEG 2000 estimate; use profile-specific IMF/DCP variants for strict delivery specs."
+              "notes": "Lossless JPEG 2000 estimate; content dependent, scaled by active raster and frame rate."
             },
             {
               "name": "J2K Visually Lossless",
               "bitrates": {
-                "4K": {
-                  "59.94": 1600,
-                  "30": 1600,
-                  "25": 1600,
-                  "60": 1600,
-                  "24": 1600,
-                  "23.98": 1600,
-                  "29.97": 1600
-                },
                 "NTSC_D1": {
-                  "24": 200,
-                  "30": 200,
-                  "25": 200,
-                  "29.97": 200,
-                  "23.98": 200
-                },
-                "1080p": {
-                  "29.97": 400,
-                  "23.98": 400,
-                  "24": 400,
-                  "60": 400,
-                  "25": 400,
-                  "59.94": 400,
-                  "30": 400
-                },
-                "720p": {
-                  "25": 200,
-                  "59.94": 200,
-                  "30": 200,
-                  "60": 200,
-                  "24": 200,
-                  "29.97": 200,
-                  "23.98": 200
+                  "23.98": 25,
+                  "24": 25,
+                  "25": 26,
+                  "29.97": 31,
+                  "30": 31,
+                  "50": 52,
+                  "59.94": 63,
+                  "60": 63
                 },
                 "PAL": {
-                  "29.97": 200,
-                  "23.98": 200,
-                  "24": 200,
-                  "30": 200,
-                  "25": 200
+                  "23.98": 30,
+                  "24": 30,
+                  "25": 31,
+                  "29.97": 37,
+                  "30": 37,
+                  "50": 62,
+                  "59.94": 75,
+                  "60": 75
                 },
-                "NTSC_DV": {
-                  "24": 200,
-                  "25": 200,
-                  "30": 200,
-                  "23.98": 200,
-                  "29.97": 200
+                "720p": {
+                  "23.98": 66,
+                  "24": 66,
+                  "25": 69,
+                  "29.97": 83,
+                  "30": 83,
+                  "50": 138,
+                  "59.94": 166,
+                  "60": 166
+                },
+                "1080p": {
+                  "23.98": 149,
+                  "24": 149,
+                  "25": 156,
+                  "29.97": 186,
+                  "30": 187,
+                  "50": 311,
+                  "59.94": 373,
+                  "60": 373
+                },
+                "2K": {
+                  "23.98": 159,
+                  "24": 159,
+                  "25": 166,
+                  "29.97": 199,
+                  "30": 199,
+                  "50": 332,
+                  "59.94": 398,
+                  "60": 398
+                },
+                "4K": {
+                  "23.98": 636,
+                  "24": 637,
+                  "25": 664,
+                  "29.97": 795,
+                  "30": 796,
+                  "50": 1327,
+                  "59.94": 1591,
+                  "60": 1593
+                },
+                "UHD": {
+                  "23.98": 597,
+                  "24": 597,
+                  "25": 622,
+                  "29.97": 746,
+                  "30": 746,
+                  "50": 1244,
+                  "59.94": 1491,
+                  "60": 1493
                 }
               },
               "description": "Visually lossless compression",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications"
+                "https://www.loc.gov/preservation/digital/formats/fdd/fdd000138.shtml"
               ],
-              "notes": "Generic JPEG 2000 estimate; use profile-specific IMF/DCP variants for strict delivery specs."
+              "notes": "Visually lossless JPEG 2000 estimate around 3 bits/pixel, scaled by raster and frame rate."
             },
             {
               "name": "J2K Lossy",
               "bitrates": {
                 "NTSC_D1": {
-                  "23.98": 100,
-                  "29.97": 100,
-                  "30": 100,
-                  "25": 100,
-                  "24": 100
-                },
-                "1080p": {
-                  "30": 200,
-                  "59.94": 200,
-                  "25": 200,
-                  "60": 200,
-                  "24": 200,
-                  "23.98": 200,
-                  "29.97": 200
-                },
-                "720p": {
-                  "29.97": 100,
-                  "23.98": 100,
-                  "25": 100,
-                  "59.94": 100,
-                  "30": 100,
-                  "60": 100,
-                  "24": 100
+                  "23.98": 13,
+                  "24": 13,
+                  "25": 13,
+                  "29.97": 16,
+                  "30": 16,
+                  "50": 26,
+                  "59.94": 31,
+                  "60": 31
                 },
                 "PAL": {
-                  "24": 100,
-                  "25": 100,
-                  "30": 100,
-                  "29.97": 100,
-                  "23.98": 100
+                  "23.98": 15,
+                  "24": 15,
+                  "25": 16,
+                  "29.97": 19,
+                  "30": 19,
+                  "50": 31,
+                  "59.94": 37,
+                  "60": 37
                 },
-                "NTSC_DV": {
-                  "23.98": 100,
-                  "29.97": 100,
-                  "24": 100,
+                "720p": {
+                  "23.98": 33,
+                  "24": 33,
+                  "25": 35,
+                  "29.97": 41,
+                  "30": 41,
+                  "50": 69,
+                  "59.94": 83,
+                  "60": 83
+                },
+                "1080p": {
+                  "23.98": 75,
+                  "24": 75,
+                  "25": 78,
+                  "29.97": 93,
+                  "30": 93,
+                  "50": 156,
+                  "59.94": 186,
+                  "60": 187
+                },
+                "2K": {
+                  "23.98": 80,
+                  "24": 80,
+                  "25": 83,
+                  "29.97": 99,
                   "30": 100,
-                  "25": 100
+                  "50": 166,
+                  "59.94": 199,
+                  "60": 199
                 },
                 "4K": {
-                  "24": 800,
-                  "60": 800,
-                  "25": 800,
-                  "59.94": 800,
-                  "30": 800,
-                  "23.98": 800,
-                  "29.97": 800
+                  "23.98": 318,
+                  "24": 319,
+                  "25": 332,
+                  "29.97": 398,
+                  "30": 398,
+                  "50": 664,
+                  "59.94": 795,
+                  "60": 796
+                },
+                "UHD": {
+                  "23.98": 298,
+                  "24": 299,
+                  "25": 311,
+                  "29.97": 373,
+                  "30": 373,
+                  "50": 622,
+                  "59.94": 746,
+                  "60": 746
                 }
               },
               "description": "Efficient lossy compression",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications"
+                "https://www.loc.gov/preservation/digital/formats/fdd/fdd000138.shtml"
               ],
-              "notes": "Generic JPEG 2000 estimate; use profile-specific IMF/DCP variants for strict delivery specs."
+              "notes": "High-quality lossy JPEG 2000 estimate around 1.5 bits/pixel, scaled by raster and frame rate."
             },
             {
               "name": "J2K IMF 4K",
@@ -3240,18 +2944,19 @@
               "description": "IMF (Interoperable Master Format) for 4K distribution",
               "accuracy": "spec",
               "sourceUrls": [
-                "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications"
+                "https://documents.dcimovies.com/DCSS/release/1.4.5/"
               ],
-              "notes": "Netflix IMF Single Tile Lossy profile maximums: 2K 400/800 Mb/s and 4K 800/1600 Mb/s for standard/high frame rates."
+              "notes": "IMF/JPEG 2000 profile maximum estimate retained separately from DCP 250 Mbit/s 24 fps constraints."
             }
           ],
           "description": "Wavelet-based codec for high-end broadcast applications",
           "workflowNotes": "Used in high-end broadcast workflows and digital cinema distribution. Excellent image quality with scalable compression.",
           "accuracy": "estimate",
           "sourceUrls": [
-            "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications"
+            "https://documents.dcimovies.com/DCSS/release/1.4.5/",
+            "https://www.loc.gov/preservation/digital/formats/fdd/fdd000138.shtml"
           ],
-          "notes": "JPEG 2000 rates depend on DCP/IMF/profile constraints; generic variants are estimates unless profile-specific."
+          "notes": "Generic JPEG 2000 entries are bit-per-pixel estimates; IMF/DCP profiles should be used for strict delivery constraints."
         },
         {
           "id": "mpeg2",
@@ -3276,7 +2981,7 @@
               "notes": "MPEG-2 4:2:2P@ML representative SD 50 Mb/s mode."
             },
             {
-              "name": "MPEG-2 422P@HL",
+              "name": "MPEG-2 422P@HL 50 Mb/s Broadcast",
               "bitrates": {
                 "1080i": {
                   "25": 50,
@@ -3286,15 +2991,21 @@
                   "50": 50,
                   "59.94": 50,
                   "60": 50
+                },
+                "1080p": {
+                  "23.98": 50,
+                  "24": 50,
+                  "25": 50,
+                  "29.97": 50,
+                  "30": 50
                 }
               },
               "description": "High Level 4:2:2 Profile",
-              "accuracy": "spec",
+              "accuracy": "estimate",
               "sourceUrls": [
-                "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html",
-                "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf"
+                "https://www.loc.gov/preservation/digital/formats/fdd/fdd000034.shtml"
               ],
-              "notes": "MPEG HD422 representative HD 50 Mb/s mode."
+              "notes": "Common MPEG-2 4:2:2P@HL broadcast target, not the 300 Mb/s profile maximum."
             },
             {
               "name": "MPEG-2 MP@ML",
@@ -3317,17 +3028,52 @@
           ],
           "description": "Traditional broadcast standard still used in many applications",
           "workflowNotes": "Legacy format widely used in broadcast television, DVD, and satellite transmission. Still relevant for certain broadcast workflows.",
-          "accuracy": "spec",
+          "accuracy": "estimate",
           "sourceUrls": [
-            "https://www.sony-asia.com/microsite/professional/xdcam/resources_faqs_XDCAMbasics.html",
-            "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf"
+            "https://www.loc.gov/preservation/digital/formats/fdd/fdd000034.shtml"
           ],
-          "notes": "MPEG-2 profile entries restricted to representative supported SD/HD bitrates."
+          "notes": "MPEG-2 profile entries represent common implementation targets or profile maximums, not universal codec defaults."
         },
         {
           "id": "mxf_d10",
           "name": "MXF D-10 (IMX)",
           "variants": [
+            {
+              "name": "MXF D-10 / IMX 30",
+              "bitrates": {
+                "NTSC_D1": {
+                  "29.97": 30
+                },
+                "PAL": {
+                  "25": 30
+                }
+              },
+              "description": "SD-only SMPTE D-10 / MPEG IMX 30 Mb/s essence in MXF.",
+              "accuracy": "spec",
+              "sourceUrls": [
+                "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf",
+                "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf"
+              ],
+              "notes": "SMPTE D-10 / MPEG IMX is SD intraframe MPEG-2 4:2:2 at 30/40/50 Mb/s."
+            },
+            {
+              "name": "MXF D-10 / IMX 40",
+              "bitrates": {
+                "NTSC_D1": {
+                  "29.97": 40
+                },
+                "PAL": {
+                  "25": 40
+                }
+              },
+              "description": "SD-only SMPTE D-10 / MPEG IMX 40 Mb/s essence in MXF.",
+              "accuracy": "spec",
+              "sourceUrls": [
+                "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf",
+                "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf"
+              ],
+              "notes": "SMPTE D-10 / MPEG IMX is SD intraframe MPEG-2 4:2:2 at 30/40/50 Mb/s."
+            },
             {
               "name": "MXF D-10 / IMX 50",
               "bitrates": {
@@ -3338,13 +3084,13 @@
                   "25": 50
                 }
               },
-              "description": "Standard MXF D-10 format",
+              "description": "SD-only SMPTE D-10 / MPEG IMX 50 Mb/s essence in MXF.",
               "accuracy": "spec",
               "sourceUrls": [
                 "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf",
                 "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf"
               ],
-              "notes": "SD-only SMPTE D-10 / MPEG IMX 50 Mb/s essence in MXF."
+              "notes": "SMPTE D-10 / MPEG IMX is SD intraframe MPEG-2 4:2:2 at 30/40/50 Mb/s."
             }
           ],
           "description": "MXF D-10 format for professional broadcast and cinema workflows",
@@ -3352,9 +3098,10 @@
           "accuracy": "spec",
           "sourceUrls": [
             "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf",
-            "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf"
+            "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf",
+            "https://www.loc.gov/preservation/digital/formats/fdd/fdd000034.shtml"
           ],
-          "notes": "SMPTE D-10 / MPEG IMX is SD intraframe MPEG-2 4:2:2 at 30/40/50 Mb/s; this variant represents IMX 50."
+          "notes": "SMPTE D-10 / MPEG IMX split into SD-only 30/40/50 Mb/s variants."
         }
       ]
     },
@@ -3371,34 +3118,42 @@
               "name": "ARRIRAW 2.8K",
               "bitrates": {
                 "2K": {
-                  "24": 640,
-                  "25": 667,
-                  "30": 800,
-                  "23.98": 640,
-                  "29.97": 800
+                  "23.98": 1339,
+                  "24": 1340,
+                  "25": 1396,
+                  "29.97": 1673,
+                  "30": 1675,
+                  "50": 2792,
+                  "59.94": 3347,
+                  "60": 3350
                 },
                 "2.8K": {
-                  "24": 888,
-                  "25": 925,
-                  "30": 1110,
-                  "23.98": 888,
-                  "29.97": 1110
+                  "23.98": 1339,
+                  "24": 1340,
+                  "25": 1396,
+                  "29.97": 1673,
+                  "30": 1675,
+                  "50": 2792,
+                  "59.94": 3347,
+                  "60": 3350
                 },
                 "1080p": {
-                  "24": 320,
-                  "30": 400,
-                  "25": 333,
-                  "23.98": 320,
-                  "29.97": 400
+                  "23.98": 1255,
+                  "24": 1256,
+                  "25": 1309,
+                  "29.97": 1569,
+                  "30": 1570,
+                  "50": 2617,
+                  "59.94": 3137,
+                  "60": 3141
                 }
               },
               "description": "2.8K resolution ARRIRAW for Alexa Classic and Amira",
-              "accuracy": "estimate",
+              "accuracy": "spec",
               "sourceUrls": [
-                "https://tools.arri.com/fileadmin/adapps/afdc/index.html",
-                "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling/arriraw-faq"
+                "https://www.arri.com/resource/blob/390890/0ecfdcb70ea22c5fc489f0fb7267aa30/2025-11-arri-formatsandresolutionsoverview-v6-1-data.pdf"
               ],
-              "notes": "ARRIRAW estimate; use ARRI Formats & Data Rate Calculator for exact project settings."
+              "notes": "ARRIRAW camera-mode estimate updated from ARRI published data-rate references; use ARRI calculator for exact sensor mode."
             },
             {
               "name": "ARRIRAW 3.2K",
@@ -3437,91 +3192,116 @@
               "name": "ARRIRAW 4.5K",
               "bitrates": {
                 "4.5K": {
-                  "25": 2083,
-                  "30": 2500,
-                  "24": 2000,
-                  "23.98": 2000,
-                  "29.97": 2500
+                  "23.98": 4010,
+                  "24": 4013,
+                  "25": 4180,
+                  "29.97": 5011,
+                  "30": 5016,
+                  "50": 8360,
+                  "59.94": 10022,
+                  "60": 10032
                 },
                 "4K": {
-                  "24": 1600,
-                  "30": 2000,
-                  "25": 1667,
-                  "23.98": 1600,
-                  "29.97": 2000
+                  "23.98": 4010,
+                  "24": 4013,
+                  "25": 4180,
+                  "29.97": 5011,
+                  "30": 5016,
+                  "50": 8360,
+                  "59.94": 10022,
+                  "60": 10032
                 },
                 "2K": {
-                  "29.97": 1000,
-                  "23.98": 800,
-                  "25": 833,
-                  "30": 1000,
-                  "24": 800
+                  "23.98": 4010,
+                  "24": 4013,
+                  "25": 4180,
+                  "29.97": 5011,
+                  "30": 5016,
+                  "50": 8360,
+                  "59.94": 10022,
+                  "60": 10032
                 }
               },
               "description": "4.5K resolution ARRIRAW for Alexa SXT and Amira",
-              "accuracy": "estimate",
+              "accuracy": "spec",
               "sourceUrls": [
-                "https://tools.arri.com/fileadmin/adapps/afdc/index.html",
-                "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling/arriraw-faq"
+                "https://www.arri.com/resource/blob/390890/0ecfdcb70ea22c5fc489f0fb7267aa30/2025-11-arri-formatsandresolutionsoverview-v6-1-data.pdf"
               ],
-              "notes": "ARRIRAW estimate; use ARRI Formats & Data Rate Calculator for exact project settings."
+              "notes": "ARRIRAW camera-mode estimate updated from ARRI published data-rate references; use ARRI calculator for exact sensor mode."
             },
             {
               "name": "ARRIRAW 6.5K",
               "bitrates": {
                 "2K": {
-                  "23.98": 1280,
-                  "29.97": 1600,
-                  "24": 1280,
-                  "25": 1333,
-                  "30": 1600
+                  "23.98": 5885,
+                  "24": 5890,
+                  "25": 6135,
+                  "29.97": 7355,
+                  "30": 7362,
+                  "50": 12271,
+                  "59.94": 14710,
+                  "60": 14725
                 },
                 "4K": {
-                  "23.98": 2560,
-                  "29.97": 3200,
-                  "30": 3200,
-                  "25": 2667,
-                  "24": 2560
+                  "23.98": 23540,
+                  "24": 23560,
+                  "25": 24542,
+                  "29.97": 29421,
+                  "30": 29450,
+                  "50": 49083,
+                  "59.94": 58841,
+                  "60": 58900
                 },
                 "6.5K": {
-                  "23.98": 4224,
-                  "29.97": 5280,
-                  "30": 5280,
-                  "25": 4400,
-                  "24": 4224
+                  "23.98": 5885,
+                  "24": 5890,
+                  "25": 6135,
+                  "29.97": 7355,
+                  "30": 7362,
+                  "50": 12271,
+                  "59.94": 14710,
+                  "60": 14725
                 }
               },
               "description": "6.5K resolution ARRIRAW for Alexa LF and Mini LF",
-              "accuracy": "estimate",
+              "accuracy": "spec",
               "sourceUrls": [
-                "https://tools.arri.com/fileadmin/adapps/afdc/index.html",
-                "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling/arriraw-faq"
+                "https://www.arri.com/resource/blob/390890/0ecfdcb70ea22c5fc489f0fb7267aa30/2025-11-arri-formatsandresolutionsoverview-v6-1-data.pdf"
               ],
-              "notes": "ARRIRAW estimate; use ARRI Formats & Data Rate Calculator for exact project settings."
+              "notes": "ARRIRAW camera-mode estimate updated from ARRI published data-rate references; use ARRI calculator for exact sensor mode."
             },
             {
               "name": "ARRIRAW HDE 2.8K",
               "bitrates": {
                 "2K": {
-                  "24": 384,
-                  "25": 400,
-                  "30": 480,
-                  "23.98": 384,
-                  "29.97": 480
+                  "23.98": 803,
+                  "24": 804,
+                  "25": 838,
+                  "29.97": 1004,
+                  "30": 1005,
+                  "50": 1675,
+                  "59.94": 2008,
+                  "60": 2010
                 },
                 "2.8K": {
-                  "24": 533,
-                  "25": 555,
-                  "30": 666,
-                  "23.98": 533,
-                  "29.97": 666
+                  "23.98": 803,
+                  "24": 804,
+                  "25": 838,
+                  "29.97": 1004,
+                  "30": 1005,
+                  "50": 1675,
+                  "59.94": 2008,
+                  "60": 2010
                 },
                 "1080p": {
-                  "24": 192,
-                  "30": 240,
-                  "25": 200,
-                  "23.98": 192,
-                  "29.97": 240
+                  "23.98": 753,
+                  "24": 754,
+                  "25": 785,
+                  "29.97": 941,
+                  "30": 942,
+                  "50": 1570,
+                  "59.94": 1882,
+                  "60": 1885
                 }
               },
               "description": "Compressed 2.8K ARRIRAW with HDE compression",
@@ -3530,7 +3310,7 @@
                 "https://tools.arri.com/fileadmin/adapps/afdc/index.html",
                 "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling/arriraw-faq"
               ],
-              "notes": "ARRIRAW HDE lossless estimate normalized to about 60% of the matching ARRIRAW data rate, per ARRI guidance."
+              "notes": "ARRIRAW HDE is lossless and typically about 60% of ARRIRAW size per ARRI guidance."
             },
             {
               "name": "ARRIRAW HDE 3.2K",
@@ -3563,31 +3343,40 @@
                 "https://tools.arri.com/fileadmin/adapps/afdc/index.html",
                 "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling/arriraw-faq"
               ],
-              "notes": "ARRIRAW HDE lossless estimate normalized to about 60% of the matching ARRIRAW data rate, per ARRI guidance."
+              "notes": "ARRIRAW HDE is lossless and typically about 60% of ARRIRAW size per ARRI guidance."
             },
             {
               "name": "ARRIRAW HDE 4.5K",
               "bitrates": {
                 "4.5K": {
-                  "25": 1250,
-                  "30": 1500,
-                  "24": 1200,
-                  "23.98": 1200,
-                  "29.97": 1500
+                  "23.98": 2406,
+                  "24": 2408,
+                  "25": 2508,
+                  "29.97": 3007,
+                  "30": 3010,
+                  "50": 5016,
+                  "59.94": 6013,
+                  "60": 6019
                 },
                 "4K": {
-                  "24": 960,
-                  "30": 1200,
-                  "25": 1000,
-                  "23.98": 960,
-                  "29.97": 1200
+                  "23.98": 2406,
+                  "24": 2408,
+                  "25": 2508,
+                  "29.97": 3007,
+                  "30": 3010,
+                  "50": 5016,
+                  "59.94": 6013,
+                  "60": 6019
                 },
                 "2K": {
-                  "29.97": 600,
-                  "23.98": 480,
-                  "25": 500,
-                  "30": 600,
-                  "24": 480
+                  "23.98": 2406,
+                  "24": 2408,
+                  "25": 2508,
+                  "29.97": 3007,
+                  "30": 3010,
+                  "50": 5016,
+                  "59.94": 6013,
+                  "60": 6019
                 }
               },
               "description": "Compressed 4.5K ARRIRAW with HDE compression",
@@ -3596,31 +3385,40 @@
                 "https://tools.arri.com/fileadmin/adapps/afdc/index.html",
                 "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling/arriraw-faq"
               ],
-              "notes": "ARRIRAW HDE lossless estimate normalized to about 60% of the matching ARRIRAW data rate, per ARRI guidance."
+              "notes": "ARRIRAW HDE is lossless and typically about 60% of ARRIRAW size per ARRI guidance."
             },
             {
               "name": "ARRIRAW HDE 6.5K",
               "bitrates": {
                 "2K": {
-                  "23.98": 768,
-                  "29.97": 960,
-                  "24": 768,
-                  "25": 800,
-                  "30": 960
+                  "23.98": 3531,
+                  "24": 3534,
+                  "25": 3681,
+                  "29.97": 4413,
+                  "30": 4417,
+                  "50": 7363,
+                  "59.94": 8826,
+                  "60": 8835
                 },
                 "4K": {
-                  "23.98": 1536,
-                  "29.97": 1920,
-                  "30": 1920,
-                  "25": 1600,
-                  "24": 1536
+                  "23.98": 14124,
+                  "24": 14136,
+                  "25": 14725,
+                  "29.97": 17653,
+                  "30": 17670,
+                  "50": 29450,
+                  "59.94": 35305,
+                  "60": 35340
                 },
                 "6.5K": {
-                  "23.98": 2534,
-                  "29.97": 3168,
-                  "30": 3168,
-                  "25": 2640,
-                  "24": 2534
+                  "23.98": 3531,
+                  "24": 3534,
+                  "25": 3681,
+                  "29.97": 4413,
+                  "30": 4417,
+                  "50": 7363,
+                  "59.94": 8826,
+                  "60": 8835
                 }
               },
               "description": "Compressed 6.5K ARRIRAW with HDE compression",
@@ -3629,7 +3427,7 @@
                 "https://tools.arri.com/fileadmin/adapps/afdc/index.html",
                 "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling/arriraw-faq"
               ],
-              "notes": "ARRIRAW HDE lossless estimate normalized to about 60% of the matching ARRIRAW data rate, per ARRI guidance."
+              "notes": "ARRIRAW HDE is lossless and typically about 60% of ARRIRAW size per ARRI guidance."
             },
             {
               "name": "ARRICORE 2K",
@@ -3718,103 +3516,103 @@
               "name": "BRAW Q0",
               "bitrates": {
                 "1080p": {
-                  "23.98": 199,
-                  "24": 199,
-                  "25": 207,
-                  "29.97": 249,
-                  "30": 249,
-                  "50": 415,
-                  "59.94": 497,
-                  "60": 498
+                  "23.98": 239,
+                  "24": 239,
+                  "25": 248,
+                  "29.97": 299,
+                  "30": 299,
+                  "50": 498,
+                  "59.94": 596,
+                  "60": 598
                 },
                 "4K": {
-                  "23.98": 849,
-                  "24": 849,
-                  "25": 885,
-                  "29.97": 1061,
-                  "30": 1062,
-                  "50": 1769,
-                  "59.94": 2121,
-                  "60": 2123
+                  "23.98": 1019,
+                  "24": 1019,
+                  "25": 1062,
+                  "29.97": 1273,
+                  "30": 1274,
+                  "50": 2123,
+                  "59.94": 2545,
+                  "60": 2548
                 },
                 "6K": {
-                  "23.98": 1909,
-                  "24": 1911,
-                  "25": 1991,
-                  "29.97": 2386,
-                  "30": 2389,
-                  "50": 3981,
-                  "59.94": 4773,
-                  "60": 4778
+                  "23.98": 2291,
+                  "24": 2293,
+                  "25": 2389,
+                  "29.97": 2863,
+                  "30": 2867,
+                  "50": 4777,
+                  "59.94": 5728,
+                  "60": 5734
                 },
                 "8K UHD": {
-                  "23.98": 3182,
-                  "24": 3185,
-                  "25": 3318,
-                  "29.97": 3977,
-                  "30": 3981,
-                  "50": 6636,
-                  "59.94": 7955,
-                  "60": 7963
+                  "23.98": 3818,
+                  "24": 3822,
+                  "25": 3982,
+                  "29.97": 4772,
+                  "30": 4777,
+                  "50": 7963,
+                  "59.94": 9546,
+                  "60": 9556
                 }
               },
               "description": "Uncompressed quality (lossless)",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://www.blackmagicdesign.com/products/blackmagicraw"
+                "https://www.blackmagicdesign.com/products/blackmagicpocketcinemacamera/techspecs/W-CIN-16"
               ],
-              "notes": "BRAW storage estimate from 12-bit Bayer sensor data at roughly 3:1. Q modes vary with image content."
+              "notes": "BRAW Q0 constant-quality upper estimate; actual rate is scene-dependent and should be treated as a range."
             },
             {
               "name": "BRAW Q5",
               "bitrates": {
                 "1080p": {
-                  "23.98": 75,
-                  "24": 75,
-                  "25": 78,
-                  "29.97": 93,
-                  "30": 93,
-                  "50": 156,
-                  "59.94": 186,
-                  "60": 187
+                  "23.98": 60,
+                  "24": 60,
+                  "25": 62,
+                  "29.97": 74,
+                  "30": 74,
+                  "50": 125,
+                  "59.94": 149,
+                  "60": 150
                 },
                 "4K": {
-                  "23.98": 318,
-                  "24": 319,
-                  "25": 332,
-                  "29.97": 398,
-                  "30": 398,
-                  "50": 664,
-                  "59.94": 795,
-                  "60": 796
+                  "23.98": 254,
+                  "24": 255,
+                  "25": 266,
+                  "29.97": 318,
+                  "30": 318,
+                  "50": 531,
+                  "59.94": 636,
+                  "60": 637
                 },
                 "6K": {
-                  "23.98": 716,
-                  "24": 717,
-                  "25": 746,
-                  "29.97": 895,
-                  "30": 896,
-                  "50": 1493,
-                  "59.94": 1790,
-                  "60": 1792
+                  "23.98": 573,
+                  "24": 574,
+                  "25": 597,
+                  "29.97": 716,
+                  "30": 717,
+                  "50": 1194,
+                  "59.94": 1432,
+                  "60": 1434
                 },
                 "8K UHD": {
-                  "23.98": 1193,
-                  "24": 1194,
-                  "25": 1244,
-                  "29.97": 1491,
-                  "30": 1493,
-                  "50": 2488,
-                  "59.94": 2983,
-                  "60": 2986
+                  "23.98": 954,
+                  "24": 955,
+                  "25": 995,
+                  "29.97": 1193,
+                  "30": 1194,
+                  "50": 1990,
+                  "59.94": 2386,
+                  "60": 2389
                 }
               },
               "description": "Visually lossless quality",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://www.blackmagicdesign.com/products/blackmagicraw"
+                "https://www.blackmagicdesign.com/products/blackmagicpocketcinemacamera/techspecs/W-CIN-16"
               ],
-              "notes": "BRAW storage estimate from 12-bit Bayer sensor data at roughly 8:1. Q modes vary with image content."
+              "notes": "BRAW Q5 constant-quality estimate; actual rate is scene-dependent and should be treated as a range."
             },
             {
               "name": "BRAW 3:1",
@@ -4128,105 +3926,103 @@
               "name": "ProRes RAW",
               "bitrates": {
                 "1080p": {
-                  "23.98": 147,
-                  "24": 147,
-                  "25": 154,
-                  "29.97": 184,
-                  "30": 184,
-                  "50": 306,
-                  "59.94": 367,
-                  "60": 367
+                  "23.98": 184,
+                  "24": 184,
+                  "25": 192,
+                  "29.97": 230,
+                  "30": 230,
+                  "50": 384,
+                  "59.94": 460,
+                  "60": 460
                 },
                 "4K": {
-                  "23.98": 626,
-                  "24": 627,
-                  "25": 653,
-                  "29.97": 783,
-                  "30": 784,
-                  "50": 1306,
-                  "59.94": 1566,
-                  "60": 1568
+                  "23.98": 785,
+                  "24": 786,
+                  "25": 818,
+                  "29.97": 981,
+                  "30": 982,
+                  "50": 1637,
+                  "59.94": 1962,
+                  "60": 1964
                 },
                 "UHD": {
-                  "23.98": 587,
-                  "24": 588,
-                  "25": 612,
-                  "29.97": 734,
-                  "30": 735,
-                  "50": 1224,
-                  "59.94": 1468,
-                  "60": 1470
+                  "23.98": 736,
+                  "24": 736,
+                  "25": 767,
+                  "29.97": 920,
+                  "30": 921,
+                  "50": 1534,
+                  "59.94": 1839,
+                  "60": 1841
                 },
                 "8K UHD": {
-                  "23.98": 2349,
-                  "24": 2351,
-                  "25": 2449,
-                  "29.97": 2936,
-                  "30": 2939,
-                  "50": 4898,
-                  "59.94": 5872,
-                  "60": 5878
+                  "23.98": 2944,
+                  "24": 2946,
+                  "25": 3069,
+                  "29.97": 3679,
+                  "30": 3682,
+                  "50": 6138,
+                  "59.94": 7358,
+                  "60": 7365
                 }
               },
               "description": "Standard ProRes RAW quality",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://www.apple.com/final-cut-pro/docs/Apple_ProRes_RAW_White_Paper.pdf",
-                "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
+                "https://www.blackmagicdesign.com/products/blackmagicpocketcinemacamera/techspecs/W-CIN-16"
               ],
-              "notes": "Content-dependent ProRes RAW estimate bounded by Apple ProRes family data-rate relationships."
+              "notes": "ProRes RAW estimate from Blackmagic 4096x2160 30p ProRes RAW/RAW HQ data rates, scaled by raster and frame rate; content-dependent."
             },
             {
               "name": "ProRes RAW HQ",
               "bitrates": {
                 "1080p": {
-                  "23.98": 220,
-                  "24": 220,
-                  "25": 230,
-                  "29.97": 275,
-                  "30": 275,
-                  "50": 459,
-                  "59.94": 550,
-                  "60": 550
+                  "23.98": 277,
+                  "24": 278,
+                  "25": 289,
+                  "29.97": 347,
+                  "30": 347,
+                  "50": 578,
+                  "59.94": 693,
+                  "60": 694
                 },
                 "4K": {
-                  "23.98": 939,
-                  "24": 940,
-                  "25": 979,
-                  "29.97": 1174,
-                  "30": 1174,
-                  "50": 1958,
-                  "59.94": 2346,
-                  "60": 2349
+                  "23.98": 1183,
+                  "24": 1184,
+                  "25": 1233,
+                  "29.97": 1479,
+                  "30": 1480,
+                  "50": 2467,
+                  "59.94": 2957,
+                  "60": 2960
                 },
                 "UHD": {
-                  "23.98": 880,
-                  "24": 881,
-                  "25": 918,
-                  "29.97": 1100,
-                  "30": 1101,
-                  "50": 1835,
-                  "59.94": 2200,
-                  "60": 2202
+                  "23.98": 1109,
+                  "24": 1110,
+                  "25": 1156,
+                  "29.97": 1386,
+                  "30": 1388,
+                  "50": 2312,
+                  "59.94": 2772,
+                  "60": 2775
                 },
                 "8K UHD": {
-                  "23.98": 3520,
-                  "24": 3524,
-                  "25": 3670,
-                  "29.97": 4400,
-                  "30": 4404,
-                  "50": 7341,
-                  "59.94": 8800,
-                  "60": 8809
+                  "23.98": 4436,
+                  "24": 4440,
+                  "25": 4625,
+                  "29.97": 5544,
+                  "30": 5550,
+                  "50": 9250,
+                  "59.94": 11089,
+                  "60": 11100
                 }
               },
               "description": "High quality ProRes RAW",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://www.apple.com/final-cut-pro/docs/Apple_ProRes_RAW_White_Paper.pdf",
-                "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
+                "https://www.blackmagicdesign.com/products/blackmagicpocketcinemacamera/techspecs/W-CIN-16"
               ],
-              "notes": "Content-dependent ProRes RAW estimate bounded by Apple ProRes family data-rate relationships."
+              "notes": "ProRes RAW estimate from Blackmagic 4096x2160 30p ProRes RAW/RAW HQ data rates, scaled by raster and frame rate; content-dependent."
             }
           ],
           "description": "Apple's RAW format combining RAW flexibility with ProRes efficiency",
@@ -4246,215 +4042,221 @@
               "name": "REDCODE RAW 2:1",
               "bitrates": {
                 "4K": {
-                  "23.98": 1273,
-                  "24": 1274,
-                  "25": 1327,
-                  "29.97": 1591,
-                  "30": 1593,
-                  "50": 2654,
-                  "59.94": 3182,
-                  "60": 3185
+                  "23.98": 1295,
+                  "24": 1296,
+                  "25": 1350,
+                  "29.97": 1618,
+                  "30": 1620,
+                  "50": 2700,
+                  "59.94": 3237,
+                  "60": 3240
                 },
-                "6K": {
-                  "23.98": 2864,
-                  "24": 2867,
-                  "25": 2986,
-                  "29.97": 3580,
-                  "30": 3583,
-                  "50": 5972,
-                  "59.94": 7159,
-                  "60": 7166
+                "8K": {
+                  "23.98": 5180,
+                  "24": 5184,
+                  "25": 5400,
+                  "29.97": 6474,
+                  "30": 6480,
+                  "50": 10800,
+                  "59.94": 12947,
+                  "60": 12960
                 },
                 "8K UHD": {
-                  "23.98": 4774,
-                  "24": 4778,
-                  "25": 4977,
-                  "29.97": 5966,
-                  "30": 5972,
-                  "50": 9953,
-                  "59.94": 11932,
-                  "60": 11944
+                  "23.98": 4856,
+                  "24": 4860,
+                  "25": 5062,
+                  "29.97": 6069,
+                  "30": 6075,
+                  "50": 10125,
+                  "59.94": 12138,
+                  "60": 12150
                 }
               },
               "description": "Highest quality with 2:1 compression",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm"
+                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm",
+                "https://docs.red.com/955-0179/REV-A/955-0179%20Rev-A%20RED%20PS%2C%20Benefits%20of%20REDCODE%20RAW.pdf"
               ],
-              "notes": "Approximate REDCODE 2:1 storage estimate; actual camera availability and data rate are media-dependent."
+              "notes": "Approximate REDCODE 2:1 estimate derived from RED 8K 8:1 24p example; actual rate varies."
             },
             {
               "name": "REDCODE RAW 3:1",
               "bitrates": {
                 "4K": {
-                  "23.98": 849,
-                  "24": 849,
-                  "25": 885,
-                  "29.97": 1061,
-                  "30": 1062,
-                  "50": 1769,
-                  "59.94": 2121,
-                  "60": 2123
+                  "23.98": 863,
+                  "24": 864,
+                  "25": 900,
+                  "29.97": 1079,
+                  "30": 1080,
+                  "50": 1800,
+                  "59.94": 2158,
+                  "60": 2160
                 },
-                "6K": {
-                  "23.98": 1909,
-                  "24": 1911,
-                  "25": 1991,
-                  "29.97": 2386,
-                  "30": 2389,
-                  "50": 3981,
-                  "59.94": 4773,
-                  "60": 4778
+                "8K": {
+                  "23.98": 3453,
+                  "24": 3456,
+                  "25": 3600,
+                  "29.97": 4316,
+                  "30": 4320,
+                  "50": 7200,
+                  "59.94": 8631,
+                  "60": 8640
                 },
                 "8K UHD": {
-                  "23.98": 3182,
-                  "24": 3185,
-                  "25": 3318,
-                  "29.97": 3977,
-                  "30": 3981,
-                  "50": 6636,
-                  "59.94": 7955,
-                  "60": 7963
+                  "23.98": 3237,
+                  "24": 3240,
+                  "25": 3375,
+                  "29.97": 4046,
+                  "30": 4050,
+                  "50": 6750,
+                  "59.94": 8092,
+                  "60": 8100
                 }
               },
               "description": "High quality with 3:1 compression",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm"
+                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm",
+                "https://docs.red.com/955-0179/REV-A/955-0179%20Rev-A%20RED%20PS%2C%20Benefits%20of%20REDCODE%20RAW.pdf"
               ],
-              "notes": "Approximate REDCODE 3:1 storage estimate; actual camera availability and data rate are media-dependent."
+              "notes": "Approximate REDCODE 3:1 estimate derived from RED 8K 8:1 24p example; actual rate varies."
             },
             {
               "name": "REDCODE RAW 4:1",
               "bitrates": {
                 "4K": {
-                  "23.98": 636,
-                  "24": 637,
-                  "25": 664,
-                  "29.97": 795,
-                  "30": 796,
-                  "50": 1327,
-                  "59.94": 1591,
-                  "60": 1593
+                  "23.98": 647,
+                  "24": 648,
+                  "25": 675,
+                  "29.97": 809,
+                  "30": 810,
+                  "50": 1350,
+                  "59.94": 1618,
+                  "60": 1620
                 },
-                "6K": {
-                  "23.98": 1432,
-                  "24": 1433,
-                  "25": 1493,
-                  "29.97": 1790,
-                  "30": 1792,
-                  "50": 2986,
-                  "59.94": 3580,
-                  "60": 3583
+                "8K": {
+                  "23.98": 2590,
+                  "24": 2592,
+                  "25": 2700,
+                  "29.97": 3237,
+                  "30": 3240,
+                  "50": 5400,
+                  "59.94": 6474,
+                  "60": 6480
                 },
                 "8K UHD": {
-                  "23.98": 2387,
-                  "24": 2389,
-                  "25": 2488,
-                  "29.97": 2983,
-                  "30": 2986,
-                  "50": 4977,
-                  "59.94": 5966,
-                  "60": 5972
+                  "23.98": 2428,
+                  "24": 2430,
+                  "25": 2531,
+                  "29.97": 3034,
+                  "30": 3038,
+                  "50": 5062,
+                  "59.94": 6069,
+                  "60": 6075
                 }
               },
               "description": "Standard quality with 4:1 compression",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm"
+                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm",
+                "https://docs.red.com/955-0179/REV-A/955-0179%20Rev-A%20RED%20PS%2C%20Benefits%20of%20REDCODE%20RAW.pdf"
               ],
-              "notes": "Approximate REDCODE 4:1 storage estimate; actual camera availability and data rate are media-dependent."
+              "notes": "Approximate REDCODE 4:1 estimate derived from RED 8K 8:1 24p example; actual rate varies."
             },
             {
               "name": "REDCODE RAW 5:1",
               "bitrates": {
                 "4K": {
-                  "23.98": 509,
-                  "24": 510,
-                  "25": 531,
-                  "29.97": 636,
-                  "30": 637,
-                  "50": 1062,
-                  "59.94": 1273,
-                  "60": 1274
+                  "23.98": 518,
+                  "24": 518,
+                  "25": 540,
+                  "29.97": 647,
+                  "30": 648,
+                  "50": 1080,
+                  "59.94": 1295,
+                  "60": 1296
                 },
-                "6K": {
-                  "23.98": 1146,
-                  "24": 1147,
-                  "25": 1194,
-                  "29.97": 1432,
-                  "30": 1433,
-                  "50": 2389,
-                  "59.94": 2864,
-                  "60": 2867
+                "8K": {
+                  "23.98": 2072,
+                  "24": 2074,
+                  "25": 2160,
+                  "29.97": 2589,
+                  "30": 2592,
+                  "50": 4320,
+                  "59.94": 5179,
+                  "60": 5184
                 },
                 "8K UHD": {
-                  "23.98": 1909,
-                  "24": 1911,
-                  "25": 1991,
-                  "29.97": 2386,
-                  "30": 2389,
-                  "50": 3981,
-                  "59.94": 4773,
-                  "60": 4778
+                  "23.98": 1942,
+                  "24": 1944,
+                  "25": 2025,
+                  "29.97": 2428,
+                  "30": 2430,
+                  "50": 4050,
+                  "59.94": 4855,
+                  "60": 4860
                 }
               },
               "description": "Efficient quality with 5:1 compression",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm"
+                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm",
+                "https://docs.red.com/955-0179/REV-A/955-0179%20Rev-A%20RED%20PS%2C%20Benefits%20of%20REDCODE%20RAW.pdf"
               ],
-              "notes": "Approximate REDCODE 5:1 storage estimate; actual camera availability and data rate are media-dependent."
+              "notes": "Approximate REDCODE 5:1 estimate derived from RED 8K 8:1 24p example; actual rate varies."
             },
             {
               "name": "REDCODE RAW 8:1",
               "bitrates": {
                 "4K": {
-                  "23.98": 318,
-                  "24": 319,
-                  "25": 332,
-                  "29.97": 398,
-                  "30": 398,
-                  "50": 664,
-                  "59.94": 795,
-                  "60": 796
+                  "23.98": 324,
+                  "24": 324,
+                  "25": 338,
+                  "29.97": 405,
+                  "30": 405,
+                  "50": 675,
+                  "59.94": 809,
+                  "60": 810
                 },
-                "6K": {
-                  "23.98": 716,
-                  "24": 717,
-                  "25": 746,
-                  "29.97": 895,
-                  "30": 896,
-                  "50": 1493,
-                  "59.94": 1790,
-                  "60": 1792
+                "8K": {
+                  "23.98": 1295,
+                  "24": 1296,
+                  "25": 1350,
+                  "29.97": 1618,
+                  "30": 1620,
+                  "50": 2700,
+                  "59.94": 3237,
+                  "60": 3240
                 },
                 "8K UHD": {
-                  "23.98": 1193,
-                  "24": 1194,
-                  "25": 1244,
-                  "29.97": 1491,
-                  "30": 1493,
-                  "50": 2488,
-                  "59.94": 2983,
-                  "60": 2986
+                  "23.98": 1214,
+                  "24": 1215,
+                  "25": 1266,
+                  "29.97": 1517,
+                  "30": 1519,
+                  "50": 2531,
+                  "59.94": 3034,
+                  "60": 3038
                 }
               },
               "description": "Compact quality with 8:1 compression",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm"
+                "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm",
+                "https://docs.red.com/955-0179/REV-A/955-0179%20Rev-A%20RED%20PS%2C%20Benefits%20of%20REDCODE%20RAW.pdf"
               ],
-              "notes": "Approximate REDCODE 8:1 storage estimate; actual camera availability and data rate are media-dependent."
+              "notes": "Approximate REDCODE 8:1 estimate derived from RED 8K 8:1 24p example; actual rate varies."
             }
           ],
           "description": "RED Digital Cinema's proprietary RAW format",
           "workflowNotes": "Professional cinema RAW with variable compression ratios. Industry standard for high-end film and commercial production.",
           "accuracy": "estimate",
           "sourceUrls": [
-            "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm"
+            "https://docs.red.com/955-0154_v7.0/REDRAVENOperationGuide/en-us/Content/4_Basic_Menus/REDCODE.htm",
+            "https://docs.red.com/955-0179/REV-A/955-0179%20Rev-A%20RED%20PS%2C%20Benefits%20of%20REDCODE%20RAW.pdf"
           ],
-          "notes": "REDCODE RAW rates vary by camera, media, frame rate, and compression ratio; values estimate 12-bit Bayer data divided by REDCODE ratio."
+          "notes": "REDCODE estimates are derived from RED 8K 8:1 24p example and scaled by compression ratio/frame rate; actual data rates are camera/media/content-dependent."
         }
       ]
     },
@@ -4471,94 +4273,92 @@
               "name": "FFV1 Version 3",
               "bitrates": {
                 "NTSC_DV": {
-                  "23.98": 75,
-                  "24": 75,
-                  "25": 78,
-                  "29.97": 93,
-                  "30": 93,
-                  "50": 156,
-                  "59.94": 186,
-                  "60": 187
+                  "23.98": 55,
+                  "24": 55,
+                  "25": 58,
+                  "29.97": 69,
+                  "30": 69,
+                  "50": 115,
+                  "59.94": 138,
+                  "60": 138
                 },
                 "NTSC_D1": {
-                  "23.98": 76,
-                  "24": 76,
-                  "25": 79,
-                  "29.97": 94,
-                  "30": 94,
-                  "50": 158,
-                  "59.94": 189,
-                  "60": 189
+                  "23.98": 56,
+                  "24": 56,
+                  "25": 58,
+                  "29.97": 70,
+                  "30": 70,
+                  "50": 117,
+                  "59.94": 140,
+                  "60": 140
                 },
                 "PAL": {
-                  "23.98": 90,
-                  "24": 90,
-                  "25": 93,
-                  "29.97": 112,
-                  "30": 112,
-                  "50": 187,
-                  "59.94": 224,
-                  "60": 224
+                  "23.98": 66,
+                  "24": 66,
+                  "25": 69,
+                  "29.97": 83,
+                  "30": 83,
+                  "50": 138,
+                  "59.94": 166,
+                  "60": 166
                 },
                 "720p": {
-                  "23.98": 199,
-                  "24": 199,
-                  "25": 207,
-                  "29.97": 248,
-                  "30": 249,
-                  "50": 415,
-                  "59.94": 497,
-                  "60": 498
+                  "23.98": 147,
+                  "24": 147,
+                  "25": 154,
+                  "29.97": 184,
+                  "30": 184,
+                  "50": 307,
+                  "59.94": 368,
+                  "60": 369
                 },
                 "1080p": {
-                  "23.98": 447,
-                  "24": 448,
-                  "25": 467,
-                  "29.97": 559,
-                  "30": 560,
-                  "50": 933,
-                  "59.94": 1119,
-                  "60": 1120
+                  "23.98": 331,
+                  "24": 332,
+                  "25": 346,
+                  "29.97": 414,
+                  "30": 415,
+                  "50": 691,
+                  "59.94": 829,
+                  "60": 829
                 },
                 "2K": {
-                  "23.98": 477,
-                  "24": 478,
-                  "25": 498,
-                  "29.97": 597,
-                  "30": 597,
-                  "50": 995,
-                  "59.94": 1193,
-                  "60": 1194
+                  "23.98": 354,
+                  "24": 354,
+                  "25": 369,
+                  "29.97": 442,
+                  "30": 442,
+                  "50": 737,
+                  "59.94": 884,
+                  "60": 885
                 },
                 "4K": {
-                  "23.98": 1909,
-                  "24": 1911,
-                  "25": 1991,
-                  "29.97": 2386,
-                  "30": 2389,
-                  "50": 3981,
-                  "59.94": 4773,
-                  "60": 4778
+                  "23.98": 1414,
+                  "24": 1416,
+                  "25": 1475,
+                  "29.97": 1768,
+                  "30": 1769,
+                  "50": 2949,
+                  "59.94": 3535,
+                  "60": 3539
                 },
                 "UHD": {
-                  "23.98": 1790,
-                  "24": 1791,
-                  "25": 1866,
-                  "29.97": 2237,
-                  "30": 2240,
-                  "50": 3732,
-                  "59.94": 4474,
-                  "60": 4479
+                  "23.98": 1326,
+                  "24": 1327,
+                  "25": 1382,
+                  "29.97": 1657,
+                  "30": 1659,
+                  "50": 2765,
+                  "59.94": 3314,
+                  "60": 3318
                 }
               },
               "description": "Most common version for archival use with variable bitrates",
               "accuracy": "estimate",
               "sourceUrls": [
-                "https://pub.smpte.org/pub/st292-1/st292-1-2018.pdf",
-                "https://www.ti.com/lit/an/snla232/snla232.pdf",
-                "https://datatracker.ietf.org/doc/rfc9043/"
+                "https://blogs.library.duke.edu/bitstreams/2021/03/12/ffv1-the-gains-of-lossless/"
               ],
-              "notes": "FFV1 is lossless and content-dependent; values estimate about 45% of 10-bit 4:2:2 uncompressed."
+              "notes": "FFV1 Version 3 lossless estimate at about one-third of 10-bit 4:2:2 uncompressed; actual compression is content-dependent."
             }
           ],
           "description": "Lossless intra-frame codec designed for archival and preservation",

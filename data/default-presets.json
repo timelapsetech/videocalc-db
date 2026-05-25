@@ -21,8 +21,8 @@
     "id": "xN868hHZ6pp9XkKzycue",
     "name": "News TV",
     "category": "camera",
-    "codec": "xdcam_hd422",
-    "variant": "HD422 50 Mb/s",
+    "codec": "xdcam",
+    "variant": "XDCAM HD422 50 Mb/s",
     "resolution": "1080i",
     "frameRate": "29.97"
   },

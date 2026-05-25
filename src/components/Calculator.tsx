@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, AlertTriangle, Shield } from 'lucide-react';
+import { Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, AlertTriangle, Shield, Search } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { usePresetContext } from '../context/PresetContext';
 import { resolutions, frameRates } from '../data/resolutions';
@@ -24,6 +24,16 @@ interface CalculationResult {
   resolution: Resolution;
   frameRate: (typeof frameRates)[number];
   category: string;
+}
+
+interface CodecSearchResult {
+  categoryId: string;
+  categoryName: string;
+  codecId: string;
+  codecName: string;
+  variantName?: string;
+  description?: string;
+  matchType: 'codec' | 'variant';
 }
 
 // Debounce utility
@@ -53,6 +63,7 @@ const Calculator: React.FC = () => {
     seconds: 0
   });
   const [copied, setCopied] = useState(false);
+  const [codecSearchTerm, setCodecSearchTerm] = useState('');
   const [isInitialized, setIsInitialized] = useState(false);
   
 
@@ -184,6 +195,58 @@ const Calculator: React.FC = () => {
   const availableVariants = selectedCodec
     ? availableCodecs.find(codec => codec.id === selectedCodec)?.variants || []
     : [];
+
+  const normalizedCodecSearchTerm = codecSearchTerm.trim().toLowerCase();
+  const codecSearchResults: CodecSearchResult[] = normalizedCodecSearchTerm
+    ? categories.flatMap(category =>
+        category.codecs.flatMap(codec => {
+          const codecMatches =
+            codec.name.toLowerCase().includes(normalizedCodecSearchTerm) ||
+            codec.id.toLowerCase().includes(normalizedCodecSearchTerm) ||
+            (codec.description?.toLowerCase().includes(normalizedCodecSearchTerm) ?? false);
+
+          const codecResult: CodecSearchResult[] = codecMatches
+            ? [{
+                categoryId: category.id,
+                categoryName: category.name,
+                codecId: codec.id,
+                codecName: codec.name,
+                description: codec.description,
+                matchType: 'codec',
+              }]
+            : [];
+
+          const variantResults: CodecSearchResult[] = codec.variants
+            .filter(variant =>
+              variant.name.toLowerCase().includes(normalizedCodecSearchTerm) ||
+              (variant.description?.toLowerCase().includes(normalizedCodecSearchTerm) ?? false)
+            )
+            .map(variant => ({
+              categoryId: category.id,
+              categoryName: category.name,
+              codecId: codec.id,
+              codecName: codec.name,
+              variantName: variant.name,
+              description: variant.description,
+              matchType: 'variant',
+            }));
+
+          return [...codecResult, ...variantResults];
+        })
+      ).slice(0, 8)
+    : [];
+
+  const applyCodecSearchResult = (result: CodecSearchResult) => {
+    setAutoSelectionInProgress(true);
+    setSelectedCategory(result.categoryId);
+    setSelectedCodec(result.codecId);
+    setSelectedVariant(result.variantName ?? '');
+    setCodecSearchTerm('');
+
+    setTimeout(() => {
+      setAutoSelectionInProgress(false);
+    }, 250);
+  };
 
   // Get available resolutions for selected variant (filtered and validated)
   const availableResolutions = selectedVariant
@@ -1024,6 +1087,77 @@ const Calculator: React.FC = () => {
               </h2>
               
               <div className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="codec-search" className="block text-sm font-medium text-gray-300">
+                    Find Codec or Variant
+                  </label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+                    <input
+                      id="codec-search"
+                      type="search"
+                      value={codecSearchTerm}
+                      onChange={(event) => setCodecSearchTerm(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' && codecSearchResults[0]) {
+                          event.preventDefault();
+                          applyCodecSearchResult(codecSearchResults[0]);
+                        }
+                      }}
+                      placeholder="Search all codecs and variants..."
+                      className="w-full rounded-lg border border-gray-700 bg-dark-primary py-2 pl-9 pr-9 text-sm text-white placeholder-gray-500 transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    />
+                    {codecSearchTerm && (
+                      <button
+                        type="button"
+                        onClick={() => setCodecSearchTerm('')}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 transition-colors hover:text-gray-300"
+                        aria-label="Clear codec search"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    )}
+                  </div>
+
+                  {normalizedCodecSearchTerm && (
+                    <div className="rounded-lg border border-gray-700 bg-dark-primary overflow-hidden">
+                      {codecSearchResults.length > 0 ? (
+                        <div className="max-h-56 overflow-y-auto">
+                          {codecSearchResults.map((result) => (
+                            <button
+                              key={`${result.categoryId}-${result.codecId}-${result.variantName ?? 'codec'}`}
+                              type="button"
+                              onClick={() => applyCodecSearchResult(result)}
+                              className="w-full border-b border-gray-800 px-3 py-2 text-left transition-colors last:border-b-0 hover:bg-gray-800"
+                            >
+                              <div className="flex items-center justify-between gap-3">
+                                <span className="text-sm font-medium text-white">
+                                  {result.variantName ?? result.codecName}
+                                </span>
+                                <span className="shrink-0 rounded bg-blue-600/20 px-2 py-0.5 text-xs text-blue-300">
+                                  {result.matchType}
+                                </span>
+                              </div>
+                              <p className="mt-1 text-xs text-gray-400">
+                                {result.variantName ? `${result.codecName} • ` : ''}{result.categoryName}
+                              </p>
+                              {result.description && (
+                                <p className="mt-1 line-clamp-2 text-xs text-gray-500">
+                                  {result.description}
+                                </p>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="px-3 py-2 text-sm text-gray-400">
+                          No codecs or variants found.
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 <CustomSelect
                   label="Codec Category"
                   value={selectedCategory}

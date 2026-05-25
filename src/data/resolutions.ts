@@ -20,8 +20,12 @@ export const resolutions: Resolution[] = [
   
   // Cinema
   { id: '2K', name: '2K (2048×1080)', width: 2048, height: 1080, category: 'Cinema' },
+  { id: '2.8K', name: '2.8K ARRIRAW (2880×1620)', width: 2880, height: 1620, category: 'Cinema' },
+  { id: '3.2K', name: '3.2K ARRIRAW (3200×1800)', width: 3200, height: 1800, category: 'Cinema' },
   { id: '4K', name: '4K (4096×2160)', width: 4096, height: 2160, category: 'Cinema' },
+  { id: '4.5K', name: '4.5K ARRIRAW (4448×3096)', width: 4448, height: 3096, category: 'Cinema' },
   { id: '6K', name: '6K (6144×3240)', width: 6144, height: 3240, category: 'Cinema' },
+  { id: '6.5K', name: '6.5K ARRIRAW (6560×3100)', width: 6560, height: 3100, category: 'Cinema' },
   { id: '8K', name: '8K (8192×4320)', width: 8192, height: 4320, category: 'Cinema' },
   
   // UHD
@@ -59,13 +63,13 @@ export const workflowPresets = {
   'News TV': { 
     category: 'camera', 
     codec: 'xdcam', 
-    variant: 'XDCAM HD422', 
+    variant: 'XDCAM HD422 50 Mb/s', 
     resolution: '1080i' 
   },
   'Episodic TV': { 
     category: 'professional', 
     codec: 'dnxhd', 
-    variant: 'DNxHD 145', 
+    variant: 'DNxHD 115', 
     resolution: '1080p' 
   },
   'Documentary Edit': { 
