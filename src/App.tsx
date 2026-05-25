@@ -44,7 +44,7 @@ function App() {
     <ErrorBoundary>
       <CodecProvider>
         <PresetProvider>
-          <Router>
+          <Router basename={import.meta.env.BASE_URL}>
             <AppWithTracking />
             <CookieConsent onAccept={handleCookieConsent} />
           </Router>
