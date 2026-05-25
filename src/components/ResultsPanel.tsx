@@ -38,13 +38,77 @@ interface ResultsPanelProps {
 interface ReferenceSource {
   id: string;
   label: string;
+  siteName: string;
   url: string;
   group: 'Video Codec' | 'Video Variant' | 'Audio Profile';
 }
 
+const KNOWN_SOURCE_SITE_NAMES: Record<string, string> = {
+  'assets.pro.sony.eu': 'Sony',
+  'audioperception.com': 'Audio Perception',
+  'blogs.library.duke.edu': 'Duke Libraries',
+  'canon.a.bigcontent.io': 'Canon',
+  'datatracker.ietf.org': 'IETF',
+  'developer.apple.com': 'Apple Developer',
+  'developers.google.com': 'Google Developers',
+  'docs.red.com': 'RED',
+  'documents.dcimovies.com': 'DCI',
+  'gopro.github.io': 'GoPro',
+  'help.vimeo.com': 'Vimeo Help',
+  'helpx.adobe.com': 'Adobe Help',
+  'kb.avid.com': 'Avid',
+  'netflixtechblog.com': 'Netflix Tech Blog',
+  'partnerhelp.netflixstudios.com': 'Netflix Studios',
+  'pro-av.panasonic.net': 'Panasonic',
+  'pro.sony': 'Sony',
+  'pub.smpte.org': 'SMPTE',
+  'support.google.com': 'Google Support',
+  'tools.arri.com': 'ARRI',
+  'www.apple.com': 'Apple',
+  'www.arri.com': 'ARRI',
+  'www.blackmagicdesign.com': 'Blackmagic Design',
+  'www.digitizationguidelines.gov': 'FADGI',
+  'www.loc.gov': 'Library of Congress',
+  'www.sony-asia.com': 'Sony',
+  'www.sony.co.uk': 'Sony',
+  'www.ti.com': 'Texas Instruments',
+};
+
 const getReferenceHost = (url: string) => {
   try {
     return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+};
+
+const formatDomainName = (domain: string) =>
+  domain
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+
+const getReferenceSiteName = (url: string) => {
+  try {
+    const sourceUrl = new URL(url);
+    const hostname = sourceUrl.hostname;
+    const normalizedHostname = hostname.replace(/^www\./, '');
+
+    if (normalizedHostname === 'support.google.com' && sourceUrl.pathname.startsWith('/youtube/')) {
+      return 'YouTube Help';
+    }
+
+    const knownName = KNOWN_SOURCE_SITE_NAMES[hostname] ?? KNOWN_SOURCE_SITE_NAMES[normalizedHostname];
+
+    if (knownName) {
+      return knownName;
+    }
+
+    const parts = normalizedHostname.split('.');
+    const domain = parts.length > 1 ? parts[parts.length - 2] : normalizedHostname;
+
+    return formatDomainName(domain);
   } catch {
     return url;
   }
@@ -68,6 +132,7 @@ const buildReferenceSources = (results: ResultsData): ReferenceSource[] => {
       sources.push({
         id: `${group}-${sources.length + 1}`,
         label: `${labelPrefix} - ${getReferenceHost(url)}`,
+        siteName: getReferenceSiteName(url),
         url,
         group,
       });
@@ -526,10 +591,10 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
       </div>
 
       {referenceSources.length > 0 && (
-        <div className="mb-6 -mt-2 flex items-center gap-2 overflow-x-auto whitespace-nowrap text-xs text-gray-500">
-          <span className="shrink-0">Sources:</span>
-          <ol className="flex items-center gap-1">
-            {referenceSources.map((source, index) => (
+        <div className="mb-6 -mt-2 flex flex-wrap items-center gap-2 text-xs text-gray-400">
+          <span className="shrink-0 font-medium text-gray-300">Sources:</span>
+          <ol className="flex flex-wrap items-center gap-1.5">
+            {referenceSources.map((source) => (
               <li key={source.id} className="inline-flex">
                 <a
                   href={source.url}
@@ -537,14 +602,13 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
                   rel="noopener noreferrer"
                   title={`${source.group}: ${source.label}\n${source.url}`}
                   aria-label={`${source.group}: ${source.label}`}
-                  className="rounded border border-gray-700/60 px-1.5 py-0.5 text-gray-500 transition-colors hover:border-blue-500/50 hover:text-blue-300"
+                  className="whitespace-nowrap rounded-full border border-gray-600/70 bg-gray-100/10 px-2.5 py-1 font-medium text-gray-200 shadow-sm transition-colors hover:border-blue-400/70 hover:bg-blue-500/15 hover:text-blue-200"
                 >
-                  [{index + 1}]
+                  {source.siteName}
                 </a>
               </li>
             ))}
           </ol>
-          <span className="shrink-0 text-gray-600">(hover for details)</span>
         </div>
       )}
 
