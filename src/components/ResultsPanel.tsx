@@ -2,6 +2,8 @@ import React from 'react';
 import { Calculator, HardDrive, Clock, Settings, Film, Zap, Share2, Check, Info } from 'lucide-react';
 import type { Resolution } from '../data/resolutions';
 import type { Codec, CodecVariant } from '../types/codecs';
+import { describeAudioConfiguration, formatAudioRate } from '../utils/audioConfigurations';
+import type { ResolvedAudioConfiguration } from '../utils/audioConfigurations';
 import { generateShareableLink } from '../utils/urlSharing';
 
 interface Duration {
@@ -12,6 +14,8 @@ interface Duration {
 
 interface ResultsData {
   bitrateMbps: number;
+  videoBitrateMbps: number;
+  audioBitrateMbps: number;
   fileSizeMB: number;
   fileSizeGB: number;
   fileSizeTB: number;
@@ -21,6 +25,7 @@ interface ResultsData {
   resolution: Resolution;
   frameRate: { id: string; name: string; value: number; category: string };
   category: string; // Add category to results data
+  audioConfiguration?: ResolvedAudioConfiguration;
 }
 
 interface ResultsPanelProps {
@@ -61,7 +66,14 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
         results.variant.name,
         results.resolution.id,
         results.frameRate.id,
-        duration
+        duration,
+        results.audioConfiguration
+          ? {
+              enabled: true,
+              profileId: results.audioConfiguration.profile.id,
+              configurationId: results.audioConfiguration.configuration.id,
+            }
+          : undefined
       );
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -350,7 +362,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
       <div className="bg-dark-primary rounded-lg p-4 mb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="text-gray-400">Bitrate:</span>
+            <span className="text-gray-400">Total Bitrate:</span>
             <span className="text-xl font-bold text-white">{results.bitrateMbps} Mbps</span>
           </div>
           <div className="flex items-center space-x-2">
@@ -365,6 +377,21 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
             </div>
           </div>
         </div>
+
+        {results.audioConfiguration && (
+          <div className="mt-4 grid grid-cols-1 gap-2 border-t border-gray-700 pt-4 text-sm sm:grid-cols-2">
+            <div className="flex items-center justify-between rounded bg-dark-secondary px-3 py-2">
+              <span className="text-gray-400">Video</span>
+              <span className="font-medium text-white">{results.videoBitrateMbps} Mbps</span>
+            </div>
+            <div className="flex items-center justify-between rounded bg-dark-secondary px-3 py-2">
+              <span className="text-gray-400">Audio</span>
+              <span className="font-medium text-blue-300">
+                {formatAudioRate(results.audioConfiguration.profile, results.audioConfiguration.configuration)}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Data Rates */}
@@ -429,6 +456,21 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
             </div>
           </div>
         </div>
+
+        {results.audioConfiguration && (
+          <div className="mt-4 border-t border-blue-600/20 pt-4">
+            <div className="text-sm text-gray-400">Audio</div>
+            <div className="mt-1 text-white font-medium">
+              {results.audioConfiguration.profile.name} - {results.audioConfiguration.configuration.label}
+            </div>
+            <div className="mt-1 text-xs text-gray-400">
+              {describeAudioConfiguration(
+                results.audioConfiguration.profile,
+                results.audioConfiguration.configuration
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Share Link Button */}

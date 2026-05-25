@@ -1,0 +1,982 @@
+{
+  "metadata": {
+    "exportDate": "2026-05-25T15:14:00.000Z",
+    "source": "Source-backed audio configuration catalog",
+    "notes": "PCM rates are calculated from sample rate, bit depth, and channel count. Compressed delivery rates are platform or codec recommendations and exclude container overhead.",
+    "sourceUrls": [
+      "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf",
+      "https://www.apple.com/final-cut-pro/docs/Apple_ProRes_RAW_White_Paper.pdf",
+      "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+      "https://support.google.com/youtube/answer/1722171?hl=en",
+      "https://support.google.com/youtube/answer/2853702?hl=en",
+      "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines",
+      "https://www.webmproject.org/docs/container/",
+      "https://datatracker.ietf.org/doc/html/rfc6716",
+      "https://wiki.xiph.org/index.php?title=Opus_Recommended_Settings",
+      "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf",
+      "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf",
+      "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
+      "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf",
+      "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf",
+      "https://documents.dcimovies.com/DCSS/release/1.4.5/",
+      "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf",
+      "https://datatracker.ietf.org/doc/rfc9043/",
+      "https://datatracker.ietf.org/doc/rfc9559/",
+      "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling",
+      "https://documents.blackmagicdesign.com/DeveloperManuals/BlackmagicRAW-SDK.pdf",
+      "https://www.canon-europe.com/video-cameras/eos-c70/specifications/",
+      "https://docs.red.com/955-0196/955-0196_V1.7%20Rev-B%20RED%20PS,%20KOMODO%20Operation%20Guide%20HTML/Content/4_Menus/03_AudioTC/01_Intro_Audio_TC.htm"
+    ]
+  },
+  "codecProfiles": {
+    "av1": {
+      "defaultAudioProfileId": "webm-opus",
+      "audioProfiles": [
+        {
+          "id": "webm-opus",
+          "name": "WebM Opus",
+          "kind": "compressed",
+          "codec": "Opus",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "stereo-128",
+          "configurations": [
+            { "id": "mono-64", "label": "Mono 64 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 64 },
+            { "id": "stereo-96", "label": "Stereo 96 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 96 },
+            { "id": "stereo-128", "label": "Stereo 128 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 128 },
+            { "id": "surround-5-1-256", "label": "5.1 Surround 256 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 256 },
+            { "id": "surround-7-1-384", "label": "7.1 Surround 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
+          ],
+          "description": "Default WebM pairing for AV1 delivery.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://www.webmproject.org/docs/container/",
+            "https://datatracker.ietf.org/doc/html/rfc6716",
+            "https://wiki.xiph.org/index.php?title=Opus_Recommended_Settings"
+          ],
+          "notes": "Opus recommendations vary by content; values use common Xiph/WebM guidance."
+        },
+        {
+          "id": "mp4-aac",
+          "name": "MP4/HLS AAC-LC",
+          "kind": "compressed",
+          "codec": "AAC-LC",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "stereo-160",
+          "configurations": [
+            { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
+            { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
+            { "id": "stereo-youtube-384", "label": "YouTube Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
+            { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 },
+            { "id": "surround-5-1-youtube-512", "label": "YouTube 5.1 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 }
+          ],
+          "description": "Compatibility-oriented MP4/HLS audio for AV1 delivery.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+            "https://support.google.com/youtube/answer/1722171?hl=en"
+          ],
+          "notes": "AV1 audio support is container/platform-specific; these are delivery recommendations."
+        }
+      ]
+    },
+    "h264": {
+      "defaultAudioProfileId": "mp4-aac",
+      "audioProfiles": [
+        {
+          "id": "mp4-aac",
+          "name": "MP4/HLS AAC-LC",
+          "kind": "compressed",
+          "codec": "AAC-LC",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "stereo-160",
+          "configurations": [
+            { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
+            { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
+            { "id": "stereo-vimeo-320", "label": "Vimeo Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
+            { "id": "stereo-youtube-384", "label": "YouTube Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
+            { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 },
+            { "id": "surround-5-1-youtube-512", "label": "YouTube 5.1 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 }
+          ],
+          "description": "Broadly compatible H.264 MP4/HLS audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+            "https://support.google.com/youtube/answer/1722171?hl=en",
+            "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+          ],
+          "notes": "Upload and streaming services frequently transcode audio; these settings estimate source file size."
+        },
+        {
+          "id": "hls-surround",
+          "name": "HLS AC-3/E-AC-3 Surround",
+          "kind": "compressed",
+          "codec": "AC-3/E-AC-3",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "eac3-5-1-192",
+          "configurations": [
+            { "id": "ac3-5-1-384", "label": "AC-3 5.1 384 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 384 },
+            { "id": "eac3-5-1-192", "label": "E-AC-3 5.1 192 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 192 },
+            { "id": "eac3-7-1-384", "label": "E-AC-3 7.1 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
+          ],
+          "description": "Apple HLS surround audio options.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices"
+          ]
+        }
+      ]
+    },
+    "h265": {
+      "defaultAudioProfileId": "mp4-aac",
+      "audioProfiles": [
+        {
+          "id": "mp4-aac",
+          "name": "MP4/HLS AAC-LC",
+          "kind": "compressed",
+          "codec": "AAC-LC",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "stereo-160",
+          "configurations": [
+            { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
+            { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
+            { "id": "stereo-vimeo-320", "label": "Vimeo Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
+            { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 }
+          ],
+          "description": "Common HEVC MP4/HLS audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+            "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines"
+          ]
+        },
+        {
+          "id": "hls-surround",
+          "name": "HLS AC-3/E-AC-3 Surround",
+          "kind": "compressed",
+          "codec": "AC-3/E-AC-3",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "eac3-5-1-192",
+          "configurations": [
+            { "id": "ac3-5-1-384", "label": "AC-3 5.1 384 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 384 },
+            { "id": "eac3-5-1-192", "label": "E-AC-3 5.1 192 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 192 },
+            { "id": "eac3-7-1-384", "label": "E-AC-3 7.1 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
+          ],
+          "description": "Apple HLS surround audio options.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices"
+          ]
+        }
+      ]
+    },
+    "vp9": {
+      "defaultAudioProfileId": "webm-opus",
+      "audioProfiles": [
+        {
+          "id": "webm-opus",
+          "name": "WebM Opus",
+          "kind": "compressed",
+          "codec": "Opus",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "stereo-128",
+          "configurations": [
+            { "id": "mono-64", "label": "Mono 64 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 64 },
+            { "id": "stereo-96", "label": "Stereo 96 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 96 },
+            { "id": "stereo-128", "label": "Stereo 128 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 128 },
+            { "id": "surround-5-1-256", "label": "5.1 Surround 256 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 256 },
+            { "id": "surround-7-1-384", "label": "7.1 Surround 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
+          ],
+          "description": "Default WebM pairing for VP9 delivery.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://www.webmproject.org/docs/container/",
+            "https://wiki.xiph.org/index.php?title=Opus_Recommended_Settings"
+          ]
+        }
+      ]
+    },
+    "prores": {
+      "defaultAudioProfileId": "mov-lpcm-48k-24bit",
+      "audioProfiles": [
+        {
+          "id": "mov-lpcm-48k-24bit",
+          "name": "MOV LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "stereo",
+          "configurations": [
+            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
+            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
+            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" },
+            { "id": "broadcast-16", "label": "16 mono tracks", "channels": 16, "layout": "16 mono" }
+          ],
+          "description": "Container-governed ProRes MOV audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://www.apple.com/final-cut-pro/docs/Apple_ProRes.pdf"
+          ],
+          "notes": "ProRes is video essence; audio limits come from MOV/MXF delivery profiles."
+        },
+        {
+          "id": "mov-lpcm-48k-16bit",
+          "name": "MOV LPCM 48 kHz 16-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 16,
+          "defaultConfigurationId": "stereo",
+          "configurations": [
+            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
+            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
+            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" }
+          ],
+          "description": "Lower bit-depth MOV LPCM audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://developer.apple.com/standards/qtff-2001.pdf"
+          ]
+        }
+      ]
+    },
+    "dnxhd": {
+      "defaultAudioProfileId": "mxf-lpcm-48k-24bit",
+      "audioProfiles": [
+        {
+          "id": "mxf-lpcm-48k-24bit",
+          "name": "MXF/MOV LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "stereo",
+          "configurations": [
+            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
+            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
+            { "id": "broadcast-8", "label": "8 mono tracks", "channels": 8, "layout": "8 mono" },
+            { "id": "broadcast-16", "label": "16 mono tracks", "channels": 16, "layout": "16 mono" }
+          ],
+          "description": "Common DNxHD/DNxHR MXF or MOV PCM audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://kb.avid.com/pkb/articles/en_US/Knowledge/DNxHR-Codec-Bandwidth-Specifications"
+          ],
+          "notes": "DNxHD/DNxHR is video essence; audio is governed by the MOV/MXF profile."
+        },
+        {
+          "id": "mxf-lpcm-48k-16bit",
+          "name": "MXF/MOV LPCM 48 kHz 16-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 16,
+          "defaultConfigurationId": "stereo",
+          "configurations": [
+            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
+            { "id": "broadcast-8", "label": "8 mono tracks", "channels": 8, "layout": "8 mono" }
+          ],
+          "description": "Common lower bit-depth DNx audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://kb.avid.com/pkb/articles/en_US/Knowledge/Is-it-possible-to-export-MXF-from-Media-Composer"
+          ]
+        }
+      ]
+    },
+    "cineform": {
+      "defaultAudioProfileId": "mov-lpcm-48k-24bit",
+      "audioProfiles": [
+        {
+          "id": "mov-lpcm-48k-24bit",
+          "name": "MOV/AVI LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "stereo",
+          "configurations": [
+            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
+            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
+            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" }
+          ],
+          "description": "Container-governed CineForm audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://gopro.github.io/cineform-sdk/"
+          ],
+          "notes": "CineForm documentation defines video essence; MOV/AVI audio support is workflow-dependent."
+        }
+      ]
+    },
+    "avc_intra": {
+      "defaultAudioProfileId": "p2-lpcm-48k-24bit",
+      "audioProfiles": [
+        {
+          "id": "p2-lpcm-48k-24bit",
+          "name": "P2 LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "four-channel",
+          "configurations": [
+            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+          ],
+          "description": "Panasonic P2 AVC-Intra camera audio.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf"
+          ]
+        }
+      ]
+    },
+    "xavc": {
+      "defaultAudioProfileId": "xavc-mxf-aes3-24bit",
+      "audioProfiles": [
+        {
+          "id": "xavc-mxf-aes3-24bit",
+          "name": "XAVC MXF AES3 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "AES3 PCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "eight-channel",
+          "configurations": [
+            { "id": "two-channel", "label": "2 mono channels", "channels": 2, "layout": "2 mono" },
+            { "id": "four-channel", "label": "4 mono channels", "channels": 4, "layout": "4 mono" },
+            { "id": "eight-channel", "label": "8 mono channels", "channels": 8, "layout": "8 mono" },
+            { "id": "sixteen-channel", "label": "16 mono channels", "channels": 16, "layout": "16 mono" }
+          ],
+          "description": "Professional XAVC MXF audio operating points.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf"
+          ],
+          "notes": "Exact channel count depends on XAVC profile, device, and system frequency."
+        }
+      ]
+    },
+    "xdcam": {
+      "defaultAudioProfileId": "xdcam-hd-16bit",
+      "audioProfiles": [
+        {
+          "id": "xdcam-hd-16bit",
+          "name": "XDCAM HD LPCM 48 kHz 16-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 16,
+          "defaultConfigurationId": "four-channel",
+          "configurations": [
+            { "id": "two-channel", "label": "2ch", "channels": 2, "layout": "2 mono" },
+            { "id": "four-channel", "label": "4ch", "channels": 4, "layout": "4 mono" }
+          ],
+          "description": "Common XDCAM HD audio.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf"
+          ]
+        }
+      ]
+    },
+    "jpeg2000": {
+      "defaultAudioProfileId": "dcp-imf-pcm-48k-24bit",
+      "audioProfiles": [
+        {
+          "id": "dcp-imf-pcm-48k-24bit",
+          "name": "DCP/IMF PCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "surround-5-1",
+          "configurations": [
+            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
+            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
+            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" },
+            { "id": "sixteen-channel", "label": "16 channels", "channels": 16, "layout": "16 channels" }
+          ],
+          "description": "Cinema and IMF PCM audio carried separately from JPEG 2000 essence.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://documents.dcimovies.com/DCSS/release/1.4.5/",
+            "https://partnerzone.sonypictures.com/assets/downloads/Sony_Pictures_IMF_Specification_v2.1.pdf"
+          ]
+        },
+        {
+          "id": "dcp-imf-pcm-96k-24bit",
+          "name": "DCP/IMF PCM 96 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 96000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "surround-5-1",
+          "configurations": [
+            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
+            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" },
+            { "id": "sixteen-channel", "label": "16 channels", "channels": 16, "layout": "16 channels" }
+          ],
+          "description": "Higher sample-rate DCP/IMF PCM option.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://documents.dcimovies.com/DCSS/release/1.4.5/"
+          ]
+        }
+      ]
+    },
+    "mpeg2": {
+      "defaultAudioProfileId": "broadcast-aac-layer-ac3",
+      "audioProfiles": [
+        {
+          "id": "broadcast-aac-layer-ac3",
+          "name": "Broadcast Transport Audio",
+          "kind": "compressed",
+          "codec": "MPEG Layer II/AAC/AC-3",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "layer2-stereo-256",
+          "configurations": [
+            { "id": "layer2-stereo-192", "label": "MPEG Layer II Stereo 192 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 192 },
+            { "id": "layer2-stereo-256", "label": "MPEG Layer II Stereo 256 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 256 },
+            { "id": "aac-stereo-160", "label": "AAC Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
+            { "id": "ac3-5-1-384", "label": "AC-3 5.1 384 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 384 }
+          ],
+          "description": "Common MPEG-2 transport-stream audio choices.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://www.oipf.tv/web-spec/volume2.html",
+            "https://www.etsi.org/deliver/etsi_ts/101100_101199/101154/02.03.01_60/ts_101154v020301p.pdf"
+          ],
+          "notes": "MPEG-2 video profiles do not define audio; broadcaster profiles determine the final choice."
+        }
+      ]
+    },
+    "mxf_d10": {
+      "defaultAudioProfileId": "d10-imx-pcm",
+      "audioProfiles": [
+        {
+          "id": "d10-imx-pcm",
+          "name": "D-10/IMX PCM 48 kHz",
+          "kind": "pcm",
+          "codec": "AES3 PCM",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "eight-channel-16bit",
+          "configurations": [
+            { "id": "eight-channel-16bit", "label": "8ch 16-bit", "channels": 8, "layout": "8 mono", "bitDepth": 16 },
+            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+          ],
+          "description": "SMPTE D-10 / MPEG IMX audio profiles.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf",
+            "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf"
+          ]
+        }
+      ]
+    },
+    "arri_raw": {
+      "defaultAudioProfileId": "arri-mxf-lpcm",
+      "audioProfiles": [
+        {
+          "id": "arri-mxf-lpcm",
+          "name": "ARRI MXF LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "four-channel",
+          "configurations": [
+            { "id": "two-channel", "label": "2ch legacy camera audio", "channels": 2, "layout": "2 mono" },
+            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+          ],
+          "description": "ARRIRAW/ARRICORE MXF camera audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://www.arri.com/en/learn-help/learn-help-camera-system/pre-postproduction/file-formats-data-handling"
+          ],
+          "notes": "Legacy ARRIRAW image sequences may not embed audio; MXF workflows commonly carry synchronized PCM."
+        }
+      ]
+    },
+    "braw": {
+      "defaultAudioProfileId": "braw-clip-pcm",
+      "audioProfiles": [
+        {
+          "id": "braw-clip-pcm",
+          "name": "BRAW Embedded PCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "PCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "stereo",
+          "configurations": [
+            { "id": "stereo", "label": "2ch camera audio", "channels": 2, "layout": "Stereo" },
+            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+          ],
+          "description": "Embedded Blackmagic RAW PCM audio when recorded by the camera.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://documents.blackmagicdesign.com/DeveloperManuals/BlackmagicRAW-SDK.pdf",
+            "https://www.blackmagicdesign.com/products/blackmagicraw"
+          ],
+          "notes": "The BRAW SDK reports channel count/sample rate/bit depth per clip; public docs do not state a universal channel maximum."
+        }
+      ]
+    },
+    "canon_raw": {
+      "defaultAudioProfileId": "canon-crm-lpcm",
+      "audioProfiles": [
+        {
+          "id": "canon-crm-lpcm",
+          "name": "Cinema RAW Light LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "four-channel",
+          "configurations": [
+            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+          ],
+          "description": "Canon Cinema RAW Light embedded audio.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://www.canon-europe.com/video-cameras/eos-c70/specifications/",
+            "https://canon.a.bigcontent.io/v1/static/eos-c500-mark-ii_raw_light_recording_em_final_cc3a7923af334a9cab6cd8e4bd4bdfb1"
+          ],
+          "notes": "Special slow/fast recording modes may omit audio on some cameras."
+        }
+      ]
+    },
+    "prores_raw": {
+      "defaultAudioProfileId": "atomos-lpcm",
+      "audioProfiles": [
+        {
+          "id": "atomos-lpcm",
+          "name": "Recorder LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "eight-channel-hdmi",
+          "configurations": [
+            { "id": "stereo-analog", "label": "2ch analog", "channels": 2, "layout": "Stereo" },
+            { "id": "eight-channel-hdmi", "label": "8ch HDMI", "channels": 8, "layout": "8 channels" },
+            { "id": "twelve-channel-sdi", "label": "12ch SDI", "channels": 12, "layout": "12 channels" }
+          ],
+          "description": "Common Atomos ProRes RAW recorder audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://www.apple.com/final-cut-pro/docs/Apple_ProRes_RAW_White_Paper.pdf",
+            "https://support.atomos.com/hc/en-us/articles/5109844224911-Technical-Specifications"
+          ],
+          "notes": "Channel count is recorder/input-specific, not defined by the ProRes RAW codec."
+        }
+      ]
+    },
+    "red_r3d": {
+      "defaultAudioProfileId": "red-r3d-pcm",
+      "audioProfiles": [
+        {
+          "id": "red-r3d-pcm",
+          "name": "R3D Embedded PCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "PCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "four-channel",
+          "configurations": [
+            { "id": "two-channel", "label": "2ch", "channels": 2, "layout": "2 mono" },
+            { "id": "four-channel", "label": "4ch", "channels": 4, "layout": "4 mono" }
+          ],
+          "description": "RED camera audio embedded in R3D clips.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://docs.red.com/955-0196/955-0196_V1.7%20Rev-B%20RED%20PS,%20KOMODO%20Operation%20Guide%20HTML/Content/4_Menus/03_AudioTC/01_Intro_Audio_TC.htm"
+          ],
+          "notes": "Some varispeed or high-speed modes may store audio separately or omit it."
+        }
+      ]
+    },
+    "ffv1": {
+      "defaultAudioProfileId": "mkv-pcm-preservation",
+      "audioProfiles": [
+        {
+          "id": "mkv-pcm-preservation",
+          "name": "Matroska PCM Preservation",
+          "kind": "pcm",
+          "codec": "PCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "stereo",
+          "configurations": [
+            { "id": "mono", "label": "1ch source audio", "channels": 1, "layout": "Mono" },
+            { "id": "stereo", "label": "2ch source audio", "channels": 2, "layout": "Stereo" },
+            { "id": "four-channel", "label": "4ch source audio", "channels": 4, "layout": "4 channels" },
+            { "id": "eight-channel", "label": "8ch source audio", "channels": 8, "layout": "8 channels" }
+          ],
+          "description": "Common FFV1/Matroska preservation audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://datatracker.ietf.org/doc/rfc9043/",
+            "https://datatracker.ietf.org/doc/rfc9559/"
+          ],
+          "notes": "FFV1 is video-only; Matroska audio is usually source-channel preserving."
+        }
+      ]
+    },
+    "lossless_jpeg2000": {
+      "defaultAudioProfileId": "as07-pcm-48k-24bit",
+      "audioProfiles": [
+        {
+          "id": "as07-pcm-48k-24bit",
+          "name": "Archival MXF PCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "BWF/PCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "eight-channel",
+          "configurations": [
+            { "id": "stereo", "label": "2ch source audio", "channels": 2, "layout": "Stereo" },
+            { "id": "four-channel", "label": "4ch source audio", "channels": 4, "layout": "4 channels" },
+            { "id": "eight-channel", "label": "8 mono tracks", "channels": 8, "layout": "8 mono" },
+            { "id": "sixteen-channel", "label": "16 channels", "channels": 16, "layout": "16 channels" }
+          ],
+          "description": "FADGI/RDD 48 style archival MXF audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf"
+          ]
+        }
+      ]
+    },
+    "uncompressed": {
+      "defaultAudioProfileId": "as07-pcm-48k-24bit",
+      "audioProfiles": [
+        {
+          "id": "as07-pcm-48k-24bit",
+          "name": "Archival MXF PCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "BWF/PCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "eight-channel",
+          "configurations": [
+            { "id": "stereo", "label": "2ch source audio", "channels": 2, "layout": "Stereo" },
+            { "id": "four-channel", "label": "4ch source audio", "channels": 4, "layout": "4 channels" },
+            { "id": "eight-channel", "label": "8 mono tracks", "channels": 8, "layout": "8 mono" },
+            { "id": "sixteen-channel", "label": "16 channels", "channels": 16, "layout": "16 channels" }
+          ],
+          "description": "FADGI/RDD 48 style archival MXF audio.",
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://www.digitizationguidelines.gov/guidelines/rdd48-2018_published.pdf"
+          ],
+          "notes": "Uncompressed video has no intrinsic audio constraint; archival wrappers determine audio support."
+        }
+      ]
+    }
+  },
+  "variantProfiles": {
+    "avc_intra::AVC-Intra 50": {
+      "defaultAudioProfileId": "p2-lpcm-48k",
+      "audioProfiles": [
+        {
+          "id": "p2-lpcm-48k",
+          "name": "P2 LPCM 48 kHz",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "four-channel-24bit",
+          "configurations": [
+            { "id": "four-channel-16bit", "label": "4ch 16-bit", "channels": 4, "layout": "4 mono", "bitDepth": 16 },
+            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf"
+          ]
+        }
+      ]
+    },
+    "avc_intra::AVC-Intra 100": {
+      "defaultAudioProfileId": "p2-lpcm-48k",
+      "audioProfiles": [
+        {
+          "id": "p2-lpcm-48k",
+          "name": "P2 LPCM 48 kHz",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "four-channel-24bit",
+          "configurations": [
+            { "id": "four-channel-16bit", "label": "4ch 16-bit", "channels": 4, "layout": "4 mono", "bitDepth": 16 },
+            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf"
+          ]
+        }
+      ]
+    },
+    "avc_intra::AVC-Intra 200": {
+      "defaultAudioProfileId": "p2-lpcm-48k-24bit",
+      "audioProfiles": [
+        {
+          "id": "p2-lpcm-48k-24bit",
+          "name": "P2 LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "four-channel",
+          "configurations": [
+            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro-av.panasonic.net/en/download/brochure/pdf/aj-pg50.pdf"
+          ]
+        }
+      ]
+    },
+    "xavc::XAVC-L": {
+      "defaultAudioProfileId": "xavc-mxf-aes3-24bit",
+      "audioProfiles": [
+        {
+          "id": "xavc-mxf-aes3-24bit",
+          "name": "XAVC MXF AES3 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "AES3 PCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "eight-channel",
+          "configurations": [
+            { "id": "two-channel", "label": "2 mono channels", "channels": 2, "layout": "2 mono" },
+            { "id": "four-channel", "label": "4 mono channels", "channels": 4, "layout": "4 mono" },
+            { "id": "eight-channel", "label": "8 mono channels", "channels": 8, "layout": "8 mono" },
+            { "id": "sixteen-channel", "label": "16 mono channels", "channels": 16, "layout": "16 mono" }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf"
+          ]
+        },
+        {
+          "id": "xavc-mp4-aac",
+          "name": "XAVC MP4 AAC-LC",
+          "kind": "compressed",
+          "codec": "AAC-LC",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "stereo-256",
+          "configurations": [
+            { "id": "stereo-256", "label": "Stereo 256 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 256 },
+            { "id": "surround-5-1-640", "label": "5.1 640 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 640 }
+          ],
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf"
+          ],
+          "notes": "AAC options apply to MP4/XAVC S style workflows, not every XAVC-L MXF operating point."
+        }
+      ]
+    },
+    "xavc::XAVC-I": {
+      "defaultAudioProfileId": "xavc-mxf-aes3-24bit",
+      "audioProfiles": [
+        {
+          "id": "xavc-mxf-aes3-24bit",
+          "name": "XAVC MXF AES3 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "AES3 PCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "eight-channel",
+          "configurations": [
+            { "id": "four-channel", "label": "4 mono channels", "channels": 4, "layout": "4 mono" },
+            { "id": "eight-channel", "label": "8 mono channels", "channels": 8, "layout": "8 mono" },
+            { "id": "sixteen-channel", "label": "16 mono channels", "channels": 16, "layout": "16 mono" }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf"
+          ]
+        }
+      ]
+    },
+    "xavc::XAVC-HS": {
+      "defaultAudioProfileId": "xavc-mp4-aac",
+      "audioProfiles": [
+        {
+          "id": "xavc-mp4-aac",
+          "name": "XAVC HS MP4 AAC-LC",
+          "kind": "compressed",
+          "codec": "AAC-LC",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "stereo-256",
+          "configurations": [
+            { "id": "stereo-256", "label": "Stereo 256 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 256 },
+            { "id": "surround-5-1-640", "label": "5.1 640 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 640 }
+          ],
+          "accuracy": "estimate",
+          "sourceUrls": [
+            "https://assets.pro.sony.eu/Web/supportcontent/XAVC_Profiles_and_OperatingPoints_210.pdf"
+          ],
+          "notes": "XAVC HS is commonly MP4-based; camera support varies."
+        }
+      ]
+    },
+    "xdcam::XDCAM EX HQ 35 Mb/s": {
+      "defaultAudioProfileId": "xdcam-ex-lpcm",
+      "audioProfiles": [
+        {
+          "id": "xdcam-ex-lpcm",
+          "name": "XDCAM EX LPCM 48 kHz 16-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 16,
+          "defaultConfigurationId": "two-channel",
+          "configurations": [
+            { "id": "two-channel", "label": "2ch", "channels": 2, "layout": "Stereo" }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf"
+          ]
+        }
+      ]
+    },
+    "xdcam::XDCAM EX SP 25 Mb/s": {
+      "defaultAudioProfileId": "xdcam-ex-lpcm",
+      "audioProfiles": [
+        {
+          "id": "xdcam-ex-lpcm",
+          "name": "XDCAM EX LPCM 48 kHz 16-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 16,
+          "defaultConfigurationId": "two-channel",
+          "configurations": [
+            { "id": "two-channel", "label": "2ch", "channels": 2, "layout": "Stereo" }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://www.sony-asia.com/microsite/professional/xdcam/_catalogues/XDCAM_Family_EX.pdf"
+          ]
+        }
+      ]
+    },
+    "xdcam::XDCAM HD422 50 Mb/s": {
+      "defaultAudioProfileId": "xdcam-hd422-lpcm",
+      "audioProfiles": [
+        {
+          "id": "xdcam-hd422-lpcm",
+          "name": "XDCAM HD422 LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "eight-channel",
+          "configurations": [
+            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" },
+            { "id": "eight-channel", "label": "8ch broadcast audio", "channels": 8, "layout": "8 mono" },
+            { "id": "sixteen-channel", "label": "16ch delivery profile", "channels": 16, "layout": "16 mono" }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf",
+            "https://www.ard.de/die-ard/b2b/ard-zdf-hdf01b-xdcam-422-1080i-25-16-audio-tracks-100.pdf"
+          ],
+          "notes": "8ch 24-bit is the standard broadcast XDCAM HD422 profile; some cameras expose fewer channels."
+        }
+      ]
+    },
+    "xdcam::XDCAM SD IMX 50 Mb/s": {
+      "defaultAudioProfileId": "xdcam-imx-pcm",
+      "audioProfiles": [
+        {
+          "id": "xdcam-imx-pcm",
+          "name": "XDCAM IMX PCM 48 kHz",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "eight-channel-16bit",
+          "configurations": [
+            { "id": "eight-channel-16bit", "label": "8ch 16-bit", "channels": 8, "layout": "8 mono", "bitDepth": 16 },
+            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf"
+          ]
+        }
+      ]
+    },
+    "xdcam::XDCAM SD IMX 40 Mb/s": {
+      "defaultAudioProfileId": "xdcam-imx-pcm",
+      "audioProfiles": [
+        {
+          "id": "xdcam-imx-pcm",
+          "name": "XDCAM IMX PCM 48 kHz",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "eight-channel-16bit",
+          "configurations": [
+            { "id": "eight-channel-16bit", "label": "8ch 16-bit", "channels": 8, "layout": "8 mono", "bitDepth": 16 },
+            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf"
+          ]
+        }
+      ]
+    },
+    "xdcam::XDCAM SD IMX 30 Mb/s": {
+      "defaultAudioProfileId": "xdcam-imx-pcm",
+      "audioProfiles": [
+        {
+          "id": "xdcam-imx-pcm",
+          "name": "XDCAM IMX PCM 48 kHz",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "defaultConfigurationId": "eight-channel-16bit",
+          "configurations": [
+            { "id": "eight-channel-16bit", "label": "8ch 16-bit", "channels": 8, "layout": "8 mono", "bitDepth": 16 },
+            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro.sony/s3/cms-static-content/file/37/1237485310637.pdf"
+          ]
+        }
+      ]
+    },
+    "xdcam::XDCAM SD DVCAM 25 Mb/s": {
+      "defaultAudioProfileId": "xdcam-dvcam-pcm",
+      "audioProfiles": [
+        {
+          "id": "xdcam-dvcam-pcm",
+          "name": "XDCAM DVCAM LPCM 48 kHz 16-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 16,
+          "defaultConfigurationId": "four-channel",
+          "configurations": [
+            { "id": "four-channel", "label": "4ch", "channels": 4, "layout": "4 mono" }
+          ],
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://pro.sony/s3/cms-static-content/uploadfile/15/1237494517315.pdf"
+          ],
+          "notes": "This is constrained to the Sony XDCAM DVCAM catalog entry; classic DV/DVCAM variants can differ."
+        }
+      ]
+    }
+  }
+}
