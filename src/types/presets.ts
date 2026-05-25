@@ -6,4 +6,7 @@ export interface CustomPreset {
   variant: string;
   resolution: string;
   frameRate: string;
+  audioEnabled?: boolean;
+  audioProfileId?: string;
+  audioConfigurationId?: string;
 }

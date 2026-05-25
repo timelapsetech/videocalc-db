@@ -54,7 +54,7 @@ export const workflowPresets = {
     variant: 'High Profile', 
     resolution: '1080p' 
   },
-  'Netflix 4K': { 
+  'Netflix IMF 4K': { 
     category: 'broadcast', 
     codec: 'jpeg2000', 
     variant: 'J2K IMF 4K', 

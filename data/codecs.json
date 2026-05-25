@@ -2944,9 +2944,11 @@
               "description": "IMF (Interoperable Master Format) for 4K distribution",
               "accuracy": "spec",
               "sourceUrls": [
+                "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications",
+                "https://partnerhelp.netflixstudios.com/hc/en-us/articles/360018026794-Best-Practices-Branded-Non-Branded-IMF-Deliveries",
                 "https://documents.dcimovies.com/DCSS/release/1.4.5/"
               ],
-              "notes": "IMF/JPEG 2000 profile maximum estimate retained separately from DCP 250 Mbit/s 24 fps constraints."
+              "notes": "Netflix IMF Application #2E/JPEG 2000 profile: 2K up to 400 Mbit/s and 4K/UHD up to 800 Mbit/s for frame rates up to 30 fps; higher frame rates use the 1600 Mbit/s profile."
             }
           ],
           "description": "Wavelet-based codec for high-end broadcast applications",

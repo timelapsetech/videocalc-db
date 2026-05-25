@@ -34,6 +34,56 @@ interface ResultsPanelProps {
   onDurationChange: (duration: Duration) => void;
 }
 
+interface ReferenceSource {
+  id: string;
+  label: string;
+  url: string;
+  group: 'Video Codec' | 'Video Variant' | 'Audio Profile';
+}
+
+const getReferenceHost = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+};
+
+const buildReferenceSources = (results: ResultsData): ReferenceSource[] => {
+  const sources: ReferenceSource[] = [];
+  const seenUrls = new Set<string>();
+
+  const addSources = (
+    urls: string[] | undefined,
+    group: ReferenceSource['group'],
+    labelPrefix: string
+  ) => {
+    urls?.forEach((url) => {
+      if (seenUrls.has(url)) {
+        return;
+      }
+
+      seenUrls.add(url);
+      sources.push({
+        id: `${group}-${sources.length + 1}`,
+        label: `${labelPrefix} - ${getReferenceHost(url)}`,
+        url,
+        group,
+      });
+    });
+  };
+
+  addSources(results.codec.sourceUrls, 'Video Codec', results.codec.name);
+  addSources(results.variant.sourceUrls, 'Video Variant', results.variant.name);
+  addSources(
+    results.audioConfiguration?.profile.sourceUrls,
+    'Audio Profile',
+    results.audioConfiguration?.profile.name ?? 'Audio'
+  );
+
+  return sources;
+};
+
 const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurationChange }) => {
   const [copied, setCopied] = React.useState(false);
   const [useBinaryUnits, setUseBinaryUnits] = React.useState(false); // false = GB (decimal), true = GiB (binary)
@@ -139,6 +189,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
 
   const dataRateMBperMin = (results.bitrateMbps * 60) / 8;
   const dataRateMBperHour = dataRateMBperMin * 60;
+  const referenceSources = buildReferenceSources(results);
 
   return (
     <div className="bg-dark-secondary rounded-xl p-6 shadow-lg fade-in-up">
@@ -472,6 +523,29 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
           </div>
         )}
       </div>
+
+      {referenceSources.length > 0 && (
+        <div className="mb-6 -mt-2 flex items-center gap-2 overflow-x-auto whitespace-nowrap text-xs text-gray-500">
+          <span className="shrink-0">Sources:</span>
+          <ol className="flex items-center gap-1">
+            {referenceSources.map((source, index) => (
+              <li key={source.id} className="inline-flex">
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`${source.group}: ${source.label}\n${source.url}`}
+                  aria-label={`${source.group}: ${source.label}`}
+                  className="rounded border border-gray-700/60 px-1.5 py-0.5 text-gray-500 transition-colors hover:border-blue-500/50 hover:text-blue-300"
+                >
+                  [{index + 1}]
+                </a>
+              </li>
+            ))}
+          </ol>
+          <span className="shrink-0 text-gray-600">(hover for details)</span>
+        </div>
+      )}
 
       {/* Share Link Button */}
       <div className="flex justify-center">

@@ -61,7 +61,10 @@ const EditablePresetCard: React.FC<EditablePresetCardProps> = ({
       ...editingPreset,
       category: categoryId,
       codec: '',
-      variant: ''
+      variant: '',
+      audioEnabled: false,
+      audioProfileId: '',
+      audioConfigurationId: ''
     });
   };
 
@@ -69,7 +72,10 @@ const EditablePresetCard: React.FC<EditablePresetCardProps> = ({
     setEditingPreset({
       ...editingPreset,
       codec: codecId,
-      variant: ''
+      variant: '',
+      audioEnabled: false,
+      audioProfileId: '',
+      audioConfigurationId: ''
     });
   };
 
@@ -121,7 +127,13 @@ const EditablePresetCard: React.FC<EditablePresetCardProps> = ({
             <label className="block text-xs text-gray-400 mb-1">Variant</label>
             <select
               value={editingPreset.variant}
-              onChange={(e) => setEditingPreset({ ...editingPreset, variant: e.target.value })}
+              onChange={(e) => setEditingPreset({
+                ...editingPreset,
+                variant: e.target.value,
+                audioEnabled: false,
+                audioProfileId: '',
+                audioConfigurationId: ''
+              })}
               disabled={!editingPreset.codec}
               className="w-full px-3 py-2 bg-dark-primary border border-gray-700 rounded text-white text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
             >
@@ -227,6 +239,7 @@ const EditablePresetCard: React.FC<EditablePresetCardProps> = ({
       <div className="text-xs text-gray-400 space-y-1">
         <div>Resolution: {preset.resolution}</div>
         <div>Codec: {preset.variant}</div>
+        {preset.audioEnabled && <div>Audio: included</div>}
       </div>
     </button>
   );
