@@ -1,5 +1,7 @@
 import React from 'react';
-import { Calculator, HardDrive, Clock, Settings, Film, Zap, Share2, Copy, Check, Info, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Calculator, HardDrive, Clock, Settings, Film, Zap, Share2, Check, Info } from 'lucide-react';
+import type { Resolution } from '../data/resolutions';
+import type { Codec, CodecVariant } from '../types/codecs';
 import { generateShareableLink } from '../utils/urlSharing';
 
 interface Duration {
@@ -14,10 +16,10 @@ interface ResultsData {
   fileSizeGB: number;
   fileSizeTB: number;
   totalSeconds: number;
-  codec: any;
-  variant: any;
-  resolution: any;
-  frameRate: any;
+  codec: Codec;
+  variant: CodecVariant;
+  resolution: Resolution;
+  frameRate: { id: string; name: string; value: number; category: string };
   category: string; // Add category to results data
 }
 
@@ -34,7 +36,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
 
   const handleDurationChange = (field: keyof Duration, value: string) => {
     const numValue = Math.max(0, parseInt(value) || 0);
-    let newDuration = { ...duration, [field]: numValue };
+    const newDuration = { ...duration, [field]: numValue };
     
     // Handle overflow
     if (field === 'seconds' && numValue >= 60) {
@@ -106,7 +108,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
     }
   };
 
-  const getDetailedSize = (sizeMB: number, useBinary: boolean) => {
+  const getDetailedSize = (sizeMB: number) => {
     // Always show MB as the secondary unit, never repeat the primary unit
     return `${sizeMB.toLocaleString()} MB`;
   };
@@ -125,22 +127,6 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
 
   const dataRateMBperMin = (results.bitrateMbps * 60) / 8;
   const dataRateMBperHour = dataRateMBperMin * 60;
-
-  const formatDuration = (totalSeconds: number) => {
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    
-    if (hours > 0) {
-      return `${hours}h ${minutes}m ${seconds}s`;
-    } else if (minutes > 0) {
-      return `${minutes}m ${seconds}s`;
-    } else {
-      return `${seconds}s`;
-    }
-  };
-
-  const totalSeconds = duration.hours * 3600 + duration.minutes * 60 + duration.seconds;
 
   return (
     <div className="bg-dark-secondary rounded-xl p-6 shadow-lg fade-in-up">
@@ -374,7 +360,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ results, duration, onDurati
                 {formatFileSize(results.fileSizeMB, useBinaryUnits)}
               </div>
               <div className="text-xs text-gray-400">
-                ({getDetailedSize(results.fileSizeMB, useBinaryUnits)})
+                ({getDetailedSize(results.fileSizeMB)})
               </div>
             </div>
           </div>

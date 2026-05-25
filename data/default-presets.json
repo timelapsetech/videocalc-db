@@ -1,0 +1,38 @@
+[
+  {
+    "id": "CD8IWoale00QaTqYCto3",
+    "name": "Episodic TV",
+    "category": "professional",
+    "codec": "dnxhd",
+    "variant": "DNxHD 115",
+    "resolution": "1080p",
+    "frameRate": "23.98"
+  },
+  {
+    "id": "9XoYztCoVCCAwCIDsrnO",
+    "name": "Netflix 4K",
+    "category": "broadcast",
+    "codec": "jpeg2000",
+    "variant": "J2K IMF 4K",
+    "resolution": "4K",
+    "frameRate": "24"
+  },
+  {
+    "id": "xN868hHZ6pp9XkKzycue",
+    "name": "News TV",
+    "category": "camera",
+    "codec": "xdcam_hd422",
+    "variant": "HD422 50 Mb/s",
+    "resolution": "1080i",
+    "frameRate": "29.97"
+  },
+  {
+    "id": "1ixtcVkfQSPxMJyqreZs",
+    "name": "YouTube 1080p",
+    "category": "delivery",
+    "codec": "h264",
+    "variant": "High Profile",
+    "resolution": "1080p",
+    "frameRate": "30"
+  }
+]

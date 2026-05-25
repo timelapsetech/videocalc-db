@@ -83,9 +83,6 @@ export class GDPRCompliance {
       });
     }
     
-    // Remove GA measurement ID from admin settings if user opted out
-    localStorage.removeItem('ga_measurement_id');
-    localStorage.setItem('ga_enabled', 'false');
   }
 
   // Clear non-essential stored data
@@ -94,8 +91,6 @@ export class GDPRCompliance {
     const essentialKeys = [
       'cookie-consent',
       'cookie-consent-date',
-      'codecData', // Essential for app functionality
-      'adminAuth' // Essential for admin access
     ];
 
     // Remove non-essential items
@@ -167,6 +162,6 @@ export const updateGDPRPreferences = (preferences: CookiePreferences) => gdprCom
 // Declare global gtag for TypeScript
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    gtag: (...args: unknown[]) => void;
   }
 }

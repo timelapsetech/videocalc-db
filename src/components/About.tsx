@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Heart, Mail, Globe, Users, Code, Database, Menu, X, Github, GitPullRequest, AlertTriangle, Shield, Zap, Bot, Cloud, Cpu } from 'lucide-react';
+import { ArrowLeft, Heart, Mail, Globe, Users, Database, Menu, X, Github, GitPullRequest, AlertTriangle, Shield, Zap, Bot, Cloud, Cpu, Code } from 'lucide-react';
 
 const About: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -45,11 +45,11 @@ const About: React.FC = () => {
                 <span className="text-sm text-gray-300">Database</span>
               </Link>
               <Link
-                to="/admin"
+                to="/privacy"
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
               >
-                <Code className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300">Admin</span>
+                <Shield className="h-4 w-4 text-gray-400" />
+                <span className="text-sm text-gray-300">Privacy</span>
               </Link>
             </div>
           </div>
@@ -67,12 +67,12 @@ const About: React.FC = () => {
                   <span className="text-gray-300">Codec Database</span>
                 </Link>
                 <Link
-                  to="/admin"
+                  to="/privacy"
                   className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Code className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-300">Admin Panel</span>
+                  <Shield className="h-5 w-5 text-gray-400" />
+                  <span className="text-gray-300">Privacy Policy</span>
                 </Link>
               </div>
             </div>
@@ -232,15 +232,15 @@ const About: React.FC = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-indigo-400 rounded-full mt-2"></div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm sm:text-base">Admin Panel</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">Comprehensive management system for codec database and default presets.</p>
+                    <h3 className="font-semibold text-white text-sm sm:text-base">Community-maintained data</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">Codec and preset defaults ship from JSON in the open-source repo, with updates reviewed through pull requests.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full mt-2"></div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm sm:text-base">Usage Analytics</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">Track popular configurations and usage patterns to improve the tool.</p>
+                    <h3 className="font-semibold text-white text-sm sm:text-base">Static Data Updates</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">Codec and preset data live in repo JSON, so updates can be reviewed and shipped with the app.</p>
                   </div>
                 </div>
               </div>
@@ -277,7 +277,7 @@ const About: React.FC = () => {
                 </li>
               </ul>
               <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                Anonymous usage statistics are tracked to improve the tool, but you can opt out of this tracking at any time in your cookie preferences.
+                Codec data is bundled with the static app, and calculations run locally in your browser.
               </p>
             </div>
           </div>
@@ -336,7 +336,7 @@ const About: React.FC = () => {
               <h2 className="text-xl sm:text-2xl font-bold text-white">Privacy & Data Protection</h2>
             </div>
             <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-4 sm:mb-6">
-              We respect your privacy and are committed to protecting your data. We collect anonymous usage statistics to improve the tool, but never collect personal information. <strong>All statistics tracking is fully anonymous, never linked to your identity, and only occurs with your consent. You can opt out of analytics and statistics tracking at any time in your cookie preferences.</strong>
+              We respect your privacy and are committed to protecting your data. Calculations run locally in your browser, and optional Google Analytics only runs after you consent in cookie preferences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
