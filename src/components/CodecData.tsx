@@ -1,6 +1,20 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Search, Database, Download, Eye, EyeOff, Menu, X, Info, Shield } from 'lucide-react';
+import {
+  ArrowLeft,
+  Search,
+  Database,
+  Download,
+  Eye,
+  EyeOff,
+  Menu,
+  X,
+  Info,
+  Shield,
+  Github,
+  AlertTriangle,
+  GitPullRequest
+} from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { resolutions, frameRates } from '../data/resolutions';
 import { googleAnalytics } from '../utils/analytics';
@@ -228,6 +242,37 @@ const CodecData: React.FC = () => {
             <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Browse and search through all {flattenedData.length} codec configurations in our comprehensive database
             </p>
+            <div className="mt-6 max-w-3xl mx-auto bg-yellow-600/10 border border-yellow-600/20 rounded-xl p-4 text-left">
+              <div className="flex items-start gap-3">
+                <Github className="h-5 w-5 text-yellow-400 mt-0.5 flex-shrink-0" />
+                <div className="flex-1">
+                  <h2 className="text-yellow-400 font-medium mb-2">Help Us Improve the Data</h2>
+                  <p className="text-sm text-gray-300 mb-4">
+                    See something missing or incorrect? Report it, or update the codec database yourself on GitHub.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a
+                      href="https://github.com/timelapsetech/videocalc-db/issues"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-colors text-sm"
+                    >
+                      <AlertTriangle className="h-4 w-4" />
+                      <span>Report an Issue</span>
+                    </a>
+                    <a
+                      href="https://github.com/timelapsetech/videocalc-db/pulls"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white font-medium transition-colors text-sm"
+                    >
+                      <GitPullRequest className="h-4 w-4" />
+                      <span>Contribute on GitHub</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
