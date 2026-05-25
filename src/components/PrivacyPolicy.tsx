@@ -43,12 +43,6 @@ const PrivacyPolicy: React.FC = () => {
               >
                 <span className="text-sm text-gray-300">Calculator</span>
               </Link>
-              <Link
-                to="/admin"
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-              >
-                <span className="text-sm text-gray-300">Admin</span>
-              </Link>
             </div>
           </div>
 
@@ -62,13 +56,6 @@ const PrivacyPolicy: React.FC = () => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span className="text-gray-300">Calculator</span>
-                </Link>
-                <Link
-                  to="/admin"
-                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <span className="text-gray-300">Admin Panel</span>
                 </Link>
               </div>
             </div>
@@ -176,7 +163,7 @@ const PrivacyPolicy: React.FC = () => {
               <div>
                 <h3 className="text-lg font-semibold text-white mb-3">How We Handle Cookies</h3>
                 <p className="text-gray-300 mb-4">
-                  We use a comprehensive cookie consent system that gives you full control over what data is collected, including anonymous statistics tracking. You can opt out of analytics and statistics tracking at any time while still using the calculator.
+                  We use a cookie consent system that gives you control over optional Google Analytics and local preference storage. You can opt out of analytics at any time while still using the calculator.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -235,34 +222,30 @@ const PrivacyPolicy: React.FC = () => {
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-white mb-3">Anonymous Usage Statistics</h3>
+                <h3 className="text-lg font-semibold text-white mb-3">Local Calculator Data</h3>
                 <p className="text-gray-300 mb-3">
-                  <strong>Only collected with your explicit consent.</strong> We collect anonymous information about how our calculator is used to improve the service and provide community usage insights. This includes statistics about which codec configurations are calculated, resolution, frame rate, and bitrate. <strong>This data is never linked to your identity or personal information.</strong> You can opt out of all analytics and statistics tracking at any time via our cookie preferences.
+                  Calculations are performed locally in your browser using codec data bundled with the static app. We do not send codec selections, durations, file-size results, or custom presets to a database.
                 </p>
                 <ul className="text-gray-300 space-y-2 ml-6">
                   <li className="flex items-start">
                     <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span>Which codec configurations are calculated (e.g., "H.264 High Profile at 1080p")</span>
+                    <span>Codec catalog data is loaded from static JSON bundled with the app</span>
                   </li>
                   <li className="flex items-start">
                     <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span>Frequency of different calculations to show popular configurations</span>
+                    <span>Custom presets are stored only in your browser when preference storage is enabled</span>
                   </li>
                   <li className="flex items-start">
                     <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span>General usage patterns to improve the user interface</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span>Page views and navigation patterns</span>
+                    <span>Optional Google Analytics may record page views only after you consent</span>
                   </li>
                 </ul>
                 <div className="bg-blue-600/10 border border-blue-600/20 rounded-lg p-4 mt-4">
                   <h4 className="text-blue-400 font-medium mb-2">How We Protect Your Privacy</h4>
                   <ul className="text-sm text-gray-300 space-y-1">
-                    <li>• No user identity, IP address, or personal data is ever stored in statistics</li>
-                    <li>• All tracking is fully anonymous and session-based</li>
-                    <li>• You can opt out of all analytics and statistics tracking at any time</li>
+                    <li>• No calculation database or hosted stats API is used</li>
+                    <li>• Your custom presets remain local to your browser</li>
+                    <li>• You can opt out of Google Analytics at any time</li>
                   </ul>
                 </div>
               </div>
@@ -332,7 +315,7 @@ const PrivacyPolicy: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                  <span className="text-white">IP addresses (not stored in statistics; anonymized in analytics)</span>
+                  <span className="text-white">IP addresses (anonymized in analytics)</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full"></div>
@@ -358,7 +341,7 @@ const PrivacyPolicy: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                  <span className="text-white">Tracking cookies or statistics without your consent</span>
+                  <span className="text-white">Tracking cookies or analytics without your consent</span>
                 </div>
               </div>
             </div>
@@ -418,7 +401,7 @@ const PrivacyPolicy: React.FC = () => {
               <div>
                 <h3 className="text-white font-medium mb-2">Withdraw Consent</h3>
                 <p className="text-gray-300 text-sm mb-2">
-                  You can withdraw your consent at any time by updating your cookie preferences or clearing your browser data. This will immediately disable all analytics and anonymous statistics tracking.
+                  You can withdraw your consent at any time by updating your cookie preferences or clearing your browser data. This will immediately disable Google Analytics.
                 </p>
                 <button
                   onClick={() => {
@@ -442,7 +425,7 @@ const PrivacyPolicy: React.FC = () => {
               <div>
                 <h3 className="text-white font-medium mb-2">Data Portability</h3>
                 <p className="text-gray-300 text-sm">
-                  You can export your custom presets from the admin panel if you've created any.
+                  Your custom presets are stored locally in your browser, so you can clear them by resetting site data.
                 </p>
               </div>
               

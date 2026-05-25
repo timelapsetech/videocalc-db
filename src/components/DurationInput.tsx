@@ -15,7 +15,7 @@ interface DurationInputProps {
 const DurationInput: React.FC<DurationInputProps> = ({ duration, onChange }) => {
   const handleChange = (field: keyof Duration, value: string) => {
     const numValue = Math.max(0, parseInt(value) || 0);
-    let newDuration = { ...duration, [field]: numValue };
+    const newDuration = { ...duration, [field]: numValue };
     
     // Handle overflow
     if (field === 'seconds' && numValue >= 60) {

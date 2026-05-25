@@ -1,4 +1,4 @@
-import { CodecCategory } from '../context/CodecContext';
+import type { CodecCategory } from '../types/codecs';
 
 export const defaultCodecData: CodecCategory[] = [
   {

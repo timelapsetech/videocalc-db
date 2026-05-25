@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Edit2, Save, X, Zap, Settings, Trash2 } from 'lucide-react';
+import { Edit2, Save, X, Zap, Trash2 } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { resolutions, frameRates } from '../data/resolutions';
 import { CustomPreset } from '../context/PresetContext';

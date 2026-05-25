@@ -104,7 +104,7 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
             <div className="space-y-4">
               <div className="text-sm text-gray-300 leading-relaxed">
                 <p className="mb-3">
-                  We use cookies and similar technologies to enhance your experience, remember your preferences, and analyze how our calculator is used to improve our service. <strong>Anonymous statistics about codec calculations are only collected with your consent, are never linked to your identity, and you can opt out at any time.</strong>
+                  We use cookies and similar technologies to enhance your experience, remember your preferences, and run optional Google Analytics. <strong>Calculations are performed locally in your browser, and analytics only runs with your consent.</strong>
                 </p>
                 
                 <div className="bg-blue-600/10 border border-blue-600/20 rounded-lg p-3 mb-4">
@@ -116,7 +116,7 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
                     <li>• All calculations are performed locally in your browser</li>
                     <li>• We never store your project details or file information</li>
                     <li>• You can withdraw consent at any time</li>
-                    <li>• Analytics data is anonymized and aggregated</li>
+                    <li>• Google Analytics is configured for anonymized, aggregate reporting</li>
                   </ul>
                 </div>
               </div>
@@ -152,7 +152,7 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
                         <span className="px-2 py-0.5 bg-blue-600/20 text-blue-400 text-xs rounded">Optional</span>
                       </div>
                       <p className="text-xs text-gray-400">
-                        Google Analytics and anonymous statistics tracking help us understand which codecs are popular and improve the calculator. <strong>All data is fully anonymized, never linked to your identity, and you can opt out at any time.</strong>
+                        Google Analytics helps us understand broad site usage and improve the calculator. <strong>Analytics is anonymized, never linked to your identity, and you can opt out at any time.</strong>
                       </p>
                     </div>
                     <div className="ml-4">

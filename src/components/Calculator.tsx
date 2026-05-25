@@ -1,19 +1,33 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Settings, Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, ExternalLink, AlertTriangle, BarChart3 } from 'lucide-react';
+import { Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, AlertTriangle, Shield } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { usePresetContext } from '../context/PresetContext';
 import { resolutions, frameRates } from '../data/resolutions';
+import type { Resolution } from '../data/resolutions';
+import type { Codec, CodecVariant } from '../types/codecs';
+import type { CustomPreset } from '../types/presets';
 import { googleAnalytics } from '../utils/analytics';
 import { generateShareableLink } from '../utils/urlSharing';
-import { statsService } from '../services/statsService';
-import { sessionManager } from '../utils/sessionManager';
 import CustomSelect from './CustomSelect';
 import ResultsPanel from './ResultsPanel';
 import EditablePresetCard from './EditablePresetCard';
 
+interface CalculationResult {
+  bitrateMbps: number;
+  fileSizeMB: number;
+  fileSizeGB: number;
+  fileSizeTB: number;
+  totalSeconds: number;
+  codec: Codec;
+  variant: CodecVariant;
+  resolution: Resolution;
+  frameRate: (typeof frameRates)[number];
+  category: string;
+}
+
 // Debounce utility
-function useDebouncedEffect(effect: () => void, deps: any[], delay: number) {
+function useDebouncedEffect(effect: () => void, deps: React.DependencyList, delay: number) {
   useEffect(() => {
     const handler = setTimeout(() => effect(), delay);
     return () => clearTimeout(handler);
@@ -50,7 +64,7 @@ const Calculator: React.FC = () => {
   // New state for manual calculation
   const [shouldAutoCalculate, setShouldAutoCalculate] = useState(false);
   const [calculationTriggered, setCalculationTriggered] = useState(false);
-  const [manualResults, setManualResults] = useState<any>(null);
+  const [manualResults, setManualResults] = useState<CalculationResult | null>(null);
 
   // Initialize from URL parameters when component mounts or categories load
   useEffect(() => {
@@ -488,7 +502,7 @@ const Calculator: React.FC = () => {
     }
   };
 
-  const applyPreset = (preset: any) => {
+  const applyPreset = (preset: CustomPreset) => {
     // Prevent auto-selection during preset application
     setAutoSelectionInProgress(true);
     
@@ -509,7 +523,7 @@ const Calculator: React.FC = () => {
     googleAnalytics.trackPresetUsage(preset.name);
   };
 
-  const handlePresetUpdate = (index: number, preset: any) => {
+  const handlePresetUpdate = (index: number, preset: CustomPreset) => {
     updatePreset(index, preset);
   };
 
@@ -538,42 +552,8 @@ const Calculator: React.FC = () => {
     }
   };
 
-  // Track calculation for statistics with deduplication using useRef to avoid dependency loops
-  const lastTrackedCalculationRef = useRef<string | null>(null);
-  
-  const trackCalculation = useCallback(async (results: any) => {
-    try {
-      if (results && results.bitrateMbps && results.codec && results.variant) {
-        // Create a unique key for this calculation to prevent duplicates
-        const calculationKey = `${selectedCategory}-${results.codec.name}-${results.variant.name}-${selectedResolution}-${selectedFrameRate}-${results.bitrateMbps}`;
-        
-        // Only track if this is a different calculation than the last one
-        if (calculationKey !== lastTrackedCalculationRef.current) {
-          await statsService.trackCalculation({
-            codecCategory: selectedCategory,
-            codecName: results.codec.name,
-            variantName: results.variant.name,
-            resolution: selectedResolution,
-            frameRate: selectedFrameRate,
-            bitrateMbps: results.bitrateMbps,
-            timestamp: new Date(),
-            sessionId: sessionManager.getSessionId() // Get proper session ID
-          });
-          
-          lastTrackedCalculationRef.current = calculationKey;
-          console.log('📊 Calculation tracked:', calculationKey);
-        } else {
-          console.log('📊 Duplicate calculation skipped:', calculationKey);
-        }
-      }
-    } catch (error) {
-      // Don't let tracking errors affect the user experience
-      console.warn('Failed to track calculation statistics:', error);
-    }
-  }, [selectedCategory, selectedResolution, selectedFrameRate]);
-
   // Enhanced calculate results with better error handling and validation
-  const calculateResults = () => {
+  const calculateResults = (): CalculationResult | null => {
     if (!selectedCategory || !selectedCodec || !selectedVariant || !selectedResolution) {
       console.log('Missing required fields for calculation:', {
         category: selectedCategory,
@@ -694,10 +674,15 @@ const Calculator: React.FC = () => {
       const results = calculateResults();
       setManualResults(results);
       setCalculationTriggered(true);
-      
-      // Track the calculation for statistics
+
       if (results) {
-        trackCalculation(results);
+        googleAnalytics.trackCalculation(
+          selectedCategory,
+          results.codec.name,
+          results.variant.name,
+          selectedResolution,
+          selectedFrameRate
+        );
       }
     } else {
       // Clear results if parameters are incomplete
@@ -712,10 +697,15 @@ const Calculator: React.FC = () => {
       setManualResults(results);
       setCalculationTriggered(true);
       setShouldAutoCalculate(false);
-      
-      // Track the calculation for statistics
+
       if (results) {
-        trackCalculation(results);
+        googleAnalytics.trackCalculation(
+          selectedCategory,
+          results.codec.name,
+          results.variant.name,
+          selectedResolution,
+          selectedFrameRate
+        );
       }
     }
   }, [shouldAutoCalculate, calculationTriggered]);
@@ -739,7 +729,7 @@ const Calculator: React.FC = () => {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
           <p className="text-gray-400">
-            {loading ? 'Loading codec data from Firebase...' : 'Loading calculator...'}
+            {loading ? 'Loading codec data...' : 'Loading calculator...'}
           </p>
           {error && (
             <p className="text-red-400 text-sm mt-2">
@@ -748,7 +738,7 @@ const Calculator: React.FC = () => {
           )}
           {loading && (
             <div className="mt-4 text-xs text-gray-500">
-              <p>Connecting to Firebase database...</p>
+              <p>Loading catalog...</p>
               <p>Categories loaded: {categories.length}</p>
             </div>
           )}
@@ -775,7 +765,7 @@ const Calculator: React.FC = () => {
               Retry
             </button>
             <div className="text-xs text-gray-400">
-              <p>If this problem persists, please contact the administrator.</p>
+              <p>If this problem persists, please contact the site maintainer.</p>
             </div>
           </div>
         </div>
@@ -820,14 +810,6 @@ const Calculator: React.FC = () => {
                 <span className="text-sm text-gray-300">Database</span>
               </Link>
               <Link
-                to="/stats"
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="Usage Statistics"
-              >
-                <BarChart3 className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300">Stats</span>
-              </Link>
-              <Link
                 to="/about"
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
                 title="About"
@@ -836,12 +818,12 @@ const Calculator: React.FC = () => {
                 <span className="text-sm text-gray-300">About</span>
               </Link>
               <Link
-                to="/admin"
+                to="/privacy"
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="Admin Panel"
+                title="Privacy Policy"
               >
-                <Settings className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300">Admin</span>
+                <Shield className="h-4 w-4 text-gray-400" />
+                <span className="text-sm text-gray-300">Privacy</span>
               </Link>
             </div>
 
@@ -899,15 +881,6 @@ const Calculator: React.FC = () => {
                 </Link>
                 
                 <Link
-                  to="/stats"
-                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <BarChart3 className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-300">Usage Statistics</span>
-                </Link>
-                
-                <Link
                   to="/about"
                   className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
@@ -917,12 +890,12 @@ const Calculator: React.FC = () => {
                 </Link>
                 
                 <Link
-                  to="/admin"
+                  to="/privacy"
                   className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Settings className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-300">Admin Panel</span>
+                  <Shield className="h-5 w-5 text-gray-400" />
+                  <span className="text-gray-300">Privacy Policy</span>
                 </Link>
               </div>
             </div>

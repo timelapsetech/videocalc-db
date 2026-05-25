@@ -20,8 +20,6 @@ const getPageTitle = (pathname: string): string => {
   switch (pathname) {
     case '/':
       return 'Video File Size Calculator';
-    case '/admin':
-      return 'Admin Panel - Video Calculator';
     case '/about':
       return 'About - Video Calculator';
     case '/codec-data':

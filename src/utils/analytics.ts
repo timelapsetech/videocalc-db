@@ -1,19 +1,10 @@
-// Add type declaration for Vite's import.meta.env
-interface ImportMetaEnv {
-  VITE_GA_MEASUREMENT_ID?: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
-
 import { gdprCompliance, isGDPRAllowed } from './gdprCompliance';
 
 // Google Analytics Integration with GDPR Compliance
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
+    gtag: (...args: unknown[]) => void;
+    dataLayer: unknown[];
   }
 }
 
@@ -48,15 +39,6 @@ export class GoogleAnalytics {
     if (envMeasurementId && envMeasurementId.match(/^G-[A-Z0-9]+$/)) {
       console.log('Auto-initializing Google Analytics from environment variable');
       this.initialize(envMeasurementId);
-    } else {
-      // Fallback to admin-configured analytics
-      const savedId = localStorage.getItem('ga_measurement_id');
-      const savedEnabled = localStorage.getItem('ga_enabled') === 'true';
-      
-      if (savedId && savedEnabled && savedId.match(/^G-[A-Z0-9]+$/)) {
-        console.log('Initializing Google Analytics from admin configuration');
-        this.initialize(savedId);
-      }
     }
   }
 
@@ -82,8 +64,8 @@ export class GoogleAnalytics {
 
     // Initialize dataLayer and gtag
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag() {
-      window.dataLayer.push(arguments);
+    window.gtag = (...args: unknown[]) => {
+      window.dataLayer.push(args);
     };
 
     window.gtag('js', new Date());
@@ -130,7 +112,7 @@ export class GoogleAnalytics {
   }
 
   // Track custom events (only if consent given)
-  trackEvent(eventName: string, parameters?: Record<string, any>): void {
+  trackEvent(eventName: string, parameters?: Record<string, string | undefined>): void {
     if (!this.isInitialized || !window.gtag || !isGDPRAllowed('analytics')) {
       return;
     }
@@ -145,10 +127,10 @@ export class GoogleAnalytics {
   }
 
   // Sanitize parameters to remove any potential PII
-  private sanitizeParameters(parameters?: Record<string, any>): Record<string, any> {
+  private sanitizeParameters(parameters?: Record<string, string | undefined>): Record<string, string> {
     if (!parameters) return {};
 
-    const sanitized: Record<string, any> = {};
+    const sanitized: Record<string, string> = {};
     
     // Only allow specific, safe parameters
     const allowedParams = [
@@ -199,13 +181,6 @@ export class GoogleAnalytics {
     });
   }
 
-  // Track admin panel access
-  trackAdminAccess(): void {
-    this.trackEvent('admin_access', {
-      event_category: 'admin',
-    });
-  }
-
   // Track codec database browsing
   trackCodecDatabaseView(): void {
     this.trackEvent('view_codec_database', {
@@ -232,13 +207,13 @@ export class GoogleAnalytics {
   }
 
   // Get the source of the measurement ID
-  getSource(): 'environment' | 'admin' | 'none' {
+  getSource(): 'environment' | 'none' {
     if (!this.measurementId) return 'none';
     
     const envId = import.meta.env.VITE_GA_MEASUREMENT_ID;
     if (envId === this.measurementId) return 'environment';
     
-    return 'admin';
+    return 'none';
   }
 
   // Reinitialize after consent changes
