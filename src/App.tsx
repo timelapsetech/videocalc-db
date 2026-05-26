@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Calculator from './components/Calculator';
 import About from './components/About';
@@ -35,10 +35,10 @@ const AppWithTracking: React.FC = () => {
 };
 
 function App() {
-  const handleCookieConsent = (preferences: CookiePreferences) => {
+  const handleCookieConsent = useCallback((preferences: CookiePreferences) => {
     gdprCompliance.updatePreferences(preferences);
     googleAnalytics.reinitializeWithConsent();
-  };
+  }, []);
 
   useEffect(() => {
     if (gdprCompliance.hasConsent() && gdprCompliance.needsConsentRenewal()) {

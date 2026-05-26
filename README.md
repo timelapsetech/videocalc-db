@@ -41,7 +41,7 @@ The app does not read from Firebase, Firestore, Cloudflare D1, or any other data
 Build-time (Vite) variables:
 
 ```
-# Optional: Google Analytics (when users consent)
+# Optional: Google Analytics measurement ID
 VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
@@ -126,7 +126,7 @@ This repository deploys the static Vite build to GitHub Pages using GitHub Actio
 
 In repository settings, configure **Pages** to use **GitHub Actions** as the source. This repo includes `public/CNAME` for the `videocalc.org` custom domain, so the workflow builds with `BASE_PATH=/` and publishes assets from the domain root. If you remove the custom domain and host at `https://<user>.github.io/videocalc-db/`, change the workflow `BASE_PATH` to `/videocalc-db/`.
 
-Optional production analytics can be enabled by adding a repository secret named `VITE_GA_MEASUREMENT_ID`.
+Optional production analytics can be enabled by adding a repository secret named `VITE_GA_MEASUREMENT_ID`. When present, the build adds the Google tag to the initial HTML with Consent Mode defaulting analytics storage to denied; page views and events are sent only after the visitor accepts analytics cookies.
 
 ## Tech Stack
 

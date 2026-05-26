@@ -46,12 +46,13 @@ export class GDPRCompliance {
 
   // Update preferences
   updatePreferences(preferences: CookiePreferences): void {
+    const consentDate = new Date().toISOString();
     this.preferences = {
       ...preferences,
-      consentDate: new Date().toISOString()
+      consentDate
     };
     localStorage.setItem('cookie-consent', JSON.stringify(this.preferences));
-    localStorage.setItem('cookie-consent-date', this.preferences.consentDate);
+    localStorage.setItem('cookie-consent-date', consentDate);
     
     // Apply preferences immediately
     this.applyPreferences();

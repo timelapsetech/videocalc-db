@@ -12,6 +12,7 @@ export class GoogleAnalytics {
   private static instance: GoogleAnalytics;
   private isInitialized = false;
   private measurementId: string | null = null;
+  private lastTrackedPath: string | null = null;
 
   private constructor() {
     // Auto-initialize from environment variable if available and GDPR allows
@@ -56,20 +57,10 @@ export class GoogleAnalytics {
 
     this.measurementId = measurementId;
 
-    // Create gtag script
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-    document.head.appendChild(script);
+    this.ensureGoogleTag(measurementId);
 
-    // Initialize dataLayer and gtag using Google's expected command array.
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = (...args: unknown[]) => {
-      window.dataLayer.push(args);
-    };
-
-    // Set consent mode for GDPR compliance
-    window.gtag('consent', 'default', {
+    // The HTML bootstrap defaults consent to denied; opt-in updates it here.
+    window.gtag('consent', 'update', {
       'analytics_storage': 'granted',
       'ad_storage': 'denied', // Always deny ad storage for privacy
       'ad_user_data': 'denied',
@@ -78,8 +69,6 @@ export class GoogleAnalytics {
       'personalization_storage': 'denied', // Always deny for privacy
       'security_storage': 'granted' // Always allow security storage
     });
-
-    window.gtag('js', new Date());
 
     // Configure with GDPR-compliant settings
     const config = gdprCompliance.getAnalyticsConfig();
@@ -92,12 +81,13 @@ export class GoogleAnalytics {
       allow_ad_personalization_signals: config.allow_ad_personalization_signals,
       cookie_expires: config.cookie_expires,
       // Additional GDPR compliance settings
-      send_page_view: true,
+      send_page_view: false,
       custom_map: {}, // No custom dimensions for privacy
       transport_type: 'beacon', // More reliable for privacy-focused users
     });
 
     this.isInitialized = true;
+    this.trackPageView(window.location.pathname + window.location.search, document.title);
     console.log('Google Analytics initialized with GDPR compliance, ID:', measurementId);
   }
 
@@ -107,10 +97,16 @@ export class GoogleAnalytics {
       return;
     }
 
+    if (this.lastTrackedPath === path) {
+      return;
+    }
+
     window.gtag('config', this.measurementId!, {
       page_path: path,
       page_title: title || document.title,
+      page_location: `${window.location.origin}${path}`,
     });
+    this.lastTrackedPath = path;
   }
 
   // Track custom events (only if consent given)
@@ -236,6 +232,24 @@ export class GoogleAnalytics {
     }
     this.isInitialized = false;
     this.measurementId = null;
+    this.lastTrackedPath = null;
+  }
+
+  private ensureGoogleTag(measurementId: string): void {
+    const scriptSrc = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+    const existingScript = document.querySelector<HTMLScriptElement>(`script[src="${scriptSrc}"]`);
+
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = scriptSrc;
+      document.head.appendChild(script);
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || ((...args: unknown[]) => {
+      window.dataLayer.push(args);
+    });
   }
 }
 
