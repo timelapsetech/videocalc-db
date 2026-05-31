@@ -62,6 +62,7 @@ const OFFICIAL_URL_PATTERNS: RegExp[] = [
   /pbsdistribution\.org/i,
   /paramount\.com\/sites/i,
   /assets\.contentstack\.io/i,
+  /producersuite\.aegm\.com/i,
   /nbcuniversal-creative-guidelines\.scrollhelp\.site/i,
   /code\.tubitv\.com/i,
   /support\.google\.com/i,

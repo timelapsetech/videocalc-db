@@ -699,7 +699,7 @@
         "A+E Networks"
       ],
       "tagline": "A&E, History, Lifetime production delivery",
-      "description": "A+E Global Media publishes Production Delivery Technical Requirements for Producer Suite partners. All listed cable brands share one ProRes mezzanine and 12-channel audio layout delivered via Aspera.",
+      "description": "A+E Global Media publishes delivery requirements for Producer Suite partners on the Producer Suite Technical Specifications hub. All listed cable brands share one ProRes mezzanine and 12-channel audio layout delivered via Aspera.",
       "brands": [
         "A&E",
         "History",
@@ -718,11 +718,10 @@
       "accessModel": "A+E Producer Suite onboarding \u2014 Aspera delivery",
       "revenueModel": "Cable MVPD and international licensing",
       "businessModelNotes": [
-        "Single published PDF covers all A+E Global Media brands \u2014 no per-brand public spec splits.",
-        "MGM+ / AMC Global Media cable is a separate parent company (see AMC Global Media entry)."
+        "Technical specifications and deliverables (including Production Delivery Technical Requirements) are published on Producer Suite \u2014 no per-brand public spec splits."
       ],
-      "specUrl": "https://producersuite.aegm.com/docs/ProductionDeliveryTechnicalRequirements.pdf",
-      "websiteUrl": "https://www.aegm.com",
+      "specUrl": "https://producersuite.aegm.com/TechnicalSpecs.html",
+      "websiteUrl": "https://producersuite.aegm.com",
       "deliveryOptions": [
         {
           "id": "cable-program-prores-12ch",
@@ -762,7 +761,7 @@
               "value": "Aspera via Producer Suite"
             }
           ],
-          "specUrl": "https://producersuite.aegm.com/docs/ProductionDeliveryTechnicalRequirements.pdf",
+          "specUrl": "https://producersuite.aegm.com/TechnicalSpecs.html",
           "ffmpegSupported": true,
           "calculatorTemplate": "broadcast-prores-12ch-layout"
         }
