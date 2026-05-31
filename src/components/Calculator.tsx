@@ -29,6 +29,7 @@ import {
   normalizeAudioConfigurationId,
 } from '../utils/calculatorAudio';
 import type { StreamingCalculatorPreset } from '../utils/streamingCalculatorPresets';
+import { resolveCalculatorSelection } from '../utils/resolveCalculatorSelection';
 import CustomSelect from './CustomSelect';
 import ResultsPanel from './ResultsPanel';
 import EditablePresetCard from './EditablePresetCard';
@@ -486,9 +487,9 @@ const Calculator: React.FC = () => {
             ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '1440x1080', '4K', 'UHD', '2K', '6K', '8K UHD'].includes(res.id)
           );
         } else if (selectedCategory === 'broadcast') {
-          // Broadcast formats focus on standard resolutions
-          technicallyValidResolutions = resolutions.filter(res => 
-            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '1440x1080', '4K', '2K'].includes(res.id)
+          // Broadcast formats include UHD (e.g. IMF J2K) as well as SD/HD and DCI 4K
+          technicallyValidResolutions = resolutions.filter(res =>
+            ['NTSC_DV', 'NTSC_D1', 'PAL', '720p', '1080i', '1080p', '1440x1080', '2K', '4K', 'UHD', '8K UHD'].includes(res.id)
           );
         } else if (selectedCategory === 'cinema') {
           // Cinema formats support cinema-specific resolutions
@@ -819,43 +820,42 @@ const Calculator: React.FC = () => {
   };
 
   const applyPreset = (preset: CustomPreset) => {
-    const normalized = normalizeCalculatorConfig(
-      {
-        category: preset.category,
-        codec: preset.codec,
-        variant: preset.variant,
-        resolution: preset.resolution,
-        frameRate: preset.frameRate,
-        audioEnabled: preset.audioEnabled,
-        audioProfileId: preset.audioProfileId,
-        audioConfigurationId: preset.audioConfigurationId,
-      },
-      categories
-    );
+    const resolved = resolveCalculatorSelection(categories, {
+      category: preset.category,
+      codec: preset.codec,
+      variant: preset.variant,
+      resolution: preset.resolution,
+      frameRate: preset.frameRate,
+      audioEnabled: preset.audioEnabled,
+      audioProfileId: preset.audioProfileId,
+      audioConfigurationId: preset.audioConfigurationId,
+      videoBitrateOverrideMbps: preset.videoBitrateOverrideMbps,
+    });
+
+    if (!resolved) {
+      console.error('Could not resolve preset:', preset.name);
+      return;
+    }
 
     // Prevent auto-selection during preset application
     setAutoSelectionInProgress(true);
     setActiveStreamingPresetId('');
 
     selectionKeyRef.current = [
-      normalized.category,
-      normalized.codec,
-      normalized.variant,
-      normalized.resolution,
-      normalized.frameRate,
+      resolved.category,
+      resolved.codec,
+      resolved.variant,
+      resolved.resolution,
+      resolved.frameRate,
     ].join('|');
     
-    setSelectedCategory(normalized.category);
-    setSelectedCodec(normalized.codec);
-    setSelectedVariant(normalized.variant);
-    setSelectedResolution(normalized.resolution);
-    setSelectedFrameRate(normalized.frameRate);
-    setVideoBitrateOverrideMbps(normalized.videoBitrateOverrideMbps);
-    setAudioSelection({
-      enabled: normalized.audioEnabled ?? preset.audioEnabled ?? false,
-      profileId: normalized.audioProfileId ?? preset.audioProfileId ?? '',
-      configurationId: normalized.audioConfigurationId ?? preset.audioConfigurationId ?? '',
-    });
+    setSelectedCategory(resolved.category);
+    setSelectedCodec(resolved.codec);
+    setSelectedVariant(resolved.variant);
+    setSelectedResolution(resolved.resolution);
+    setSelectedFrameRate(resolved.frameRate);
+    setVideoBitrateOverrideMbps(resolved.videoBitrateOverrideMbps);
+    setAudioSelection(resolved.audioSelection);
     
     // Clear the flag after preset is applied and trigger auto-calculation
     setTimeout(() => {
@@ -869,30 +869,32 @@ const Calculator: React.FC = () => {
   };
 
   const applyStreamingPartnerPreset = (preset: StreamingCalculatorPreset) => {
-    const calc = preset.calculator;
+    const resolved = resolveCalculatorSelection(categories, preset.calculator);
+
+    if (!resolved) {
+      console.error('Could not resolve streaming partner preset:', preset.label);
+      return;
+    }
+
     setAutoSelectionInProgress(true);
     setLastAutoSelectionTime(Date.now());
     setActiveStreamingPresetId(preset.id);
 
     selectionKeyRef.current = [
-      calc.category,
-      calc.codec,
-      calc.variant,
-      calc.resolution,
-      calc.frameRate,
+      resolved.category,
+      resolved.codec,
+      resolved.variant,
+      resolved.resolution,
+      resolved.frameRate,
     ].join('|');
 
-    setSelectedCategory(calc.category);
-    setSelectedCodec(calc.codec);
-    setSelectedVariant(calc.variant);
-    setSelectedResolution(calc.resolution);
-    setSelectedFrameRate(calc.frameRate);
-    setVideoBitrateOverrideMbps(calc.videoBitrateOverrideMbps);
-    setAudioSelection({
-      enabled: calc.audioEnabled ?? false,
-      profileId: calc.audioProfileId ?? '',
-      configurationId: calc.audioConfigurationId ?? '',
-    });
+    setSelectedCategory(resolved.category);
+    setSelectedCodec(resolved.codec);
+    setSelectedVariant(resolved.variant);
+    setSelectedResolution(resolved.resolution);
+    setSelectedFrameRate(resolved.frameRate);
+    setVideoBitrateOverrideMbps(resolved.videoBitrateOverrideMbps);
+    setAudioSelection(resolved.audioSelection);
 
     setTimeout(() => {
       setAutoSelectionInProgress(false);

@@ -9,4 +9,5 @@ export interface CustomPreset {
   audioEnabled?: boolean;
   audioProfileId?: string;
   audioConfigurationId?: string;
+  videoBitrateOverrideMbps?: number;
 }

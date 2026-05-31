@@ -16,6 +16,8 @@ const PresetContext = createContext<PresetContextType | undefined>(undefined);
 
 const NETFLIX_PRESET_ID = '9XoYztCoVCCAwCIDsrnO';
 
+const YOUTUBE_PRESET_ID = '1ixtcVkfQSPxMJyqreZs';
+
 const netflixImfPreset: CustomPreset = {
   id: NETFLIX_PRESET_ID,
   name: 'Netflix IMF 4K',
@@ -29,6 +31,20 @@ const netflixImfPreset: CustomPreset = {
   audioConfigurationId: 'surround-5-1',
 };
 
+const youtube1080Preset: CustomPreset = {
+  id: YOUTUBE_PRESET_ID,
+  name: 'YouTube 1080p',
+  category: 'delivery',
+  codec: 'h264',
+  variant: 'High Profile',
+  resolution: '1080p',
+  frameRate: '30',
+  audioEnabled: true,
+  audioProfileId: 'mp4-aac',
+  audioConfigurationId: 'stereo-384',
+  videoBitrateOverrideMbps: 8,
+};
+
 const migrateBundledPreset = (preset: CustomPreset): CustomPreset => {
   const isBundledNetflixPreset =
     preset.id === NETFLIX_PRESET_ID ||
@@ -39,7 +55,19 @@ const migrateBundledPreset = (preset: CustomPreset): CustomPreset => {
       preset.variant === 'J2K IMF 4K'
     );
 
-  return isBundledNetflixPreset ? netflixImfPreset : preset;
+  if (isBundledNetflixPreset) {
+    return netflixImfPreset;
+  }
+
+  const isBundledYouTubePreset =
+    preset.id === YOUTUBE_PRESET_ID ||
+    (preset.name === 'YouTube 1080p' && preset.category === 'delivery' && preset.codec === 'h264');
+
+  if (isBundledYouTubePreset) {
+    return youtube1080Preset;
+  }
+
+  return preset;
 };
 
 export const PresetProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

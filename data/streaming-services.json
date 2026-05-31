@@ -2966,7 +2966,8 @@
             "frameRate": "30",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-384"
+            "audioConfigurationId": "stereo-384",
+            "videoBitrateOverrideMbps": 8
           },
           "ffmpegSupported": true,
           "businessModel": "creator-upload",
