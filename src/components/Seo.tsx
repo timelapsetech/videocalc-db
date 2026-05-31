@@ -88,6 +88,21 @@ const SEO_ROUTES: SeoRoute[] = [
     schemaType: 'Dataset',
   },
   {
+    path: '/streaming-services',
+    title: 'Streaming Service Video Delivery Specifications',
+    description:
+      'Partner contribution specs for delivering video and audio TO streaming platforms — SVOD, AVOD, TVOD, FAST ingest, and vertical micro-drama delivery including Amagi, Wurl, Frequency, ReelShort, DramaBox, Netflix, Prime Video, Roku, and 32 services with file size estimates.',
+    keywords: [
+      'streaming delivery specs',
+      'SVOD vs AVOD specs',
+      'Netflix delivery specifications',
+      'Amazon Prime Video AVOD SVOD',
+      'FAST HLS delivery specs',
+      'streaming video submission',
+    ],
+    schemaType: 'Dataset',
+  },
+  {
     path: '/privacy',
     title: 'Privacy Policy for Video File Size Calculator',
     description:

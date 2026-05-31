@@ -44,6 +44,8 @@ export interface CodecVariant {
   accuracy?: 'spec' | 'estimate';
   sourceUrls?: string[];
   notes?: string;
+  /** libx264 profile when variant name is a platform/workflow label rather than a profile name */
+  ffmpegEncoderProfile?: 'baseline' | 'main' | 'high';
   audioProfiles?: AudioProfile[];
   defaultAudioProfileId?: string;
 }

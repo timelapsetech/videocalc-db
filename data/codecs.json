@@ -498,6 +498,93 @@
                 "https://support.google.com/youtube/answer/1722171?hl=en"
               ],
               "notes": "YouTube SDR upload midpoint estimates split by standard and high frame rates."
+            },
+            {
+              "name": "SVOD Mezzanine (30 Mbps)",
+              "bitrates": {
+                "720p": {
+                  "23.98": 15,
+                  "24": 15,
+                  "25": 15,
+                  "29.97": 15,
+                  "30": 15,
+                  "50": 22,
+                  "59.94": 22,
+                  "60": 22
+                },
+                "1080p": {
+                  "23.98": 30,
+                  "24": 30,
+                  "25": 30,
+                  "29.97": 30,
+                  "30": 30,
+                  "50": 45,
+                  "59.94": 45,
+                  "60": 45
+                },
+                "UHD": {
+                  "23.98": 30,
+                  "24": 30,
+                  "25": 30,
+                  "29.97": 30,
+                  "30": 30,
+                  "50": 45,
+                  "59.94": 45,
+                  "60": 45
+                },
+                "4K": {
+                  "23.98": 30,
+                  "24": 30,
+                  "25": 30,
+                  "29.97": 30,
+                  "30": 30,
+                  "50": 45,
+                  "59.94": 45,
+                  "60": 45
+                }
+              },
+              "description": "H.264 mezzanine for SVOD partner delivery (Amazon Prime Video, Hulu H.264, Max/WBD outbound)",
+              "accuracy": "spec",
+              "sourceUrls": [
+                "https://m.media-amazon.com/images/G/01/CooperWebsite/dvp/downloads/Prime_Video-GlobalContentGuide-v5.2.2.pdf",
+                "https://partnerhub.warnermediagroup.com/outbound-specifications/outbound-specs",
+                "https://assets.hulu.com/portaldocuments/ContentPartnerGuidebook_v5.0.pdf"
+              ],
+              "notes": "Amazon Prime Video specifies 30 Mbps for HD H.264; Max/WBD outbound HD SDR H.264 targets ~30 Mbps CBR.",
+              "ffmpegEncoderProfile": "high"
+            },
+            {
+              "name": "AVOD Web Delivery",
+              "bitrates": {
+                "720p": {
+                  "23.98": 8,
+                  "24": 8,
+                  "25": 8,
+                  "29.97": 8,
+                  "30": 8,
+                  "50": 12,
+                  "59.94": 12,
+                  "60": 12
+                },
+                "1080p": {
+                  "23.98": 14,
+                  "24": 14,
+                  "25": 14,
+                  "29.97": 14,
+                  "30": 14,
+                  "50": 20,
+                  "59.94": 20,
+                  "60": 20
+                }
+              },
+              "description": "H.264 for ad-supported and open AVOD platform uploads",
+              "accuracy": "estimate",
+              "sourceUrls": [
+                "https://www.moltencloud.com/blog-article/delivering-content-to-tubi-avails-specs-workflow",
+                "https://www.paramount.com/sites/g/files/dxjhpe226/files/2022-04/Site_Served_Specs_Paramount_2022.pdf"
+              ],
+              "notes": "Tubi recommends 8–20 Mbps for HD; Paramount site-served accepts 15–30 Mbps. Midpoint used for planning.",
+              "ffmpegEncoderProfile": "high"
             }
           ],
           "description": "Most widely supported codec for delivery",

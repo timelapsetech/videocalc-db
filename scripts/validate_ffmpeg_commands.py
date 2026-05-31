@@ -303,8 +303,24 @@ def unsupported(reason: str) -> str:
     return reason
 
 
-def build_h264_recipe(variant_name: str, width: int, height: int, frame_rate_value: float, video_bitrate: float) -> VideoRecipe | str:
+def resolve_h264_profile(variant_name: str, ffmpeg_encoder_profile: str | None = None) -> str | None:
     profile = H264_PROFILES.get(variant_name)
+    if profile:
+        return profile
+    if ffmpeg_encoder_profile in {"baseline", "main", "high"}:
+        return ffmpeg_encoder_profile
+    return None
+
+
+def build_h264_recipe(
+    variant_name: str,
+    width: int,
+    height: int,
+    frame_rate_value: float,
+    video_bitrate: float,
+    ffmpeg_encoder_profile: str | None = None,
+) -> VideoRecipe | str:
+    profile = resolve_h264_profile(variant_name, ffmpeg_encoder_profile)
     if not profile:
         return unsupported(f"No H.264 recipe for {variant_name}.")
     keyint = str(gop_size(frame_rate_value))
@@ -564,11 +580,14 @@ def build_video_recipe(
     frame_rate_value: float,
     video_bitrate: float,
     audio_profile_id: str | None,
+    ffmpeg_encoder_profile: str | None = None,
 ) -> VideoRecipe | str:
     if codec_id in UNSUPPORTED_RAW_CODECS:
         return unsupported(UNSUPPORTED_RAW_CODECS[codec_id])
     if codec_id == "h264":
-        return build_h264_recipe(variant_name, width, height, frame_rate_value, video_bitrate)
+        return build_h264_recipe(
+            variant_name, width, height, frame_rate_value, video_bitrate, ffmpeg_encoder_profile
+        )
     if codec_id == "h265":
         return build_hevc_recipe(variant_name, frame_rate_value, video_bitrate)
     if codec_id == "av1":
@@ -712,6 +731,7 @@ def enumerate_cases(audio_mode: str, include_video_only: bool) -> tuple[list[Com
                             codec["id"], codec["name"], variant["name"],
                             resolution_id, width, height, frame_rate_id,
                             frame_rate_value, bitrate, audio_profile_id,
+                            variant.get("ffmpegEncoderProfile"),
                         )
                         if isinstance(video_recipe, str):
                             unsupported_cases.append(UnsupportedCase(case_id, category["id"], codec["id"], codec["name"], variant["name"], resolution_id, frame_rate_id, audio_profile_id, audio_configuration_id, video_recipe))

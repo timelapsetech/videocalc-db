@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, Database, Menu, X, AlertTriangle, Shield, Search, Volume2, Terminal } from 'lucide-react';
+import { Share2, Check, Film, HardDrive, Star, RotateCcw, Plus, Info, AlertTriangle, Search, Volume2 } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { usePresetContext } from '../context/PresetContext';
 import { resolutions, frameRates } from '../data/resolutions';
@@ -13,13 +13,27 @@ import {
   formatAudioRate,
   getAudioProfiles,
   getDefaultAudioSelection,
-  resolveAudioConfiguration,
 } from '../utils/audioConfigurations';
 import type { AudioSelection, ResolvedAudioConfiguration } from '../utils/audioConfigurations';
 import { generateShareableLink } from '../utils/urlSharing';
+import { calculateFileSize } from '../utils/fileSizeCalculation';
+import {
+  getSelectableVariants,
+  isCalculatorSelectableVariant,
+  normalizeCalculatorConfig,
+} from '../utils/calculatorVariants';
+import {
+  formatCalculatorAudioProfileDescription,
+  getSelectableAudioConfigurations,
+  isCalculatorSelectableAudioConfig,
+  normalizeAudioConfigurationId,
+} from '../utils/calculatorAudio';
+import type { StreamingCalculatorPreset } from '../utils/streamingCalculatorPresets';
 import CustomSelect from './CustomSelect';
 import ResultsPanel from './ResultsPanel';
 import EditablePresetCard from './EditablePresetCard';
+import SiteNav from './SiteNav';
+import StreamingPartnerPresetSelect from './StreamingPartnerPresetSelect';
 
 interface CalculationResult {
   bitrateMbps: number;
@@ -60,7 +74,6 @@ const Calculator: React.FC = () => {
   const { categories, loading, error } = useCodecContext();
   const { customPresets, updatePreset, addPreset, resetToDefaults, deletePreset } = usePresetContext();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // State from URL parameters or defaults
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -78,6 +91,9 @@ const Calculator: React.FC = () => {
     profileId: '',
     configurationId: ''
   });
+  const [videoBitrateOverrideMbps, setVideoBitrateOverrideMbps] = useState<number | undefined>();
+  const [activeStreamingPresetId, setActiveStreamingPresetId] = useState('');
+  const selectionKeyRef = useRef('');
   const [copied, setCopied] = useState(false);
   const [codecSearchTerm, setCodecSearchTerm] = useState('');
   const [isInitialized, setIsInitialized] = useState(false);
@@ -108,6 +124,8 @@ const Calculator: React.FC = () => {
     const urlAudioEnabled = searchParams.get('audio') === '1';
     const urlAudioProfile = searchParams.get('audioProfile') || '';
     const urlAudioConfiguration = searchParams.get('audioConfig') || '';
+    const urlVideoMbps = parseFloat(searchParams.get('videoMbps') || '');
+    const validVideoMbps = !Number.isNaN(urlVideoMbps) && urlVideoMbps > 0 ? urlVideoMbps : undefined;
 
     console.log('URL Parameters:', {
       category: urlCategory,
@@ -158,15 +176,6 @@ const Calculator: React.FC = () => {
     // Validate resolution and frame rate
     const validResolution = resolutions.find(r => r.id === urlResolution) ? urlResolution : '1080p';
     const validFrameRate = frameRates.find(fr => fr.id === urlFrameRate) ? urlFrameRate : '30';
-    const validCategoryData = categories.find(cat => cat.id === validCategory);
-    const validCodecData = validCategoryData?.codecs.find(codec => codec.id === validCodec);
-    const validVariantData = validCodecData?.variants.find(variant => variant.name === validVariant);
-    const defaultAudioSelection = getDefaultAudioSelection(validCodecData, validVariantData);
-    const validAudioProfiles = getAudioProfiles(validCodecData, validVariantData);
-    const validAudioProfile = validAudioProfiles.find(profile => profile.id === urlAudioProfile);
-    const validAudioConfiguration = validAudioProfile?.configurations.find(
-      configuration => configuration.id === urlAudioConfiguration
-    );
 
     console.log('Setting validated values:', {
       category: validCategory,
@@ -176,26 +185,69 @@ const Calculator: React.FC = () => {
       frameRate: validFrameRate
     });
 
+    const normalizedConfig = normalizeCalculatorConfig(
+      {
+        category: validCategory,
+        codec: validCodec,
+        variant: validVariant,
+        resolution: validResolution,
+        frameRate: validFrameRate,
+        audioEnabled: urlAudioEnabled,
+        audioProfileId: urlAudioProfile,
+        audioConfigurationId: urlAudioConfiguration,
+        videoBitrateOverrideMbps: validVideoMbps,
+      },
+      categories
+    );
+
+    const normalizedCategoryData = categories.find(category => category.id === normalizedConfig.category);
+    const normalizedCodecData = normalizedCategoryData?.codecs.find(codec => codec.id === normalizedConfig.codec);
+    const normalizedVariantData = normalizedCodecData?.variants.find(
+      variant => variant.name === normalizedConfig.variant
+    );
+    const normalizedAudioProfiles = getAudioProfiles(normalizedCodecData, normalizedVariantData);
+    const normalizedDefaultAudio = getDefaultAudioSelection(normalizedCodecData, normalizedVariantData);
+    const normalizedAudioProfile = normalizedAudioProfiles.find(
+      profile => profile.id === normalizedConfig.audioProfileId
+    );
+    const normalizedAudioConfiguration = normalizedAudioProfile?.configurations.find(
+      configuration => configuration.id === normalizedConfig.audioConfigurationId
+    );
+
     // Set the validated values
-    setSelectedCategory(validCategory);
-    setSelectedCodec(validCodec);
-    setSelectedVariant(validVariant);
-    setSelectedResolution(validResolution);
-    setSelectedFrameRate(validFrameRate);
+    setSelectedCategory(normalizedConfig.category);
+    setSelectedCodec(normalizedConfig.codec);
+    setSelectedVariant(normalizedConfig.variant);
+    setSelectedResolution(normalizedConfig.resolution);
+    setSelectedFrameRate(normalizedConfig.frameRate);
     setDuration({
       hours: Math.max(0, urlHours),
       minutes: Math.max(0, Math.min(59, urlMinutes)),
       seconds: Math.max(0, Math.min(59, urlSeconds))
     });
     setAudioSelection({
-      enabled: urlAudioEnabled && validAudioProfiles.length > 0,
-      profileId: validAudioProfile?.id ?? defaultAudioSelection.profileId,
-      configurationId: validAudioConfiguration?.id ?? defaultAudioSelection.configurationId
+      enabled: (normalizedConfig.audioEnabled ?? urlAudioEnabled) && normalizedAudioProfiles.length > 0,
+      profileId: normalizedAudioProfile?.id ?? normalizedDefaultAudio.profileId,
+      configurationId: normalizedAudioConfiguration?.id ?? normalizedDefaultAudio.configurationId
     });
+    setVideoBitrateOverrideMbps(normalizedConfig.videoBitrateOverrideMbps);
+    selectionKeyRef.current = [
+      normalizedConfig.category,
+      normalizedConfig.codec,
+      normalizedConfig.variant,
+      normalizedConfig.resolution,
+      normalizedConfig.frameRate,
+    ].join('|');
 
     setIsInitialized(true);
     // If all required params are present, auto-calculate
-    if (validCategory && validCodec && validVariant && validResolution && validFrameRate) {
+    if (
+      normalizedConfig.category &&
+      normalizedConfig.codec &&
+      normalizedConfig.variant &&
+      normalizedConfig.resolution &&
+      normalizedConfig.frameRate
+    ) {
       setShouldAutoCalculate(true);
     }
   }, [categories, searchParams, loading]);
@@ -223,9 +275,41 @@ const Calculator: React.FC = () => {
         params.set('audioProfile', audioSelection.profileId);
         params.set('audioConfig', audioSelection.configurationId);
       }
+      if (videoBitrateOverrideMbps && videoBitrateOverrideMbps > 0) {
+        params.set('videoMbps', videoBitrateOverrideMbps.toString());
+      }
       setSearchParams(params, { replace: true });
     }
-  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, audioSelection, setSearchParams, isInitialized, autoSelectionInProgress]);
+  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, audioSelection, videoBitrateOverrideMbps, setSearchParams, isInitialized, autoSelectionInProgress]);
+
+  useEffect(() => {
+    if (!isInitialized || autoSelectionInProgress) {
+      return;
+    }
+
+    const selectionKey = [
+      selectedCategory,
+      selectedCodec,
+      selectedVariant,
+      selectedResolution,
+      selectedFrameRate,
+    ].join('|');
+
+    if (selectionKeyRef.current && selectionKeyRef.current !== selectionKey) {
+      setVideoBitrateOverrideMbps(undefined);
+      setActiveStreamingPresetId('');
+    }
+
+    selectionKeyRef.current = selectionKey;
+  }, [
+    autoSelectionInProgress,
+    isInitialized,
+    selectedCategory,
+    selectedCodec,
+    selectedFrameRate,
+    selectedResolution,
+    selectedVariant,
+  ]);
 
   // Get available codecs for selected category
   const availableCodecs = useMemo(
@@ -235,12 +319,18 @@ const Calculator: React.FC = () => {
     [categories, selectedCategory]
   );
 
-  // Get available variants for selected codec
-  const availableVariants = useMemo(
+  // Full variant list from codec data (includes platform delivery tiers used for bitrate planning)
+  const allVariants = useMemo(
     () => selectedCodec
       ? availableCodecs.find(codec => codec.id === selectedCodec)?.variants || []
       : [],
     [availableCodecs, selectedCodec]
+  );
+
+  // Encoder profiles shown in the calculator variant picker
+  const selectableVariants = useMemo(
+    () => getSelectableVariants(allVariants),
+    [allVariants]
   );
 
   const selectedCodecData = useMemo(
@@ -248,16 +338,21 @@ const Calculator: React.FC = () => {
     [availableCodecs, selectedCodec]
   );
   const selectedVariantData = useMemo(
-    () => availableVariants.find(variant => variant.name === selectedVariant),
-    [availableVariants, selectedVariant]
+    () => allVariants.find(variant => variant.name === selectedVariant),
+    [allVariants, selectedVariant]
   );
   const availableAudioProfiles = useMemo(
     () => getAudioProfiles(selectedCodecData, selectedVariantData),
     [selectedCodecData, selectedVariantData]
   );
   const selectedAudioProfile = availableAudioProfiles.find(profile => profile.id === audioSelection.profileId);
+  const selectableAudioConfigurations = useMemo(
+    () => getSelectableAudioConfigurations(selectedAudioProfile),
+    [selectedAudioProfile]
+  );
   const selectedAudioConfiguration = selectedAudioProfile?.configurations.find(
-    configuration => configuration.id === audioSelection.configurationId
+    configuration =>
+      configuration.id === normalizeAudioConfigurationId(audioSelection.configurationId)
   );
 
   useEffect(() => {
@@ -280,15 +375,35 @@ const Calculator: React.FC = () => {
       }
 
       const profile = availableAudioProfiles.find(item => item.id === previousSelection.profileId);
-      const configuration = profile?.configurations.find(item => item.id === previousSelection.configurationId);
+      const normalizedConfigurationId = normalizeAudioConfigurationId(previousSelection.configurationId);
+      const configuration = profile?.configurations.find(item => item.id === normalizedConfigurationId);
+      const selectableConfigurations = getSelectableAudioConfigurations(profile);
 
-      if (profile && configuration) {
-        return previousSelection;
+      if (profile && configuration && isCalculatorSelectableAudioConfig(normalizedConfigurationId)) {
+        if (
+          previousSelection.configurationId === normalizedConfigurationId &&
+          previousSelection.profileId === profile.id
+        ) {
+          return previousSelection;
+        }
+
+        return {
+          ...previousSelection,
+          configurationId: normalizedConfigurationId,
+        };
       }
+
+      const fallbackConfigurationId =
+        (profile?.defaultConfigurationId &&
+        isCalculatorSelectableAudioConfig(normalizeAudioConfigurationId(profile.defaultConfigurationId))
+          ? normalizeAudioConfigurationId(profile.defaultConfigurationId)
+          : selectableConfigurations[0]?.id) ?? '';
 
       return {
         ...defaultSelection,
-        enabled: previousSelection.enabled
+        enabled: previousSelection.enabled,
+        profileId: profile?.id ?? defaultSelection.profileId,
+        configurationId: fallbackConfigurationId,
       };
     });
   }, [availableAudioProfiles, autoSelectionInProgress, isInitialized, selectedCodecData, selectedVariantData]);
@@ -314,9 +429,11 @@ const Calculator: React.FC = () => {
             : [];
 
           const variantResults: CodecSearchResult[] = codec.variants
-            .filter(variant =>
-              variant.name.toLowerCase().includes(normalizedCodecSearchTerm) ||
-              (variant.description?.toLowerCase().includes(normalizedCodecSearchTerm) ?? false)
+            .filter(
+              variant =>
+                isCalculatorSelectableVariant(variant) &&
+                (variant.name.toLowerCase().includes(normalizedCodecSearchTerm) ||
+                  (variant.description?.toLowerCase().includes(normalizedCodecSearchTerm) ?? false))
             )
             .map(variant => ({
               categoryId: category.id,
@@ -335,6 +452,7 @@ const Calculator: React.FC = () => {
 
   const applyCodecSearchResult = (result: CodecSearchResult) => {
     setAutoSelectionInProgress(true);
+    setActiveStreamingPresetId('');
     setSelectedCategory(result.categoryId);
     setSelectedCodec(result.codecId);
     setSelectedVariant(result.variantName ?? '');
@@ -348,7 +466,7 @@ const Calculator: React.FC = () => {
   // Get available resolutions for selected variant (filtered and validated)
   const availableResolutions = selectedVariant
     ? (() => {
-        const variant = availableVariants.find(v => v.name === selectedVariant);
+        const variant = allVariants.find(v => v.name === selectedVariant);
         if (!variant || !variant.bitrates) return resolutions;
         
         const supportedResolutions = Object.keys(variant.bitrates);
@@ -431,7 +549,7 @@ const Calculator: React.FC = () => {
       return null;
     }
 
-    const variant = availableVariants.find(v => v.name === selectedVariant);
+    const variant = allVariants.find(v => v.name === selectedVariant);
     if (!variant || !variant.bitrates) {
       return null;
     }
@@ -454,7 +572,7 @@ const Calculator: React.FC = () => {
   // Get available frame rates for selected variant and resolution (filtered and validated)
   const availableFrameRates = (selectedVariant && selectedResolution)
     ? (() => {
-        const variant = availableVariants.find(v => v.name === selectedVariant);
+        const variant = allVariants.find(v => v.name === selectedVariant);
         if (!variant || !variant.bitrates) return frameRates;
         
         const resolutionBitrates = variant.bitrates[selectedResolution];
@@ -561,18 +679,18 @@ const Calculator: React.FC = () => {
   useEffect(() => {
     if (!isInitialized || autoSelectionInProgress) return;
     
-    if (selectedCodec && !availableVariants.find(variant => variant.name === selectedVariant)) {
+    if (selectedCodec && selectedVariant && !allVariants.find(variant => variant.name === selectedVariant)) {
       console.log('Resetting variant due to codec change');
       setSelectedVariant('');
     }
-  }, [selectedCodec, availableVariants, selectedVariant, isInitialized, autoSelectionInProgress]);
+  }, [selectedCodec, allVariants, selectedVariant, isInitialized, autoSelectionInProgress]);
 
-  // Auto-select variant if there's only one option (with validation)
+  // Auto-select variant if there's only one selectable option (with validation)
   useEffect(() => {
     if (!isInitialized || autoSelectionInProgress) return;
     
-    if (selectedCodec && !selectedVariant && availableVariants.length === 1) {
-      const variant = availableVariants[0];
+    if (selectedCodec && !selectedVariant && selectableVariants.length === 1) {
+      const variant = selectableVariants[0];
       
       // Validate that the variant has valid bitrates
       if (variant.bitrates && Object.keys(variant.bitrates).length > 0) {
@@ -582,7 +700,7 @@ const Calculator: React.FC = () => {
         });
       }
     }
-  }, [selectedCodec, selectedVariant, availableVariants, isInitialized, autoSelectionInProgress]);
+  }, [selectedCodec, selectedVariant, selectableVariants, isInitialized, autoSelectionInProgress]);
 
   // Reset resolution if not available for selected variant (with validation)
   useEffect(() => {
@@ -653,18 +771,27 @@ const Calculator: React.FC = () => {
 
   const handleAudioProfileChange = (profileId: string) => {
     const profile = availableAudioProfiles.find(item => item.id === profileId);
+    const selectableConfigurations = getSelectableAudioConfigurations(profile);
+    const defaultConfigurationId = profile?.defaultConfigurationId
+      ? normalizeAudioConfigurationId(profile.defaultConfigurationId)
+      : '';
+    const configurationId =
+      defaultConfigurationId &&
+      selectableConfigurations.some(configuration => configuration.id === defaultConfigurationId)
+        ? defaultConfigurationId
+        : selectableConfigurations[0]?.id ?? '';
 
     setAudioSelection(previousSelection => ({
       ...previousSelection,
       profileId,
-      configurationId: profile?.defaultConfigurationId ?? profile?.configurations[0]?.id ?? ''
+      configurationId,
     }));
   };
 
   const handleAudioConfigurationChange = (configurationId: string) => {
     setAudioSelection(previousSelection => ({
       ...previousSelection,
-      configurationId
+      configurationId: normalizeAudioConfigurationId(configurationId),
     }));
   };
 
@@ -677,7 +804,8 @@ const Calculator: React.FC = () => {
         selectedResolution,
         selectedFrameRate,
         duration,
-        audioSelection
+        audioSelection,
+        videoBitrateOverrideMbps
       );
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -691,18 +819,42 @@ const Calculator: React.FC = () => {
   };
 
   const applyPreset = (preset: CustomPreset) => {
+    const normalized = normalizeCalculatorConfig(
+      {
+        category: preset.category,
+        codec: preset.codec,
+        variant: preset.variant,
+        resolution: preset.resolution,
+        frameRate: preset.frameRate,
+        audioEnabled: preset.audioEnabled,
+        audioProfileId: preset.audioProfileId,
+        audioConfigurationId: preset.audioConfigurationId,
+      },
+      categories
+    );
+
     // Prevent auto-selection during preset application
     setAutoSelectionInProgress(true);
+    setActiveStreamingPresetId('');
+
+    selectionKeyRef.current = [
+      normalized.category,
+      normalized.codec,
+      normalized.variant,
+      normalized.resolution,
+      normalized.frameRate,
+    ].join('|');
     
-    setSelectedCategory(preset.category);
-    setSelectedCodec(preset.codec);
-    setSelectedVariant(preset.variant);
-    setSelectedResolution(preset.resolution);
-    setSelectedFrameRate(preset.frameRate);
+    setSelectedCategory(normalized.category);
+    setSelectedCodec(normalized.codec);
+    setSelectedVariant(normalized.variant);
+    setSelectedResolution(normalized.resolution);
+    setSelectedFrameRate(normalized.frameRate);
+    setVideoBitrateOverrideMbps(normalized.videoBitrateOverrideMbps);
     setAudioSelection({
-      enabled: preset.audioEnabled ?? false,
-      profileId: preset.audioProfileId ?? '',
-      configurationId: preset.audioConfigurationId ?? ''
+      enabled: normalized.audioEnabled ?? preset.audioEnabled ?? false,
+      profileId: normalized.audioProfileId ?? preset.audioProfileId ?? '',
+      configurationId: normalized.audioConfigurationId ?? preset.audioConfigurationId ?? '',
     });
     
     // Clear the flag after preset is applied and trigger auto-calculation
@@ -715,6 +867,62 @@ const Calculator: React.FC = () => {
     // Track preset usage
     googleAnalytics.trackPresetUsage(preset.name);
   };
+
+  const applyStreamingPartnerPreset = (preset: StreamingCalculatorPreset) => {
+    const calc = preset.calculator;
+    setAutoSelectionInProgress(true);
+    setLastAutoSelectionTime(Date.now());
+    setActiveStreamingPresetId(preset.id);
+
+    selectionKeyRef.current = [
+      calc.category,
+      calc.codec,
+      calc.variant,
+      calc.resolution,
+      calc.frameRate,
+    ].join('|');
+
+    setSelectedCategory(calc.category);
+    setSelectedCodec(calc.codec);
+    setSelectedVariant(calc.variant);
+    setSelectedResolution(calc.resolution);
+    setSelectedFrameRate(calc.frameRate);
+    setVideoBitrateOverrideMbps(calc.videoBitrateOverrideMbps);
+    setAudioSelection({
+      enabled: calc.audioEnabled ?? false,
+      profileId: calc.audioProfileId ?? '',
+      configurationId: calc.audioConfigurationId ?? '',
+    });
+
+    setTimeout(() => {
+      setAutoSelectionInProgress(false);
+    }, 350);
+
+    googleAnalytics.trackPresetUsage(preset.label);
+  };
+
+  const streamingPartnerConfig = useMemo(
+    () => ({
+      category: selectedCategory,
+      codec: selectedCodec,
+      variant: selectedVariant,
+      resolution: selectedResolution,
+      frameRate: selectedFrameRate,
+      audioEnabled: audioSelection.enabled,
+      audioProfileId: audioSelection.profileId,
+      audioConfigurationId: audioSelection.configurationId,
+      videoBitrateOverrideMbps,
+    }),
+    [
+      selectedCategory,
+      selectedCodec,
+      selectedVariant,
+      selectedResolution,
+      selectedFrameRate,
+      audioSelection,
+      videoBitrateOverrideMbps,
+    ]
+  );
 
   const handlePresetUpdate = (index: number, preset: CustomPreset) => {
     updatePreset(index, preset);
@@ -748,124 +956,46 @@ const Calculator: React.FC = () => {
     }
   };
 
-  // Enhanced calculate results with better error handling and validation
   const calculateResults = (): CalculationResult | null => {
     if (!selectedCategory || !selectedCodec || !selectedVariant || !selectedResolution) {
-      console.log('Missing required fields for calculation:', {
+      return null;
+    }
+
+    const result = calculateFileSize(
+      categories,
+      {
         category: selectedCategory,
         codec: selectedCodec,
         variant: selectedVariant,
-        resolution: selectedResolution
-      });
+        resolution: selectedResolution,
+        frameRate: selectedFrameRate,
+        audioEnabled: audioSelection.enabled,
+        audioProfileId: audioSelection.profileId,
+        audioConfigurationId: audioSelection.configurationId,
+        videoBitrateOverrideMbps,
+      },
+      duration
+    );
+
+    if (!result) {
       return null;
     }
 
-    try {
-      const category = categories.find(cat => cat.id === selectedCategory);
-      const codec = category?.codecs.find(c => c.id === selectedCodec);
-      const variant = codec?.variants.find(v => v.name === selectedVariant);
-      const frameRate = frameRates.find(fr => fr.id === selectedFrameRate);
-      const resolution = resolutions.find(res => res.id === selectedResolution);
-
-      if (!variant || !frameRate || !resolution) {
-        console.log('Could not find required objects:', {
-          variant: !!variant,
-          frameRate: !!frameRate,
-          resolution: !!resolution
-        });
-        return null;
-      }
-
-      // Validate variant has bitrates
-      if (!variant.bitrates || typeof variant.bitrates !== 'object') {
-        console.error('Variant has no bitrates:', variant.name);
-        return null;
-      }
-
-      // Get bitrate for this resolution and frame rate
-      let bitrateMbps: number;
-      const resolutionBitrates = variant.bitrates[selectedResolution];
-      
-      if (!resolutionBitrates) {
-        console.log('No bitrates found for resolution:', selectedResolution);
-        return null;
-      }
-
-      if (typeof resolutionBitrates === 'number') {
-        // Simple number format (legacy support)
-        bitrateMbps = resolutionBitrates;
-      } else if (typeof resolutionBitrates === 'object' && resolutionBitrates !== null) {
-        // Frame rate specific bitrates
-        bitrateMbps = resolutionBitrates[selectedFrameRate];
-        
-        if (!bitrateMbps || typeof bitrateMbps !== 'number') {
-          // Try to find closest frame rate or use a default
-          const availableFrameRates = Object.keys(resolutionBitrates);
-          console.log('Available frame rates:', availableFrameRates);
-          
-          if (availableFrameRates.length > 0) {
-            // Use the first available frame rate as fallback
-            const fallbackFrameRate = availableFrameRates[0];
-            bitrateMbps = resolutionBitrates[fallbackFrameRate];
-            console.log('Using fallback frame rate:', fallbackFrameRate, 'with bitrate:', bitrateMbps);
-          } else {
-            console.log('No frame rates available');
-            return null;
-          }
-        }
-      } else {
-        console.error('Invalid bitrates format:', resolutionBitrates);
-        return null;
-      }
-
-      if (!bitrateMbps || bitrateMbps <= 0 || typeof bitrateMbps !== 'number') {
-        console.log('Invalid bitrate:', bitrateMbps);
-        return null;
-      }
-
-      const totalSeconds = duration.hours * 3600 + duration.minutes * 60 + duration.seconds;
-      
-      if (totalSeconds <= 0) {
-        console.log('Invalid duration:', totalSeconds);
-        return null;
-      }
-
-      const videoBitrateMbps = bitrateMbps;
-      const audioConfiguration = resolveAudioConfiguration(getAudioProfiles(codec, variant), audioSelection);
-      const audioBitrateMbps = audioConfiguration?.bitrateMbps ?? 0;
-      const totalBitrateMbps = videoBitrateMbps + audioBitrateMbps;
-      const fileSizeMB = (totalBitrateMbps * totalSeconds) / 8; // Convert bits to bytes
-      const fileSizeGB = fileSizeMB / 1024;
-      const fileSizeTB = fileSizeGB / 1024;
-
-      console.log('Calculation result:', {
-        videoBitrateMbps,
-        audioBitrateMbps,
-        totalBitrateMbps,
-        totalSeconds,
-        fileSizeMB,
-        fileSizeGB
-      });
-
-      return {
-        bitrateMbps: totalBitrateMbps,
-        videoBitrateMbps,
-        audioBitrateMbps,
-        fileSizeMB,
-        fileSizeGB,
-        fileSizeTB,
-        totalSeconds,
-        codec: codec!,
-        variant: variant,
-        resolution: resolution,
-        frameRate: frameRate!,
-        category: selectedCategory, // Include category in results
-        audioConfiguration: audioConfiguration ?? undefined
-      };
-    } catch (error) {
-      console.error('Error during calculation:', error);
-      return null;
-    }
+    return {
+      bitrateMbps: result.bitrateMbps,
+      videoBitrateMbps: result.videoBitrateMbps,
+      audioBitrateMbps: result.audioBitrateMbps,
+      fileSizeMB: result.fileSizeMB,
+      fileSizeGB: result.fileSizeGB,
+      fileSizeTB: result.fileSizeTB,
+      totalSeconds: result.totalSeconds,
+      codec: result.codec,
+      variant: result.variant,
+      resolution: result.resolution,
+      frameRate: result.frameRate,
+      category: result.categoryId,
+      audioConfiguration: result.audioConfiguration,
+    };
   };
 
 
@@ -893,7 +1023,7 @@ const Calculator: React.FC = () => {
       // Clear results if parameters are incomplete
       setManualResults(null);
     }
-  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, audioSelection, isInitialized, autoSelectionInProgress], 250);
+  }, [selectedCategory, selectedCodec, selectedVariant, selectedResolution, selectedFrameRate, duration, audioSelection, videoBitrateOverrideMbps, isInitialized, autoSelectionInProgress], 250);
 
   // Auto-calculate if loaded from URL with all params
   useEffect(() => {
@@ -915,17 +1045,21 @@ const Calculator: React.FC = () => {
     }
   }, [shouldAutoCalculate, calculationTriggered]);
 
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = () => {
-      setMobileMenuOpen(false);
-    };
-
-    if (mobileMenuOpen) {
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
-    }
-  }, [mobileMenuOpen]);
+  const shareButton = (
+    <button
+      type="button"
+      onClick={copyShareLink}
+      className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors whitespace-nowrap"
+      title="Copy share link"
+    >
+      {copied ? (
+        <Check className="h-4 w-4 text-green-400" />
+      ) : (
+        <Share2 className="h-4 w-4 text-gray-400" />
+      )}
+      <span className="hidden lg:inline text-sm text-gray-300">{copied ? 'Copied!' : 'Share'}</span>
+    </button>
+  );
 
   // Don't render the main interface until we've processed URL parameters
   if (!isInitialized || loading) {
@@ -979,151 +1113,7 @@ const Calculator: React.FC = () => {
   }
   return (
     <div className="min-h-screen bg-dark-primary relative">
-      {/* Header */}
-      <header className="border-b border-gray-800 bg-dark-secondary/50 backdrop-blur-sm relative z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <Film className="h-6 w-6 sm:h-8 sm:w-8 text-blue-400" />
-              <h1 className="text-lg sm:text-xl font-semibold text-white">
-                <span className="hidden sm:inline">Video File Size Calculator</span>
-                <span className="sm:hidden">VideoCalc</span>
-              </h1>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-4">
-              <button
-                onClick={copyShareLink}
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="Copy share link"
-              >
-                {copied ? (
-                  <Check className="h-4 w-4 text-green-400" />
-                ) : (
-                  <Share2 className="h-4 w-4 text-gray-400" />
-                )}
-                <span className="text-sm text-gray-300">{copied ? 'Copied!' : 'Share'}</span>
-              </button>
-              <Link
-                to="/codec-data"
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="Browse Codec Database"
-                onClick={() => googleAnalytics.trackCodecDatabaseView()}
-              >
-                <Database className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300">Database</span>
-              </Link>
-              <Link
-                to="/about"
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="About"
-              >
-                <Info className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300">About</span>
-              </Link>
-              <Link
-                to="/about-ffmpeg"
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="About FFmpeg Commands"
-              >
-                <Terminal className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300">FFmpeg</span>
-              </Link>
-              <Link
-                to="/privacy"
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="Privacy Policy"
-              >
-                <Shield className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300">Privacy</span>
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setMobileMenuOpen(!mobileMenuOpen);
-                }}
-                className="p-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
-                title="Menu"
-              >
-                {mobileMenuOpen ? (
-                  <X className="h-5 w-5 text-gray-400" />
-                ) : (
-                  <Menu className="h-5 w-5 text-gray-400" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Navigation Menu */}
-          {mobileMenuOpen && (
-            <div 
-              className="md:hidden absolute top-full left-0 right-0 bg-dark-secondary border-b border-gray-800 shadow-lg z-40"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="px-4 py-3 space-y-2">
-                <button
-                  onClick={() => {
-                    copyShareLink();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors text-left"
-                >
-                  {copied ? (
-                    <Check className="h-5 w-5 text-green-400" />
-                  ) : (
-                    <Share2 className="h-5 w-5 text-gray-400" />
-                  )}
-                  <span className="text-gray-300">{copied ? 'Link Copied!' : 'Share Calculation'}</span>
-                </button>
-                
-                <Link
-                  to="/codec-data"
-                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
-                  onClick={() => {
-                    googleAnalytics.trackCodecDatabaseView();
-                    setMobileMenuOpen(false);
-                  }}
-                >
-                  <Database className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-300">Codec Database</span>
-                </Link>
-                
-                <Link
-                  to="/about"
-                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Info className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-300">About</span>
-                </Link>
-
-                <Link
-                  to="/about-ffmpeg"
-                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Terminal className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-300">About FFmpeg Commands</span>
-                </Link>
-                
-                <Link
-                  to="/privacy"
-                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Shield className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-300">Privacy Policy</span>
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
-      </header>
+      <SiteNav forceMenuBelow="lg" actions={shareButton} />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-indigo-900/20 border-b border-gray-800">
@@ -1210,33 +1200,47 @@ const Calculator: React.FC = () => {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {customPresets.map((preset, index) => {
-                const isActive = selectedCategory === preset.category && 
-                                selectedCodec === preset.codec && 
-                                selectedVariant === preset.variant && 
-                                selectedResolution === preset.resolution &&
-                                selectedFrameRate === preset.frameRate &&
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+              <div className="lg:col-span-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3">
+                  {customPresets.map((preset, index) => {
+                    const isActive = selectedCategory === preset.category && 
+                                    selectedCodec === preset.codec && 
+                                    selectedVariant === preset.variant && 
+                                    selectedResolution === preset.resolution &&
+                                    selectedFrameRate === preset.frameRate &&
                                 (preset.audioEnabled ?? false) === audioSelection.enabled &&
                                 (preset.audioProfileId ?? '') === audioSelection.profileId &&
-                                (preset.audioConfigurationId ?? '') === audioSelection.configurationId;
-                
-                return (
-                  <EditablePresetCard
-                    key={preset.id}
-                    preset={preset}
-                    isActive={isActive}
-                    onApply={() => applyPreset(preset)}
-                    onUpdate={(updatedPreset) => handlePresetUpdate(index, updatedPreset)}
-                    canDelete={customPresets.length > 4}
-                    onDelete={() => {
-                      if (confirm('Delete this preset?')) {
-                        deletePreset(index);
-                      }
-                    }}
-                  />
-                );
-              })}
+                                normalizeAudioConfigurationId(preset.audioConfigurationId ?? '') ===
+                                  normalizeAudioConfigurationId(audioSelection.configurationId);
+                    
+                    return (
+                      <EditablePresetCard
+                        key={preset.id}
+                        preset={preset}
+                        isActive={isActive}
+                        onApply={() => applyPreset(preset)}
+                        onUpdate={(updatedPreset) => handlePresetUpdate(index, updatedPreset)}
+                        canDelete={customPresets.length > 4}
+                        onDelete={() => {
+                          if (confirm('Delete this preset?')) {
+                            deletePreset(index);
+                          }
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="lg:col-span-1">
+                <StreamingPartnerPresetSelect
+                  value={activeStreamingPresetId}
+                  currentConfig={streamingPartnerConfig}
+                  onApply={applyStreamingPartnerPreset}
+                  compact
+                />
+              </div>
             </div>
             
             <div className="mt-4 text-center">
@@ -1255,7 +1259,7 @@ const Calculator: React.FC = () => {
                 <Film className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-400" />
                 Codec Settings
               </h2>
-              
+
               <div className="space-y-4">
                 <div className="space-y-2">
                   <label htmlFor="codec-search" className="block text-sm font-medium text-gray-300">
@@ -1353,13 +1357,13 @@ const Calculator: React.FC = () => {
                   label="Codec Variant"
                   value={selectedVariant}
                   onChange={setSelectedVariant}
-                  options={availableVariants.map(variant => ({ 
+                  options={selectableVariants.map(variant => ({ 
                     value: variant.name, 
                     label: variant.name, 
                     description: variant.description 
                   }))}
-                  placeholder={availableVariants.length === 1 ? "Auto-selected" : "Select variant..."}
-                  disabled={!selectedCodec || availableVariants.length === 0}
+                  placeholder={selectableVariants.length === 1 ? "Auto-selected" : "Select variant..."}
+                  disabled={!selectedCodec || selectableVariants.length === 0}
                 />
               </div>
             </div>
@@ -1454,7 +1458,7 @@ const Calculator: React.FC = () => {
                       options={availableAudioProfiles.map(profile => ({
                         value: profile.id,
                         label: profile.name,
-                        description: `${profile.codec}${profile.description ? ` - ${profile.description}` : ''}`
+                        description: formatCalculatorAudioProfileDescription(profile),
                       }))}
                       placeholder="Select audio profile..."
                       disabled={availableAudioProfiles.length === 0}
@@ -1462,9 +1466,9 @@ const Calculator: React.FC = () => {
 
                     <CustomSelect
                       label="Audio Channels"
-                      value={audioSelection.configurationId}
+                      value={normalizeAudioConfigurationId(audioSelection.configurationId)}
                       onChange={handleAudioConfigurationChange}
-                      options={(selectedAudioProfile?.configurations ?? []).map(configuration => ({
+                      options={selectableAudioConfigurations.map(configuration => ({
                         value: configuration.id,
                         label: configuration.label,
                         description: selectedAudioProfile
@@ -1472,7 +1476,7 @@ const Calculator: React.FC = () => {
                           : configuration.description
                       }))}
                       placeholder="Select channel configuration..."
-                      disabled={!selectedAudioProfile}
+                      disabled={!selectedAudioProfile || selectableAudioConfigurations.length === 0}
                     />
 
                     {selectedAudioProfile && selectedAudioConfiguration && (

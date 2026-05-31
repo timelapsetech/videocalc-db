@@ -5,6 +5,8 @@ import About from './components/About';
 import AboutFfmpeg from './components/AboutFfmpeg';
 import CodecData from './components/CodecData';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import StreamingServices from './components/StreamingServices';
+import StreamingServiceDetail from './components/StreamingServiceDetail';
 import CookieConsent from './components/CookieConsent';
 import ErrorBoundary from './components/ErrorBoundary';
 import Seo from './components/Seo';
@@ -27,6 +29,8 @@ const AppWithTracking: React.FC = () => {
           <Route path="/about" element={<About />} />
           <Route path="/about-ffmpeg" element={<AboutFfmpeg />} />
           <Route path="/codec-data" element={<CodecData />} />
+          <Route path="/streaming-services" element={<StreamingServices />} />
+          <Route path="/streaming-services/:serviceId" element={<StreamingServiceDetail />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
       </div>

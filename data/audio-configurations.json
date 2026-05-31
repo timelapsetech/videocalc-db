@@ -65,8 +65,10 @@
           "configurations": [
             { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
             { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
+            { "id": "stereo-384", "label": "Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
             { "id": "stereo-youtube-384", "label": "YouTube Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
             { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 },
+            { "id": "surround-5-1-512", "label": "5.1 Surround 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 },
             { "id": "surround-5-1-youtube-512", "label": "YouTube 5.1 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 }
           ],
           "description": "Compatibility-oriented MP4/HLS audio for AV1 delivery.",
@@ -92,10 +94,18 @@
           "configurations": [
             { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
             { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
+            { "id": "stereo-192", "label": "Stereo 192 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 192 },
+            { "id": "stereo-320", "label": "Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
+            { "id": "stereo-384", "label": "Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
             { "id": "stereo-vimeo-320", "label": "Vimeo Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
             { "id": "stereo-youtube-384", "label": "YouTube Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
+            { "id": "stereo-prime-320", "label": "Prime Video Stereo AAC 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
+            { "id": "stereo-tubi-192", "label": "AVOD Stereo AAC 192 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 192 },
             { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 },
-            { "id": "surround-5-1-youtube-512", "label": "YouTube 5.1 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 }
+            { "id": "surround-5-1-512", "label": "5.1 Surround 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 },
+            { "id": "surround-5-1-768", "label": "AAC 5.1 768 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 768 },
+            { "id": "surround-5-1-youtube-512", "label": "YouTube 5.1 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 },
+            { "id": "surround-prime-aac-768", "label": "Prime Video AAC 5.1 768 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 768 }
           ],
           "description": "Broadly compatible H.264 MP4/HLS audio.",
           "accuracy": "estimate",
@@ -107,6 +117,26 @@
           "notes": "Upload and streaming services frequently transcode audio; these settings estimate source file size."
         },
         {
+          "id": "mov-lpcm-48k-24bit",
+          "name": "Sidecar LPCM 48 kHz 24-bit",
+          "kind": "pcm",
+          "codec": "LPCM",
+          "sampleRateHz": 48000,
+          "bitDepth": 24,
+          "defaultConfigurationId": "stereo",
+          "configurations": [
+            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
+            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
+            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" }
+          ],
+          "description": "Sidecar WAV/PCM audio paired with video-only H.264 deliverables.",
+          "accuracy": "spec",
+          "sourceUrls": [
+            "https://partnerhub.warnermediagroup.com/outbound-specifications/outbound-specs"
+          ],
+          "notes": "Video file has no embedded audio; PCM sidecars are delivered separately but counted here for total package size."
+        },
+        {
           "id": "hls-surround",
           "name": "HLS AC-3/E-AC-3 Surround",
           "kind": "compressed",
@@ -114,14 +144,17 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "eac3-5-1-192",
           "configurations": [
+            { "id": "ac3-stereo-192", "label": "AC-3 Stereo 192 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 192 },
             { "id": "ac3-5-1-384", "label": "AC-3 5.1 384 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 384 },
+            { "id": "ac3-5-1-448", "label": "AC-3 5.1 448 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 448 },
             { "id": "eac3-5-1-192", "label": "E-AC-3 5.1 192 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 192 },
             { "id": "eac3-7-1-384", "label": "E-AC-3 7.1 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
           ],
-          "description": "Apple HLS surround audio options.",
+          "description": "Apple HLS and MP4 surround audio options with AC-3 and E-AC-3.",
           "accuracy": "estimate",
           "sourceUrls": [
-            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices"
+            "https://developer.apple.com/documentation/http-live-streaming/hls-authoring-specification-for-apple-devices",
+            "https://m.media-amazon.com/images/G/01/CooperWebsite/dvp/downloads/Prime_Video-GlobalContentGuide-v5.2.2.pdf"
           ]
         }
       ]
@@ -139,6 +172,7 @@
           "configurations": [
             { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
             { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
+            { "id": "stereo-320", "label": "Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
             { "id": "stereo-vimeo-320", "label": "Vimeo Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
             { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 }
           ],

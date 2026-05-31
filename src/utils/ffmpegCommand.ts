@@ -192,8 +192,22 @@ function h264Level(resolution: Resolution, frameRate: FfmpegCommandInput['frameR
   )?.level ?? '6.2';
 }
 
+function resolveH264Profile(variant: CodecVariant): string | null {
+  const profileFromName = h264Profiles[variant.name];
+  if (profileFromName) {
+    return profileFromName;
+  }
+
+  const explicitProfile = variant.ffmpegEncoderProfile;
+  if (explicitProfile === 'baseline' || explicitProfile === 'main' || explicitProfile === 'high') {
+    return explicitProfile;
+  }
+
+  return null;
+}
+
 function buildH264Recipe(input: FfmpegCommandInput): VideoRecipe | null {
-  const profile = h264Profiles[input.variant.name];
+  const profile = resolveH264Profile(input.variant);
 
   if (!profile) {
     return null;

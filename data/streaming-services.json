@@ -1,0 +1,3833 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-05-31",
+    "notes": "Partner contribution (ingest) specifications for delivering video and audio TO each platform — not what platforms syndicate outbound. FAST entries cover OEM platforms, distribution partners (Amagi, Wurl, Frequency), and vertical micro-drama apps (ReelShort, DramaBox). Micro-drama entries cite partner onboarding docs and industry delivery guides where public PDFs are unavailable. Always verify current requirements with each service."
+  },
+  "services": [
+    {
+      "id": "amazon-prime-video",
+      "name": "Amazon Prime Video",
+      "tagline": "Studio partner and Prime Video Direct",
+      "description": "Amazon accepts H.264, ProRes 422, and MPEG-2 mezzanine files for studio partners. Prime Video Direct offers a self-serve upload path for independent rights holders.",
+      "accessModel": "Partner delivery or Prime Video Direct",
+      "specUrl": "https://m.media-amazon.com/images/G/01/CooperWebsite/dvp/downloads/Prime_Video-GlobalContentGuide-v5.2.2.pdf",
+      "websiteUrl": "https://www.primevideo.com",
+      "deliveryOptions": [
+        {
+          "id": "h264-hd",
+          "name": "H.264 HD Mezzanine",
+          "purpose": "Standard HD partner delivery",
+          "summary": "H.264 High Profile in MP4, M2T, or TS with AAC or AC-3 embedded audio.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "AVC / H.264 High Profile, Level 4.1+"
+            },
+            {
+              "label": "Container",
+              "value": "MP4, M2T, or TS (.mov not supported for H.264)"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 HD"
+            },
+            {
+              "label": "Bitrate",
+              "value": "30 Mbps (HD), 15 Mbps (SD)"
+            },
+            {
+              "label": "GOP",
+              "value": "Key frame interval ≤ 2 seconds"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "AAC stereo",
+              "value": "320 kbps at 48 kHz"
+            },
+            {
+              "label": "AAC 5.1",
+              "value": "768–960 kbps at 48 kHz"
+            },
+            {
+              "label": "AC-3 stereo",
+              "value": "192 kbps at 48 kHz"
+            },
+            {
+              "label": "AC-3 5.1",
+              "value": "448 kbps at 48 kHz"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Audio rule",
+              "value": "All tracks same language; program audio only (no M&E/MOS)"
+            },
+            {
+              "label": "Loudness",
+              "value": "Approximately −24 to −26 LKFS (ITU-R BS.1770)"
+            }
+          ],
+          "specUrl": "https://m.media-amazon.com/images/G/01/CooperWebsite/dvp/downloads/Prime_Video-GlobalContentGuide-v5.2.2.pdf",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "SVOD Mezzanine (30 Mbps)",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-prime-320"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Partner mezzanine"
+        },
+        {
+          "id": "h264-surround",
+          "name": "H.264 HD with AC-3 5.1",
+          "purpose": "Surround partner delivery",
+          "summary": "Same H.264 video spec with Dolby Digital (AC-3) 5.1 embedded audio.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "AVC / H.264 High Profile"
+            },
+            {
+              "label": "Container",
+              "value": "MP4, M2T, or TS"
+            },
+            {
+              "label": "Bitrate",
+              "value": "30 Mbps HD"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AC-3 (Dolby Digital)"
+            },
+            {
+              "label": "Layout",
+              "value": "5.1 (L-R-C-LFE-LS-RS)"
+            },
+            {
+              "label": "Bitrate",
+              "value": "448 kbps at 48 kHz"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Channel mapping",
+              "value": "L-R-C-LFE-LS-RS required for 5.1"
+            }
+          ],
+          "specUrl": "https://m.media-amazon.com/images/G/01/CooperWebsite/dvp/downloads/Prime_Video-GlobalContentGuide-v5.2.2.pdf",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "SVOD Mezzanine (30 Mbps)",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "hls-surround",
+            "audioConfigurationId": "ac3-5-1-448"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Partner mezzanine"
+        },
+        {
+          "id": "prores-hd",
+          "name": "ProRes 422 HQ Mezzanine",
+          "purpose": "Highest-quality studio mezzanine",
+          "summary": "Apple ProRes 422 HQ in MOV with lossless PCM audio.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV"
+            },
+            {
+              "label": "Bitrate",
+              "value": "~220 Mbps at 1080p (VBR, I-frame only)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Uncompressed PCM"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz lossless"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "GOP",
+              "value": "Not applicable (I-frame only)"
+            }
+          ],
+          "specUrl": "https://m.media-amazon.com/images/G/01/CooperWebsite/dvp/downloads/Prime_Video-GlobalContentGuide-v5.2.2.pdf",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Partner mezzanine"
+        },
+        {
+          "id": "avod-h264-hd",
+          "name": "AVOD HD (Ad-Supported Prime / legacy Freevee)",
+          "businessModel": "avod",
+          "deliveryTier": "AVOD mezzanine",
+          "purpose": "Ad-supported streaming on Prime Video",
+          "summary": "Same Prime Video mezzanine family as SVOD — ads are inserted at playback. Former Freevee content now lives in Prime Video AVOD.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "AVC/H.264 High Profile or ProRes 422 HQ"
+            },
+            {
+              "label": "Container",
+              "value": "MP4, M2T, TS (H.264); MOV (ProRes only)"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 HD"
+            },
+            {
+              "label": "Bitrate",
+              "value": "30 Mbps HD H.264; ~220 Mbps ProRes 422 HQ"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC or AC-3 embedded; PCM for ProRes"
+            },
+            {
+              "label": "Stereo AAC",
+              "value": "320 kbps at 48 kHz"
+            },
+            {
+              "label": "5.1 AC-3",
+              "value": "448 kbps at 48 kHz"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Business line",
+              "value": "Prime Video AVOD (includes migrated Freevee library)"
+            },
+            {
+              "label": "Packaging",
+              "value": "Bulk delivery with MMC metadata via Video Central"
+            }
+          ],
+          "additionalNotes": [
+            "Amazon Freevee shut down March 2025; AVOD content moved into Prime Video ad tier.",
+            "Source mezzanine spec matches SVOD — difference is monetization/metadata, not video codec."
+          ],
+          "specUrl": "https://videocentral.amazon.com/support/welcome-to-prime-video-slate/getting-started/launching-vod-content-on-prime-video",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "SVOD Mezzanine (30 Mbps)",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-prime-320"
+          },
+          "ffmpegSupported": true
+        },
+        {
+          "id": "tvod-direct-h264",
+          "name": "TVOD — Prime Video Direct (Rent/Buy)",
+          "businessModel": "tvod",
+          "deliveryTier": "Self-serve upload",
+          "purpose": "Independent rent/buy titles via Prime Video Direct",
+          "summary": "Self-serve path for rights holders to list transactional titles. H.264 MP4 is the most common upload format.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "AVC/H.264 High Profile"
+            },
+            {
+              "label": "Container",
+              "value": "MP4, M2T, or TS"
+            },
+            {
+              "label": "Resolution",
+              "value": "SD or HD"
+            },
+            {
+              "label": "Bitrate",
+              "value": "30 Mbps HD / 15 Mbps SD"
+            },
+            {
+              "label": "GOP",
+              "value": "Key frame interval ≤ 2 seconds"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "AAC stereo",
+              "value": "320 kbps at 48 kHz"
+            },
+            {
+              "label": "AC-3 5.1",
+              "value": "448 kbps when surround provided"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Access",
+              "value": "Prime Video Direct web upload or bulk Aspera/S3"
+            },
+            {
+              "label": "Revenue",
+              "value": "50% rental/purchase revenue share (typical)"
+            }
+          ],
+          "specUrl": "https://videocentral.amazon.com/support/delivery-experience/videos/video-requirements",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "SVOD Mezzanine (30 Mbps)",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-prime-320"
+          },
+          "ffmpegSupported": true
+        }
+      ],
+      "businessModels": [
+        "svod",
+        "avod",
+        "tvod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Prime SVOD subscription, ad-supported streaming (AVOD), and rent/buy (TVOD)",
+      "businessModelNotes": [
+        "Amazon Freevee merged into Prime Video AVOD in March 2025.",
+        "AVOD, SVOD, and TVOD share the same mezzanine spec family but different packaging/metadata paths.",
+        "Prime Video Direct supports self-serve TVOD for rights holders."
+      ]
+    },
+    {
+      "id": "apple-tv-plus",
+      "name": "Apple TV+",
+      "tagline": "iTunes Package delivery via Transporter",
+      "description": "Apple TV and Movies content is delivered as an iTunes Package (.itmsp) using Apple's Transporter tool. Mezzanine sources use ProRes; consumer deliverables use H.264 or HEVC.",
+      "accessModel": "Apple partner / iTunes Connect",
+      "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
+      "websiteUrl": "https://tv.apple.com",
+      "deliveryOptions": [
+        {
+          "id": "prores-hd-source",
+          "name": "HD TV Source (ProRes 422 HQ)",
+          "purpose": "Primary mezzanine master",
+          "summary": "ProRes 422 HQ mezzanine in QuickTime with LPCM audio for Apple TV catalog.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ, 4444, or 4444 XQ"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 (native aspect ratio)"
+            },
+            {
+              "label": "Bitrate",
+              "value": "VBR ~88–220 Mbps at 1080p"
+            },
+            {
+              "label": "Frame rate",
+              "value": "Native source frame rate"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Linear PCM (big-endian in QT)"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            },
+            {
+              "label": "Bit depth",
+              "value": "24-bit"
+            },
+            {
+              "label": "Layouts",
+              "value": "Stereo or 5.1 with defined channel assignments"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Delivery",
+              "value": ".itmsp package via Transporter"
+            },
+            {
+              "label": "Captions",
+              "value": "CEA-608/708 or iTunes Timed Text (.itt)"
+            }
+          ],
+          "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Mezzanine source"
+        },
+        {
+          "id": "prores-4k-source",
+          "name": "4K TV Source (ProRes 422 HQ)",
+          "purpose": "Premium 4K mezzanine",
+          "summary": "4K UHD ProRes 422 HQ source profile for Apple TV+ premium placement.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ or 4444 XQ"
+            },
+            {
+              "label": "Resolution",
+              "value": "3840 × 2160 UHD"
+            },
+            {
+              "label": "Bitrate",
+              "value": "~880 Mbps (422 HQ), up to ~2000 Mbps (4444 XQ)"
+            },
+            {
+              "label": "HDR",
+              "value": "Dolby Vision preferred for premium tier"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Premium",
+              "value": "Dolby Atmos (E-AC-3 JOC) plus 5.1 and stereo fallbacks"
+            },
+            {
+              "label": "Loudness",
+              "value": "−18 LKFS integrated, true peak ≤ −1 dBTP"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Consumer encode",
+              "value": "H.264 or HEVC in final .itmsp deliverable"
+            }
+          ],
+          "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "UHD",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Mezzanine source"
+        },
+        {
+          "id": "hevc-delivery",
+          "name": "HEVC Consumer Deliverable",
+          "purpose": "4K/HDR distribution encode inside iTunes Package",
+          "summary": "H.265/HEVC for 4K and HDR final deliverables within Apple's package workflow.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "HEVC (H.265)"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 inside .itmsp"
+            },
+            {
+              "label": "Resolution",
+              "value": "3840 × 2160 for 4K titles"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC-LC stereo and Dolby Digital Plus 5.1"
+            },
+            {
+              "label": "Atmos",
+              "value": "E-AC-3 JOC for premium titles"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Tooling",
+              "value": "Apple Transporter and Compressor workflows"
+            }
+          ],
+          "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h265",
+            "variant": "Main Profile",
+            "resolution": "UHD",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "surround-5-1-320"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Consumer deliverable"
+        }
+      ],
+      "businessModels": [
+        "svod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Apple TV+ subscription and transactional iTunes/Apple TV purchases",
+      "businessModelNotes": [
+        "Apple TV+ originals use ProRes mezzanine; iTunes transactional uses H.264/HEVC in .itmsp packages."
+      ]
+    },
+    {
+      "id": "crunchyroll",
+      "name": "Crunchyroll",
+      "tagline": "Anime SVOD platform",
+      "description": "Crunchyroll is a Sony-owned anime SVOD service. We could not find published partner delivery specifications online — mezzanine requirements are shared through Content Operations during licensing.",
+      "businessModels": [
+        "svod",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "Crunchyroll licensor / production partner",
+      "revenueModel": "Crunchyroll SVOD subscription; ad-supported tier on select content",
+      "businessModelNotes": [
+        "Crunchyroll added an ad-supported viewing tier — mezzanine likely shared with SVOD masters.",
+        "Specs are provided per deal through Content Operations — not publicly documented."
+      ],
+      "specUrl": "https://www.crunchyroll.com",
+      "websiteUrl": "https://www.crunchyroll.com",
+      "deliveryOptions": [],
+      "specSourceType": "not-found"
+    },
+    {
+      "id": "disney-plus",
+      "name": "Disney+",
+      "tagline": "Disney Entertainment delivery",
+      "description": "Disney+ content is delivered through Disney content operations for licensed partners. We could not find published Disney+ delivery specifications online — contact your Disney representative for title-specific requirements.",
+      "accessModel": "Licensed partner delivery",
+      "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
+      "specSourceType": "not-found",
+      "websiteUrl": "https://www.disneyplus.com",
+      "deliveryOptions": [],
+      "businessModels": [
+        "svod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Disney+ subscription (includes Hulu/ESPN+ bundle options)",
+      "businessModelNotes": [
+        "Disney+ and Hulu share Disney Entertainment delivery operations for many titles.",
+        "No public creator upload — licensed partner mezzanine only."
+      ]
+    },
+    {
+      "id": "filmhub",
+      "name": "Filmhub",
+      "tagline": "Independent film aggregator",
+      "description": "Filmhub is an indie film aggregator that delivers to Netflix, Amazon, Tubi, Roku, and 100+ platforms. Filmmakers upload once; Filmhub handles QC and platform-specific delivery.",
+      "businessModels": [
+        "avod",
+        "tvod",
+        "svod",
+        "creator-upload"
+      ],
+      "accessModel": "Filmmaker upload via Filmhub portal",
+      "revenueModel": "Revenue share across 100+ platform deals",
+      "businessModelNotes": [
+        "Filmhub normalizes uploads to each platform's spec — upload requirements are aggregator-defined.",
+        "Actual playback specs vary by downstream platform (Tubi AVOD vs Amazon TVOD etc.)."
+      ],
+      "specUrl": "https://filmhub.com/filmmakers",
+      "websiteUrl": "https://filmhub.com",
+      "deliveryOptions": [
+        {
+          "id": "aggregator-upload-h264",
+          "name": "Filmhub Upload (H.264 HD)",
+          "businessModel": "creator-upload",
+          "deliveryTier": "Aggregator ingest",
+          "purpose": "Single upload for multi-platform distribution",
+          "summary": "Filmhub accepts H.264 MP4 uploads which it QC's and routes to AVOD, TVOD, and SVOD partners.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 High Profile"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 or MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 preferred"
+            },
+            {
+              "label": "Bitrate",
+              "value": "10–30 Mbps recommended"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC stereo"
+            },
+            {
+              "label": "Bitrate",
+              "value": "192–320 kbps"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Captions",
+              "value": "SRT or embedded captions required"
+            },
+            {
+              "label": "Downstream",
+              "value": "Filmhub transcodes/delivers to Tubi, Amazon, Roku, etc."
+            }
+          ],
+          "specUrl": "https://filmhub.com/filmmakers",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-vimeo-320"
+          },
+          "ffmpegSupported": true
+        }
+      ]
+    },
+    {
+      "id": "hulu",
+      "name": "Hulu",
+      "tagline": "Disney/Hulu SVOD mezzanine delivery",
+      "description": "Hulu requires mezzanine files that decode cleanly through their transcode pipeline. ProRes 422 HQ is the preferred QuickTime format; MPEG-2 is also accepted.",
+      "accessModel": "Licensed content partner",
+      "specUrl": "https://assets.hulu.com/portaldocuments/ContentPartnerGuidebook_v5.0.pdf",
+      "websiteUrl": "https://www.hulu.com",
+      "deliveryOptions": [
+        {
+          "id": "prores-hq-mezzanine",
+          "name": "QuickTime ProRes 422 HQ",
+          "purpose": "Primary SVOD mezzanine",
+          "summary": "ProRes 422 HQ in MOV with interleaved PCM audio muxed with primary language.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV"
+            },
+            {
+              "label": "Color space",
+              "value": "YUV 4:2:2, 10-bit"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920×1080, 1280×720, or 3840×2160 (4K)"
+            },
+            {
+              "label": "Bitrate",
+              "value": "~220 Mbps at 1080p HQ, ~880 Mbps at 4K HQ"
+            },
+            {
+              "label": "Frame rate",
+              "value": "23.976, 25, 29.97 fps (constant, progressive)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Linear PCM interleaved"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            },
+            {
+              "label": "Bit depth",
+              "value": "16 or 24-bit"
+            },
+            {
+              "label": "Loudness",
+              "value": "≈ −24 LKFS/LUFS, peak ≤ −2 dBFS"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Requirement",
+              "value": "Video muxed with primary-language audio"
+            },
+            {
+              "label": "SDR only",
+              "value": "HDR mezzanines require Content Partner Manager approval"
+            }
+          ],
+          "specUrl": "https://assets.hulu.com/portaldocuments/ContentPartnerGuidebook_v5.0.pdf",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "stereo"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Mezzanine",
+          "additionalNotes": [
+            "Same mezzanine serves Hulu (With Ads) and Hulu (No Ads) — ad tier is a subscription wrapper."
+          ]
+        },
+        {
+          "id": "mpeg2-mezzanine",
+          "name": "MPEG-2 Mezzanine",
+          "purpose": "Legacy/broadcast-originated delivery",
+          "summary": "MPEG-2 mezzanine with PCM, MPEG Layer II, or AC-3 audio.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "MPEG-2 video"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "PCM",
+              "value": "Lossless AES3 linear PCM"
+            },
+            {
+              "label": "MPEG Layer II",
+              "value": "384 kbps stereo"
+            },
+            {
+              "label": "AC-3",
+              "value": "384 kbps 5.1"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Format",
+              "value": "MPEG-2 program stream or transport stream"
+            }
+          ],
+          "specUrl": "https://assets.hulu.com/portaldocuments/ContentPartnerGuidebook_v5.0.pdf",
+          "calculator": {
+            "category": "broadcast",
+            "codec": "mpeg2",
+            "variant": "MPEG-2 422P@HL 50 Mb/s Broadcast",
+            "resolution": "1080i",
+            "frameRate": "29.97",
+            "audioEnabled": true,
+            "audioProfileId": "broadcast-aac-layer-ac3",
+            "audioConfigurationId": "ac3-5-1-384"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Legacy mezzanine"
+        },
+        {
+          "id": "h264-mezzanine",
+          "name": "H.264 Mezzanine",
+          "purpose": "Compressed mezzanine alternative",
+          "summary": "H.264 in MP4/MOV at 10–40 Mbps for partner workflows accepting AVC.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 High Profile"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 or MOV"
+            },
+            {
+              "label": "Bitrate",
+              "value": "10–40 Mbps"
+            },
+            {
+              "label": "Resolution",
+              "value": "1280×720 minimum, 1920×1080 preferred"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "PCM or AAC"
+            },
+            {
+              "label": "Channels",
+              "value": "2-channel stereo minimum"
+            },
+            {
+              "label": "Bitrate",
+              "value": "192 kbps minimum (AAC)"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Scan",
+              "value": "Progressive only, constant frame rate"
+            }
+          ],
+          "specUrl": "https://assets.hulu.com/portaldocuments/ContentPartnerGuidebook_v5.0.pdf",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "SVOD Mezzanine (30 Mbps)",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Compressed mezzanine"
+        }
+      ],
+      "businessModels": [
+        "svod",
+        "avod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Hulu subscription with ad-supported and ad-free tiers",
+      "businessModelNotes": [
+        "Hulu (With Ads) and Hulu (No Ads) use the same mezzanine master — ads are inserted at playback, not in the source file.",
+        "Hulu Live TV linear uses separate CableLabs/MPEG-TS ingest (not covered by mezzanine specs here)."
+      ]
+    },
+    {
+      "id": "max",
+      "name": "Max",
+      "tagline": "Warner Bros. Discovery partner contribution",
+      "description": "Licensed studios and distributors deliver finished masters TO Max via the WBD Content Partner Hub or Automated Content Delivery (ACD). Specs cover mezzanine ingest for the Max catalog — not WBD outbound syndication to affiliates.",
+      "accessModel": "WBD Content Partner Hub / ACD onboarding required",
+      "specUrl": "https://partnerhub.warnermediagroup.com/ingest-specifications",
+      "websiteUrl": "https://www.max.com",
+      "deliveryOptions": [
+        {
+          "id": "hd-sdr-prores-ingest",
+          "name": "HD/UHD SDR Mezzanine (ProRes 422 HQ)",
+          "purpose": "Primary SDR partner contribution",
+          "summary": "ProRes 422 HQ in QuickTime MOV with embedded 24-bit PCM audio — preferred SDR ingest path for licensed content.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "HD 1920×1080 or UHD 3840×2160"
+            },
+            {
+              "label": "Bitrate",
+              "value": "HD VBR ~176–220 Mbps; UHD ~796–880 Mbps"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 709, Y′CbCr 4:2:2 legal range, 10-bit"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Linear PCM (Broadcast WAV), 24-bit / 48 kHz"
+            },
+            {
+              "label": "Layouts",
+              "value": "Stereo/dual mono, 5.1, and M&E per contract; embedded in master"
+            },
+            {
+              "label": "Loudness",
+              "value": "−24 LKFS/LUFS ±2 dB (ITU-R BS.1770); true peak ≤ −2 dBTP"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Composition",
+              "value": "Episodic: slate + program @ 01:00:00:00 + textless; theatrical: continuous program"
+            },
+            {
+              "label": "Delivery",
+              "value": "WBD secure portal upload or ACD with MovieLabs MMC metadata"
+            }
+          ],
+          "specUrl": "https://partnerhub.warnermediagroup.com/ingest-specifications/sdr-content",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "partner-licensed",
+          "deliveryTier": "SDR mezzanine ingest"
+        },
+        {
+          "id": "hd-sdr-avc-intra-ingest",
+          "name": "HD SDR (AVC-Intra MXF)",
+          "purpose": "Compressed broadcast mezzanine ingest",
+          "summary": "AVC-Intra in MXF OP1a at CBR — one of five approved SDR master formats.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "AVC-Intra (SMPTE RP2027:2012)"
+            },
+            {
+              "label": "Container",
+              "value": "MXF OP1a"
+            },
+            {
+              "label": "Bitrate",
+              "value": "90 Mbps @ 23.976; 114 Mbps @ 29.97/25"
+            },
+            {
+              "label": "Bit depth",
+              "value": "10-bit 4:2:2"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Linear PCM BWF, 24-bit / 48 kHz embedded"
+            },
+            {
+              "label": "Loudness",
+              "value": "−24 LKFS/LUFS ±2 dB"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Frame rate",
+              "value": "Native constant frame rate only"
+            }
+          ],
+          "specUrl": "https://partnerhub.warnermediagroup.com/ingest-specifications/sdr-content",
+          "calculator": {
+            "category": "camera",
+            "codec": "avc_intra",
+            "variant": "AVC-Intra 100",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "videoBitrateOverrideMbps": 90,
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": false,
+          "ffmpegNotes": "AVC-Intra MXF OP1a requires broadcast authoring tools; FFmpeg libx264 does not produce AVC-Intra essence.",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "SDR mezzanine ingest"
+        },
+        {
+          "id": "hdr-imf-ingest",
+          "name": "HDR (IMF JPEG 2000)",
+          "purpose": "HDR partner contribution via IMF",
+          "summary": "HDR titles delivered TO Max as IMF Application #2E with JPEG 2000 essence and Dolby Vision metadata.",
+          "videoSpecs": [
+            {
+              "label": "Packaging",
+              "value": "IMF Application #2E+"
+            },
+            {
+              "label": "Codec",
+              "value": "JPEG 2000"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 2020, ST 2086 metadata, Dolby Vision"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Atmos",
+              "value": "Immersive Audio Bitstream (IAB) in MXF when mixed in Atmos"
+            },
+            {
+              "label": "Beds",
+              "value": "2.0, 5.1, and Atmos printmasters per IMF configuration"
+            },
+            {
+              "label": "PCM",
+              "value": "48 kHz, 24-bit linear PCM in IMF audio tracks"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Delivery",
+              "value": "Automated Content Delivery (ACD) with MMC metadata"
+            }
+          ],
+          "specUrl": "https://partnerhub.warnermedia.com/ingest-specifications/hdr-content",
+          "calculator": {
+            "category": "broadcast",
+            "codec": "jpeg2000",
+            "variant": "J2K IMF 4K",
+            "resolution": "UHD",
+            "frameRate": "24",
+            "audioEnabled": true,
+            "audioProfileId": "dcp-imf-pcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": false,
+          "ffmpegNotes": "HDR IMF packages require specialized mastering tools, not a single FFmpeg output.",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "HDR IMF ingest"
+        }
+      ],
+      "businessModels": [
+        "svod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Max DTC subscription; content acquired from licensed partners",
+      "businessModelNotes": [
+        "These specs are for delivering content TO Max — not WBD outbound syndication to affiliates.",
+        "Onboarding via Content Partner Hub or ACD is required before any production delivery."
+      ]
+    },
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "tagline": "Licensed partner delivery via IMF",
+      "description": "Netflix requires licensed partners to deliver finished masters as Interoperable Master Format (IMF) packages. Editorial turnovers to Content Hub accept H.264, ProRes, or DNxHD for review workflows.",
+      "accessModel": "Partner / licensed delivery only",
+      "specUrl": "https://partnerhelp.netflixstudios.com/hc/en-us/categories/1500000000761-Delivery",
+      "websiteUrl": "https://www.netflix.com",
+      "deliveryOptions": [
+        {
+          "id": "imf-branded-4k",
+          "name": "Branded IMF Delivery (4K/UHD)",
+          "purpose": "Final branded master delivery",
+          "summary": "IMF Application #2E with JPEG 2000 video, 24-bit PCM audio, and timed text sidecars.",
+          "videoSpecs": [
+            {
+              "label": "Packaging",
+              "value": "IMF Application #2E (SMPTE ST 2067-21)"
+            },
+            {
+              "label": "Video codec",
+              "value": "JPEG 2000 (per IMF App #2E)"
+            },
+            {
+              "label": "Resolution",
+              "value": "3840 × 2160 UHD (4K feature delivery)"
+            },
+            {
+              "label": "Frame rate",
+              "value": "Native capture rate (23.976, 24, 25 fps typical)"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 2020 container, P3-D65 mastering; Dolby Vision for HDR"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Uncompressed LPCM"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            },
+            {
+              "label": "Bit depth",
+              "value": "24-bit"
+            },
+            {
+              "label": "Layouts",
+              "value": "2.0, 5.1, and Dolby Atmos (IAB) when mixed in Atmos"
+            },
+            {
+              "label": "Loudness",
+              "value": "True peak ≤ −2.3 dBTP on beds/objects (2024 spec update)"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Package",
+              "value": "IMF CPL + asset map + MXF track files"
+            },
+            {
+              "label": "Subtitles",
+              "value": "TTML sidecars (not burned-in)"
+            }
+          ],
+          "additionalNotes": [
+            "Netflix derives 2.0, 5.1, and Atmos printmasters from IMF when configured.",
+            "FFmpeg cannot author a complete IMF package; use IMF-capable mastering tools."
+          ],
+          "specUrl": "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications",
+          "calculator": {
+            "category": "broadcast",
+            "codec": "jpeg2000",
+            "variant": "J2K IMF 4K",
+            "resolution": "UHD",
+            "frameRate": "24",
+            "audioEnabled": true,
+            "audioProfileId": "dcp-imf-pcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": false,
+          "ffmpegNotes": "JPEG 2000 IMF is a package-level delivery format, not a single FFmpeg-authored file.",
+          "businessModel": "svod",
+          "deliveryTier": "partner-licensed"
+        },
+        {
+          "id": "content-hub-h264",
+          "name": "Content Hub Editorial (H.264)",
+          "purpose": "Editorial cut turnover for review",
+          "summary": "H.264 in MP4 or MOV with AAC or embedded PCM for Content Hub workflows.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 (closed GOP)"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 or MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "Up to 1920 × 1080"
+            },
+            {
+              "label": "Bit depth",
+              "value": "8-bit"
+            },
+            {
+              "label": "Frame rate",
+              "value": "23.976–60 fps progressive (no VFR)"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 709"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "MP4/MOV option",
+              "value": "HE-AAC, HE-AACv2, or AAC-LC at 48 kHz"
+            },
+            {
+              "label": "MOV PCM option",
+              "value": "Uncompressed LPCM, 16 or 24-bit, 48 kHz"
+            },
+            {
+              "label": "Tracks",
+              "value": "1 track (AAC) or 1/2/3/7/8 tracks (PCM)"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Requirement",
+              "value": "Embedded audio required"
+            }
+          ],
+          "specUrl": "https://partnerhelp.netflixstudios.com/hc/en-us/articles/360000385507-Content-Hub-Editorial-Cut-Turnover-Specifications",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "SVOD Mezzanine (30 Mbps)",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-youtube-384"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "partner-licensed",
+          "deliveryTier": "Editorial proxy"
+        },
+        {
+          "id": "content-hub-prores",
+          "name": "Content Hub Editorial (ProRes 422 HQ)",
+          "purpose": "High-quality editorial turnover",
+          "summary": "ProRes 422 HQ or ProRes 4444 in QuickTime MOV with embedded PCM.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ or ProRes 4444 (not XQ)"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "Up to 1920 × 1080"
+            },
+            {
+              "label": "Frame rate",
+              "value": "23.976–60 fps progressive"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 709"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Uncompressed PCM"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            },
+            {
+              "label": "Bit depth",
+              "value": "16 or 24-bit"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Requirement",
+              "value": "Embedded audio required"
+            }
+          ],
+          "specUrl": "https://partnerhelp.netflixstudios.com/hc/en-us/articles/360000385507-Content-Hub-Editorial-Cut-Turnover-Specifications",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "stereo"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "partner-licensed",
+          "deliveryTier": "Editorial mezzanine"
+        }
+      ],
+      "businessModels": [
+        "svod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Subscription (SVOD) via licensed content deals",
+      "businessModelNotes": [
+        "No public upload path. All delivery is partner-gated.",
+        "Content Hub editorial specs are proxy/review formats — not consumer-facing streams."
+      ]
+    },
+    {
+      "id": "paramount-plus",
+      "name": "Paramount+",
+      "tagline": "Paramount Global streaming",
+      "description": "Paramount+ subscription service (Essential with ads, Premium ad-free). Licensed partners deliver ProRes mezzanine masters — distinct from Pluto TV AVOD specs.",
+      "accessModel": "Paramount Global partner / licensor",
+      "specUrl": "https://www.paramount.com/sites/g/files/dxjhpe356/files/2024-01/Global_Content_Delivery_Guide_V2.1_0.pdf",
+      "websiteUrl": "https://www.paramountplus.com",
+      "deliveryOptions": [
+        {
+          "id": "prores-mezzanine",
+          "name": "Paramount+ SVOD Mezzanine (ProRes 422 HQ)",
+          "purpose": "Paramount+ subscription library delivery",
+          "summary": "ProRes 422 HQ with embedded PCM stereo or 5.1 when available.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ (preferred for Pluto TV)"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 minimum"
+            },
+            {
+              "label": "Requirement",
+              "value": "Seamless program — no bars, slates, or textless at head/tail"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Uncompressed linear PCM"
+            },
+            {
+              "label": "Bit depth",
+              "value": "16 or 24-bit"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz minimum"
+            },
+            {
+              "label": "Loudness",
+              "value": "≈ −24 LKFS/LUFS"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Dubs/AD",
+              "value": "Additional languages as discrete .WAV sidecars"
+            }
+          ],
+          "specUrl": "https://www.paramount.com/sites/g/files/dxjhpe356/files/2024-01/Global_Content_Delivery_Guide_V2.1_0.pdf",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "stereo"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "SVOD mezzanine"
+        }
+      ],
+      "businessModels": [
+        "svod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Paramount+ subscription (Essential with ads, Premium ad-free tiers)",
+      "businessModelNotes": [
+        "Paramount+ SVOD mezzanine specs differ from Pluto TV AVOD — see Pluto TV entry.",
+        "Essential tier includes ads but uses the same library masters as Premium."
+      ]
+    },
+    {
+      "id": "pbs-distribution",
+      "name": "PBS Distribution",
+      "tagline": "Public media OTT distribution",
+      "description": "PBS Distribution (PBSd) delivers public media content to PBS Passport, Amazon, Apple, and other OTT platforms. Requires ProRes or DNxHD mezzanine with strict caption and split-track audio rules.",
+      "businessModels": [
+        "svod",
+        "broadcast",
+        "partner-licensed"
+      ],
+      "accessModel": "PBS producer / distributor via Aspera Faspex",
+      "revenueModel": "Public media licensing; PBS Passport member SVOD",
+      "businessModelNotes": [
+        "PBSd masters feed multiple downstream OTT platforms — specs are distributor-centric, not platform-specific.",
+        "PBS Passport is member-benefit SVOD; broadcast master specs apply to station feed separately."
+      ],
+      "specUrl": "https://pbsdistribution.org/producer-guidelines/",
+      "websiteUrl": "https://pbsdistribution.org",
+      "deliveryOptions": [
+        {
+          "id": "hd-prores-mezzanine",
+          "name": "HD Mezzanine (ProRes 422 HQ)",
+          "businessModel": "broadcast",
+          "deliveryTier": "Distribution master",
+          "purpose": "HD deliverable for OTT and international syndication",
+          "summary": "ProRes 422 HQ preferred; DNxHD MXF OP1a 175+ Mbps acceptable alternative.",
+          "videoSpecs": [
+            {
+              "label": "Preferred codec",
+              "value": "Apple ProRes 422 HQ in .mov"
+            },
+            {
+              "label": "Acceptable",
+              "value": "DNxHD MXF OP1a 175 Mbps 10-bit+"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 (SMPTE ST 274-2008)"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 709 legal range"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Primary audio",
+              "value": "5.1 surround + stereo on video master"
+            },
+            {
+              "label": "Split tracks",
+              "value": "Discrete .wav sidecars for dubs and AD"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz, 24-bit"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Delivery",
+              "value": "Aspera Faspex only — no SFTP/Dropbox"
+            },
+            {
+              "label": "UHD",
+              "value": "Matching HD file required when delivering UHD"
+            }
+          ],
+          "specUrl": "https://pbsdistribution.org/wp-content/uploads/2025/10/PBSd-GLOBAL-TECHNICAL-SPECIFICATIONS-October-9-2025-Update.pdf",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true
+        },
+        {
+          "id": "uhd-prores-mezzanine",
+          "name": "UHD Mezzanine (ProRes 422 HQ / 4444)",
+          "businessModel": "broadcast",
+          "deliveryTier": "UHD distribution master",
+          "purpose": "4K UHD with matching HD deliverable",
+          "summary": "UHD ProRes 422 HQ or 4444; HDR10 requires matching SDR file.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ or ProRes 4444"
+            },
+            {
+              "label": "Resolution",
+              "value": "3840 × 2160 (SMPTE ST 2036-1)"
+            },
+            {
+              "label": "HDR",
+              "value": "HDR10 required format; Rec. 2100 color space"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Requirement",
+              "value": "Same 5.1 + stereo rules as HD master"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Rule",
+              "value": "Do not upscale — deliver native resolution only"
+            }
+          ],
+          "specUrl": "https://pbsdistribution.org/wp-content/uploads/2025/10/PBSd-GLOBAL-TECHNICAL-SPECIFICATIONS-October-9-2025-Update.pdf",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "UHD",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true
+        }
+      ]
+    },
+    {
+      "id": "peacock",
+      "name": "Peacock",
+      "tagline": "NBCUniversal streaming",
+      "description": "Peacock and NBCUniversal content delivery uses ProRes 422 HQ as the primary mezzanine codec, with XDCAM as a secondary option for HD.",
+      "accessModel": "NBCUniversal partner",
+      "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
+      "websiteUrl": "https://www.peacocktv.com",
+      "deliveryOptions": [
+        {
+          "id": "hd-prores",
+          "name": "HD ProRes 422 HQ",
+          "purpose": "Primary HD mezzanine",
+          "summary": "ProRes 422 HQ at 1920×1080 with discrete PCM audio tracks.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ (first choice)"
+            },
+            {
+              "label": "Alternative",
+              "value": "XDCAM 50 Mbps (second choice)"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 709 with QuickTime NCLC tags"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "LPCM little-endian"
+            },
+            {
+              "label": "Layout",
+              "value": "Discrete — 1 channel per track"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            },
+            {
+              "label": "Bit depth",
+              "value": "24-bit"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "UHD HDR",
+              "value": "Separate UHD HDR-10 and Dolby Vision specs available"
+            }
+          ],
+          "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "stereo"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Mezzanine"
+        },
+        {
+          "id": "uhd-sdr-prores",
+          "name": "UHD SDR ProRes 422 HQ",
+          "purpose": "4K SDR mezzanine",
+          "summary": "ProRes 422 HQ at 3840×2160 UHD with Rec. 709 color.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ"
+            },
+            {
+              "label": "Resolution",
+              "value": "3840 × 2160 UHD"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 709"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "LPCM 24-bit, 48 kHz discrete tracks"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "HDR",
+              "value": "ProRes 4444 for HDR-10; ProRes 4444 XQ for Dolby Vision"
+            }
+          ],
+          "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "UHD",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "svod",
+          "deliveryTier": "Mezzanine"
+        },
+        {
+          "id": "avod-digital-h264",
+          "name": "Peacock AVOD / Digital Ad Creative",
+          "businessModel": "avod",
+          "deliveryTier": "Ad-supported / digital",
+          "purpose": "Peacock Free tier and NBCU digital ad placements",
+          "summary": "Peacock Free and Premium (with ads) use the same NBCU library mezzanine for long-form. Short-form ad creatives use compressed H.264.",
+          "videoSpecs": [
+            {
+              "label": "Long-form library",
+              "value": "Same ProRes 422 HQ mezzanine as SVOD tier"
+            },
+            {
+              "label": "Ad/digital creative",
+              "value": "H.264 or ProRes; 15+ Mbps minimum"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 preferred"
+            },
+            {
+              "label": "Loudness",
+              "value": "−24 LKFS ± 2 (CALM/ATSC A/85)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Long-form",
+              "value": "LPCM 24-bit discrete tracks"
+            },
+            {
+              "label": "Ad creative",
+              "value": "AAC 192 kbps stereo minimum"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Ad tier note",
+              "value": "Peacock ad vs ad-free tiers differ in playback, not mezzanine for library content"
+            }
+          ],
+          "specUrl": "https://nbcuniversal-creative-guidelines.scrollhelp.site/nbcuadspecs/nbcu-programmatic-video-guidelines",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true
+        }
+      ],
+      "businessModels": [
+        "svod",
+        "avod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Peacock Free (AVOD), Premium, and Premium Plus (SVOD) tiers",
+      "businessModelNotes": [
+        "Peacock ad and ad-free tiers share the same NBCU mezzanine — ad insertion is a business/playback layer.",
+        "Peacock Live sports/events may use separate live ingest workflows."
+      ]
+    },
+    {
+      "id": "plex",
+      "name": "Plex",
+      "tagline": "AVOD + TVOD catalog platform",
+      "description": "Plex Free Movies & Shows is AVOD; Plex also supports TVOD rentals via catalog metadata. Partners deliver via JSON catalog feeds — video specs are negotiated per deal but align with standard AVOD H.264 delivery.",
+      "businessModels": [
+        "avod",
+        "tvod",
+        "partner-licensed"
+      ],
+      "accessModel": "Plex content partner / catalog feed",
+      "revenueModel": "AVOD ad revenue share and TVOD rentals",
+      "businessModelNotes": [
+        "Plex catalog JSON defines monetization_type as \"ads\" (AVOD) or \"rentals\" (TVOD).",
+        "Video encoding specs are partner-negotiated — no single public mezzanine PDF."
+      ],
+      "specUrl": "https://catalogs-docs.plex.tv/catalog_vod/",
+      "websiteUrl": "https://www.plex.tv",
+      "deliveryOptions": [
+        {
+          "id": "avod-h264",
+          "name": "AVOD Catalog (H.264)",
+          "businessModel": "avod",
+          "deliveryTier": "AVOD flat file",
+          "purpose": "Free Movies & Shows AVOD",
+          "summary": "Standard H.264 delivery for Plex AVOD catalog entries (monetization_type: ads).",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 High Profile (industry-standard AVOD)"
+            },
+            {
+              "label": "Container",
+              "value": "MP4"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 (fhd) or 1280 × 720 (hd) per catalog quality field"
+            },
+            {
+              "label": "Bitrate",
+              "value": "8–20 Mbps typical AVOD"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC stereo"
+            },
+            {
+              "label": "Bitrate",
+              "value": "192–320 kbps"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Metadata",
+              "value": "JSON VOD catalog with availabilities, quality (sd/hd/fhd/uhd), monetization_type"
+            },
+            {
+              "label": "Catalog refresh",
+              "value": "Every 2 hours via API key-authenticated feed"
+            }
+          ],
+          "specUrl": "https://catalogs-docs.plex.tv/catalog_vod/",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true
+        },
+        {
+          "id": "tvod-h264",
+          "name": "TVOD Rental (H.264)",
+          "businessModel": "tvod",
+          "deliveryTier": "TVOD flat file",
+          "purpose": "Rental/purchase titles",
+          "summary": "Transactional titles use monetization_type: rentals in Plex catalog with price/currency fields.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 or HEVC"
+            },
+            {
+              "label": "Quality tiers",
+              "value": "sd / hd / fhd / uhd per catalog quality enum"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC stereo minimum"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Metadata",
+              "value": "price and price_currency required for rentals"
+            }
+          ],
+          "specUrl": "https://catalogs-docs.plex.tv/catalog_vod/",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "High Profile",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-vimeo-320"
+          },
+          "ffmpegSupported": true
+        }
+      ]
+    },
+    {
+      "id": "pluto-tv",
+      "name": "Pluto TV",
+      "tagline": "Paramount Global FAST + AVOD",
+      "description": "Pluto TV is Paramount Global's free streaming service combining FAST linear channels and AVOD on-demand library. Specs are more accessible than Paramount+ SVOD — ProRes preferred but H.264 also accepted.",
+      "businessModels": [
+        "avod",
+        "fast",
+        "partner-licensed"
+      ],
+      "accessModel": "Paramount Global / Pluto TV partner",
+      "revenueModel": "Free AVOD with ad revenue share; FAST linear channels",
+      "businessModelNotes": [
+        "Pluto TV AVOD specs differ from Paramount+ SVOD mezzanine requirements.",
+        "FAST linear channels may use HLS origin feeds in addition to flat-file VOD."
+      ],
+      "specUrl": "https://www.paramount.com/sites/g/files/dxjhpe356/files/2024-01/Global_Content_Delivery_Guide_V2.1_0.pdf",
+      "websiteUrl": "https://pluto.tv",
+      "deliveryOptions": [
+        {
+          "id": "avod-prores",
+          "name": "AVOD VOD Mezzanine (ProRes 422 HQ)",
+          "businessModel": "avod",
+          "deliveryTier": "AVOD mezzanine",
+          "purpose": "On-demand AVOD library titles",
+          "summary": "ProRes 422 HQ preferred for Pluto TV VOD. Seamless program required — no slates or bars.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ (preferred)"
+            },
+            {
+              "label": "Alternative",
+              "value": "H.264 High Profile in MP4/MOV also accepted"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 preferred"
+            },
+            {
+              "label": "Chroma",
+              "value": "4:2:2, 10-bit"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Uncompressed linear PCM"
+            },
+            {
+              "label": "Bit depth",
+              "value": "16 or 24-bit"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz minimum"
+            },
+            {
+              "label": "Loudness",
+              "value": "≈ −24 LKFS/LUFS"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Requirement",
+              "value": "Picture-to-picture seamless — no bars/tone/slate"
+            },
+            {
+              "label": "Dubs",
+              "value": "Additional languages as discrete .WAV sidecars"
+            }
+          ],
+          "specUrl": "https://www.paramount.com/sites/g/files/dxjhpe356/files/2024-01/Global_Content_Delivery_Guide_V2.1_0.pdf",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "stereo"
+          },
+          "ffmpegSupported": true
+        },
+        {
+          "id": "avod-h264",
+          "name": "AVOD VOD (H.264)",
+          "businessModel": "avod",
+          "deliveryTier": "AVOD compressed",
+          "purpose": "Lower-complexity AVOD delivery",
+          "summary": "H.264 alternative when ProRes mezzanine is unavailable — lower barrier than Paramount+ SVOD.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 High Profile"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 or MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "1280 × 720 minimum; 1920 × 1080 preferred"
+            },
+            {
+              "label": "Bitrate",
+              "value": "Platform-dependent; 8–20 Mbps typical for AVOD"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC or PCM embedded"
+            },
+            {
+              "label": "Stereo",
+              "value": "192+ kbps AAC"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "vs Paramount+",
+              "value": "Pluto accepts H.264 more readily than Paramount+ SVOD mezzanine path"
+            }
+          ],
+          "specUrl": "https://www.paramount.com/sites/g/files/dxjhpe356/files/2024-01/Global_Content_Delivery_Guide_V2.1_0.pdf",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true
+        }
+      ]
+    },
+    {
+      "id": "samsung-tv-plus",
+      "name": "Samsung TV Plus",
+      "tagline": "Samsung FAST linear platform",
+      "description": "Samsung TV Plus is a FAST service built into Samsung Smart TVs. Content is delivered as HLS adaptive streams — not single flat files. Specs define origin ladder bitrates and manifest requirements.",
+      "businessModels": [
+        "fast",
+        "partner-licensed"
+      ],
+      "accessModel": "Samsung partner / channel provider",
+      "revenueModel": "Free FAST with ad insertion (SSAI)",
+      "businessModelNotes": [
+        "No flat-file VOD upload — origin HLS streams required.",
+        "DTS audio is NOT supported on 2024+ Samsung TVs — use AAC only."
+      ],
+      "specUrl": "https://developer.samsung.com/smarttv/develop/specifications/media-specifications/2025-tv-video-specifications.html",
+      "websiteUrl": "https://www.samsung.com/us/entertainments/tvplus/",
+      "deliveryOptions": [
+        {
+          "id": "fast-hls-h264-1080p",
+          "name": "FAST HLS Origin — 1080p top rung",
+          "businessModel": "fast",
+          "deliveryTier": "HLS origin ladder",
+          "purpose": "HD FAST channel top variant",
+          "summary": "Top H.264 rung of Samsung TV Plus recommended HD ladder at 1920×1080 / 6.5 Mbps.",
+          "videoSpecs": [
+            {
+              "label": "Protocol",
+              "value": "HLS (RFC 8216 compliant, session-less)"
+            },
+            {
+              "label": "Codec",
+              "value": "H.264 AVC"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 (optional top rung)"
+            },
+            {
+              "label": "Bitrate",
+              "value": "6.5 Mbps (1080p top); ladder: 1/2/3.5/6.5 Mbps"
+            },
+            {
+              "label": "Segments",
+              "value": "5–6 second segments; variants in sync"
+            },
+            {
+              "label": "Aspect",
+              "value": "16:9, 1:1 pixel aspect ratio"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC — no DTS on 2024+ Samsung TVs"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Manifest",
+              "value": "Valid BANDWIDTH, CODECS, RESOLUTION tags required"
+            },
+            {
+              "label": "SSAI",
+              "value": "Samsung CDN with server-side ad insertion"
+            }
+          ],
+          "specUrl": "https://developer.samsung.com/smarttv/develop/specifications/media-specifications/2025-tv-video-specifications.html",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 6.5,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "Samsung TV Plus requires multi-bitrate HLS origin — Applies to the 1080p top HLS rung only."
+        },
+        {
+          "id": "fast-hls-hevc-1080p",
+          "name": "FAST HLS Origin — HEVC 1080p top rung",
+          "businessModel": "fast",
+          "deliveryTier": "HLS origin ladder (HEVC)",
+          "purpose": "HEVC HD FAST channel (required in some regions)",
+          "summary": "HEVC ladder for regions requiring H.265 — lower bitrates than H.264 equivalent.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.265/HEVC (hvc1 in manifest)"
+            },
+            {
+              "label": "1080p top bitrate",
+              "value": "3.2 Mbps"
+            },
+            {
+              "label": "Ladder",
+              "value": "500 Kbps / 1 / 1.7 / 3.2 Mbps"
+            },
+            {
+              "label": "Regions",
+              "value": "HEVC required in some territories (e.g. Brazil)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Manifest",
+              "value": "hvc1 codec ID; parameter sets in sample descriptions"
+            }
+          ],
+          "specUrl": "https://developer.samsung.com/smarttv/develop/specifications/media-specifications/2025-tv-video-specifications.html",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h265",
+            "variant": "Main Profile",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 3.2,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "HLS multi-bitrate packaging required — Single-bitrate planning for the top HLS rung."
+        }
+      ]
+    },
+    {
+      "id": "roku-channel",
+      "name": "The Roku Channel",
+      "tagline": "Roku FAST + AVOD platform",
+      "description": "The Roku Channel combines AVOD on-demand and FAST linear on Roku devices. Partners contribute catalog H.264 MP4 via MRSS/JSON feeds, ProRes mezzanines for acquired originals, or MPEG-TS linear feeds TO Roku OVP (often via Amagi, Wurl, or other certified partners).",
+      "businessModels": [
+        "avod",
+        "fast",
+        "partner-licensed"
+      ],
+      "accessModel": "Roku partner / approved aggregator",
+      "revenueModel": "Free AVOD with ad revenue share; FAST linear channel ingest",
+      "businessModelNotes": [
+        "AVOD catalog specs (H.264 MP4) differ from acquired-original mezzanine specs (ProRes).",
+        "Linear live ingest uses separate OVP MPEG-TS specifications."
+      ],
+      "specUrl": "https://developer.roku.com/docs/features/features-overview.mdx",
+      "websiteUrl": "https://therokuchannel.roku.com",
+      "deliveryOptions": [
+        {
+          "id": "avod-h264-catalog",
+          "name": "AVOD Catalog (H.264 MP4)",
+          "businessModel": "avod",
+          "deliveryTier": "AVOD flat file",
+          "purpose": "Licensed catalog AVOD delivery",
+          "summary": "Standard H.264 MP4/MOV for AVOD catalog — similar to Tubi and other FAST/AVOD platforms.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 (AVC) high profile"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 or MOV; HLS/DASH also accepted via aggregators"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 preferred; 1280 × 720 minimum"
+            },
+            {
+              "label": "Bitrate",
+              "value": "8–20 Mbps HD"
+            },
+            {
+              "label": "Frame rate",
+              "value": "23.976, 24, 25, or 29.97 fps CFR"
+            },
+            {
+              "label": "HDR",
+              "value": "Dolby Vision, HDR10, HDR10+ on capable devices (4K titles)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC or AC-3"
+            },
+            {
+              "label": "Stereo",
+              "value": "192+ kbps"
+            },
+            {
+              "label": "5.1",
+              "value": "384+ kbps"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Captions",
+              "value": "SRT or WebVTT sidecars"
+            },
+            {
+              "label": "Feed",
+              "value": "MRSS or JSON Content Feed via Roku-approved aggregator"
+            }
+          ],
+          "specUrl": "https://developer.roku.com/docs/features/features-overview.mdx",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true
+        },
+        {
+          "id": "acquired-prores-mezzanine",
+          "name": "Acquired Originals Mezzanine (ProRes)",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "Premium mezzanine",
+          "purpose": "Roku-acquired originals and premium content",
+          "summary": "ProRes 422 HQ or 4444 XQ mezzanine for Roku Originals — much higher spec than AVOD catalog.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ or 4444 XQ"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "3840 × 2160 UHD for acquired 4K"
+            },
+            {
+              "label": "Bitrate",
+              "value": "175–400 Mbps depending on profile"
+            },
+            {
+              "label": "Chroma",
+              "value": "4:4:4 for UHD acquired content"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "PCM 24-bit, 48 kHz"
+            },
+            {
+              "label": "Layout",
+              "value": "5.1 + stereo on interleaved or mono tracks"
+            },
+            {
+              "label": "Loudness",
+              "value": "≈ −24 LKFS ± 2; peak ≤ −2 dBFS"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Sidecar audio",
+              "value": "WAV preferred for dubs; interleaved sidecar supported"
+            }
+          ],
+          "specUrl": "https://developer.roku.com/docs/features/specs/features-scripted-alternative-specs.mdx",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "UHD",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true
+        },
+        {
+          "id": "linear-live-h264",
+          "name": "Linear Live Ingest (OVP)",
+          "businessModel": "linear-live",
+          "deliveryTier": "Live MPEG-TS",
+          "purpose": "FAST linear channels via Roku OVP",
+          "summary": "Live linear channels on The Roku Channel require MPEG-TS over IP through Roku's Online Video Platform.",
+          "videoSpecs": [
+            {
+              "label": "Delivery",
+              "value": "MPEG-TS over IP (AWS MediaConnect preferred)"
+            },
+            {
+              "label": "Codec",
+              "value": "H.264 preferred; MPEG-2 and H.265 also supported"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 HD"
+            },
+            {
+              "label": "Bitrate",
+              "value": "≥ 12 Mbps HD CBR"
+            },
+            {
+              "label": "Scan",
+              "value": "Progressive only"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC preferred"
+            },
+            {
+              "label": "Channels",
+              "value": "Stereo"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            },
+            {
+              "label": "Bitrate",
+              "value": "128–320 kbps"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Captions",
+              "value": "CEA-608/708 embedded"
+            },
+            {
+              "label": "Ad markers",
+              "value": "Splice_insert for ad insertion points"
+            }
+          ],
+          "specUrl": "https://developer.roku.com/docs/references/ovp/ovp-linear-ingest-spec.mdx",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "SVOD Mezzanine (30 Mbps)",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "Live MPEG-TS ingest is a continuous stream — flat-file FFmpeg commands are Planning reference only."
+        }
+      ]
+    },
+    {
+      "id": "tubi",
+      "name": "Tubi",
+      "tagline": "Free ad-supported streaming (AVOD)",
+      "description": "Tubi accepts standard web-delivery formats, making it one of the most accessible AVOD platforms for independent distributors. Content is reviewed via automated preflight QC.",
+      "accessModel": "Partner / distributor proposal",
+      "specUrl": "https://www.moltencloud.com/blog-article/delivering-content-to-tubi-avails-specs-workflow",
+      "specSourceType": "third-party-guide",
+      "websiteUrl": "https://www.tubitv.com",
+      "deliveryOptions": [
+        {
+          "id": "hd-h264",
+          "name": "HD H.264 Delivery",
+          "purpose": "Standard long-form content",
+          "summary": "H.264 High Profile in MP4 or MOV with AAC or AC-3 audio and sidecar captions.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 (AVC) High Profile"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 (preferred) or MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080 preferred; 1280 × 720 minimum"
+            },
+            {
+              "label": "Bitrate",
+              "value": "8–20 Mbps (higher preferred for HD)"
+            },
+            {
+              "label": "Frame rate",
+              "value": "23.976, 24, 25, 29.97, 30, 50, 59.94, 60 fps (CFR)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC or AC-3 (Dolby Digital)"
+            },
+            {
+              "label": "Channels",
+              "value": "Stereo (2.0) or 5.1 surround"
+            },
+            {
+              "label": "Bitrate",
+              "value": "192+ kbps stereo / 384+ kbps 5.1"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Captions",
+              "value": "SRT or VTT required (English for US)"
+            },
+            {
+              "label": "QC",
+              "value": "No slates, color bars, or test tones at head/tail"
+            }
+          ],
+          "specUrl": "https://code.tubitv.com/tubis-vod-preflight-qc-automated-quality-control-of-submitted-content-f147263eb8a7",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "avod",
+          "deliveryTier": "AVOD flat file"
+        }
+      ],
+      "businessModels": [
+        "avod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Free AVOD with ad revenue share to licensors",
+      "businessModelNotes": [
+        "Tubi specs are intentionally accessible — H.264 web delivery, not ProRes mezzanine.",
+        "Automated preflight QC rejects slates, test tones, and insufficient bitrates."
+      ]
+    },
+    {
+      "id": "vimeo",
+      "name": "Vimeo",
+      "tagline": "Creator and enterprise video platform",
+      "description": "Vimeo recommends H.264 or HEVC uploads with AAC audio. Enterprise and OTT partners may have additional mezzanine requirements.",
+      "accessModel": "Open upload / enterprise partner",
+      "specUrl": "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines",
+      "websiteUrl": "https://vimeo.com",
+      "deliveryOptions": [
+        {
+          "id": "1080p-h264",
+          "name": "1080p H.264 Upload",
+          "purpose": "Standard creator upload",
+          "summary": "H.264 in MP4/MOV with AAC stereo — Vimeo's recommended upload format.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 or H.265 (HEVC)"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 (preferred), MOV, MKV"
+            },
+            {
+              "label": "Resolution",
+              "value": "Up to 8K (plan dependent)"
+            },
+            {
+              "label": "Bitrate",
+              "value": "10–20 Mbps typical for 1080p"
+            },
+            {
+              "label": "Frame rate",
+              "value": "Constant frame rate required"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC-LC"
+            },
+            {
+              "label": "Stereo",
+              "value": "320 kbps recommended"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Scan",
+              "value": "Progressive preferred"
+            }
+          ],
+          "specUrl": "https://help.vimeo.com/hc/en-us/articles/12426043233169-Video-and-audio-compression-guidelines",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "High Profile",
+            "resolution": "1080p",
+            "frameRate": "30",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-vimeo-320"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "creator-upload",
+          "deliveryTier": "Upload source"
+        }
+      ],
+      "businessModels": [
+        "creator-upload",
+        "svod",
+        "partner-licensed"
+      ],
+      "revenueModel": "Creator subscriptions (Vimeo OTT), enterprise licensing, and hosted upload tiers",
+      "businessModelNotes": [
+        "Vimeo OTT enterprise partners may have stricter mezzanine requirements than standard creator uploads."
+      ]
+    },
+    {
+      "id": "xumo",
+      "name": "Xumo",
+      "tagline": "Comcast/Charter FAST platform",
+      "description": "Xumo Play is a FAST service from the Comcast/Charter joint venture. Channel operators deliver a 24/7 H.264 HLS origin feed TO Xumo for playout on Xumo Play and syndication through Xumo Enterprise.",
+      "businessModels": [
+        "fast",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "Xumo Enterprise partner",
+      "revenueModel": "Free FAST with programmatic and direct ad sales",
+      "businessModelNotes": [
+        "You contribute an HLS origin TO Xumo — not a flat-file upload.",
+        "Default master playlist bitrate ~1 Mbps (Xumo recommends lower than Apple's 2 Mbps default)."
+      ],
+      "specUrl": "https://cdn2.hubspot.net/hubfs/1809672/XUMO-XumoHLSSpecification-October2018-180119-2017.pdf",
+      "websiteUrl": "https://www.xumo.com",
+      "deliveryOptions": [
+        {
+          "id": "fast-hls-h264",
+          "name": "FAST HLS Linear Channel",
+          "businessModel": "fast",
+          "deliveryTier": "HLS origin",
+          "purpose": "24/7 linear FAST channel",
+          "summary": "H.264 High Profile HLS with ≥5 video profiles for mobile through smart TV.",
+          "videoSpecs": [
+            {
+              "label": "Protocol",
+              "value": "HLS version 3"
+            },
+            {
+              "label": "Codec",
+              "value": "H.264/MPEG-4 AVC High Profile"
+            },
+            {
+              "label": "Resolution",
+              "value": "≥ 1280 × 720"
+            },
+            {
+              "label": "Frame rate",
+              "value": "23.976p, 24p, 25p, 29.97p, or 30p"
+            },
+            {
+              "label": "Segments",
+              "value": "3–10 seconds (6 seconds recommended); IDR at segment start"
+            },
+            {
+              "label": "Profiles",
+              "value": "Minimum 5 video profiles for 24/7 channels"
+            },
+            {
+              "label": "Default bitrate",
+              "value": "~1 Mbps recommended default variant"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Tracks",
+              "value": "One video + one audio per transport stream"
+            },
+            {
+              "label": "Codec",
+              "value": "AAC"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "I-frames",
+              "value": "Additional I-frames every 2 seconds within segments"
+            },
+            {
+              "label": "Restriction",
+              "value": "No ID3 or SCTE-35 data tracks in transport stream"
+            }
+          ],
+          "specUrl": "https://cdn2.hubspot.net/hubfs/1809672/XUMO-XumoHLSSpecification-October2018-180119-2017.pdf",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "720p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 1,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "FAST HLS requires multi-profile ladder — 1 Mbps reflects Xumo default variant for planning."
+        }
+      ]
+    },
+    {
+      "id": "amagi",
+      "name": "Amagi",
+      "tagline": "FAST cloud playout & distribution partner",
+      "description": "Amagi CLOUDPORT is a cloud playout platform used by content owners to ingest media, schedule 24/7 linear channels, and deliver TO FAST platforms (Roku, Samsung, LG, Vizio, and 50+ destinations). You contribute files or live feeds TO Amagi — Amagi transcodes and routes to each streamer's requirements.",
+      "businessModels": [
+        "fast",
+        "partner-licensed",
+        "linear-live"
+      ],
+      "accessModel": "Amagi CLOUDPORT / CONNECT partner onboarding",
+      "revenueModel": "SaaS playout + managed services; ad revenue share on distributed channels",
+      "businessModelNotes": [
+        "Amagi is a distribution intermediary — you deliver TO Amagi, not directly to every OEM.",
+        "Amagi auto-transcodes to each downstream platform's spec after your master ingest.",
+        "Roku lists Amagi as a linear-certified partner for The Roku Channel."
+      ],
+      "specUrl": "https://www.amagi.com/products/cloudport-cloud-playout",
+      "specSourceType": "partner-portal",
+      "websiteUrl": "https://www.amagi.com",
+      "deliveryOptions": [
+        {
+          "id": "cloudport-file-ingest",
+          "name": "CLOUDPORT File Ingest (Mezzanine)",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "Cloud playout ingest",
+          "purpose": "VOD library and scheduled assets",
+          "summary": "Upload mezzanine files to Amagi CLOUDPORT for cloud playout scheduling. Supports MXF, MOV, MPG, and TS with AVC/HEVC video.",
+          "videoSpecs": [
+            {
+              "label": "Containers",
+              "value": "MXF, MOV, MPG, MPEG-TS"
+            },
+            {
+              "label": "Video codecs",
+              "value": "H.264/AVC, H.265/HEVC"
+            },
+            {
+              "label": "Resolutions",
+              "value": "SD, HD, and UHD supported"
+            },
+            {
+              "label": "Workflow",
+              "value": "S3/MAM upload or hybrid on-prem ingest to CLOUDPORT"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codecs",
+              "value": "AAC, AC-3, E-AC-3, linear PCM"
+            },
+            {
+              "label": "Captions",
+              "value": "CEA-608/708, DVB subs, DVB teletext"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Output",
+              "value": "Amagi playout generates HLS/MPEG-TS/SRT to each FAST destination"
+            },
+            {
+              "label": "QC",
+              "value": "Automated ingest QC with error reporting"
+            }
+          ],
+          "additionalNotes": [
+            "Exact mezzanine profiles are confirmed during Amagi onboarding — CLOUDPORT accepts most broadcast mezzanine formats.",
+            "Amagi transcodes downstream; deliver the highest-quality master you have."
+          ],
+          "specUrl": "https://aws.amazon.com/blogs/apn/achieving-resilient-cloud-broadcasting-with-amagi-cloudport-on-aws/",
+          "specSourceType": "third-party-guide",
+          "calculator": {
+            "category": "professional",
+            "codec": "prores",
+            "variant": "ProRes 422 HQ",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "Models a typical HD mezzanine contributed TO Amagi before downstream transcoding."
+        },
+        {
+          "id": "cloudport-live-contribution",
+          "name": "CLOUDPORT Live Contribution (SRT/TS)",
+          "businessModel": "linear-live",
+          "deliveryTier": "Live feed ingest",
+          "purpose": "Live or linear backhaul to cloud playout",
+          "summary": "Live contribution over SRT, RTP, RIST, Zixi, or AWS Elemental MediaConnect into Amagi LIVE / CLOUDPORT switcher.",
+          "videoSpecs": [
+            {
+              "label": "Protocols",
+              "value": "SRT, RTP/RTP-FEC, RIST, Zixi, NDI, ST 2110 JPEG-XS"
+            },
+            {
+              "label": "Video codecs",
+              "value": "H.264/AVC, H.265/HEVC"
+            },
+            {
+              "label": "Use case",
+              "value": "News, sports, and live event segments in FAST linear channels"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codecs",
+              "value": "AAC, AC-3, E-AC-3 embedded in transport"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Redundancy",
+              "value": "Dual MediaConnect paths supported for live resilience"
+            }
+          ],
+          "specUrl": "https://www.amagi.com/products/cloudport-cloud-playout",
+          "specSourceType": "partner-portal",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 12,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "12 Mbps HD CBR models a typical live contribution feed TO Amagi before ladder generation."
+        }
+      ]
+    },
+    {
+      "id": "wurl",
+      "name": "Wurl",
+      "tagline": "Global FAST Pass distribution partner",
+      "description": "Wurl Global FAST Pass ingests content and linear streams FROM partners, then packages and delivers TO 50+ CTV platforms (Roku, Samsung TV Plus, LG Channels, Vizio, and others). Contribution specs cover MRSS/VOD mezzanine files, TVBits metadata delivery, and HLS restream origins.",
+      "businessModels": [
+        "fast",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "Wurl content company onboarding",
+      "revenueModel": "Channel-based distribution SaaS; ad monetization via Wurl AdPool",
+      "businessModelNotes": [
+        "You deliver TO Wurl — Wurl handles transcoding, scheduling, EPG, SSAI, and platform handoff.",
+        "MRSS feeds must reference publicly reachable mezzanine URLs (no auth tokens).",
+        "Minimum 1920×1080 source required for Wurl-originated HLS playout channels."
+      ],
+      "specUrl": "https://support.wurl.com/hc/en-us/articles/360050783613-Wurl-MRSS-Ingest-Specifications",
+      "websiteUrl": "https://www.wurl.com",
+      "deliveryOptions": [
+        {
+          "id": "mrss-mezzanine-ingest",
+          "name": "MRSS + Mezzanine MP4 Ingest",
+          "businessModel": "avod",
+          "deliveryTier": "MRSS catalog ingest",
+          "purpose": "Movies, series, and short-form VOD",
+          "summary": "Publish an MRSS feed pointing to high-quality MPEG-4 mezzanine files on your origin. All items must meet Wurl Mezzanine Asset Spec.",
+          "videoSpecs": [
+            {
+              "label": "Feed format",
+              "value": "MRSS 2.0 with Wurl namespace extensions"
+            },
+            {
+              "label": "Media URL",
+              "value": "Public HTTP(S) MPEG-4 mezzanine per item (no signed URLs)"
+            },
+            {
+              "label": "Content types",
+              "value": "Movies, series, TV specials, short-form video"
+            },
+            {
+              "label": "Thumbnails",
+              "value": "16:9 JPG/PNG/SVG required per item"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC embedded in mezzanine MP4 (typical)"
+            },
+            {
+              "label": "Captions",
+              "value": "SCC or SRT sidecar via wurl:closedCaptions MRSS tag"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Metadata",
+              "value": "Genres, ratings, TMS IDs, license windows, and platform-specific genre tags"
+            },
+            {
+              "label": "Loudness",
+              "value": "Wurl playout normalizes originated channels to −24 LKFS"
+            }
+          ],
+          "specUrl": "https://support.wurl.com/hc/en-us/articles/360050783613-Wurl-MRSS-Ingest-Specifications",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "Typical FAST mezzanine contribution before Wurl transcodes for each downstream platform."
+        },
+        {
+          "id": "hls-restream-contribution",
+          "name": "HLS Restream Contribution (Linear)",
+          "businessModel": "fast",
+          "deliveryTier": "HLS origin ingest",
+          "purpose": "24/7 linear channel you originate",
+          "summary": "Contribute a continuous HLS origin (restream channel) TO Wurl for CDN redistribution. Minimum 1920×1080 input; H.264 + AAC.",
+          "videoSpecs": [
+            {
+              "label": "Minimum resolution",
+              "value": "1920 × 1080"
+            },
+            {
+              "label": "Codec",
+              "value": "H.264 video"
+            },
+            {
+              "label": "Bitrate",
+              "value": "VBR adaptive; Wurl generates up to 5 renditions"
+            },
+            {
+              "label": "Frame rate",
+              "value": "Normalized to 30 fps for most Wurl-originated playout"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC"
+            },
+            {
+              "label": "Loudness",
+              "value": "Address irregularities at origin for restream channels (not normalized by Wurl)"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Captions",
+              "value": "WebVTT and/or embedded CEA-608 in HLS"
+            },
+            {
+              "label": "Workflow",
+              "value": "Restream channels skip Wurl ingest/scheduling — faster launch"
+            }
+          ],
+          "specUrl": "https://support.wurl.com/hc/en-us/articles/7998045277843-HLS-Stream-Specifications",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 6.5,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "1080p top-rung planning bitrate for HLS origin contributed TO Wurl."
+        },
+        {
+          "id": "tvbits-file-delivery",
+          "name": "TVBits File Delivery (CSV + Assets)",
+          "businessModel": "fast",
+          "deliveryTier": "Pre-cut segment ingest",
+          "purpose": "Short-form bits for FAST scheduling",
+          "summary": "Deliver pre-cut video files with CSV metadata for Wurl TVBits — used to populate FAST channel blocks.",
+          "videoSpecs": [
+            {
+              "label": "Metadata",
+              "value": "Wurl Bits CSV template with exact Video Filename matching"
+            },
+            {
+              "label": "Filenames",
+              "value": "No spaces or special characters; must match CSV exactly"
+            },
+            {
+              "label": "Channel link",
+              "value": "Channel Slug column ties bits to a FAST channel"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Captions",
+              "value": "SCC or SRT sidecars; 0-aligned to video; UTF-8"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Entry types",
+              "value": "movie, tvSpecial, shortFormVideo, or series with season/episode"
+            }
+          ],
+          "specUrl": "https://support.wurl.com/hc/en-us/articles/31415324292499-TVBits-File-Delivery",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true
+        }
+      ]
+    },
+    {
+      "id": "lg-channels",
+      "name": "LG Channels",
+      "tagline": "LG Smart TV FAST platform",
+      "description": "LG Channels is the free FAST service built into LG webOS TVs. Partners contribute HLS linear streams and JSON channel/EPG metadata TO LG (often via Amagi, Wurl, or other certified FAST partners).",
+      "businessModels": [
+        "fast",
+        "partner-licensed"
+      ],
+      "accessModel": "LG content partner / certified FAST distributor",
+      "revenueModel": "Free FAST with ad insertion on LG TVs",
+      "businessModelNotes": [
+        "Direct contribution is partner-gated — most channels reach LG via Wurl, Amagi, or similar.",
+        "H.264 streams should use a maximum of four reference frames on LG webOS.",
+        "Audio-only HLS variants are not supported — every stream must include video."
+      ],
+      "specUrl": "https://webostv.developer.lge.com/develop/specifications/streaming-protocol",
+      "websiteUrl": "https://www.lg.com/us/tvs/lg-channels",
+      "deliveryOptions": [
+        {
+          "id": "fast-hls-h264-origin",
+          "name": "FAST HLS Origin Contribution",
+          "businessModel": "fast",
+          "deliveryTier": "HLS origin + metadata",
+          "purpose": "24/7 linear FAST channel on LG TVs",
+          "summary": "Contribute an HLS linear stream TO LG Channels with companion JSON channel and schedule metadata.",
+          "videoSpecs": [
+            {
+              "label": "Protocol",
+              "value": "HLS (RFC 8216); MPD also referenced in LG metadata spec"
+            },
+            {
+              "label": "Codec",
+              "value": "H.264/AVC (HEVC optional on capable sets)"
+            },
+            {
+              "label": "Reference frames",
+              "value": "Maximum 4 reference frames recommended for H.264 stability"
+            },
+            {
+              "label": "Resolution",
+              "value": "HD 1920×1080 typical for FAST"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC or HE-AAC in the same transport stream as video"
+            },
+            {
+              "label": "Rule",
+              "value": "No audio-only HLS variants"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Metadata",
+              "value": "JSON channel, program, and schedule data via HTTP"
+            },
+            {
+              "label": "CODECS tag",
+              "value": "Required in #EXT-X-STREAM-INF for proper variant selection"
+            }
+          ],
+          "specUrl": "https://webostv.developer.lge.com/develop/specifications/streaming-protocol",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 5,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "Multi-bitrate HLS ladder required — 5 Mbps models a common HD origin contribution."
+        }
+      ]
+    },
+    {
+      "id": "vizio-watchfree",
+      "name": "Vizio WatchFree+",
+      "tagline": "Vizio Smart TV FAST platform",
+      "description": "WatchFree+ is Vizio's free FAST service on SmartCast TVs. Content partners contribute channels and libraries TO Vizio Platform+ — typically through certified FAST distributors (Wurl, Amagi, Xumo) rather than direct flat-file upload.",
+      "businessModels": [
+        "fast",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "Vizio Platform+ content partner",
+      "revenueModel": "Free FAST with ad revenue share on Vizio devices",
+      "businessModelNotes": [
+        "Contribution is partner-managed — contact Vizio Platform+ for onboarding.",
+        "Most FAST channels reach WatchFree+ via Wurl Global FAST Pass or Amagi distribution.",
+        "Specs mirror common CTV HLS origin requirements once routed through a certified partner."
+      ],
+      "specUrl": "https://platformplus.vizio.com/",
+      "websiteUrl": "https://www.vizio.com/en/watchfreeplus",
+      "deliveryOptions": [
+        {
+          "id": "platform-plus-hls-origin",
+          "name": "Platform+ HLS Channel Contribution",
+          "businessModel": "fast",
+          "deliveryTier": "HLS origin via partner",
+          "purpose": "Linear FAST channel on WatchFree+",
+          "summary": "Deliver a 24/7 H.264/AAC HLS origin through your FAST distribution partner for inclusion on WatchFree+.",
+          "videoSpecs": [
+            {
+              "label": "Typical path",
+              "value": "Contribute TO Wurl/Amagi → syndicated TO Vizio WatchFree+"
+            },
+            {
+              "label": "Codec",
+              "value": "H.264 High Profile HLS"
+            },
+            {
+              "label": "Resolution",
+              "value": "1080p HD origin recommended"
+            },
+            {
+              "label": "SSAI",
+              "value": "Server-side ad insertion at platform/partner layer"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC stereo at 48 kHz"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Metadata",
+              "value": "Channel branding, EPG, and artwork via partner onboarding"
+            }
+          ],
+          "specUrl": "https://platformplus.vizio.com/",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 6,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "HD HLS origin top-rung planning bitrate before partner transcoding to WatchFree+."
+        },
+        {
+          "id": "platform-plus-vod-mrss",
+          "name": "Platform+ VOD / FAST Library (via partner)",
+          "businessModel": "avod",
+          "deliveryTier": "MRSS or file ingest",
+          "purpose": "On-demand titles on WatchFree+",
+          "summary": "VOD libraries are ingested through Platform+ partners using MRSS or mezzanine file delivery — same patterns as Wurl MRSS ingest.",
+          "videoSpecs": [
+            {
+              "label": "Delivery",
+              "value": "MRSS feed or mezzanine MP4 via certified partner"
+            },
+            {
+              "label": "Codec",
+              "value": "H.264 in MP4/MOV typical"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC stereo"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Artwork",
+              "value": "16:9 thumbnails and channel logos required"
+            }
+          ],
+          "specUrl": "https://platformplus.vizio.com/",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true
+        }
+      ]
+    },
+    {
+      "id": "sling-freestream",
+      "name": "Sling Freestream",
+      "tagline": "DISH free ad-supported streaming",
+      "description": "Sling Freestream is DISH Network's free FAST tier inside the Sling app. We could not find published partner ingest specifications online — DISH shares requirements during content partnership onboarding.",
+      "businessModels": [
+        "fast",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "DISH / Sling content partner",
+      "revenueModel": "Free FAST/AVOD with ad inventory split across DISH, content owner, and OEM",
+      "businessModelNotes": [
+        "Freestream distributes on Roku, Samsung, LG, Vizio, Comcast, and Xbox — you typically contribute TO DISH or via a FAST partner.",
+        "Public mezzanine specs are contract-gated; MRSS + H.264 mezzanine is the common VOD ingest pattern."
+      ],
+      "specUrl": "https://www.sling.com/freestream",
+      "websiteUrl": "https://www.sling.com/freestream",
+      "deliveryOptions": [],
+      "specSourceType": "not-found"
+    },
+    {
+      "id": "crackle",
+      "name": "Crackle",
+      "tagline": "Chicken Soup for the Soul FAST/AVOD",
+      "description": "Crackle is a US FAST and AVOD service (Chicken Soup for the Soul Entertainment). We could not find published contribution specifications online — partner managers provide ingest specs during onboarding.",
+      "businessModels": [
+        "fast",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "Crackle / CSSE content partner",
+      "revenueModel": "Free ad-supported movies and FAST linear channels",
+      "businessModelNotes": [
+        "Public contribution PDFs are not published — partner managers provide ingest specs during onboarding.",
+        "Crackle Plus operations commonly use Amagi CLOUDPORT for playout and distribution."
+      ],
+      "specUrl": "https://www.crackle.com",
+      "websiteUrl": "https://www.crackle.com",
+      "deliveryOptions": [],
+      "specSourceType": "not-found"
+    },
+    {
+      "id": "starz",
+      "name": "Starz",
+      "tagline": "Premium cable SVOD partner delivery",
+      "description": "Starz accepts licensed partner mezzanine deliveries for premium series and films. We could not find published Starz delivery specifications online — specs are shared during content licensing.",
+      "businessModels": [
+        "svod",
+        "partner-licensed"
+      ],
+      "accessModel": "Starz content acquisition partner",
+      "revenueModel": "Starz subscription SVOD and app bundles",
+      "businessModelNotes": [
+        "Contribution specs are provided during content licensing — not open upload.",
+        "Starz app is also bundled on Amazon, Apple, Roku, and Google — masters are delivered TO Starz directly."
+      ],
+      "specUrl": "https://www.starz.com",
+      "websiteUrl": "https://www.starz.com",
+      "deliveryOptions": [],
+      "specSourceType": "not-found"
+    },
+    {
+      "id": "mgm-plus",
+      "name": "MGM+",
+      "tagline": "AMC Networks premium SVOD",
+      "description": "MGM+ (formerly Epix) accepts licensed partner mezzanine deliveries. We could not find published MGM+ delivery specifications online — AMC Networks shares requirements during content acquisition onboarding.",
+      "businessModels": [
+        "svod",
+        "partner-licensed"
+      ],
+      "accessModel": "AMC Networks / MGM+ content partner",
+      "revenueModel": "MGM+ subscription; also distributed via Amazon Prime Video Channels",
+      "businessModelNotes": [
+        "Deliver masters TO MGM+/AMC Networks — not consumer upload.",
+        "Partner specs provided during content acquisition onboarding."
+      ],
+      "specUrl": "https://www.mgmplus.com",
+      "websiteUrl": "https://www.mgmplus.com",
+      "deliveryOptions": [],
+      "specSourceType": "not-found"
+    },
+    {
+      "id": "local-now",
+      "name": "Local Now",
+      "tagline": "Allen Media Group hyperlocal FAST",
+      "description": "Local Now is Allen Media Group's free FAST service combining hyperlocal news with licensed entertainment channels. Partners contribute linear streams and VOD libraries TO Local Now through content licensing deals.",
+      "businessModels": [
+        "fast",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "Allen Media Group content partner",
+      "revenueModel": "Free FAST/AVOD with local and national ad sales",
+      "businessModelNotes": [
+        "Local Now aggregates partner channels (news, entertainment, sports) — contribution is deal-driven.",
+        "Public mezzanine specs are not published; MRSS/HLS patterns match other FAST platforms."
+      ],
+      "specUrl": "https://localnow.com",
+      "websiteUrl": "https://localnow.com",
+      "deliveryOptions": [
+        {
+          "id": "fast-linear-contribution",
+          "name": "FAST Linear Channel Contribution",
+          "businessModel": "fast",
+          "deliveryTier": "Linear ingest",
+          "purpose": "Branded FAST channel on Local Now",
+          "summary": "Contribute a 24/7 HLS or IP linear feed TO Local Now with EPG and branding assets.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 HLS origin typical"
+            },
+            {
+              "label": "Use case",
+              "value": "News, entertainment, and sports FAST channels"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC stereo"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Onboarding",
+              "value": "Contact Allen Media Group content partnerships"
+            }
+          ],
+          "specUrl": "https://localnow.com",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 6,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true
+        },
+        {
+          "id": "avod-library-ingest",
+          "name": "AVOD Library Ingest (H.264)",
+          "businessModel": "avod",
+          "deliveryTier": "VOD catalog",
+          "purpose": "Movies and series in Local Now library",
+          "summary": "Licensed VOD contributed as H.264/AAC mezzanine with metadata TO Local Now operations.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 in MP4"
+            },
+            {
+              "label": "Resolution",
+              "value": "1080p HD"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC stereo"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Metadata",
+              "value": "Title, genre, artwork, and windowing per partner agreement"
+            }
+          ],
+          "specUrl": "https://localnow.com",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-tubi-192"
+          },
+          "ffmpegSupported": true
+        }
+      ]
+    },
+    {
+      "id": "frequency",
+      "name": "Frequency",
+      "tagline": "FAST cloud playout & channel origination",
+      "description": "Frequency Studio ingests VOD assets and live HLS/RTMP origins FROM content partners, then playouts linear FAST channels TO 200+ CTV distributors. Roku lists Frequency as a certified linear partner alongside Amagi and Wurl.",
+      "businessModels": [
+        "fast",
+        "partner-licensed",
+        "linear-live"
+      ],
+      "accessModel": "Frequency Studio partner onboarding",
+      "revenueModel": "Channel origination SaaS; ad-supported FAST distribution",
+      "businessModelNotes": [
+        "Frequency transcodes most ingested files to its output spec — deliver a clean HD master rather than a full ladder.",
+        "Preferred delivery is MRSS with linked assets; S3, Dropbox, and manual upload also supported.",
+        "Live programs require 1080p HLS or RTMP pull with a single rendition (not a full ABR ladder)."
+      ],
+      "specUrl": "https://docs.frequency.com/en/content-delivery-guidelines.html",
+      "websiteUrl": "https://www.frequency.com",
+      "deliveryOptions": [
+        {
+          "id": "studio-vod-ingest",
+          "name": "Studio VOD File Ingest",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "VOD / scheduled asset",
+          "purpose": "Movies, episodes, and short-form in linear FAST schedules",
+          "summary": "Contribute MP4/MOV/MXF mezzanine files via MRSS, S3, or manual upload. Frequency accepts H.264/HEVC and ProRes with sidecar captions.",
+          "videoSpecs": [
+            {
+              "label": "Containers",
+              "value": "MP4, MOV, AVI, MPG, MXF, MKV"
+            },
+            {
+              "label": "Video codecs",
+              "value": "H.264/AVC or H.265/HEVC (preferred); ProRes 422/444 and HD422 also accepted"
+            },
+            {
+              "label": "Resolution",
+              "value": "720p, 1080i, 1080p, or 2160p (4K)"
+            },
+            {
+              "label": "1080p bitrate",
+              "value": "6 Mbps minimum, 102 Mbps maximum"
+            },
+            {
+              "label": "Keyframe interval",
+              "value": "≤ 8 seconds"
+            },
+            {
+              "label": "Aspect ratio",
+              "value": "16:9 preferred"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codecs",
+              "value": "AAC or AC-3 (Dolby Digital)"
+            },
+            {
+              "label": "Sample rate / bit depth",
+              "value": "44.1 or 48 kHz, 16-bit"
+            },
+            {
+              "label": "Bitrate",
+              "value": "≥ 128 kbps"
+            },
+            {
+              "label": "Channels",
+              "value": "2.0 stereo preferred"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Captions",
+              "value": "Sidecar SRT, SCC, VTT, STL, SMI, or TTML; embedded CEA-608/708 on track 0"
+            },
+            {
+              "label": "Thumbnails",
+              "value": "PNG or JPG, minimum 1280×720 at 72 dpi"
+            },
+            {
+              "label": "Metadata",
+              "value": "Title (≤255 chars), description, genre mapped to Frequency taxonomy"
+            }
+          ],
+          "additionalNotes": [
+            "Frequency transcodes on ingest unless a bypass is negotiated with Operations.",
+            "MRSS is the preferred delivery method; CSV/Excel metadata manifests also supported."
+          ],
+          "specUrl": "https://docs.frequency.com/en/content-delivery-guidelines.html",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 15,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "15 Mbps models a mid-quality 1080p master contributed TO Frequency before platform transcoding."
+        },
+        {
+          "id": "live-hls-contribution",
+          "name": "Live Program HLS Contribution",
+          "businessModel": "linear-live",
+          "deliveryTier": "Live feed ingest",
+          "purpose": "Scheduled live events and manual playout override",
+          "summary": "Contribute a single-rendition HLS or RTMP pull feed at 1080p for live program switching in Frequency Studio.",
+          "videoSpecs": [
+            {
+              "label": "Ingest resolution",
+              "value": "1080p required"
+            },
+            {
+              "label": "Protocols",
+              "value": "HLS Pull (HTTPS, single rendition) or RTMP Pull"
+            },
+            {
+              "label": "Compatibility",
+              "value": "Input must match Frequency playout output specifications"
+            },
+            {
+              "label": "Preparation",
+              "value": "Live feeds can be prepared up to 1 hour before scheduled start"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC embedded in transport stream"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "HLS note",
+              "value": "Provide one rendition only — full ABR ladders break live switching"
+            }
+          ],
+          "specUrl": "https://docs.frequency.com/en/content-delivery-guidelines/live-program-specifications.html",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "29.97",
+            "videoBitrateOverrideMbps": 8,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-160"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "Live HLS contribution planning for a single 1080p rung TO Frequency."
+        }
+      ]
+    },
+    {
+      "id": "reelshort",
+      "name": "ReelShort",
+      "tagline": "Vertical micro-drama streaming",
+      "description": "ReelShort is a coin-unlock vertical micro-drama platform. Licensed studios deliver finished episodes TO ReelShort through a partner content portal with automated technical validation — not a public creator upload path.",
+      "businessModels": [
+        "partner-licensed",
+        "tvod"
+      ],
+      "accessModel": "Studio partner portal (post-acceptance pitch review)",
+      "revenueModel": "Coin-based episode unlocks and VIP subscriptions",
+      "businessModelNotes": [
+        "Full delivery templates are issued after series acceptance — there is no public technical spec PDF.",
+        "Production standards documented by partner studios: 1080p minimum in 9:16 vertical; MP4 or MOV.",
+        "Automated portal QC checks loudness, format, naming, duration, and sync before human review."
+      ],
+      "specUrl": "https://www.reelytics.io/blog/get-series-accepted-reelshort-dramabox-shorttv",
+      "specSourceType": "industry-article",
+      "websiteUrl": "https://www.reelshort.com",
+      "deliveryOptions": [
+        {
+          "id": "vertical-h264-episode",
+          "name": "Vertical Episode Delivery (H.264)",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "Partner portal upload",
+          "purpose": "Finished micro-drama episodes after contract acceptance",
+          "summary": "H.264 MP4/MOV at 1080×1920 (9:16) with AAC 320 kbps stereo. Partner portal runs automated validation on upload.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 (AVC) in MP4 or MOV"
+            },
+            {
+              "label": "Resolution",
+              "value": "1080 × 1920 minimum (9:16 vertical)"
+            },
+            {
+              "label": "Aspect ratio",
+              "value": "9:16 portrait — consistent grading and framing across episodes"
+            },
+            {
+              "label": "Bitrate",
+              "value": "12–20 Mbps typical at 30 fps (partner-confirmed per series)"
+            },
+            {
+              "label": "Frame rate",
+              "value": "30 or 60 fps CFR (match production timeline)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Final mix",
+              "value": "AAC 320 kbps stereo at 48 kHz for platform ingestion"
+            },
+            {
+              "label": "Localization stems",
+              "value": "WAV 48 kHz 24-bit dialogue + M&E tracks for dubbed deliveries"
+            },
+            {
+              "label": "Loudness",
+              "value": "−24 LUFS integrated (±1 LU), −2 dBTP true peak maximum"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Subtitles",
+              "value": "SRT — max 2 lines, 42 characters per line; forced narratives for on-screen text"
+            },
+            {
+              "label": "Naming",
+              "value": "Series-code episode naming enforced by portal (e.g. RS2847_EP05)"
+            },
+            {
+              "label": "QC",
+              "value": "Automated rejection for non-compliant loudness, format, or naming"
+            }
+          ],
+          "additionalNotes": [
+            "Pitch package requires 3–5 final-quality sample episodes before full-series upload is authorized.",
+            "Dubbing/localization audio specs are documented by partner studios; confirm written delivery template per project.",
+            "Industry delivery reference: Sukudo Studios micro-drama dubbing guide (March 2026)."
+          ],
+          "specUrl": "https://www.sukudostudios.com/blog/reelshort-dramabox-shortmax-dubbing-specs",
+          "specSourceType": "industry-article",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "30",
+            "videoBitrateOverrideMbps": 18,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-prime-320"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "1080×1920 vertical uses same pixel count as 1080p — 18 Mbps models a typical vertical episode master."
+        }
+      ]
+    },
+    {
+      "id": "dramabox",
+      "name": "DramaBox",
+      "tagline": "Vertical micro-drama streaming",
+      "description": "DramaBox ingests licensed short-drama series (typically 15–100 episodes) from production partners. After contract acceptance, episodes are delivered in a platform-specified format through API-based ingestion with automated technical QC.",
+      "businessModels": [
+        "partner-licensed",
+        "tvod"
+      ],
+      "accessModel": "DramaBox content partnership / creator onboarding",
+      "revenueModel": "Coin unlocks, subscriptions, and revenue share (MG + rev share typical)",
+      "businessModelNotes": [
+        "Official partner FAQ describes sample review → contract → platform-specified format → technical check workflow.",
+        "Full API credentials and naming templates are issued during vendor onboarding — not published publicly.",
+        "Automated post-upload QC returns a compliance report within ~30 minutes per industry partner documentation."
+      ],
+      "specUrl": "https://dramabox.jp/creators",
+      "specSourceType": "partner-portal",
+      "websiteUrl": "https://www.dramabox.com",
+      "deliveryOptions": [
+        {
+          "id": "api-vertical-ingest",
+          "name": "API Vertical Episode Ingest",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "CMS API delivery",
+          "purpose": "Licensed short-drama series after contract",
+          "summary": "MP4 with embedded AAC or separate WAV stems delivered via DramaBox CMS API. WebVTT subtitles and automated QC on upload.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 (AVC) in MP4 (typical for vertical micro-drama)"
+            },
+            {
+              "label": "Resolution",
+              "value": "1080 × 1920 (9:16 vertical) — production quality required"
+            },
+            {
+              "label": "Series length",
+              "value": "15–100 episodes typical; multi-season series negotiable"
+            },
+            {
+              "label": "Bitrate",
+              "value": "12–20 Mbps typical at 30 fps (confirm per project during onboarding)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Option A",
+              "value": "AAC 320 kbps embedded in MP4"
+            },
+            {
+              "label": "Option B",
+              "value": "Separate WAV stems at 48 kHz, 24-bit"
+            },
+            {
+              "label": "Loudness",
+              "value": "−23 LUFS integrated (±1 LU), −1.5 dBTP true peak maximum"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Subtitles",
+              "value": "WebVTT (.vtt) — English plus at least one additional language for international catalog"
+            },
+            {
+              "label": "Delivery",
+              "value": "API-based ingestion through DramaBox CMS (credentials issued at onboarding)"
+            },
+            {
+              "label": "QC",
+              "value": "Automated compliance report returned after upload"
+            }
+          ],
+          "additionalNotes": [
+            "Contact DramaBox via dramabox.jp/creators or dramaboxbusiness@gmail.com for partnership terms.",
+            "Lip-sync dubbing required for Tier 1 markets; time-sync acceptable for some Tier 2 territories.",
+            "Audio/subtitle delivery details documented by partner studios; confirm preferred method per project."
+          ],
+          "specUrl": "https://www.sukudostudios.com/blog/reelshort-dramabox-shortmax-dubbing-specs",
+          "specSourceType": "industry-article",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "AVOD Web Delivery",
+            "resolution": "1080p",
+            "frameRate": "30",
+            "videoBitrateOverrideMbps": 18,
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-prime-320"
+          },
+          "ffmpegSupported": true,
+          "ffmpegNotes": "1080×1920 vertical episode planning bitrate — confirm exact profile with DramaBox onboarding team."
+        }
+      ]
+    },
+    {
+      "id": "shorttv",
+      "name": "ShortTV",
+      "tagline": "Vertical micro-drama streaming",
+      "description": "ShortTV builds a vertical micro-drama catalog through studio partnerships. We could not find published ShortTV delivery specifications online — requirements are communicated after series acceptance.",
+      "businessModels": [
+        "partner-licensed",
+        "tvod"
+      ],
+      "accessModel": "Open submission / studio partnership",
+      "revenueModel": "Coin-based episode unlocks",
+      "businessModelNotes": [
+        "ShortTV accepts 1–3 sample episodes at draft quality for initial review — lower barrier than ReelShort.",
+        "Public technical PDFs are not published; delivery specs are communicated after acceptance.",
+        "Typical micro-drama pattern: H.264 MP4, 1080×1920, AAC stereo, SRT subtitles."
+      ],
+      "specUrl": "https://www.reelytics.io/blog/get-series-accepted-reelshort-dramabox-shorttv",
+      "specSourceType": "not-found",
+      "websiteUrl": "https://play.google.com/store/apps/details?id=com.hli.shortdrama.reelshorts.dramatv",
+      "deliveryOptions": []
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "tagline": "Open upload platform",
+      "description": "YouTube accepts a wide range of upload formats and re-encodes for adaptive streaming. Recommended upload settings prioritize H.264 or HEVC in MP4/MOV with high-quality AAC audio.",
+      "accessModel": "Open upload (YouTube Studio)",
+      "specUrl": "https://support.google.com/youtube/answer/1722171",
+      "websiteUrl": "https://www.youtube.com",
+      "deliveryOptions": [
+        {
+          "id": "1080p-sdr",
+          "name": "1080p SDR Upload",
+          "purpose": "Standard HD upload",
+          "summary": "H.264 High Profile in MP4/MOV — the most common YouTube upload path.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 (recommended) or HEVC, VP9, AV1"
+            },
+            {
+              "label": "Container",
+              "value": "MP4, MOV, AVI, WMV, FLV, WebM"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 × 1080"
+            },
+            {
+              "label": "Bitrate",
+              "value": "8 Mbps recommended (SDR 1080p)"
+            },
+            {
+              "label": "Frame rate",
+              "value": "Match source (24, 25, 30, 48, 50, 60 fps)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC-LC or MP3"
+            },
+            {
+              "label": "Stereo",
+              "value": "384 kbps recommended"
+            },
+            {
+              "label": "5.1",
+              "value": "512 kbps recommended"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Color",
+              "value": "Rec. 709 for SDR; upload HDR as HEVC/VP9/AV1"
+            }
+          ],
+          "specUrl": "https://support.google.com/youtube/answer/1722171",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "High Profile",
+            "resolution": "1080p",
+            "frameRate": "30",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-youtube-384"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "creator-upload",
+          "deliveryTier": "Upload source"
+        },
+        {
+          "id": "4k-upload",
+          "name": "4K UHD Upload",
+          "purpose": "Ultra HD upload",
+          "summary": "4K uploads benefit from H.264 or HEVC at higher bitrates.",
+          "videoSpecs": [
+            {
+              "label": "Resolution",
+              "value": "3840 × 2160"
+            },
+            {
+              "label": "H.264 bitrate",
+              "value": "35–45 Mbps recommended (SDR 4K)"
+            },
+            {
+              "label": "HEVC bitrate",
+              "value": "Lower than H.264 at equivalent quality"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC-LC stereo or 5.1"
+            },
+            {
+              "label": "Bitrate",
+              "value": "384 kbps stereo / 512 kbps 5.1"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Max resolution",
+              "value": "Up to 8K supported"
+            }
+          ],
+          "specUrl": "https://support.google.com/youtube/answer/1722171",
+          "calculator": {
+            "category": "delivery",
+            "codec": "h264",
+            "variant": "High Profile",
+            "resolution": "UHD",
+            "frameRate": "30",
+            "audioEnabled": true,
+            "audioProfileId": "mp4-aac",
+            "audioConfigurationId": "stereo-youtube-384"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "creator-upload",
+          "deliveryTier": "Upload source"
+        },
+        {
+          "id": "vp9-webm",
+          "name": "VP9 WebM Upload",
+          "purpose": "Royalty-free WebM delivery",
+          "summary": "VP9 in WebM with Opus audio for YouTube and other Google services.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "VP9"
+            },
+            {
+              "label": "Container",
+              "value": "WebM"
+            },
+            {
+              "label": "Resolution",
+              "value": "Up to 4K and beyond"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Opus"
+            },
+            {
+              "label": "Stereo",
+              "value": "128 kbps typical"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Use case",
+              "value": "YouTube re-encodes all uploads regardless of source codec"
+            }
+          ],
+          "specUrl": "https://developers.google.com/media/vp9/settings/vod",
+          "calculator": {
+            "category": "delivery",
+            "codec": "vp9",
+            "variant": "Profile 0",
+            "resolution": "1080p",
+            "frameRate": "30",
+            "audioEnabled": true,
+            "audioProfileId": "webm-opus",
+            "audioConfigurationId": "stereo-128"
+          },
+          "ffmpegSupported": true,
+          "businessModel": "creator-upload",
+          "deliveryTier": "Upload source"
+        }
+      ],
+      "businessModels": [
+        "creator-upload",
+        "avod",
+        "svod"
+      ],
+      "revenueModel": "Free ad-supported viewing, YouTube Premium SVOD, and creator monetization",
+      "businessModelNotes": [
+        "YouTube re-encodes all uploads — source file specs are upload recommendations, not playback guarantees.",
+        "YouTube Premium removes ads but uses the same uploaded source."
+      ]
+    }
+  ]
+}

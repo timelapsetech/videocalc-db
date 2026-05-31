@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Heart, Mail, Globe, Users, Database, Menu, X, Github, GitPullRequest, AlertTriangle, Shield, Zap, Bot, Cloud, Cpu, Code, Terminal } from 'lucide-react';
+import { ArrowLeft, Heart, Mail, Globe, Users, Database, Menu, X, Github, GitPullRequest, AlertTriangle, Shield, Zap, Bot, Cloud, Cpu, Code, Terminal, Tv } from 'lucide-react';
 
 const About: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -38,6 +38,13 @@ const About: React.FC = () => {
             {/* Desktop Navigation */}
             <div className="hidden sm:flex items-center space-x-4">
               <Link
+                to="/streaming-services"
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
+              >
+                <Tv className="h-4 w-4 text-gray-400" />
+                <span className="text-sm text-gray-300">Streaming</span>
+              </Link>
+              <Link
                 to="/codec-data"
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
               >
@@ -65,6 +72,14 @@ const About: React.FC = () => {
           {mobileMenuOpen && (
             <div className="sm:hidden absolute top-full left-0 right-0 bg-dark-secondary border-b border-gray-800 shadow-lg z-40">
               <div className="px-4 py-3 space-y-2">
+                <Link
+                  to="/streaming-services"
+                  className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Tv className="h-5 w-5 text-gray-400" />
+                  <span className="text-gray-300">Streaming Specs</span>
+                </Link>
                 <Link
                   to="/codec-data"
                   className="w-full flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-dark-primary transition-colors"

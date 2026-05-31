@@ -49,6 +49,16 @@ const routes = [
     schemaType: 'Dataset',
   },
   {
+    path: '/streaming-services',
+    output: 'streaming-services/index.html',
+    title: 'Streaming Service Video Delivery Specifications',
+    description:
+      'Compare SVOD, AVOD, TVOD, and FAST delivery specs for Netflix, Amazon Prime Video, Apple TV+, Disney+, Hulu, Max, Pluto TV, Roku, Plex, Tubi, and 19 platforms with file size estimates.',
+    keywords:
+      'streaming delivery specs, SVOD vs AVOD specs, Netflix delivery specifications, Amazon Prime Video AVOD SVOD, FAST HLS delivery specs, streaming video submission',
+    schemaType: 'Dataset',
+  },
+  {
     path: '/privacy',
     output: 'privacy/index.html',
     title: 'Privacy Policy for Video File Size Calculator',

@@ -14,7 +14,8 @@ import {
   Github,
   AlertTriangle,
   GitPullRequest,
-  Terminal
+  Terminal,
+  Tv
 } from 'lucide-react';
 import { useCodecContext } from '../context/CodecContext';
 import { resolutions, frameRates } from '../data/resolutions';
@@ -181,6 +182,13 @@ const CodecData: React.FC = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden sm:flex items-center space-x-4">
+              <Link
+                to="/streaming-services"
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
+              >
+                <Tv className="h-4 w-4 text-gray-400" />
+                <span className="text-sm text-gray-300">Streaming</span>
+              </Link>
               <Link
                 to="/about"
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"

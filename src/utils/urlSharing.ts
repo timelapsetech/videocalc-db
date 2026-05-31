@@ -10,7 +10,8 @@ export const encodeCalculationURL = (
   hours: number,
   minutes: number,
   seconds: number,
-  audioSelection?: AudioSelection
+  audioSelection?: AudioSelection,
+  videoBitrateOverrideMbps?: number
 ) => {
   const params = new URLSearchParams();
   
@@ -31,6 +32,10 @@ export const encodeCalculationURL = (
     params.set('audioProfile', audioSelection.profileId);
     params.set('audioConfig', audioSelection.configurationId);
   }
+
+  if (videoBitrateOverrideMbps && videoBitrateOverrideMbps > 0) {
+    params.set('videoMbps', videoBitrateOverrideMbps.toString());
+  }
   
   return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
 };
@@ -50,7 +55,11 @@ export const decodeCalculationURL = () => {
       enabled: params.get('audio') === '1',
       profileId: params.get('audioProfile') || '',
       configurationId: params.get('audioConfig') || '',
-    }
+    },
+    videoBitrateOverrideMbps: (() => {
+      const value = parseFloat(params.get('videoMbps') || '');
+      return !Number.isNaN(value) && value > 0 ? value : undefined;
+    })(),
   };
 };
 
@@ -61,7 +70,8 @@ export const generateShareableLink = (
   resolution: string,
   frameRate: string,
   duration: { hours: number; minutes: number; seconds: number },
-  audioSelection?: AudioSelection
+  audioSelection?: AudioSelection,
+  videoBitrateOverrideMbps?: number
 ) => {
   return encodeCalculationURL(
     category,
@@ -72,6 +82,41 @@ export const generateShareableLink = (
     duration.hours,
     duration.minutes,
     duration.seconds,
-    audioSelection
+    audioSelection,
+    videoBitrateOverrideMbps
   );
+};
+
+export const buildCalculatorPath = (
+  category: string,
+  codec: string,
+  variant: string,
+  resolution: string,
+  frameRate: string,
+  duration: { hours: number; minutes: number; seconds: number } = { hours: 1, minutes: 0, seconds: 0 },
+  audioSelection?: AudioSelection,
+  videoBitrateOverrideMbps?: number
+) => {
+  const params = new URLSearchParams();
+
+  if (category) params.set('category', category);
+  if (codec) params.set('codec', codec);
+  if (variant) params.set('variant', variant);
+  if (resolution) params.set('resolution', resolution);
+  if (frameRate) params.set('framerate', frameRate);
+  params.set('hours', duration.hours.toString());
+  params.set('minutes', duration.minutes.toString());
+  params.set('seconds', duration.seconds.toString());
+
+  if (audioSelection?.enabled && audioSelection.profileId && audioSelection.configurationId) {
+    params.set('audio', '1');
+    params.set('audioProfile', audioSelection.profileId);
+    params.set('audioConfig', audioSelection.configurationId);
+  }
+
+  if (videoBitrateOverrideMbps && videoBitrateOverrideMbps > 0) {
+    params.set('videoMbps', videoBitrateOverrideMbps.toString());
+  }
+
+  return `/?${params.toString()}`;
 };

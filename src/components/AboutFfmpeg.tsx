@@ -12,6 +12,7 @@ import {
   Menu,
   Shield,
   Terminal,
+  Tv,
   X,
 } from 'lucide-react';
 
@@ -52,6 +53,13 @@ const AboutFfmpeg: React.FC = () => {
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
               >
                 <span className="text-sm text-gray-300">About</span>
+              </Link>
+              <Link
+                to="/streaming-services"
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
+              >
+                <Tv className="h-4 w-4 text-gray-400" />
+                <span className="text-sm text-gray-300">Streaming</span>
               </Link>
               <Link
                 to="/codec-data"
