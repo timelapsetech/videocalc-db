@@ -51,11 +51,11 @@ const routes = [
   {
     path: '/streaming-services',
     output: 'streaming-services/index.html',
-    title: 'Streaming Service Video Delivery Specifications',
+    title: 'Spec Library — Video Delivery Specifications',
     description:
-      'Compare SVOD, AVOD, TVOD, and FAST delivery specs for Netflix, Amazon Prime Video, Apple TV+, Disney+, Hulu, Max, Pluto TV, Roku, Plex, Tubi, and 19 platforms with file size estimates.',
+      'Spec library of SVOD, AVOD, TVOD, and FAST delivery requirements for Netflix, Amazon Prime Video, Apple TV+, Disney+, Hulu, Max, Pluto TV, Roku, Plex, Tubi, broadcast parents, MVPDs, and more — with file size estimates.',
     keywords:
-      'streaming delivery specs, SVOD vs AVOD specs, Netflix delivery specifications, Amazon Prime Video AVOD SVOD, FAST HLS delivery specs, streaming video submission',
+      'spec library, video delivery spec library, streaming delivery specs, SVOD vs AVOD specs, Netflix delivery specifications, Amazon Prime Video AVOD SVOD, FAST HLS delivery specs, streaming video submission',
     schemaType: 'Dataset',
   },
   {

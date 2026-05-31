@@ -34,7 +34,7 @@ const SiteNav: React.FC<SiteNavProps> = ({ backTo, title, actions, forceMenuBelo
 
   const navLinks = [
     { to: '/', label: 'Calculator', icon: Film },
-    { to: '/streaming-services', label: 'Streaming Specs', icon: Tv },
+    { to: '/streaming-services', label: 'Spec Library', icon: Tv },
     { to: '/codec-data', label: 'Database', icon: Database },
     { to: '/about-ffmpeg', label: 'FFmpeg', icon: Terminal },
     { to: '/about', label: 'About', icon: Info },

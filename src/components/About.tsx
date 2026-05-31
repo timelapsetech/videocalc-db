@@ -42,7 +42,7 @@ const About: React.FC = () => {
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-dark-secondary hover:bg-gray-700 transition-colors"
               >
                 <Tv className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-300">Streaming</span>
+                <span className="text-sm text-gray-300">Spec Library</span>
               </Link>
               <Link
                 to="/codec-data"
@@ -78,7 +78,7 @@ const About: React.FC = () => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <Tv className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-300">Streaming Specs</span>
+                  <span className="text-gray-300">Spec Library</span>
                 </Link>
                 <Link
                   to="/codec-data"

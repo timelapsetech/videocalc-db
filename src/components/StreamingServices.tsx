@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowDownAZ, ArrowUpAZ, Search, Tv } from 'lucide-react';
+import { AlertTriangle, ArrowDownAZ, ArrowUpAZ, Github, GitPullRequest, Search, Tv } from 'lucide-react';
 import SiteNav from './SiteNav';
 import BusinessModelBadge from './BusinessModelBadge';
 import BusinessModelFilter from './BusinessModelFilter';
@@ -105,7 +105,7 @@ const StreamingServices: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-dark-primary">
-      <SiteNav title="Streaming Delivery Specs" />
+      <SiteNav title="Spec Library" />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <StreamingCatalogDisclaimer />
@@ -113,10 +113,10 @@ const StreamingServices: React.FC = () => {
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <Tv className="h-8 w-8 text-blue-400" />
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Streaming Service Delivery Specs</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Spec Library</h1>
           </div>
           <p className="text-gray-400 max-w-3xl leading-relaxed">
-            Partner contribution specs for delivering video and audio TO each platform — only entries with published
+            Partner contribution specs for delivering video and audio to each platform — only entries with published
             technical documentation are listed. Broadcast and cable parent companies group shared specs across their
             networks; MVPD and store apps reference CableLabs or operator-published requirements where available.
           </p>
@@ -294,6 +294,72 @@ const StreamingServices: React.FC = () => {
             No services matched your search or business model filter.
           </div>
         )}
+
+        <section className="mt-12 sm:mt-16 bg-gradient-to-r from-green-600/20 to-blue-600/20 border border-green-500/30 rounded-xl p-6 sm:p-8 shadow-lg">
+          <div className="flex items-center mb-4 sm:mb-6">
+            <Github className="h-6 w-6 sm:h-8 sm:w-8 text-green-400 mr-3 sm:mr-4 shrink-0" />
+            <h2 className="text-xl sm:text-2xl font-bold text-white">Open Source & Community</h2>
+          </div>
+          <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-4 sm:mb-6">
+            The spec library is open source under the GPL 3 license. Partner ingest requirements, calculator
+            templates, and source links live in the repository so anyone can verify and improve them.
+          </p>
+
+          <div className="bg-yellow-600/10 border border-yellow-600/20 rounded-lg p-4 mb-6">
+            <div className="flex items-start gap-2">
+              <AlertTriangle className="h-5 w-5 text-yellow-400 mt-0.5 shrink-0" />
+              <div>
+                <h3 className="text-yellow-400 font-medium mb-2">Help Us Improve the Spec Library</h3>
+                <p className="text-sm text-gray-300">
+                  Found a wrong bitrate, outdated spec URL, or missing platform? Open a GitHub issue with the
+                  partner name and a link to the published spec if you have one. Better yet, edit{' '}
+                  <code className="text-gray-200 bg-dark-primary px-1 rounded text-xs">
+                    data/streaming-services.json
+                  </code>
+                  ,{' '}
+                  <code className="text-gray-200 bg-dark-primary px-1 rounded text-xs">
+                    data/broadcast-cable-parents.json
+                  </code>
+                  , or{' '}
+                  <code className="text-gray-200 bg-dark-primary px-1 rounded text-xs">
+                    data/distributor-platform-services.json
+                  </code>{' '}
+                  and submit a pull request. We review contributions so the catalog stays accurate for everyone.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://github.com/timelapsetech/videocalc-db"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-medium transition-colors text-sm sm:text-base"
+            >
+              <Github className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span>View on GitHub</span>
+            </a>
+            <a
+              href="https://github.com/timelapsetech/videocalc-db/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-colors text-sm sm:text-base"
+            >
+              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span>Report an Issue</span>
+            </a>
+            <a
+              href="https://github.com/timelapsetech/videocalc-db/pulls"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg text-white font-medium transition-colors text-sm sm:text-base"
+            >
+              <GitPullRequest className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span>Contribute</span>
+            </a>
+          </div>
+        </section>
       </main>
     </div>
   );

@@ -102,15 +102,15 @@ const StreamingServiceDetail: React.FC = () => {
   if (!service) {
     return (
       <div className="min-h-screen bg-dark-primary">
-        <SiteNav backTo={{ label: 'All services', path: '/streaming-services' }} />
+        <SiteNav backTo={{ label: 'Spec Library', path: '/streaming-services' }} />
         <main className="max-w-3xl mx-auto px-4 py-16 text-center">
           <h1 className="text-2xl font-semibold text-white mb-3">Service not found</h1>
-          <p className="text-gray-400 mb-6">That streaming service is not in the catalog yet.</p>
+          <p className="text-gray-400 mb-6">That partner is not in the spec library yet.</p>
           <Link
             to="/streaming-services"
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-500"
           >
-            Browse all services
+            Back to Spec Library
           </Link>
         </main>
       </div>
@@ -120,7 +120,7 @@ const StreamingServiceDetail: React.FC = () => {
   return (
     <div className="min-h-screen bg-dark-primary">
       <SiteNav
-        backTo={{ label: 'All services', path: '/streaming-services' }}
+        backTo={{ label: 'Spec Library', path: '/streaming-services' }}
         title={service.name}
       />
 

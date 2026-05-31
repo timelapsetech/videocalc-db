@@ -2,7 +2,7 @@ import type { AudioConfigurationOption, AudioProfile } from '../types/codecs';
 import type { FileSizeCalculatorConfig } from './fileSizeCalculation';
 
 /**
- * Partner-branded audio configuration IDs kept in the catalog for streaming spec
+ * Partner-branded audio configuration IDs kept in the catalog for the spec library
  * resolution. The calculator maps these to generic channel/bitrate options.
  */
 export const PARTNER_AUDIO_CONFIGURATION_ALIASES: Record<string, string> = {

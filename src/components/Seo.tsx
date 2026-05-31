@@ -89,10 +89,12 @@ const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: '/streaming-services',
-    title: 'Streaming Service Video Delivery Specifications',
+    title: 'Spec Library — Video Delivery Specifications',
     description:
-      'Partner contribution specs for delivering video and audio TO streaming platforms — SVOD, AVOD, TVOD, FAST ingest, and vertical micro-drama delivery including Amagi, Wurl, Frequency, ReelShort, DramaBox, Netflix, Prime Video, Roku, and 32 services with file size estimates.',
+      'Spec library of partner contribution requirements for delivering video and audio to streaming, broadcast, cable, and MVPD platforms — SVOD, AVOD, TVOD, FAST ingest, and more, with file size estimates.',
     keywords: [
+      'spec library',
+      'video delivery spec library',
       'streaming delivery specs',
       'SVOD vs AVOD specs',
       'Netflix delivery specifications',
