@@ -1,0 +1,772 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-05-31",
+    "notes": "One catalog row per US broadcast/cable parent company. Brands share these specs unless a separate delivery option is listed (different workflow or published document). OTT apps (Peacock, Max, Paramount+, Disney+) have their own catalog entries \u2014 linked via relatedServiceIds."
+  },
+  "services": [
+    {
+      "id": "nbcuniversal",
+      "name": "NBCUniversal",
+      "catalogKind": "broadcast-cable-parent",
+      "tagline": "Broadcast, cable, studio & Peacock ingest (parent company)",
+      "description": "NBCUniversal TechOps publishes one inbound specification for longform delivery to NBC broadcast, cable networks, studio servicing, international, and Peacock. Linear brands do not publish separate public program specs \u2014 onboarding is contract-gated via TechOps.",
+      "brands": [
+        "NBC",
+        "Bravo",
+        "USA Network",
+        "Syfy",
+        "E!",
+        "Oxygen",
+        "CNBC",
+        "MSNBC",
+        "Golf Channel",
+        "Universal Kids",
+        "Telemundo",
+        "Peacock (DTC \u2014 same TechOps document)"
+      ],
+      "distributionKinds": [
+        "Linear broadcast (NBC)",
+        "Cable linear (USA, Bravo, Syfy, etc.)",
+        "Studio / syndication mezzanine",
+        "OTT (Peacock \u2014 see also Peacock catalog entry)"
+      ],
+      "relatedServiceIds": [
+        "peacock"
+      ],
+      "businessModels": [
+        "broadcast",
+        "partner-licensed"
+      ],
+      "accessModel": "NBCUniversal TechOps onboarding \u2014 Aspera, Signiant, or Signiant Media Shuttle",
+      "revenueModel": "Ad-supported linear, cable affiliate carriage, and Peacock SVOD/AVOD tiers",
+      "businessModelNotes": [
+        "Peacock Free, Premium, and Premium Plus use the same longform mezzanine path documented in TechOps \u2014 ad tiers are a playback/business layer.",
+        "Short-form NBCU digital ad creative uses separate NBCU programmatic guidelines (not the longform TechOps mezzanine).",
+        "On-air MPEG-2 MXF playout for network transmit is created downstream by NBCU operations \u2014 partners typically deliver ProRes/XDCAM mezzanine per TechOps."
+      ],
+      "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
+      "websiteUrl": "https://www.nbcuniversal.com",
+      "deliveryOptions": [
+        {
+          "id": "linear-cable-program-prores",
+          "name": "Linear / cable / studio program (ProRes 422 HQ)",
+          "ingestWorkflow": "linear-cable-program",
+          "businessModel": "broadcast",
+          "deliveryTier": "Linear & cable \u2014 program mezzanine",
+          "purpose": "Finished episodic and longform to NBCU TechOps",
+          "summary": "Primary HD deliverable for NBC, cable nets, and studio servicing: ProRes 422 HQ in QuickTime MOV at native frame rate and aspect ratio.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ (first choice)"
+            },
+            {
+              "label": "Alternative",
+              "value": "XDCAM 50 Mbps (second choice)"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime .mov (no encryption)"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 \u00d7 1080 HD; UHD/HDR in separate document sections"
+            },
+            {
+              "label": "Frame rate",
+              "value": "Native \u2014 23.98p, 29.97i, 29.97p, 25i (25p with approval)"
+            },
+            {
+              "label": "Color",
+              "value": "Rec. 709 with required QuickTime NCLC tags"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "LPCM little-endian, discrete tracks"
+            },
+            {
+              "label": "Sample rate / depth",
+              "value": "48 kHz, 24-bit"
+            },
+            {
+              "label": "Loudness",
+              "value": "Per TechOps audio section (ATSC A/85 aligned)"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "HDR",
+              "value": "HDR-10 ProRes 4444 and Dolby Vision sections require paired SDR"
+            },
+            {
+              "label": "Delivery",
+              "value": "Aspera P2P, Signiant P2P, or Signiant Media Shuttle after test-file QC"
+            }
+          ],
+          "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-hd-stereo"
+        },
+        {
+          "id": "linear-cable-program-xdcam",
+          "name": "Linear / cable program (XDCAM 50 Mbps)",
+          "ingestWorkflow": "linear-cable-program",
+          "businessModel": "broadcast",
+          "deliveryTier": "Linear & cable \u2014 alternate mezzanine",
+          "purpose": "Second-choice HD mezzanine when ProRes is unavailable",
+          "summary": "XDCAM HD422 50 Mbps accepted as second choice for Network, Cable & Studio delivery.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "XDCAM HD422 50 Mbps"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 \u00d7 1080"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "LPCM per TechOps audio layout"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Note",
+              "value": "Same onboarding and metadata XLSX as ProRes path"
+            }
+          ],
+          "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "broadcast-xdcam-50-1080i"
+        }
+      ]
+    },
+    {
+      "id": "paramount-global",
+      "name": "Paramount Global",
+      "catalogKind": "broadcast-cable-parent",
+      "tagline": "CBS broadcast, Viacom cable on-air MXF & commercial traffic",
+      "description": "Paramount Global publishes distinct delivery specs for cable/broadcast on-air MXF (VMN US Media Delivery) versus Paramount+ and Pluto OTT ingest. CBS network commercials use a separate integration manual. All paths require partner or ad-traffic onboarding.",
+      "brands": [
+        "CBS",
+        "MTV",
+        "VH1",
+        "Nickelodeon",
+        "Comedy Central",
+        "BET",
+        "CMT",
+        "Paramount Network",
+        "Logo",
+        "TV Land",
+        "Smithsonian Channel",
+        "Pop TV",
+        "Paramount+ (OTT \u2014 separate entry)",
+        "Pluto TV (FAST/AVOD \u2014 separate entry)"
+      ],
+      "distributionKinds": [
+        "Broadcast network (CBS)",
+        "Cable linear on-air file (VMN)",
+        "Broadcast/Cable commercials & promos",
+        "OTT SVOD/FAST (see related catalog entries)"
+      ],
+      "relatedServiceIds": [
+        "paramount-plus",
+        "pluto-tv"
+      ],
+      "businessModels": [
+        "broadcast",
+        "partner-licensed"
+      ],
+      "accessModel": "Paramount ad traffic / Studio Content Operations onboarding",
+      "revenueModel": "Broadcast affiliate, cable MVPD, and Paramount streaming tiers",
+      "businessModelNotes": [
+        "VMN US Media Delivery covers many Viacom/Paramount cable brands for on-air MXF \u2014 not full episodic acquisition (see Paramount+ for SVOD mezzanine).",
+        "CBS program series delivery to affiliates is deal-specific; VMN HD longform MXF reflects common cable/broadcast playout file format.",
+        "CBS Television Network commercial integration is spot/promo traffic only \u2014 not series masters."
+      ],
+      "specUrl": "https://adtrafficguidelines.paramount.com/sites/g/files/dxjhpe346/files/2023-03/VMN%20US%20Media%20Delivery%202016-3.pdf",
+      "websiteUrl": "https://www.paramount.com",
+      "deliveryOptions": [
+        {
+          "id": "vmn-hd-longform-100-iframe",
+          "name": "Cable / broadcast on-air HD longform (100 Mbps I-frame)",
+          "ingestWorkflow": "linear-on-air-mxf",
+          "businessModel": "broadcast",
+          "deliveryTier": "On-air MXF \u2014 HD longform",
+          "purpose": "Archive and on-air HD longform for VMN cable brands",
+          "summary": "MXF OP1a (SMPTE 378M) with MPEG-2 4:2:2 High Level, 100 Mbps I-frame CBR at 1080i59.94.",
+          "videoSpecs": [
+            {
+              "label": "Container",
+              "value": "MXF OP1a (SMPTE 378M)"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 \u00d7 1080i, 16:9"
+            },
+            {
+              "label": "Encoding",
+              "value": "MPEG-2 4:2:2 Profile @ High Level, 100 Mbps I-frame CBR"
+            },
+            {
+              "label": "Frame rate",
+              "value": "29.97 fps / 59.94 fields per second"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Uncompressed PCM in MXF (BWF SMPTE 382M)"
+            },
+            {
+              "label": "Channels",
+              "value": "4-, 12-, or 16-channel layouts in one MXF track"
+            },
+            {
+              "label": "Sample rate / depth",
+              "value": "48 kHz, 24-bit"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Timecode",
+              "value": "Continuous SMPTE drop-frame in VANC per RP188"
+            },
+            {
+              "label": "Captions",
+              "value": "Closed caption data per VMN document"
+            }
+          ],
+          "specUrl": "https://adtrafficguidelines.paramount.com/sites/g/files/dxjhpe346/files/2023-03/VMN%20US%20Media%20Delivery%202016-3.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "broadcast-mpeg2-1080i-100-iframe"
+        },
+        {
+          "id": "vmn-hd-shortform-50-longgop",
+          "name": "Cable on-air HD shortform (50 Mbps long-GOP)",
+          "ingestWorkflow": "linear-on-air-mxf",
+          "businessModel": "broadcast",
+          "deliveryTier": "On-air MXF \u2014 spots & promos",
+          "purpose": "Commercials, promos, interstitials on VMN cable infrastructure",
+          "summary": "MXF OP1a with MPEG-2 50 Mbps long-GOP CBR at 1080i59.94 for short-form material.",
+          "videoSpecs": [
+            {
+              "label": "Container",
+              "value": "MXF OP1a (SMPTE 378M)"
+            },
+            {
+              "label": "Encoding",
+              "value": "MPEG-2 4:2:2 High Level, 50 Mbps long-GOP CBR"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 \u00d7 1080i"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Channels",
+              "value": "2-, 4-, 12-, or 16-channel PCM in one MXF track"
+            },
+            {
+              "label": "Sample rate / depth",
+              "value": "48 kHz, 24-bit"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Use",
+              "value": "Spots, promos, interstitial material \u2014 not primary series mezzanine"
+            }
+          ],
+          "specUrl": "https://adtrafficguidelines.paramount.com/sites/g/files/dxjhpe346/files/2023-03/VMN%20US%20Media%20Delivery%202016-3.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "broadcast-mpeg2-1080i-50-longgop"
+        },
+        {
+          "id": "cbs-commercial-integration",
+          "name": "CBS broadcast network \u2014 commercial integration (HD file)",
+          "ingestWorkflow": "broadcast-commercial",
+          "businessModel": "broadcast",
+          "deliveryTier": "Broadcast network \u2014 commercial",
+          "purpose": "CBS Television Network spots and PSAs (not series programs)",
+          "summary": "CBS distributes in 1920\u00d71080 HD at 59.94 fields/sec; prefers file delivery via approved commercial delivery services with Ad-ID metadata.",
+          "videoSpecs": [
+            {
+              "label": "Format",
+              "value": "1920 \u00d7 1080 HD, 59.94i network feed"
+            },
+            {
+              "label": "Delivery",
+              "value": "File via approved commercial delivery services (HD required; SD only if no HD exists)"
+            },
+            {
+              "label": "Safe area",
+              "value": "Center-safe action recommended for downstream center-cut SD"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Note",
+              "value": "See Appendix A technical specifications in CBS Commercial Integration Manual"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Identification",
+              "value": "Ad-ID encouraged for commercial metadata"
+            },
+            {
+              "label": "Scope",
+              "value": "Commercials/PSAs only \u2014 not episodic program masters"
+            }
+          ],
+          "specUrl": "https://www.paramount.com/files/documents/CBS-Television-Network-Commercial-Integration-Manual.pdf",
+          "ffmpegSupported": false,
+          "ffmpegNotes": "CBS commercial file formats are defined in manual Appendix A \u2014 confirm with ad traffic before encoding.",
+          "calculatorTemplate": "broadcast-mpeg2-1080i-50-longgop"
+        }
+      ]
+    },
+    {
+      "id": "warner-bros-discovery",
+      "name": "Warner Bros. Discovery",
+      "catalogKind": "broadcast-cable-parent",
+      "tagline": "CNN, Discovery, TNT, HBO linear & licensed cable ingest",
+      "description": "WBD Content Partner Hub defines licensed SDR/HDR mezzanine ingest for cable and linear brands plus Max (DTC). CNN, Discovery, TLC, HGTV, TNT, TBS, and other networks share the Licensed Content SDR specification when delivered via portal or Automated Content Delivery (ACD) with MovieLabs MMC metadata.",
+      "brands": [
+        "CNN",
+        "TNT",
+        "TBS",
+        "truTV",
+        "Cartoon Network",
+        "Adult Swim",
+        "Discovery Channel",
+        "TLC",
+        "HGTV",
+        "Food Network",
+        "Magnolia Network",
+        "Investigation Discovery",
+        "OWN",
+        "HBO (linear brand)",
+        "Max (OTT \u2014 separate entry)",
+        "discovery+ (OTT \u2014 regional)"
+      ],
+      "distributionKinds": [
+        "Cable linear program ingest",
+        "News & sports linear (brand-specific operations contacts)",
+        "OTT SVOD (Max \u2014 see related entry)"
+      ],
+      "relatedServiceIds": [
+        "max"
+      ],
+      "businessModels": [
+        "broadcast",
+        "partner-licensed"
+      ],
+      "accessModel": "WBD Content Partner Hub or ACD \u2014 onboarding required",
+      "revenueModel": "Cable affiliate, ad-supported linear, and Max/discovery+ subscriptions",
+      "businessModelNotes": [
+        "Max Originals and Licensed Content may reference separate contribution spec sections on Partner Hub.",
+        "Marketing/promo materials use a different Aspera path (WM Marketing Delivery) than longform programs.",
+        "DNxHD and XDCAM mezzanine require approved exceptions on the Licensed SDR spec."
+      ],
+      "specUrl": "https://partnerhub.warnermediagroup.com/ingest-specifications/sdr-content",
+      "websiteUrl": "https://www.wbd.com",
+      "deliveryOptions": [
+        {
+          "id": "linear-cable-licensed-sdr-prores",
+          "name": "Cable / linear licensed program (ProRes 422 HQ)",
+          "ingestWorkflow": "linear-cable-program",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "Linear & cable \u2014 licensed SDR mezzanine",
+          "purpose": "Finished programs to WBD media supply chain for linear and library",
+          "summary": "ProRes 422 HQ is a primary approved SDR master format on the WBD Licensed Content specification.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ (approved SDR option)"
+            },
+            {
+              "label": "Also accepted",
+              "value": "JPEG 2000, AVC-Intra; DNxHD/XDCAM by exception"
+            },
+            {
+              "label": "Resolution",
+              "value": "HD 1920\u00d71080 native; SD upconverted with pillarbox"
+            },
+            {
+              "label": "Frame rate",
+              "value": "Native constant frame rate only"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Linear PCM BWF, 24-bit / 48 kHz"
+            },
+            {
+              "label": "Loudness",
+              "value": "\u221224 LKFS/LUFS \u00b12 dB; true peak \u2264 \u22122 dBTP"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Delivery",
+              "value": "Secure portal upload or ACD with MMC XML after full package upload"
+            },
+            {
+              "label": "Composition",
+              "value": "Episodic slate + program; theatrical continuous (no ad breaks)"
+            }
+          ],
+          "specUrl": "https://partnerhub.warnermediagroup.com/ingest-specifications/sdr-content",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-hd-surround-51"
+        },
+        {
+          "id": "linear-cable-licensed-sdr-avc-intra",
+          "name": "Cable / linear licensed program (AVC-Intra MXF)",
+          "ingestWorkflow": "linear-cable-program",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "Linear & cable \u2014 compressed mezzanine",
+          "purpose": "AVC-Intra MXF OP1a SDR contribution",
+          "summary": "AVC-Intra in MXF OP1a at CBR \u2014 approved SDR ingest format on Partner Hub.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "AVC-Intra (SMPTE RP2027:2012)"
+            },
+            {
+              "label": "Container",
+              "value": "MXF OP1a"
+            },
+            {
+              "label": "Bitrate",
+              "value": "90 Mbps @ 23.976; 114 Mbps @ 29.97/25"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Embedded linear PCM BWF"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Note",
+              "value": "Same spec family as Max OTT ingest \u2014 MMC metadata identifies target network in VersionIntent"
+            }
+          ],
+          "specUrl": "https://partnerhub.warnermediagroup.com/ingest-specifications/sdr-content",
+          "ffmpegSupported": false,
+          "ffmpegNotes": "AVC-Intra MXF requires broadcast authoring tools.",
+          "calculator": {
+            "category": "camera",
+            "codec": "avc_intra",
+            "variant": "AVC-Intra 100",
+            "resolution": "1080p",
+            "frameRate": "23.98",
+            "videoBitrateOverrideMbps": 90,
+            "audioEnabled": true,
+            "audioProfileId": "mov-lpcm-48k-24bit",
+            "audioConfigurationId": "surround-5-1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "disney-entertainment",
+      "name": "Disney Entertainment",
+      "catalogKind": "broadcast-cable-parent",
+      "tagline": "ABC broadcast, FX, Nat Geo, Freeform linear specs",
+      "description": "Disney Entertainment Television operates ABC broadcast and cable brands. ABC publishes HD commercial (interstitial) MXF specs publicly; episodic program masters for ABC and cable nets are contract-gated through Disney content operations. Disney+ OTT ingest is cataloged separately.",
+      "brands": [
+        "ABC",
+        "ABC News",
+        "Freeform",
+        "FX",
+        "FXX",
+        "National Geographic",
+        "Nat Geo Wild",
+        "Disney Channel",
+        "Disney Junior",
+        "Disney XD",
+        "ESPN linear (separate ops specs \u2014 contact ESPN Media)",
+        "Disney+ (OTT \u2014 separate entry)"
+      ],
+      "distributionKinds": [
+        "Broadcast network (ABC)",
+        "Cable entertainment (FX, Nat Geo, Disney Channel, etc.)",
+        "OTT SVOD (Disney+ \u2014 see related entry)"
+      ],
+      "relatedServiceIds": [],
+      "businessModels": [
+        "broadcast",
+        "partner-licensed"
+      ],
+      "accessModel": "Disney content operations / Disney Advertising for ABC spots",
+      "revenueModel": "Broadcast affiliate, cable MVPD, and Disney+ subscription",
+      "businessModelNotes": [
+        "ABC HD commercial spec covers commercials, promos, and PSAs \u2014 not series program masters.",
+        "ESPN linear and ESPN-on-ABC spots may reference ESPN/ABC companion guidelines; full ESPN series delivery is not in the ABC commercial PDF.",
+        "We could not find a single public Disney cable program mezzanine PDF covering FX/Nat Geo \u2014 requirements are issued per deal."
+      ],
+      "specUrl": "https://files.disneyadvertising.com/MediaKit/ABC-Brands/HD-Tech-Specs.pdf",
+      "websiteUrl": "https://www.disney.com",
+      "deliveryOptions": [
+        {
+          "id": "abc-broadcast-commercial-720p",
+          "name": "ABC broadcast \u2014 HD commercial / interstitial (720p MXF)",
+          "ingestWorkflow": "broadcast-commercial",
+          "businessModel": "broadcast",
+          "deliveryTier": "Broadcast network \u2014 commercial",
+          "purpose": "Commercials, promos, PSAs for ABC Television Network",
+          "summary": "1280\u00d7720p59.94 progressive MXF compatible with ABC Nexio playout; XDCAM-HD class encoding at 50 Mbps per Disney Advertising spec.",
+          "videoSpecs": [
+            {
+              "label": "Scanning",
+              "value": "1280 \u00d7 720p, 59.94 fps (SMPTE 296M)"
+            },
+            {
+              "label": "Container",
+              "value": "MXF for Harris Nexio server playout"
+            },
+            {
+              "label": "Encoding",
+              "value": "XDCAM-HD class, 50 Mbps (per ABC HD Tech Specs)"
+            },
+            {
+              "label": "Safe area",
+              "value": "Center-cut safe for 4:3 downstream extraction"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "Uncompressed PCM, 48 kHz (20-bit or higher per spec)"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Metadata",
+              "value": "XML metadata file required with delivery"
+            },
+            {
+              "label": "Scope",
+              "value": "Interstitial material only \u2014 not ABC series program masters"
+            }
+          ],
+          "specUrl": "https://files.disneyadvertising.com/MediaKit/ABC-Brands/HD-Tech-Specs.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "broadcast-mpeg2-720p-50"
+        }
+      ]
+    },
+    {
+      "id": "fox-corporation",
+      "name": "Fox Corporation",
+      "catalogKind": "broadcast-cable-parent",
+      "tagline": "Fox Broadcast, Fox News, FS1 \u2014 on-air MXF",
+      "description": "Fox Network Operations publishes separate technical documents for broadcast program material (720p59.94) versus commercial material (1080i59.94 in the 2024 Network Operations spec). Fox News, Fox Business, and Fox Sports (FS1/FS2) use operations-managed ingest \u2014 confirm with your Fox distribution contact.",
+      "brands": [
+        "Fox Broadcasting Company",
+        "Fox News Channel",
+        "Fox Business",
+        "FS1",
+        "FS2",
+        "Fox Deportes",
+        "Tubi (FAST/AVOD \u2014 digital, not linear MXF spec)"
+      ],
+      "distributionKinds": [
+        "Broadcast network (Fox)",
+        "Cable news & sports (Fox News, FS1, etc.)",
+        "Digital FAST (Tubi \u2014 separate workflow)"
+      ],
+      "businessModels": [
+        "broadcast",
+        "partner-licensed"
+      ],
+      "accessModel": "Fox Network Operations / affiliate traffic onboarding",
+      "revenueModel": "Broadcast affiliate, cable MVPD, and Tubi AVOD",
+      "businessModelNotes": [
+        "Program material: 1280\u00d7720/59.94 MPEG-2 50 Mbps MXF OP1a (2018 broadcast program spec).",
+        "Commercial material (2024): 1920\u00d71080/59.94 MPEG-2 50 Mbps \u2014 verify which document your traffic ID requires.",
+        "Tubi consumer streaming is not covered by Fox Network Operations MXF PDFs."
+      ],
+      "specUrl": "https://www.fox.com/pdf/Network-Operations-Delivery-Requirements-and-Technical-Specifications-Final.pdf",
+      "websiteUrl": "https://www.fox.com",
+      "deliveryOptions": [
+        {
+          "id": "fox-broadcast-program-720p",
+          "name": "Fox broadcast \u2014 program material (720p MXF)",
+          "ingestWorkflow": "linear-on-air-mxf",
+          "businessModel": "broadcast",
+          "deliveryTier": "Broadcast network \u2014 program playout",
+          "purpose": "Series and longform program segments to Fox Networks",
+          "summary": "MXF OP1a with MPEG-2 1280\u00d7720/59.94, 4:2:2 High Level, 50 Mbps; 8ch PCM; \u221224 LKFS program loudness.",
+          "videoSpecs": [
+            {
+              "label": "Container",
+              "value": "MXF OP1a (SMPTE ST 378:2004)"
+            },
+            {
+              "label": "Video",
+              "value": "MPEG-2 1280\u00d7720/59.94, 4:2:2 @ High Level, 50 Mbps"
+            },
+            {
+              "label": "AFD",
+              "value": "SMPTE 2016-1 AFD metadata required"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Layout",
+              "value": "8ch PCM 16- or 24-bit @ 48 kHz (5.1 + DVS/SAP/mono pairs)"
+            },
+            {
+              "label": "Loudness",
+              "value": "Program average \u221224 LKFS (ATSC A/85)"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "File name",
+              "value": "Must match on-air traffic ID"
+            },
+            {
+              "label": "Document",
+              "value": "Technical Specifications for Broadcast Program Material (Aug 2018)"
+            }
+          ],
+          "specUrl": "https://assets.foxdcg.com/dpp-uploaded/images/articles/59bc1012fdcf74001fb5d07f/Network-Operations-Delivery-Requirements-and-Technical-Specifications.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "broadcast-mpeg2-720p-50"
+        },
+        {
+          "id": "fox-commercial-1080i",
+          "name": "Fox Networks \u2014 commercial material (1080i MXF)",
+          "ingestWorkflow": "broadcast-commercial",
+          "businessModel": "broadcast",
+          "deliveryTier": "Broadcast / cable \u2014 commercial",
+          "purpose": "Commercials per Fox Network Operations (2024)",
+          "summary": "MXF OP1a with MPEG-2 1920\u00d71080/59.94, 50 Mbps, 8ch PCM; \u221224 LKFS per segment; drop-frame timecode.",
+          "videoSpecs": [
+            {
+              "label": "Container",
+              "value": "MXF OP1a per SMPTE 378-2004"
+            },
+            {
+              "label": "Video",
+              "value": "MPEG-2 1920\u00d71080/59.94, 4:2:2 High Level, 50 Mbps"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Channels",
+              "value": "8ch PCM; 5.1 layout per document channel map"
+            },
+            {
+              "label": "Loudness",
+              "value": "\u221224 LKFS average per commercial segment"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Peaks",
+              "value": "Instantaneous peaks \u2264 \u22126 dBFS; average peaks \u2264 \u221210 dBFS"
+            },
+            {
+              "label": "Metadata",
+              "value": "SOM/EOM per segment; AFD 1010 or 1111"
+            }
+          ],
+          "specUrl": "https://www.fox.com/pdf/Network-Operations-Delivery-Requirements-and-Technical-Specifications-Final.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "broadcast-mpeg2-1080i-50-longgop"
+        }
+      ]
+    },
+    {
+      "id": "ae-networks",
+      "name": "A+E Global Media",
+      "catalogKind": "broadcast-cable-parent",
+      "distributorWorkflowAliases": [
+        "A+E Networks"
+      ],
+      "tagline": "A&E, History, Lifetime production delivery",
+      "description": "A+E Global Media publishes Production Delivery Technical Requirements for Producer Suite partners. All listed cable brands share one ProRes mezzanine and 12-channel audio layout delivered via Aspera.",
+      "brands": [
+        "A&E",
+        "History",
+        "Lifetime",
+        "FYI",
+        "Crime + Investigation",
+        "LMN"
+      ],
+      "distributionKinds": [
+        "Cable linear program mezzanine"
+      ],
+      "businessModels": [
+        "broadcast",
+        "partner-licensed"
+      ],
+      "accessModel": "A+E Producer Suite onboarding \u2014 Aspera delivery",
+      "revenueModel": "Cable MVPD and international licensing",
+      "businessModelNotes": [
+        "Single published PDF covers all A+E Global Media brands \u2014 no per-brand public spec splits.",
+        "MGM+ / AMC Global Media cable is a separate parent company (see AMC Global Media entry)."
+      ],
+      "specUrl": "https://producersuite.aegm.com/docs/ProductionDeliveryTechnicalRequirements.pdf",
+      "websiteUrl": "https://www.aegm.com",
+      "deliveryOptions": [
+        {
+          "id": "cable-program-prores-12ch",
+          "name": "Cable program master (ProRes 422 HQ, 12-track audio)",
+          "ingestWorkflow": "linear-cable-program",
+          "businessModel": "broadcast",
+          "deliveryTier": "Cable linear \u2014 program mezzanine",
+          "purpose": "Finished episodes and specials to A+E Global Media",
+          "summary": "1080 ProRes 422 HQ with documented 12-channel PCM layout; Aspera transfer after Producer Suite onboarding.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 \u00d7 1080"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime .mov"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Layout",
+              "value": "Up to 12-channel PCM per Production Delivery Technical Requirements"
+            },
+            {
+              "label": "Sample rate / depth",
+              "value": "48 kHz, 24-bit"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Delivery",
+              "value": "Aspera via Producer Suite"
+            }
+          ],
+          "specUrl": "https://producersuite.aegm.com/docs/ProductionDeliveryTechnicalRequirements.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "broadcast-prores-12ch-layout"
+        }
+      ]
+    }
+  ]
+}

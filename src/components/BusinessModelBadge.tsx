@@ -1,4 +1,5 @@
 import React from 'react';
+import InfoTooltip from './InfoTooltip';
 import {
   getBusinessModelDefinition,
   getBusinessModelTooltip,
@@ -20,16 +21,21 @@ const BusinessModelBadge: React.FC<BusinessModelBadgeProps> = ({
   const definition = getBusinessModelDefinition(model);
   const sizeClass = size === 'md' ? 'px-2.5 py-1 text-xs' : 'px-2 py-0.5 text-[11px]';
 
-  return (
+  const badge = (
     <span
       className={`inline-flex items-center rounded-full border font-medium ${sizeClass} ${definition.badgeClass} ${
         showTooltip ? 'cursor-help' : ''
       }`}
-      title={showTooltip ? getBusinessModelTooltip(model) : undefined}
     >
       {definition.shortLabel}
     </span>
   );
+
+  if (!showTooltip) {
+    return badge;
+  }
+
+  return <InfoTooltip content={getBusinessModelTooltip(model)}>{badge}</InfoTooltip>;
 };
 
 export default BusinessModelBadge;

@@ -16,9 +16,8 @@ const StreamingCatalogDisclaimer: React.FC = () => (
           directly with the platform before delivering masters.
         </p>
         <p className="mt-1.5 text-xs text-gray-400">
-          Links labeled as third-party guides or industry articles are not official platform documentation.
-          Entries marked <span className="text-gray-300">Specs not found online</span> have no published spec
-          we could locate.
+          Only partners with published ingest documentation (official specs or cited technical guides) appear in
+          this catalog. Links labeled as third-party guides are not official platform documentation.
         </p>
       </div>
     </div>

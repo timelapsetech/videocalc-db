@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Filter } from 'lucide-react';
+import InfoTooltip from './InfoTooltip';
 import {
   STREAMING_BUSINESS_MODELS,
   getBusinessModelTooltip,
@@ -101,7 +102,7 @@ const BusinessModelFilter: React.FC<BusinessModelFilterProps> = ({
       {useSelect ? (
         selectControl
       ) : (
-        <div className="flex flex-nowrap gap-2 overflow-hidden">
+        <div className="flex flex-nowrap gap-2 overflow-x-auto overflow-y-visible pb-1">
           <button
             type="button"
             onClick={() => onChange('all')}
@@ -113,15 +114,15 @@ const BusinessModelFilter: React.FC<BusinessModelFilterProps> = ({
             const definition = STREAMING_BUSINESS_MODELS[model];
             const count = modelCounts.get(model) ?? 0;
             return (
-              <button
-                key={model}
-                type="button"
-                onClick={() => onChange(model)}
-                title={getBusinessModelTooltip(model)}
-                className={`${pillClass(value === model, definition.badgeClass)} cursor-help`}
-              >
-                {definition.shortLabel} ({count})
-              </button>
+              <InfoTooltip key={model} content={getBusinessModelTooltip(model)}>
+                <button
+                  type="button"
+                  onClick={() => onChange(model)}
+                  className={`${pillClass(value === model, definition.badgeClass)} cursor-help`}
+                >
+                  {definition.shortLabel} ({count})
+                </button>
+              </InfoTooltip>
             );
           })}
         </div>

@@ -97,6 +97,79 @@
       "audioProfileId": "mp4-aac",
       "audioConfigurationId": "stereo-320",
       "videoBitrateOverrideMbps": 18
+    },
+    "broadcast-mpeg2-1080i-50-longgop": {
+      "category": "broadcast",
+      "codec": "mpeg2",
+      "variant": "MPEG-2 422P@HL 50 Mb/s Broadcast",
+      "resolution": "1080i",
+      "frameRate": "29.97",
+      "audioEnabled": true,
+      "audioProfileId": "mov-lpcm-48k-24bit",
+      "audioConfigurationId": "broadcast-16"
+    },
+    "broadcast-mpeg2-1080i-100-iframe": {
+      "category": "broadcast",
+      "codec": "mpeg2",
+      "variant": "MPEG-2 422P@HL 50 Mb/s Broadcast",
+      "resolution": "1080i",
+      "frameRate": "29.97",
+      "audioEnabled": true,
+      "audioProfileId": "mov-lpcm-48k-24bit",
+      "audioConfigurationId": "broadcast-16",
+      "videoBitrateOverrideMbps": 100
+    },
+    "broadcast-mpeg2-720p-50": {
+      "category": "broadcast",
+      "codec": "mpeg2",
+      "variant": "MPEG-2 422P@HL 50 Mb/s Broadcast",
+      "resolution": "720p",
+      "frameRate": "59.94",
+      "audioEnabled": true,
+      "audioProfileId": "mov-lpcm-48k-24bit",
+      "audioConfigurationId": "surround-7-1"
+    },
+    "broadcast-xdcam-50-1080i": {
+      "category": "camera",
+      "codec": "xdcam",
+      "variant": "XDCAM HD422 50 Mb/s",
+      "resolution": "1080i",
+      "frameRate": "29.97",
+      "audioEnabled": true,
+      "audioProfileId": "xdcam-hd422-lpcm",
+      "audioConfigurationId": "surround-7-1"
+    },
+    "broadcast-prores-12ch-layout": {
+      "category": "professional",
+      "codec": "prores",
+      "variant": "ProRes 422 HQ",
+      "resolution": "1080p",
+      "frameRate": "23.98",
+      "audioEnabled": true,
+      "audioProfileId": "mov-lpcm-48k-24bit",
+      "audioConfigurationId": "broadcast-16"
+    },
+    "cablelabs-mvpd-h264-hd-50": {
+      "category": "delivery",
+      "codec": "h264",
+      "variant": "High Profile",
+      "resolution": "1080p",
+      "frameRate": "29.97",
+      "audioEnabled": true,
+      "audioProfileId": "mp4-aac",
+      "audioConfigurationId": "stereo-320",
+      "videoBitrateOverrideMbps": 50
+    },
+    "google-play-h264-hi422p-60": {
+      "category": "delivery",
+      "codec": "h264",
+      "variant": "High Profile",
+      "resolution": "1080p",
+      "frameRate": "23.98",
+      "audioEnabled": true,
+      "audioProfileId": "mp4-aac",
+      "audioConfigurationId": "stereo-320",
+      "videoBitrateOverrideMbps": 60
     }
   }
 }

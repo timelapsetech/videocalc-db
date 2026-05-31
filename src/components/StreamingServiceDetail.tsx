@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import SiteNav from './SiteNav';
 import BusinessModelBadge from './BusinessModelBadge';
+import InfoTooltip from './InfoTooltip';
 import DurationInput from './DurationInput';
 import FfmpegCommandCard from './FfmpegCommandCard';
 import PartnerSpecSummary from './PartnerSpecSummary';
@@ -25,6 +26,12 @@ import {
 import { buildCalculatorPath } from '../utils/urlSharing';
 import { normalizeCalculatorConfig } from '../utils/calculatorVariants';
 import { getBusinessModelDefinition } from '../data/streamingBusinessModels';
+import {
+  getCatalogKindDefinition,
+  getCatalogKindTooltip,
+  getIngestWorkflowLabel,
+  getIngestWorkflowTooltip,
+} from '../data/streamingCatalogKinds';
 
 const StreamingServiceDetail: React.FC = () => {
   const { serviceId } = useParams<{ serviceId: string }>();
@@ -126,10 +133,77 @@ const StreamingServiceDetail: React.FC = () => {
           <p className="text-gray-400 mt-3 max-w-3xl leading-relaxed">{service.description}</p>
 
           <div className="mt-4 flex flex-wrap gap-2">
+            {service.catalogKind && getCatalogKindDefinition(service.catalogKind) && (
+              <InfoTooltip content={getCatalogKindTooltip(service.catalogKind)}>
+                <span
+                  className={`inline-flex rounded-full px-3 py-1 text-xs border cursor-help ${getCatalogKindDefinition(service.catalogKind)?.badgeClass}`}
+                >
+                  {getCatalogKindDefinition(service.catalogKind)?.label}
+                </span>
+              </InfoTooltip>
+            )}
             {service.businessModels.map(model => (
               <BusinessModelBadge key={model} model={model} size="md" showTooltip />
             ))}
           </div>
+
+          {service.distributionKinds && service.distributionKinds.length > 0 && (
+            <div className="mt-4 max-w-3xl">
+              <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">Distribution paths</p>
+              <ul className="flex flex-wrap gap-2">
+                {service.distributionKinds.map(kind => (
+                  <li
+                    key={kind}
+                    className="rounded-md bg-dark-secondary px-2.5 py-1 text-xs text-gray-300 border border-gray-700"
+                  >
+                    {kind}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {service.brands && service.brands.length > 0 && (
+            <div className="mt-4 max-w-3xl">
+              <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">Networks & channels (shared spec)</p>
+              <p className="text-sm text-gray-300 leading-relaxed">{service.brands.join(' · ')}</p>
+            </div>
+          )}
+
+          {service.distributorWorkflowAliases && service.distributorWorkflowAliases.length > 0 && (
+            <div className="mt-4 max-w-3xl">
+              <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">Distributor workflow names</p>
+              <p className="text-sm text-gray-400 leading-relaxed">
+                Also known as: {service.distributorWorkflowAliases.join(' · ')}
+              </p>
+            </div>
+          )}
+
+          {service.relatedServiceIds && service.relatedServiceIds.length > 0 && (
+            <div className="mt-4 max-w-3xl">
+              <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">Related catalog entries</p>
+              <ul className="flex flex-wrap gap-2">
+                {service.relatedServiceIds.map(relatedId => {
+                  const related = getStreamingService(relatedId);
+                  if (!related) {
+                    return null;
+                  }
+                  return (
+                    <li key={relatedId}>
+                      <Link
+                        to={`/streaming-services/${relatedId}`}
+                        className="rounded-md bg-dark-secondary px-2.5 py-1 text-xs text-blue-300 border border-gray-700 hover:border-blue-500/40"
+                      >
+                        {related.name}
+                        {related.catalogKind === 'streaming-ott' ? ' (OTT)' : ''}
+                        {related.catalogKind === 'broadcast-cable-parent' ? ' (Broadcast / cable)' : ''}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
 
           <p className="text-sm text-gray-300 mt-4 max-w-3xl">
             <span className="text-gray-500">Revenue model: </span>
@@ -209,7 +283,14 @@ const StreamingServiceDetail: React.FC = () => {
                   </div>
                   <p className="text-sm text-gray-400 mt-2">{option.summary}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    <BusinessModelBadge model={option.businessModel} />
+                    <BusinessModelBadge model={option.businessModel} showTooltip />
+                    {option.ingestWorkflow && getIngestWorkflowLabel(option.ingestWorkflow) && (
+                      <InfoTooltip content={getIngestWorkflowTooltip(option.ingestWorkflow)}>
+                        <span className="inline-flex text-xs rounded-md bg-slate-500/10 px-2 py-1 text-slate-200 border border-slate-500/30 cursor-help">
+                          {getIngestWorkflowLabel(option.ingestWorkflow)}
+                        </span>
+                      </InfoTooltip>
+                    )}
                     <span className="text-xs rounded-md bg-dark-primary px-2 py-1 text-gray-400 border border-gray-700">
                       {option.deliveryTier}
                     </span>
@@ -230,7 +311,7 @@ const StreamingServiceDetail: React.FC = () => {
               <div className="rounded-xl border border-gray-800 bg-dark-secondary/70 p-5 sm:p-6 space-y-6">
                 <div className="space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
-                    <BusinessModelBadge model={selectedOption.businessModel} size="md" />
+                    <BusinessModelBadge model={selectedOption.businessModel} size="md" showTooltip />
                     <span className="text-xs text-gray-500">{selectedOption.deliveryTier}</span>
                   </div>
                   <div>

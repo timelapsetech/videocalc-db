@@ -1,8 +1,12 @@
 import streamingServicesCatalog from '@repo-data/streaming-services.json';
+import broadcastCableParentsCatalog from '@repo-data/broadcast-cable-parents.json';
+import distributorPlatformCatalog from '@repo-data/distributor-platform-services.json';
 import streamingCalculatorTemplates from '@repo-data/streaming-calculator-templates.json';
+import { filterPublicCatalogServices } from './publicCatalogServices';
 import type {
   StreamingDeliveryCalculator,
   StreamingDeliveryOption,
+  StreamingService,
   StreamingServicesCatalog,
 } from '../types/streamingServices';
 
@@ -36,14 +40,35 @@ function resolveDeliveryOption(option: RawDeliveryOption): StreamingDeliveryOpti
   };
 }
 
+function mergeCatalogServices(
+  streaming: StreamingService[],
+  broadcastParents: StreamingService[],
+  distributorPlatforms: StreamingService[]
+): StreamingService[] {
+  const reservedIds = new Set([
+    ...broadcastParents.map(service => service.id),
+    ...distributorPlatforms.map(service => service.id),
+  ]);
+  const streamingOnly = streaming.filter(service => !reservedIds.has(service.id));
+  return [...broadcastParents, ...distributorPlatforms, ...streamingOnly].map(service => ({
+    ...service,
+    deliveryOptions: service.deliveryOptions.map(resolveDeliveryOption),
+  }));
+}
+
 export function getStreamingServicesCatalog(): StreamingServicesCatalog {
   const catalog = streamingServicesCatalog as StreamingServicesCatalog;
+  const parents = (broadcastCableParentsCatalog as StreamingServicesCatalog).services;
+  const distributors = (distributorPlatformCatalog as StreamingServicesCatalog).services;
   return {
-    ...catalog,
-    services: catalog.services.map(service => ({
-      ...service,
-      deliveryOptions: service.deliveryOptions.map(resolveDeliveryOption),
-    })),
+    metadata: {
+      ...catalog.metadata,
+      lastUpdated: '2026-05-31',
+      notes: `${catalog.metadata.notes} Broadcast/cable parents: broadcast-cable-parents.json. MVPD/distributor platforms: distributor-platform-services.json.`,
+    },
+    services: filterPublicCatalogServices(
+      mergeCatalogServices(catalog.services, parents, distributors)
+    ),
   };
 }
 

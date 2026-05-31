@@ -1,0 +1,772 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-05-31",
+    "notes": "MVPD, TVOD/SVOD/AVOD/TVE workflows with published technical specifications. Partners without public ingest docs are omitted. Search distributorWorkflowAliases to match internal workflow names."
+  },
+  "services": [
+    {
+      "id": "cablelabs-mvpd-mezzanine",
+      "name": "CableLabs MVPD Mezzanine",
+      "catalogKind": "streaming-ott",
+      "tagline": "Unified US MVPD / TVOD / TVE file ingest (OC-SP-MEZZANINE)",
+      "description": "CableLabs Mezzanine Encoding Specification defines a common H.264, MPEG-2, or ProRes mezzanine for file-based VOD and TVE delivery to cable, satellite, and telco operators. Many US MVPD store apps (Comcast, DirecTV, Cox, Dish, Verizon, Mediacom) ingest this profile after operator onboarding.",
+      "distributorWorkflowAliases": [
+        "Verizon TVOD",
+        "Verizon TVE",
+        "DirecTV TVOD",
+        "DirecTV SVOD DTC",
+        "DirecTV AVOD",
+        "DirecTV VOD/TVE",
+        "DirecTV C3 TVE",
+        "Comcast Channels Store SVOD DTC",
+        "Comcast Unified Direct SVOD DTC",
+        "Comcast Unified",
+        "Cox SVOD DTC",
+        "Cox TVE",
+        "Dish SVOD DTC",
+        "Dish AVOD",
+        "Dish/Sling OTT Unified",
+        "MediaCom SVOD DTC",
+        "Canada Unified",
+        "VOD D4",
+        "Fetch TVOD",
+        "Amazon Global",
+        "Amazon SVOD PVD"
+      ],
+      "distributionKinds": [
+        "MVPD TVOD (rent/buy on set-top)",
+        "MVPD SVOD channels (operator-billed DTC)",
+        "MVPD AVOD / TVE (TV Everywhere)",
+        "Operator SVOD channel store apps (DTC)"
+      ],
+      "businessModels": [
+        "tvod",
+        "svod",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "Operator content operations / licensed packaging partner onboarding",
+      "revenueModel": "Transactional VOD, operator SVOD store, and authenticated TVE feeds",
+      "businessModelNotes": [
+        "HD H.264 mezzanine: 50 Mbps peak / 35 Mbps minimum; closed GOP max 90 frames; CABAC preferred.",
+        "Also accepts MPEG-2 and ProRes 422 mezzanine per CableLabs tables.",
+        "Individual operators (Comcast, DirecTV, Verizon, Cox, Dish) may add metadata-only or metadata+MEC requirements on top of this mezzanine."
+      ],
+      "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+      "websiteUrl": "https://www.cablelabs.com",
+      "deliveryOptions": [
+        {
+          "id": "hd-h264-mezzanine",
+          "name": "HD H.264 mezzanine (CableLabs AVC)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "MVPD unified mezzanine",
+          "purpose": "Standard file-based VOD/TVE mezzanine to operators",
+          "summary": "H.264 long-GOP mezzanine at 50 Mbps peak (35 Mbps minimum) for 1080p23.976/29.97 or 720p/1080p59.94 per CableLabs.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "AVC / H.264 (MPEG-4 Part 10)"
+            },
+            {
+              "label": "Chroma",
+              "value": "4:2:0 or 4:2:2; 8- or 10-bit"
+            },
+            {
+              "label": "GOP",
+              "value": "Long GOP, closed, max 90 frames"
+            },
+            {
+              "label": "HD bit rate",
+              "value": "50 Mbps peak / 35 Mbps minimum"
+            },
+            {
+              "label": "Frame rates",
+              "value": "23.976, 29.97, 59.94 fps progressive (square pixels)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "AAC or AC-3 per operator package"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Container",
+              "value": "MP4, MOV, or MPEG-2 TS per packaging partner"
+            },
+            {
+              "label": "Black level",
+              "value": "0 IRE required"
+            }
+          ],
+          "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "cablelabs-mvpd-h264-hd-50"
+        },
+        {
+          "id": "hd-prores-mezzanine",
+          "name": "HD ProRes 422 mezzanine (CableLabs)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "MVPD ProRes mezzanine",
+          "purpose": "High-quality mezzanine when H.264 is insufficient",
+          "summary": "ProRes 422 mezzanine option in CableLabs spec \u2014 50 Mbps peak class for HD.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422"
+            },
+            {
+              "label": "Chroma",
+              "value": "4:2:2, 10-bit"
+            },
+            {
+              "label": "Bit rate",
+              "value": "50 Mbps peak (HD table)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Audio",
+              "value": "Embedded PCM or discrete per packaging partner"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Note",
+              "value": "Packaging partner transcodes to operator profiles"
+            }
+          ],
+          "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-hd-stereo"
+        }
+      ]
+    },
+    {
+      "id": "google-play-movies-tv",
+      "name": "Google Play Movies & TV",
+      "catalogKind": "streaming-ott",
+      "tagline": "Google TV partner / EMA avails + Deluxe NMS",
+      "description": "Studio partners deliver TVOD/SVOD titles to Google Play Movies & TV via EMA avails and component packages (often through Deluxe NMS). Google publishes H.264 Hi422P encoding parameters; many studios never encode to Google directly.",
+      "distributorWorkflowAliases": [
+        "GooglePlay"
+      ],
+      "businessModels": [
+        "tvod",
+        "svod",
+        "partner-licensed"
+      ],
+      "accessModel": "Google Partner Portal + PPH (e.g. Deluxe NMS) Aspera delivery",
+      "revenueModel": "EST/TVOD and electronic sell-through via Google TV",
+      "businessModelNotes": [
+        "Google states studio partners may deliver through Deluxe NMS so files need not conform before handoff \u2014 PPH still uses Google encoding spec.",
+        "Component delivery uses MovieLabs MMC + MEC metadata."
+      ],
+      "specUrl": "https://support.google.com/moviestvpartners/answer/1679498",
+      "websiteUrl": "https://play.google.com/store/movies",
+      "deliveryOptions": [
+        {
+          "id": "h264-hi422p",
+          "name": "H.264 Hi422P (partner encoding spec)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "tvod",
+          "deliveryTier": "Google TV component video",
+          "purpose": "EST/TVOD/UHD component delivery",
+          "summary": "MP4/MOV H.264 Hi422P: 60 Mbps 1080 lines, 50 Mbps 720 lines, 15 Mbps SD; IBBP GOP; moov atom at front.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "H.264 Hi422P"
+            },
+            {
+              "label": "Container",
+              "value": "MP4 or MOV"
+            },
+            {
+              "label": "Bitrate",
+              "value": "60 Mbps (1080), 50 Mbps (720), 15 Mbps (SD)"
+            },
+            {
+              "label": "GOP",
+              "value": "IBBP, max length \u2264 \u00bd frame rate"
+            },
+            {
+              "label": "Chroma",
+              "value": "4:2:2 preferred; 4:2:0 if 4:2:2 unavailable"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Codec",
+              "value": "PCM preferred; AAC-LC accepted"
+            },
+            {
+              "label": "Bitrate",
+              "value": "192+ kbps stereo; 384+ kbps 5.1"
+            },
+            {
+              "label": "Sample rate",
+              "value": "48 kHz, 16- or 24-bit"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Rules",
+              "value": "No edit lists; moov atom at file start; deinterlace/inverse telecine required"
+            }
+          ],
+          "specUrl": "https://support.google.com/moviestvpartners/answer/1679498",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "google-play-h264-hi422p-60"
+        }
+      ]
+    },
+    {
+      "id": "apple-itunes-movies-tv",
+      "name": "Apple TV / iTunes Movies & TV",
+      "catalogKind": "streaming-ott",
+      "relatedServiceIds": [
+        "apple-tv-plus"
+      ],
+      "tagline": "iTunes Package (.itmsp) via Transporter",
+      "description": "Transactional and subscription video on Apple TV app, iTunes Store, and Apple Channels billing uses iTunes Packages delivered with Transporter. Mezzanine sources are ProRes 422 HQ (films/TV); consumer assets are H.264 or HEVC inside the package.",
+      "distributorWorkflowAliases": [
+        "iTunes",
+        "Apple Channels SVOD DTC",
+        "Apple Channels SVOD DTC (apps)"
+      ],
+      "businessModels": [
+        "tvod",
+        "svod",
+        "partner-licensed"
+      ],
+      "accessModel": "Apple encoding house / iTunes Connect Transporter",
+      "revenueModel": "EST/TVOD, Apple Channels SVOD subscriptions, and Apple TV+",
+      "businessModelNotes": [
+        "Apple TV+ originals catalog entry is separate \u2014 this row covers iTunes transactional and Channels DTC workflows.",
+        "Film/TV profiles require ProRes with valid QuickTime field handling tags."
+      ],
+      "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
+      "websiteUrl": "https://www.apple.com/apple-tv-app/",
+      "deliveryOptions": [
+        {
+          "id": "film-hd-prores-source",
+          "name": "Film / TV HD source (ProRes 422 HQ)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "tvod",
+          "deliveryTier": "iTunes mezzanine source",
+          "purpose": "Movies and TV series masters in .itmsp",
+          "summary": "Apple ProRes 422 HQ (or 4444 for HDR) in QuickTime \u2014 VBR ~176\u2013220 Mbps class for HD per Apple profiles.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ (Film HD / TV HD source profiles)"
+            },
+            {
+              "label": "Container",
+              "value": "QuickTime MOV inside .itmsp"
+            },
+            {
+              "label": "HDR",
+              "value": "ProRes 4444 / 4444 XQ + Dolby Vision CM metadata when applicable"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Layout",
+              "value": "LPCM per Apple TV/film audio profiles; Atmos for premium tiers"
+            },
+            {
+              "label": "Loudness",
+              "value": "Typically \u221218 LKFS integrated for Apple TV features"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Tooling",
+              "value": "Transporter CLI \u2014 verify with -m verify before upload"
+            },
+            {
+              "label": "Captions",
+              "value": "CEA-608/708 and iTunes Timed Text (.itt)"
+            }
+          ],
+          "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-hd-stereo"
+        }
+      ]
+    },
+    {
+      "id": "comcast-xfinity",
+      "name": "Comcast / Xfinity",
+      "catalogKind": "streaming-ott",
+      "relatedServiceIds": [
+        "cablelabs-mvpd-mezzanine"
+      ],
+      "tagline": "Xfinity TVOD, TVE, and operator SVOD stores",
+      "description": "Comcast and Xfinity VOD/TVE/SVOD store workflows typically ingest via CableLabs mezzanine via CableLabs mezzanine after onboarding. Separate onboarding for Xfinity On Demand, Channels Store SVOD DTC, and Unified Direct pipelines.",
+      "distributorWorkflowAliases": [
+        "Comcast Channels Store SVOD DTC",
+        "Comcast Unified Direct SVOD DTC",
+        "Comcast Unified",
+        "Comcast Channel Store (Apps)",
+        "comcast channel store"
+      ],
+      "businessModels": [
+        "tvod",
+        "svod",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "Comcast content operations / licensed packaging partner",
+      "revenueModel": "MVPD TVOD, authenticated TVE, and operator-billed SVOD channels",
+      "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+      "websiteUrl": "https://www.xfinity.com",
+      "deliveryOptions": [
+        {
+          "id": "cablelabs-mezzanine-handoff",
+          "name": "CableLabs mezzanine (via packager)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "MVPD unified mezzanine",
+          "purpose": "Comcast/Xfinity VOD and TVE library",
+          "summary": "Use CableLabs MVPD mezzanine \u2014 Comcast adds operator metadata via your PPH.",
+          "videoSpecs": [
+            {
+              "label": "Baseline",
+              "value": "See CableLabs MVPD Mezzanine catalog entry"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Baseline",
+              "value": "Per CableLabs + Comcast MEC/MMC"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Metadata",
+              "value": "Operator MEC/MMC per Comcast Channels Store or Unified Direct"
+            }
+          ],
+          "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "cablelabs-mvpd-h264-hd-50"
+        }
+      ]
+    },
+    {
+      "id": "directv",
+      "name": "DirecTV / AT&T TV",
+      "catalogKind": "streaming-ott",
+      "relatedServiceIds": [
+        "cablelabs-mvpd-mezzanine"
+      ],
+      "tagline": "Satellite & streaming MVPD VOD/TVE/SVOD",
+      "description": "DirecTV TVOD, SVOD DTC, AVOD, VOD/TVE, and C3 TVE workflows generally use CableLabs mezzanine ingest via CableLabs mezzanine after onboarding. Confirm C3 ad-insertion and DLID metadata with your DirecTV content operations contact.",
+      "distributorWorkflowAliases": [
+        "DirecTV TVOD",
+        "DirecTV SVOD DTC",
+        "DirecTV AVOD",
+        "DirecTV VOD/TVE",
+        "DirecTV C3 TVE"
+      ],
+      "businessModels": [
+        "tvod",
+        "svod",
+        "avod",
+        "partner-licensed"
+      ],
+      "accessModel": "DirecTV content operations / licensed packaging partner",
+      "revenueModel": "MVPD transactional, subscription channels, and TVE authentication",
+      "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+      "websiteUrl": "https://www.directv.com",
+      "deliveryOptions": [
+        {
+          "id": "cablelabs-mezzanine-handoff",
+          "name": "CableLabs mezzanine (via packager)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "MVPD unified mezzanine",
+          "purpose": "DirecTV VOD/TVE/SVOD library",
+          "summary": "CableLabs H.264/ProRes mezzanine per OC-SP-MEZZANINE \u2014 operator-specific ad markers for C3 TVE.",
+          "videoSpecs": [
+            {
+              "label": "Baseline",
+              "value": "CableLabs MVPD Mezzanine entry"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Baseline",
+              "value": "Per CableLabs tables"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "C3 TVE",
+              "value": "Ad placement metadata required for dynamic ad insertion workflows"
+            }
+          ],
+          "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "cablelabs-mvpd-h264-hd-50"
+        }
+      ]
+    },
+    {
+      "id": "verizon-fios-tv",
+      "name": "Verizon Fios TV",
+      "catalogKind": "streaming-ott",
+      "relatedServiceIds": [
+        "cablelabs-mvpd-mezzanine"
+      ],
+      "tagline": "Fios TVOD & TV Everywhere",
+      "description": "Verizon Fios TVOD and TVE workflows align with CableLabs mezzanine delivery through studio packaging partners.",
+      "distributorWorkflowAliases": [
+        "Verizon TVOD",
+        "Verizon TVE"
+      ],
+      "businessModels": [
+        "tvod",
+        "partner-licensed"
+      ],
+      "accessModel": "Verizon content operations / PPH",
+      "revenueModel": "Fios transactional VOD and authenticated TVE",
+      "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+      "websiteUrl": "https://www.verizon.com/home/fios/",
+      "deliveryOptions": [
+        {
+          "id": "cablelabs-mezzanine-handoff",
+          "name": "CableLabs mezzanine (via packager)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "MVPD unified mezzanine",
+          "purpose": "Fios VOD/TVE",
+          "summary": "Deliver CableLabs-compliant mezzanine per operator onboarding.",
+          "videoSpecs": [
+            {
+              "label": "Baseline",
+              "value": "CableLabs MVPD Mezzanine entry"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Baseline",
+              "value": "Per CableLabs tables"
+            }
+          ],
+          "containerSpecs": [],
+          "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "cablelabs-mvpd-h264-hd-50"
+        }
+      ]
+    },
+    {
+      "id": "cox-communications",
+      "name": "Cox Communications",
+      "catalogKind": "streaming-ott",
+      "relatedServiceIds": [
+        "cablelabs-mvpd-mezzanine"
+      ],
+      "tagline": "Cox Contour TVOD, TVE, and SVOD DTC",
+      "description": "Cox SVOD DTC and Cox TVE/VOD workflows use CableLabs mezzanine through packaging partners.",
+      "distributorWorkflowAliases": [
+        "Cox SVOD DTC",
+        "Cox TVE"
+      ],
+      "businessModels": [
+        "tvod",
+        "svod",
+        "partner-licensed"
+      ],
+      "accessModel": "Cox content operations / PPH",
+      "revenueModel": "Contour TVOD, operator SVOD, and TVE",
+      "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+      "websiteUrl": "https://www.cox.com/residential/tv.html",
+      "deliveryOptions": [
+        {
+          "id": "cablelabs-mezzanine-handoff",
+          "name": "CableLabs mezzanine (via packager)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "MVPD unified mezzanine",
+          "purpose": "Cox VOD/TVE/SVOD",
+          "summary": "CableLabs mezzanine handoff \u2014 confirm Contour store metadata with PPH.",
+          "videoSpecs": [
+            {
+              "label": "Baseline",
+              "value": "CableLabs MVPD Mezzanine entry"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Baseline",
+              "value": "Per CableLabs tables"
+            }
+          ],
+          "containerSpecs": [],
+          "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "cablelabs-mvpd-h264-hd-50"
+        }
+      ]
+    },
+    {
+      "id": "dish-network",
+      "name": "DISH Network / Sling TV",
+      "catalogKind": "streaming-ott",
+      "relatedServiceIds": [
+        "cablelabs-mvpd-mezzanine"
+      ],
+      "tagline": "DISH TVOD, AVOD, SVOD DTC & Sling OTT",
+      "description": "DISH satellite TVOD/AVOD/SVOD and Sling TV OTT unified workflows. Satellite/VOD mezzanine paths typically follow CableLabs; Sling Freestream FAST uses separate DISH onboarding.",
+      "distributorWorkflowAliases": [
+        "Dish SVOD DTC",
+        "Dish AVOD",
+        "Dish/Sling OTT Unified"
+      ],
+      "businessModels": [
+        "tvod",
+        "svod",
+        "avod",
+        "fast",
+        "partner-licensed"
+      ],
+      "accessModel": "DISH content operations / Sling partner",
+      "revenueModel": "MVPD TVOD, Sling subscriptions, and Freestream FAST",
+      "businessModelNotes": [
+        "Sling Freestream FAST/AVOD has its own catalog entry.",
+        "Philo OTT (legacy integration) is a separate live-TV stack."
+      ],
+      "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+      "websiteUrl": "https://www.dish.com",
+      "deliveryOptions": [
+        {
+          "id": "dish-cablelabs-mezzanine",
+          "name": "DISH VOD/TVOD (CableLabs mezzanine)",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "tvod",
+          "deliveryTier": "MVPD mezzanine",
+          "purpose": "DISH satellite / TVOD library",
+          "summary": "CableLabs mezzanine for DISH TVOD/SVOD DTC \u2014 not used for Sling Freestream FAST.",
+          "videoSpecs": [
+            {
+              "label": "Baseline",
+              "value": "CableLabs MVPD Mezzanine entry"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Baseline",
+              "value": "Per CableLabs tables"
+            }
+          ],
+          "containerSpecs": [],
+          "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "cablelabs-mvpd-h264-hd-50"
+        }
+      ]
+    },
+    {
+      "id": "mediacom",
+      "name": "Mediacom",
+      "catalogKind": "streaming-ott",
+      "relatedServiceIds": [
+        "cablelabs-mvpd-mezzanine"
+      ],
+      "tagline": "Mediacom Xtream TVOD & SVOD DTC",
+      "description": "Mediacom cable systems use CableLabs mezzanine for TVOD and operator SVOD channel store (DTC app) deliveries after content operations onboarding.",
+      "distributorWorkflowAliases": [
+        "MediaCom SVOD DTC",
+        "MediaCom SVOD DTC (apps)"
+      ],
+      "businessModels": [
+        "tvod",
+        "svod",
+        "partner-licensed"
+      ],
+      "accessModel": "Mediacom content operations / PPH",
+      "revenueModel": "MVPD TVOD and Xtream SVOD store",
+      "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+      "websiteUrl": "https://www.mediacomcable.com",
+      "deliveryOptions": [
+        {
+          "id": "cablelabs-mezzanine-handoff",
+          "name": "CableLabs mezzanine",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "partner-licensed",
+          "deliveryTier": "MVPD unified mezzanine",
+          "purpose": "Mediacom VOD/SVOD DTC",
+          "summary": "CableLabs H.264 mezzanine per OC-SP-MEZZANINE.",
+          "videoSpecs": [
+            {
+              "label": "Baseline",
+              "value": "CableLabs MVPD Mezzanine entry"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Baseline",
+              "value": "Per CableLabs tables"
+            }
+          ],
+          "containerSpecs": [],
+          "specUrl": "https://account.cablelabs.com/server/alfresco/a789225c-020a-4ef9-9e4c-c3fc929f013c",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "cablelabs-mvpd-h264-hd-50"
+        }
+      ]
+    },
+    {
+      "id": "corus-entertainment",
+      "name": "Corus Entertainment (Canada)",
+      "catalogKind": "broadcast-cable-parent",
+      "tagline": "Global TV & Corus specialty \u2014 broadcast MXF",
+      "description": "Corus Entertainment (Shaw/Global Canada) publishes broadcast delivery specs requiring XDCAM HD422 50 Mbps in MXF OP1a \u2014 not ProRes for finished broadcast masters.",
+      "brands": [
+        "Global Television",
+        "Showcase",
+        "History Television",
+        "Lifetime",
+        "SLICE",
+        "Food Network Canada",
+        "HGTV Canada",
+        "W Network",
+        "Corus radio/TV digital arms"
+      ],
+      "distributionKinds": [
+        "Canadian broadcast linear",
+        "Specialty cable Canada"
+      ],
+      "businessModels": [
+        "broadcast",
+        "partner-licensed"
+      ],
+      "accessModel": "Corus content operations / approved ad-delivery partners for commercials",
+      "revenueModel": "Canadian broadcast affiliate and specialty carriage",
+      "distributorWorkflowAliases": [
+        "Corus Int'l (Shaw Canada Broadcast)",
+        "Canada Unified"
+      ],
+      "specUrl": "https://assets.corusent.com/wp-content/uploads/2025/04/Corus_2025_Technical_Specifications.pdf",
+      "websiteUrl": "https://www.corusent.com",
+      "deliveryOptions": [
+        {
+          "id": "broadcast-xdcam-1080i",
+          "name": "Broadcast program (XDCAM HD422 50 Mbps MXF)",
+          "ingestWorkflow": "linear-on-air-mxf",
+          "businessModel": "broadcast",
+          "deliveryTier": "Canadian broadcast master",
+          "purpose": "Acquired content for Global & Corus specialty",
+          "summary": "1920\u00d71080i59.94 MXF OP1a, MPEG-2 XDCAM HD422 50 Mbps, 12-channel PCM layout, \u221224 LKFS.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "XDCAM HD422 50 Mbps (MPEG-2)"
+            },
+            {
+              "label": "Container",
+              "value": "MXF OP1a"
+            },
+            {
+              "label": "Resolution",
+              "value": "1920 \u00d7 1080i, 16:9"
+            },
+            {
+              "label": "Timecode",
+              "value": "Drop-frame; program start TCR 00:00:02;00"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Layout",
+              "value": "12-channel PCM map (stereo, 5.1, dialogue, FX)"
+            },
+            {
+              "label": "Loudness",
+              "value": "\u221224 LKFS (ATSC A/85)"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Captions",
+              "value": "Embedded closed captions + Scenarist .scc"
+            },
+            {
+              "label": "Textless",
+              "value": "Required at tail or separate file"
+            }
+          ],
+          "specUrl": "https://assets.corusent.com/wp-content/uploads/2025/04/Corus_2025_Technical_Specifications.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "broadcast-xdcam-50-1080i"
+        }
+      ]
+    },
+    {
+      "id": "hayu",
+      "name": "Hayu",
+      "catalogKind": "streaming-ott",
+      "relatedServiceIds": [
+        "nbcuniversal",
+        "peacock"
+      ],
+      "tagline": "NBCUniversal reality SVOD (international)",
+      "description": "Hayu is NBCUniversal's reality-TV SVOD service (strong internationally). Delivery typically follows NBCU TechOps mezzanine specs \u2014 see NBCUniversal parent entry.",
+      "distributorWorkflowAliases": [
+        "Hayu SVOD (NEW)"
+      ],
+      "businessModels": [
+        "svod",
+        "partner-licensed"
+      ],
+      "accessModel": "NBCUniversal TechOps",
+      "revenueModel": "Hayu subscription",
+      "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
+      "websiteUrl": "https://www.hayu.com",
+      "deliveryOptions": [
+        {
+          "id": "nbcu-prores-mezzanine",
+          "name": "NBCU TechOps ProRes mezzanine",
+          "ingestWorkflow": "ott-streaming",
+          "businessModel": "svod",
+          "deliveryTier": "OTT mezzanine",
+          "purpose": "Hayu library delivery via NBCU",
+          "summary": "Same NBCU TechOps ProRes 422 HQ path as Peacock/cable \u2014 onboard via TechOps.",
+          "videoSpecs": [
+            {
+              "label": "Codec",
+              "value": "Apple ProRes 422 HQ (NBCU TechOps)"
+            }
+          ],
+          "audioSpecs": [
+            {
+              "label": "Audio",
+              "value": "LPCM 24-bit discrete tracks"
+            }
+          ],
+          "containerSpecs": [
+            {
+              "label": "Delivery",
+              "value": "Aspera / Signiant after TechOps onboarding"
+            }
+          ],
+          "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-hd-stereo"
+        }
+      ]
+    }
+  ]
+}
