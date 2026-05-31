@@ -2,6 +2,8 @@
 
 Thanks for helping improve the Video File Size Calculator. This project is a static React app, so most contributions fall into three areas: improving the calculator UI, improving static codec/audio data, or improving FFmpeg command support.
 
+**AI agents:** read [`AGENTS.md`](AGENTS.md) first for Spec Library JSON structure, catalog merge rules, calculator linkage, and PR checks so data changes do not break the build.
+
 ## How The App Works
 
 - The app is built with React, TypeScript, Tailwind CSS, and Vite.

@@ -21,8 +21,12 @@ A professional-grade static video and audio file size calculator for the media i
 ```text
 data/
   audio-configurations.json Static audio profile catalog keyed by codec and variant
+  broadcast-cable-parents.json  Spec Library — US broadcast/cable parent ingest
   codecs.json              Static codec catalog bundled into the app
   default-presets.json     Static default workflow presets
+  distributor-platform-services.json  Spec Library — MVPD / distributor ingest
+  streaming-calculator-templates.json Shared calculator profiles for delivery options
+  streaming-services.json  Spec Library — OTT / streaming app ingest
 src/
   components/              React UI components
   context/                 React providers for codec and preset state
@@ -113,7 +117,7 @@ Before opening a pull request:
 4. Run `npm run lint`.
 5. For codec, audio, or FFmpeg recipe changes, include reputable source URLs and explain whether values are exact specs, estimates, or intentionally unsupported.
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for more detailed guidance.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for more detailed guidance. AI coding agents should start with [`AGENTS.md`](AGENTS.md) for Spec Library and data-structure rules.
 
 ## Deployment
 
