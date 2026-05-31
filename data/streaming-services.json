@@ -69,19 +69,10 @@
             }
           ],
           "specUrl": "https://m.media-amazon.com/images/G/01/CooperWebsite/dvp/downloads/Prime_Video-GlobalContentGuide-v5.2.2.pdf",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "SVOD Mezzanine (30 Mbps)",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-prime-320"
-          },
           "ffmpegSupported": true,
           "businessModel": "svod",
-          "deliveryTier": "Partner mezzanine"
+          "deliveryTier": "Partner mezzanine",
+          "calculatorTemplate": "svod-h264-mezzanine-30"
         },
         {
           "id": "h264-surround",
@@ -126,12 +117,13 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "SVOD Mezzanine (30 Mbps)",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "23.98",
             "audioEnabled": true,
             "audioProfileId": "hls-surround",
-            "audioConfigurationId": "ac3-5-1-448"
+            "audioConfigurationId": "ac3-5-1-448",
+            "videoBitrateOverrideMbps": 30
           },
           "ffmpegSupported": true,
           "businessModel": "svod",
@@ -173,19 +165,10 @@
             }
           ],
           "specUrl": "https://m.media-amazon.com/images/G/01/CooperWebsite/dvp/downloads/Prime_Video-GlobalContentGuide-v5.2.2.pdf",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
           "ffmpegSupported": true,
           "businessModel": "svod",
-          "deliveryTier": "Partner mezzanine"
+          "deliveryTier": "Partner mezzanine",
+          "calculatorTemplate": "prores-hd-surround-51"
         },
         {
           "id": "avod-h264-hd",
@@ -241,17 +224,8 @@
             "Source mezzanine spec matches SVOD — difference is monetization/metadata, not video codec."
           ],
           "specUrl": "https://videocentral.amazon.com/support/welcome-to-prime-video-slate/getting-started/launching-vod-content-on-prime-video",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "SVOD Mezzanine (30 Mbps)",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-prime-320"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "svod-h264-mezzanine-30"
         },
         {
           "id": "tvod-direct-h264",
@@ -303,17 +277,8 @@
             }
           ],
           "specUrl": "https://videocentral.amazon.com/support/delivery-experience/videos/video-requirements",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "SVOD Mezzanine (30 Mbps)",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-prime-320"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "svod-h264-mezzanine-30"
         }
       ],
       "businessModels": [
@@ -394,19 +359,10 @@
             }
           ],
           "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
           "ffmpegSupported": true,
           "businessModel": "svod",
-          "deliveryTier": "Mezzanine source"
+          "deliveryTier": "Mezzanine source",
+          "calculatorTemplate": "prores-hd-surround-51"
         },
         {
           "id": "prores-4k-source",
@@ -448,19 +404,10 @@
             }
           ],
           "specUrl": "https://help.apple.com/itc/videoaudioassetguide/en.lproj/static.html",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "UHD",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
           "ffmpegSupported": true,
           "businessModel": "svod",
-          "deliveryTier": "Mezzanine source"
+          "deliveryTier": "Mezzanine source",
+          "calculatorTemplate": "prores-uhd-surround-51"
         },
         {
           "id": "hevc-delivery",
@@ -632,12 +579,13 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "AVOD Web Delivery",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "23.98",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-vimeo-320"
+            "audioConfigurationId": "stereo-320",
+            "videoBitrateOverrideMbps": 14
           },
           "ffmpegSupported": true
         }
@@ -712,22 +660,13 @@
             }
           ],
           "specUrl": "https://assets.hulu.com/portaldocuments/ContentPartnerGuidebook_v5.0.pdf",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "stereo"
-          },
           "ffmpegSupported": true,
           "businessModel": "svod",
           "deliveryTier": "Mezzanine",
           "additionalNotes": [
             "Same mezzanine serves Hulu (With Ads) and Hulu (No Ads) — ad tier is a subscription wrapper."
-          ]
+          ],
+          "calculatorTemplate": "prores-hd-stereo"
         },
         {
           "id": "mpeg2-mezzanine",
@@ -826,12 +765,13 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "SVOD Mezzanine (30 Mbps)",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "23.98",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
+            "audioConfigurationId": "stereo-192",
+            "videoBitrateOverrideMbps": 30
           },
           "ffmpegSupported": true,
           "businessModel": "svod",
@@ -910,19 +850,10 @@
             }
           ],
           "specUrl": "https://partnerhub.warnermediagroup.com/ingest-specifications/sdr-content",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
           "ffmpegSupported": true,
           "businessModel": "partner-licensed",
-          "deliveryTier": "SDR mezzanine ingest"
+          "deliveryTier": "SDR mezzanine ingest",
+          "calculatorTemplate": "prores-hd-surround-51"
         },
         {
           "id": "hd-sdr-avc-intra-ingest",
@@ -1020,20 +951,11 @@
             }
           ],
           "specUrl": "https://partnerhub.warnermedia.com/ingest-specifications/hdr-content",
-          "calculator": {
-            "category": "broadcast",
-            "codec": "jpeg2000",
-            "variant": "J2K IMF 4K",
-            "resolution": "UHD",
-            "frameRate": "24",
-            "audioEnabled": true,
-            "audioProfileId": "dcp-imf-pcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
           "ffmpegSupported": false,
           "ffmpegNotes": "HDR IMF packages require specialized mastering tools, not a single FFmpeg output.",
           "businessModel": "partner-licensed",
-          "deliveryTier": "HDR IMF ingest"
+          "deliveryTier": "HDR IMF ingest",
+          "calculatorTemplate": "imf-j2k-uhd-surround-51"
         }
       ],
       "businessModels": [
@@ -1119,20 +1041,11 @@
             "FFmpeg cannot author a complete IMF package; use IMF-capable mastering tools."
           ],
           "specUrl": "https://partnerhelp.netflixstudios.com/hc/en-us/articles/7262346654995-Post-Production-Branded-Delivery-Specifications",
-          "calculator": {
-            "category": "broadcast",
-            "codec": "jpeg2000",
-            "variant": "J2K IMF 4K",
-            "resolution": "UHD",
-            "frameRate": "24",
-            "audioEnabled": true,
-            "audioProfileId": "dcp-imf-pcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
           "ffmpegSupported": false,
           "ffmpegNotes": "JPEG 2000 IMF is a package-level delivery format, not a single FFmpeg-authored file.",
           "businessModel": "svod",
-          "deliveryTier": "partner-licensed"
+          "deliveryTier": "partner-licensed",
+          "calculatorTemplate": "imf-j2k-uhd-surround-51"
         },
         {
           "id": "content-hub-h264",
@@ -1189,12 +1102,13 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "SVOD Mezzanine (30 Mbps)",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "23.98",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-youtube-384"
+            "audioConfigurationId": "stereo-384",
+            "videoBitrateOverrideMbps": 30
           },
           "ffmpegSupported": true,
           "businessModel": "partner-licensed",
@@ -1248,19 +1162,10 @@
             }
           ],
           "specUrl": "https://partnerhelp.netflixstudios.com/hc/en-us/articles/360000385507-Content-Hub-Editorial-Cut-Turnover-Specifications",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "stereo"
-          },
           "ffmpegSupported": true,
           "businessModel": "partner-licensed",
-          "deliveryTier": "Editorial mezzanine"
+          "deliveryTier": "Editorial mezzanine",
+          "calculatorTemplate": "prores-hd-stereo"
         }
       ],
       "businessModels": [
@@ -1330,19 +1235,10 @@
             }
           ],
           "specUrl": "https://www.paramount.com/sites/g/files/dxjhpe356/files/2024-01/Global_Content_Delivery_Guide_V2.1_0.pdf",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "stereo"
-          },
           "ffmpegSupported": true,
           "businessModel": "svod",
-          "deliveryTier": "SVOD mezzanine"
+          "deliveryTier": "SVOD mezzanine",
+          "calculatorTemplate": "prores-hd-stereo"
         }
       ],
       "businessModels": [
@@ -1424,17 +1320,8 @@
             }
           ],
           "specUrl": "https://pbsdistribution.org/wp-content/uploads/2025/10/PBSd-GLOBAL-TECHNICAL-SPECIFICATIONS-October-9-2025-Update.pdf",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-hd-surround-51"
         },
         {
           "id": "uhd-prores-mezzanine",
@@ -1470,17 +1357,8 @@
             }
           ],
           "specUrl": "https://pbsdistribution.org/wp-content/uploads/2025/10/PBSd-GLOBAL-TECHNICAL-SPECIFICATIONS-October-9-2025-Update.pdf",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "UHD",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-uhd-surround-51"
         }
       ]
     },
@@ -1541,19 +1419,10 @@
             }
           ],
           "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "stereo"
-          },
           "ffmpegSupported": true,
           "businessModel": "svod",
-          "deliveryTier": "Mezzanine"
+          "deliveryTier": "Mezzanine",
+          "calculatorTemplate": "prores-hd-stereo"
         },
         {
           "id": "uhd-sdr-prores",
@@ -1587,19 +1456,10 @@
             }
           ],
           "specUrl": "https://assets.contentstack.io/v3/assets/blt4b099fa9cc3801a6/blt37363f4d36d592c9/68f5feb5fae7da406f3dfda1/technical-delivery-requirements-nbcu.pdf",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "UHD",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
           "ffmpegSupported": true,
           "businessModel": "svod",
-          "deliveryTier": "Mezzanine"
+          "deliveryTier": "Mezzanine",
+          "calculatorTemplate": "prores-uhd-surround-51"
         },
         {
           "id": "avod-digital-h264",
@@ -1646,12 +1506,13 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "AVOD Web Delivery",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "29.97",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
+            "audioConfigurationId": "stereo-192",
+            "videoBitrateOverrideMbps": 14
           },
           "ffmpegSupported": true
         }
@@ -1732,17 +1593,8 @@
             }
           ],
           "specUrl": "https://catalogs-docs.plex.tv/catalog_vod/",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "avod-h264-hd"
         },
         {
           "id": "tvod-h264",
@@ -1782,7 +1634,7 @@
             "frameRate": "23.98",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-vimeo-320"
+            "audioConfigurationId": "stereo-320"
           },
           "ffmpegSupported": true
         }
@@ -1865,17 +1717,8 @@
             }
           ],
           "specUrl": "https://www.paramount.com/sites/g/files/dxjhpe356/files/2024-01/Global_Content_Delivery_Guide_V2.1_0.pdf",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "stereo"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-hd-stereo"
         },
         {
           "id": "avod-h264",
@@ -1919,17 +1762,8 @@
             }
           ],
           "specUrl": "https://www.paramount.com/sites/g/files/dxjhpe356/files/2024-01/Global_Content_Delivery_Guide_V2.1_0.pdf",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "avod-h264-hd"
         }
       ]
     },
@@ -2005,19 +1839,9 @@
             }
           ],
           "specUrl": "https://developer.samsung.com/smarttv/develop/specifications/media-specifications/2025-tv-video-specifications.html",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "29.97",
-            "videoBitrateOverrideMbps": 6.5,
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-160"
-          },
           "ffmpegSupported": true,
-          "ffmpegNotes": "Samsung TV Plus requires multi-bitrate HLS origin — Applies to the 1080p top HLS rung only."
+          "ffmpegNotes": "Samsung TV Plus requires multi-bitrate HLS origin — Applies to the 1080p top HLS rung only.",
+          "calculatorTemplate": "fast-hls-h264-1080p-6_5"
         },
         {
           "id": "fast-hls-hevc-1080p",
@@ -2150,17 +1974,8 @@
             }
           ],
           "specUrl": "https://developer.roku.com/docs/features/features-overview.mdx",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "avod-h264-hd"
         },
         {
           "id": "acquired-prores-mezzanine",
@@ -2212,17 +2027,8 @@
             }
           ],
           "specUrl": "https://developer.roku.com/docs/features/specs/features-scripted-alternative-specs.mdx",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "UHD",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "prores-uhd-surround-51"
         },
         {
           "id": "linear-live-h264",
@@ -2285,12 +2091,13 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "SVOD Mezzanine (30 Mbps)",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "29.97",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-160"
+            "audioConfigurationId": "stereo-160",
+            "videoBitrateOverrideMbps": 30
           },
           "ffmpegSupported": true,
           "ffmpegNotes": "Live MPEG-TS ingest is a continuous stream — flat-file FFmpeg commands are Planning reference only."
@@ -2359,19 +2166,10 @@
             }
           ],
           "specUrl": "https://code.tubitv.com/tubis-vod-preflight-qc-automated-quality-control-of-submitted-content-f147263eb8a7",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
-          },
           "ffmpegSupported": true,
           "businessModel": "avod",
-          "deliveryTier": "AVOD flat file"
+          "deliveryTier": "AVOD flat file",
+          "calculatorTemplate": "avod-h264-hd"
         }
       ],
       "businessModels": [
@@ -2449,7 +2247,7 @@
             "frameRate": "30",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-vimeo-320"
+            "audioConfigurationId": "stereo-320"
           },
           "ffmpegSupported": true,
           "businessModel": "creator-upload",
@@ -2546,7 +2344,7 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "AVOD Web Delivery",
+            "variant": "High Profile",
             "resolution": "720p",
             "frameRate": "29.97",
             "videoBitrateOverrideMbps": 1,
@@ -2631,18 +2429,9 @@
           ],
           "specUrl": "https://aws.amazon.com/blogs/apn/achieving-resilient-cloud-broadcasting-with-amagi-cloudport-on-aws/",
           "specSourceType": "third-party-guide",
-          "calculator": {
-            "category": "professional",
-            "codec": "prores",
-            "variant": "ProRes 422 HQ",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mov-lpcm-48k-24bit",
-            "audioConfigurationId": "surround-5-1"
-          },
           "ffmpegSupported": true,
-          "ffmpegNotes": "Models a typical HD mezzanine contributed TO Amagi before downstream transcoding."
+          "ffmpegNotes": "Models a typical HD mezzanine contributed TO Amagi before downstream transcoding.",
+          "calculatorTemplate": "prores-hd-surround-51"
         },
         {
           "id": "cloudport-live-contribution",
@@ -2682,7 +2471,7 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "AVOD Web Delivery",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "29.97",
             "videoBitrateOverrideMbps": 12,
@@ -2761,18 +2550,9 @@
             }
           ],
           "specUrl": "https://support.wurl.com/hc/en-us/articles/360050783613-Wurl-MRSS-Ingest-Specifications",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
-          },
           "ffmpegSupported": true,
-          "ffmpegNotes": "Typical FAST mezzanine contribution before Wurl transcodes for each downstream platform."
+          "ffmpegNotes": "Typical FAST mezzanine contribution before Wurl transcodes for each downstream platform.",
+          "calculatorTemplate": "avod-h264-hd"
         },
         {
           "id": "hls-restream-contribution",
@@ -2820,19 +2600,9 @@
             }
           ],
           "specUrl": "https://support.wurl.com/hc/en-us/articles/7998045277843-HLS-Stream-Specifications",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "29.97",
-            "videoBitrateOverrideMbps": 6.5,
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-160"
-          },
           "ffmpegSupported": true,
-          "ffmpegNotes": "1080p top-rung planning bitrate for HLS origin contributed TO Wurl."
+          "ffmpegNotes": "1080p top-rung planning bitrate for HLS origin contributed TO Wurl.",
+          "calculatorTemplate": "fast-hls-h264-1080p-6_5"
         },
         {
           "id": "tvbits-file-delivery",
@@ -2868,17 +2638,8 @@
             }
           ],
           "specUrl": "https://support.wurl.com/hc/en-us/articles/31415324292499-TVBits-File-Delivery",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "avod-h264-hd"
         }
       ]
     },
@@ -2950,7 +2711,7 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "AVOD Web Delivery",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "29.97",
             "videoBitrateOverrideMbps": 5,
@@ -3021,19 +2782,9 @@
             }
           ],
           "specUrl": "https://platformplus.vizio.com/",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "29.97",
-            "videoBitrateOverrideMbps": 6,
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-160"
-          },
           "ffmpegSupported": true,
-          "ffmpegNotes": "HD HLS origin top-rung planning bitrate before partner transcoding to WatchFree+."
+          "ffmpegNotes": "HD HLS origin top-rung planning bitrate before partner transcoding to WatchFree+.",
+          "calculatorTemplate": "fast-hls-h264-1080p-6"
         },
         {
           "id": "platform-plus-vod-mrss",
@@ -3065,17 +2816,8 @@
             }
           ],
           "specUrl": "https://platformplus.vizio.com/",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "avod-h264-hd"
         }
       ]
     },
@@ -3210,18 +2952,8 @@
             }
           ],
           "specUrl": "https://localnow.com",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "29.97",
-            "videoBitrateOverrideMbps": 6,
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-160"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "fast-hls-h264-1080p-6"
         },
         {
           "id": "avod-library-ingest",
@@ -3253,17 +2985,8 @@
             }
           ],
           "specUrl": "https://localnow.com",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "23.98",
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-tubi-192"
-          },
-          "ffmpegSupported": true
+          "ffmpegSupported": true,
+          "calculatorTemplate": "avod-h264-hd"
         }
       ]
     },
@@ -3360,7 +3083,7 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "AVOD Web Delivery",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "29.97",
             "videoBitrateOverrideMbps": 15,
@@ -3412,7 +3135,7 @@
           "calculator": {
             "category": "delivery",
             "codec": "h264",
-            "variant": "AVOD Web Delivery",
+            "variant": "High Profile",
             "resolution": "1080p",
             "frameRate": "29.97",
             "videoBitrateOverrideMbps": 8,
@@ -3509,19 +3232,9 @@
           ],
           "specUrl": "https://www.sukudostudios.com/blog/reelshort-dramabox-shortmax-dubbing-specs",
           "specSourceType": "industry-article",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "30",
-            "videoBitrateOverrideMbps": 18,
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-prime-320"
-          },
           "ffmpegSupported": true,
-          "ffmpegNotes": "1080×1920 vertical uses same pixel count as 1080p — 18 Mbps models a typical vertical episode master."
+          "ffmpegNotes": "1080×1920 vertical uses same pixel count as 1080p — 18 Mbps models a typical vertical episode master.",
+          "calculatorTemplate": "vertical-h264-1080p-18"
         }
       ]
     },
@@ -3605,19 +3318,9 @@
           ],
           "specUrl": "https://www.sukudostudios.com/blog/reelshort-dramabox-shortmax-dubbing-specs",
           "specSourceType": "industry-article",
-          "calculator": {
-            "category": "delivery",
-            "codec": "h264",
-            "variant": "AVOD Web Delivery",
-            "resolution": "1080p",
-            "frameRate": "30",
-            "videoBitrateOverrideMbps": 18,
-            "audioEnabled": true,
-            "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-prime-320"
-          },
           "ffmpegSupported": true,
-          "ffmpegNotes": "1080×1920 vertical episode planning bitrate — confirm exact profile with DramaBox onboarding team."
+          "ffmpegNotes": "1080×1920 vertical episode planning bitrate — confirm exact profile with DramaBox onboarding team.",
+          "calculatorTemplate": "vertical-h264-1080p-18"
         }
       ]
     },
@@ -3711,7 +3414,7 @@
             "frameRate": "30",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-youtube-384"
+            "audioConfigurationId": "stereo-384"
           },
           "ffmpegSupported": true,
           "businessModel": "creator-upload",
@@ -3761,7 +3464,7 @@
             "frameRate": "30",
             "audioEnabled": true,
             "audioProfileId": "mp4-aac",
-            "audioConfigurationId": "stereo-youtube-384"
+            "audioConfigurationId": "stereo-384"
           },
           "ffmpegSupported": true,
           "businessModel": "creator-upload",

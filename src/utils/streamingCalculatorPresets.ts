@@ -31,7 +31,7 @@ export function getStreamingCalculatorPresets(): StreamingCalculatorPreset[] {
         optionId: option.id,
         optionName: option.name,
         label: `${service.name} — ${option.name}`,
-        description: `${option.deliveryTier} · ${option.calculator.codec} / ${option.calculator.variant}`,
+        description: `${option.deliveryTier} · ${option.calculator.codec} / ${option.calculatorTemplate ?? option.calculator.variant}`,
         calculator: normalizeCalculatorConfig({
           category: option.calculator.category,
           codec: option.calculator.codec,
@@ -74,9 +74,17 @@ export function streamingCalculatorPresetMatches(
 }
 
 export function findMatchingStreamingCalculatorPreset(
-  current: FileSizeCalculatorConfig
+  current: FileSizeCalculatorConfig,
+  preferredPresetId?: string
 ): StreamingCalculatorPreset | undefined {
-  return getStreamingCalculatorPresets().find(preset =>
-    streamingCalculatorPresetMatches(preset, current)
-  );
+  const presets = getStreamingCalculatorPresets();
+
+  if (preferredPresetId) {
+    const preferred = presets.find(preset => preset.id === preferredPresetId);
+    if (preferred && streamingCalculatorPresetMatches(preferred, current)) {
+      return preferred;
+    }
+  }
+
+  return presets.find(preset => streamingCalculatorPresetMatches(preset, current));
 }

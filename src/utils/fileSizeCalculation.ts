@@ -55,6 +55,11 @@ function findCodecObjects(
   return { category, codec, variant, resolution, frameRate };
 }
 
+const RESOLUTION_BITRATE_ALIASES: Record<string, string> = {
+  '4K': 'UHD',
+  UHD: '4K',
+};
+
 function resolveVideoBitrateMbps(
   variant: NonNullable<ReturnType<typeof findCodecObjects>['variant']>,
   resolutionId: string,
@@ -65,7 +70,11 @@ function resolveVideoBitrateMbps(
     return overrideMbps;
   }
 
-  const resolutionBitrates = variant.bitrates[resolutionId];
+  const resolutionBitrates =
+    variant.bitrates[resolutionId] ??
+    (RESOLUTION_BITRATE_ALIASES[resolutionId]
+      ? variant.bitrates[RESOLUTION_BITRATE_ALIASES[resolutionId]]
+      : undefined);
   if (!resolutionBitrates) {
     return null;
   }

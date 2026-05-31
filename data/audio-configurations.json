@@ -40,11 +40,41 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "stereo-128",
           "configurations": [
-            { "id": "mono-64", "label": "Mono 64 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 64 },
-            { "id": "stereo-96", "label": "Stereo 96 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 96 },
-            { "id": "stereo-128", "label": "Stereo 128 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 128 },
-            { "id": "surround-5-1-256", "label": "5.1 Surround 256 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 256 },
-            { "id": "surround-7-1-384", "label": "7.1 Surround 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
+            {
+              "id": "mono-64",
+              "label": "Mono 64 kbps",
+              "channels": 1,
+              "layout": "Mono",
+              "bitrateKbps": 64
+            },
+            {
+              "id": "stereo-96",
+              "label": "Stereo 96 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 96
+            },
+            {
+              "id": "stereo-128",
+              "label": "Stereo 128 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 128
+            },
+            {
+              "id": "surround-5-1-256",
+              "label": "5.1 Surround 256 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 256
+            },
+            {
+              "id": "surround-7-1-384",
+              "label": "7.1 Surround 384 kbps",
+              "channels": 8,
+              "layout": "7.1",
+              "bitrateKbps": 384
+            }
           ],
           "description": "Default WebM pairing for AV1 delivery.",
           "accuracy": "estimate",
@@ -63,13 +93,41 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "stereo-160",
           "configurations": [
-            { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
-            { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
-            { "id": "stereo-384", "label": "Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
-            { "id": "stereo-youtube-384", "label": "YouTube Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
-            { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 },
-            { "id": "surround-5-1-512", "label": "5.1 Surround 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 },
-            { "id": "surround-5-1-youtube-512", "label": "YouTube 5.1 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 }
+            {
+              "id": "mono-128",
+              "label": "Mono 128 kbps",
+              "channels": 1,
+              "layout": "Mono",
+              "bitrateKbps": 128
+            },
+            {
+              "id": "stereo-160",
+              "label": "Stereo 160 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 160
+            },
+            {
+              "id": "stereo-384",
+              "label": "Stereo 384 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 384
+            },
+            {
+              "id": "surround-5-1-320",
+              "label": "AAC 5.1 320 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 320
+            },
+            {
+              "id": "surround-5-1-512",
+              "label": "5.1 Surround 512 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 512
+            }
           ],
           "description": "Compatibility-oriented MP4/HLS audio for AV1 delivery.",
           "accuracy": "estimate",
@@ -92,20 +150,62 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "stereo-160",
           "configurations": [
-            { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
-            { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
-            { "id": "stereo-192", "label": "Stereo 192 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 192 },
-            { "id": "stereo-320", "label": "Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
-            { "id": "stereo-384", "label": "Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
-            { "id": "stereo-vimeo-320", "label": "Vimeo Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
-            { "id": "stereo-youtube-384", "label": "YouTube Stereo 384 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 384 },
-            { "id": "stereo-prime-320", "label": "Prime Video Stereo AAC 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
-            { "id": "stereo-tubi-192", "label": "AVOD Stereo AAC 192 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 192 },
-            { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 },
-            { "id": "surround-5-1-512", "label": "5.1 Surround 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 },
-            { "id": "surround-5-1-768", "label": "AAC 5.1 768 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 768 },
-            { "id": "surround-5-1-youtube-512", "label": "YouTube 5.1 512 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 512 },
-            { "id": "surround-prime-aac-768", "label": "Prime Video AAC 5.1 768 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 768 }
+            {
+              "id": "mono-128",
+              "label": "Mono 128 kbps",
+              "channels": 1,
+              "layout": "Mono",
+              "bitrateKbps": 128
+            },
+            {
+              "id": "stereo-160",
+              "label": "Stereo 160 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 160
+            },
+            {
+              "id": "stereo-192",
+              "label": "Stereo 192 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 192
+            },
+            {
+              "id": "stereo-320",
+              "label": "Stereo 320 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 320
+            },
+            {
+              "id": "stereo-384",
+              "label": "Stereo 384 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 384
+            },
+            {
+              "id": "surround-5-1-320",
+              "label": "AAC 5.1 320 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 320
+            },
+            {
+              "id": "surround-5-1-512",
+              "label": "5.1 Surround 512 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 512
+            },
+            {
+              "id": "surround-5-1-768",
+              "label": "AAC 5.1 768 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 768
+            }
           ],
           "description": "Broadly compatible H.264 MP4/HLS audio.",
           "accuracy": "estimate",
@@ -125,9 +225,24 @@
           "bitDepth": 24,
           "defaultConfigurationId": "stereo",
           "configurations": [
-            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
-            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
-            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" }
+            {
+              "id": "stereo",
+              "label": "2ch Stereo",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "surround-5-1",
+              "label": "6ch 5.1",
+              "channels": 6,
+              "layout": "5.1"
+            },
+            {
+              "id": "surround-7-1",
+              "label": "8ch 7.1",
+              "channels": 8,
+              "layout": "7.1"
+            }
           ],
           "description": "Sidecar WAV/PCM audio paired with video-only H.264 deliverables.",
           "accuracy": "spec",
@@ -144,11 +259,41 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "eac3-5-1-192",
           "configurations": [
-            { "id": "ac3-stereo-192", "label": "AC-3 Stereo 192 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 192 },
-            { "id": "ac3-5-1-384", "label": "AC-3 5.1 384 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 384 },
-            { "id": "ac3-5-1-448", "label": "AC-3 5.1 448 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 448 },
-            { "id": "eac3-5-1-192", "label": "E-AC-3 5.1 192 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 192 },
-            { "id": "eac3-7-1-384", "label": "E-AC-3 7.1 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
+            {
+              "id": "ac3-stereo-192",
+              "label": "AC-3 Stereo 192 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 192
+            },
+            {
+              "id": "ac3-5-1-384",
+              "label": "AC-3 5.1 384 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 384
+            },
+            {
+              "id": "ac3-5-1-448",
+              "label": "AC-3 5.1 448 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 448
+            },
+            {
+              "id": "eac3-5-1-192",
+              "label": "E-AC-3 5.1 192 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 192
+            },
+            {
+              "id": "eac3-7-1-384",
+              "label": "E-AC-3 7.1 384 kbps",
+              "channels": 8,
+              "layout": "7.1",
+              "bitrateKbps": 384
+            }
           ],
           "description": "Apple HLS and MP4 surround audio options with AC-3 and E-AC-3.",
           "accuracy": "estimate",
@@ -170,11 +315,34 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "stereo-160",
           "configurations": [
-            { "id": "mono-128", "label": "Mono 128 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 128 },
-            { "id": "stereo-160", "label": "Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
-            { "id": "stereo-320", "label": "Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
-            { "id": "stereo-vimeo-320", "label": "Vimeo Stereo 320 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 320 },
-            { "id": "surround-5-1-320", "label": "AAC 5.1 320 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 320 }
+            {
+              "id": "mono-128",
+              "label": "Mono 128 kbps",
+              "channels": 1,
+              "layout": "Mono",
+              "bitrateKbps": 128
+            },
+            {
+              "id": "stereo-160",
+              "label": "Stereo 160 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 160
+            },
+            {
+              "id": "stereo-320",
+              "label": "Stereo 320 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 320
+            },
+            {
+              "id": "surround-5-1-320",
+              "label": "AAC 5.1 320 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 320
+            }
           ],
           "description": "Common HEVC MP4/HLS audio.",
           "accuracy": "estimate",
@@ -191,9 +359,27 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "eac3-5-1-192",
           "configurations": [
-            { "id": "ac3-5-1-384", "label": "AC-3 5.1 384 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 384 },
-            { "id": "eac3-5-1-192", "label": "E-AC-3 5.1 192 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 192 },
-            { "id": "eac3-7-1-384", "label": "E-AC-3 7.1 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
+            {
+              "id": "ac3-5-1-384",
+              "label": "AC-3 5.1 384 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 384
+            },
+            {
+              "id": "eac3-5-1-192",
+              "label": "E-AC-3 5.1 192 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 192
+            },
+            {
+              "id": "eac3-7-1-384",
+              "label": "E-AC-3 7.1 384 kbps",
+              "channels": 8,
+              "layout": "7.1",
+              "bitrateKbps": 384
+            }
           ],
           "description": "Apple HLS surround audio options.",
           "accuracy": "estimate",
@@ -214,11 +400,41 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "stereo-128",
           "configurations": [
-            { "id": "mono-64", "label": "Mono 64 kbps", "channels": 1, "layout": "Mono", "bitrateKbps": 64 },
-            { "id": "stereo-96", "label": "Stereo 96 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 96 },
-            { "id": "stereo-128", "label": "Stereo 128 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 128 },
-            { "id": "surround-5-1-256", "label": "5.1 Surround 256 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 256 },
-            { "id": "surround-7-1-384", "label": "7.1 Surround 384 kbps", "channels": 8, "layout": "7.1", "bitrateKbps": 384 }
+            {
+              "id": "mono-64",
+              "label": "Mono 64 kbps",
+              "channels": 1,
+              "layout": "Mono",
+              "bitrateKbps": 64
+            },
+            {
+              "id": "stereo-96",
+              "label": "Stereo 96 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 96
+            },
+            {
+              "id": "stereo-128",
+              "label": "Stereo 128 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 128
+            },
+            {
+              "id": "surround-5-1-256",
+              "label": "5.1 Surround 256 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 256
+            },
+            {
+              "id": "surround-7-1-384",
+              "label": "7.1 Surround 384 kbps",
+              "channels": 8,
+              "layout": "7.1",
+              "bitrateKbps": 384
+            }
           ],
           "description": "Default WebM pairing for VP9 delivery.",
           "accuracy": "estimate",
@@ -241,10 +457,30 @@
           "bitDepth": 24,
           "defaultConfigurationId": "stereo",
           "configurations": [
-            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
-            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
-            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" },
-            { "id": "broadcast-16", "label": "16 mono tracks", "channels": 16, "layout": "16 mono" }
+            {
+              "id": "stereo",
+              "label": "2ch Stereo",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "surround-5-1",
+              "label": "6ch 5.1",
+              "channels": 6,
+              "layout": "5.1"
+            },
+            {
+              "id": "surround-7-1",
+              "label": "8ch 7.1",
+              "channels": 8,
+              "layout": "7.1"
+            },
+            {
+              "id": "broadcast-16",
+              "label": "16 mono tracks",
+              "channels": 16,
+              "layout": "16 mono"
+            }
           ],
           "description": "Container-governed ProRes MOV audio.",
           "accuracy": "estimate",
@@ -262,9 +498,24 @@
           "bitDepth": 16,
           "defaultConfigurationId": "stereo",
           "configurations": [
-            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
-            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
-            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" }
+            {
+              "id": "stereo",
+              "label": "2ch Stereo",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "surround-5-1",
+              "label": "6ch 5.1",
+              "channels": 6,
+              "layout": "5.1"
+            },
+            {
+              "id": "surround-7-1",
+              "label": "8ch 7.1",
+              "channels": 8,
+              "layout": "7.1"
+            }
           ],
           "description": "Lower bit-depth MOV LPCM audio.",
           "accuracy": "estimate",
@@ -286,10 +537,30 @@
           "bitDepth": 24,
           "defaultConfigurationId": "stereo",
           "configurations": [
-            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
-            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
-            { "id": "broadcast-8", "label": "8 mono tracks", "channels": 8, "layout": "8 mono" },
-            { "id": "broadcast-16", "label": "16 mono tracks", "channels": 16, "layout": "16 mono" }
+            {
+              "id": "stereo",
+              "label": "2ch Stereo",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "surround-5-1",
+              "label": "6ch 5.1",
+              "channels": 6,
+              "layout": "5.1"
+            },
+            {
+              "id": "broadcast-8",
+              "label": "8 mono tracks",
+              "channels": 8,
+              "layout": "8 mono"
+            },
+            {
+              "id": "broadcast-16",
+              "label": "16 mono tracks",
+              "channels": 16,
+              "layout": "16 mono"
+            }
           ],
           "description": "Common DNxHD/DNxHR MXF or MOV PCM audio.",
           "accuracy": "estimate",
@@ -307,8 +578,18 @@
           "bitDepth": 16,
           "defaultConfigurationId": "stereo",
           "configurations": [
-            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
-            { "id": "broadcast-8", "label": "8 mono tracks", "channels": 8, "layout": "8 mono" }
+            {
+              "id": "stereo",
+              "label": "2ch Stereo",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "broadcast-8",
+              "label": "8 mono tracks",
+              "channels": 8,
+              "layout": "8 mono"
+            }
           ],
           "description": "Common lower bit-depth DNx audio.",
           "accuracy": "estimate",
@@ -330,9 +611,24 @@
           "bitDepth": 24,
           "defaultConfigurationId": "stereo",
           "configurations": [
-            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
-            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
-            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" }
+            {
+              "id": "stereo",
+              "label": "2ch Stereo",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "surround-5-1",
+              "label": "6ch 5.1",
+              "channels": 6,
+              "layout": "5.1"
+            },
+            {
+              "id": "surround-7-1",
+              "label": "8ch 7.1",
+              "channels": 8,
+              "layout": "7.1"
+            }
           ],
           "description": "Container-governed CineForm audio.",
           "accuracy": "estimate",
@@ -355,7 +651,12 @@
           "bitDepth": 24,
           "defaultConfigurationId": "four-channel",
           "configurations": [
-            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+            {
+              "id": "four-channel",
+              "label": "4ch camera audio",
+              "channels": 4,
+              "layout": "4 mono"
+            }
           ],
           "description": "Panasonic P2 AVC-Intra camera audio.",
           "accuracy": "spec",
@@ -377,10 +678,30 @@
           "bitDepth": 24,
           "defaultConfigurationId": "eight-channel",
           "configurations": [
-            { "id": "two-channel", "label": "2 mono channels", "channels": 2, "layout": "2 mono" },
-            { "id": "four-channel", "label": "4 mono channels", "channels": 4, "layout": "4 mono" },
-            { "id": "eight-channel", "label": "8 mono channels", "channels": 8, "layout": "8 mono" },
-            { "id": "sixteen-channel", "label": "16 mono channels", "channels": 16, "layout": "16 mono" }
+            {
+              "id": "two-channel",
+              "label": "2 mono channels",
+              "channels": 2,
+              "layout": "2 mono"
+            },
+            {
+              "id": "four-channel",
+              "label": "4 mono channels",
+              "channels": 4,
+              "layout": "4 mono"
+            },
+            {
+              "id": "eight-channel",
+              "label": "8 mono channels",
+              "channels": 8,
+              "layout": "8 mono"
+            },
+            {
+              "id": "sixteen-channel",
+              "label": "16 mono channels",
+              "channels": 16,
+              "layout": "16 mono"
+            }
           ],
           "description": "Professional XAVC MXF audio operating points.",
           "accuracy": "spec",
@@ -403,8 +724,18 @@
           "bitDepth": 16,
           "defaultConfigurationId": "four-channel",
           "configurations": [
-            { "id": "two-channel", "label": "2ch", "channels": 2, "layout": "2 mono" },
-            { "id": "four-channel", "label": "4ch", "channels": 4, "layout": "4 mono" }
+            {
+              "id": "two-channel",
+              "label": "2ch",
+              "channels": 2,
+              "layout": "2 mono"
+            },
+            {
+              "id": "four-channel",
+              "label": "4ch",
+              "channels": 4,
+              "layout": "4 mono"
+            }
           ],
           "description": "Common XDCAM HD audio.",
           "accuracy": "spec",
@@ -426,10 +757,30 @@
           "bitDepth": 24,
           "defaultConfigurationId": "surround-5-1",
           "configurations": [
-            { "id": "stereo", "label": "2ch Stereo", "channels": 2, "layout": "Stereo" },
-            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
-            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" },
-            { "id": "sixteen-channel", "label": "16 channels", "channels": 16, "layout": "16 channels" }
+            {
+              "id": "stereo",
+              "label": "2ch Stereo",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "surround-5-1",
+              "label": "6ch 5.1",
+              "channels": 6,
+              "layout": "5.1"
+            },
+            {
+              "id": "surround-7-1",
+              "label": "8ch 7.1",
+              "channels": 8,
+              "layout": "7.1"
+            },
+            {
+              "id": "sixteen-channel",
+              "label": "16 channels",
+              "channels": 16,
+              "layout": "16 channels"
+            }
           ],
           "description": "Cinema and IMF PCM audio carried separately from JPEG 2000 essence.",
           "accuracy": "spec",
@@ -450,9 +801,24 @@
           "bitDepth": 24,
           "defaultConfigurationId": "surround-5-1",
           "configurations": [
-            { "id": "surround-5-1", "label": "6ch 5.1", "channels": 6, "layout": "5.1" },
-            { "id": "surround-7-1", "label": "8ch 7.1", "channels": 8, "layout": "7.1" },
-            { "id": "sixteen-channel", "label": "16 channels", "channels": 16, "layout": "16 channels" }
+            {
+              "id": "surround-5-1",
+              "label": "6ch 5.1",
+              "channels": 6,
+              "layout": "5.1"
+            },
+            {
+              "id": "surround-7-1",
+              "label": "8ch 7.1",
+              "channels": 8,
+              "layout": "7.1"
+            },
+            {
+              "id": "sixteen-channel",
+              "label": "16 channels",
+              "channels": 16,
+              "layout": "16 channels"
+            }
           ],
           "description": "Higher sample-rate DCP/IMF PCM option.",
           "accuracy": "spec",
@@ -473,10 +839,34 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "layer2-stereo-256",
           "configurations": [
-            { "id": "layer2-stereo-192", "label": "MPEG Layer II Stereo 192 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 192 },
-            { "id": "layer2-stereo-256", "label": "MPEG Layer II Stereo 256 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 256 },
-            { "id": "aac-stereo-160", "label": "AAC Stereo 160 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 160 },
-            { "id": "ac3-5-1-384", "label": "AC-3 5.1 384 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 384 }
+            {
+              "id": "layer2-stereo-192",
+              "label": "MPEG Layer II Stereo 192 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 192
+            },
+            {
+              "id": "layer2-stereo-256",
+              "label": "MPEG Layer II Stereo 256 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 256
+            },
+            {
+              "id": "aac-stereo-160",
+              "label": "AAC Stereo 160 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 160
+            },
+            {
+              "id": "ac3-5-1-384",
+              "label": "AC-3 5.1 384 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 384
+            }
           ],
           "description": "Common MPEG-2 transport-stream audio choices.",
           "accuracy": "estimate",
@@ -499,8 +889,20 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "eight-channel-16bit",
           "configurations": [
-            { "id": "eight-channel-16bit", "label": "8ch 16-bit", "channels": 8, "layout": "8 mono", "bitDepth": 16 },
-            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+            {
+              "id": "eight-channel-16bit",
+              "label": "8ch 16-bit",
+              "channels": 8,
+              "layout": "8 mono",
+              "bitDepth": 16
+            },
+            {
+              "id": "four-channel-24bit",
+              "label": "4ch 24-bit",
+              "channels": 4,
+              "layout": "4 mono",
+              "bitDepth": 24
+            }
           ],
           "description": "SMPTE D-10 / MPEG IMX audio profiles.",
           "accuracy": "spec",
@@ -523,8 +925,18 @@
           "bitDepth": 24,
           "defaultConfigurationId": "four-channel",
           "configurations": [
-            { "id": "two-channel", "label": "2ch legacy camera audio", "channels": 2, "layout": "2 mono" },
-            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+            {
+              "id": "two-channel",
+              "label": "2ch legacy camera audio",
+              "channels": 2,
+              "layout": "2 mono"
+            },
+            {
+              "id": "four-channel",
+              "label": "4ch camera audio",
+              "channels": 4,
+              "layout": "4 mono"
+            }
           ],
           "description": "ARRIRAW/ARRICORE MXF camera audio.",
           "accuracy": "estimate",
@@ -547,8 +959,18 @@
           "bitDepth": 24,
           "defaultConfigurationId": "stereo",
           "configurations": [
-            { "id": "stereo", "label": "2ch camera audio", "channels": 2, "layout": "Stereo" },
-            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+            {
+              "id": "stereo",
+              "label": "2ch camera audio",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "four-channel",
+              "label": "4ch camera audio",
+              "channels": 4,
+              "layout": "4 mono"
+            }
           ],
           "description": "Embedded Blackmagic RAW PCM audio when recorded by the camera.",
           "accuracy": "estimate",
@@ -572,7 +994,12 @@
           "bitDepth": 24,
           "defaultConfigurationId": "four-channel",
           "configurations": [
-            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+            {
+              "id": "four-channel",
+              "label": "4ch camera audio",
+              "channels": 4,
+              "layout": "4 mono"
+            }
           ],
           "description": "Canon Cinema RAW Light embedded audio.",
           "accuracy": "spec",
@@ -596,9 +1023,24 @@
           "bitDepth": 24,
           "defaultConfigurationId": "eight-channel-hdmi",
           "configurations": [
-            { "id": "stereo-analog", "label": "2ch analog", "channels": 2, "layout": "Stereo" },
-            { "id": "eight-channel-hdmi", "label": "8ch HDMI", "channels": 8, "layout": "8 channels" },
-            { "id": "twelve-channel-sdi", "label": "12ch SDI", "channels": 12, "layout": "12 channels" }
+            {
+              "id": "stereo-analog",
+              "label": "2ch analog",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "eight-channel-hdmi",
+              "label": "8ch HDMI",
+              "channels": 8,
+              "layout": "8 channels"
+            },
+            {
+              "id": "twelve-channel-sdi",
+              "label": "12ch SDI",
+              "channels": 12,
+              "layout": "12 channels"
+            }
           ],
           "description": "Common Atomos ProRes RAW recorder audio.",
           "accuracy": "estimate",
@@ -622,8 +1064,18 @@
           "bitDepth": 24,
           "defaultConfigurationId": "four-channel",
           "configurations": [
-            { "id": "two-channel", "label": "2ch", "channels": 2, "layout": "2 mono" },
-            { "id": "four-channel", "label": "4ch", "channels": 4, "layout": "4 mono" }
+            {
+              "id": "two-channel",
+              "label": "2ch",
+              "channels": 2,
+              "layout": "2 mono"
+            },
+            {
+              "id": "four-channel",
+              "label": "4ch",
+              "channels": 4,
+              "layout": "4 mono"
+            }
           ],
           "description": "RED camera audio embedded in R3D clips.",
           "accuracy": "spec",
@@ -646,10 +1098,30 @@
           "bitDepth": 24,
           "defaultConfigurationId": "stereo",
           "configurations": [
-            { "id": "mono", "label": "1ch source audio", "channels": 1, "layout": "Mono" },
-            { "id": "stereo", "label": "2ch source audio", "channels": 2, "layout": "Stereo" },
-            { "id": "four-channel", "label": "4ch source audio", "channels": 4, "layout": "4 channels" },
-            { "id": "eight-channel", "label": "8ch source audio", "channels": 8, "layout": "8 channels" }
+            {
+              "id": "mono",
+              "label": "1ch source audio",
+              "channels": 1,
+              "layout": "Mono"
+            },
+            {
+              "id": "stereo",
+              "label": "2ch source audio",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "four-channel",
+              "label": "4ch source audio",
+              "channels": 4,
+              "layout": "4 channels"
+            },
+            {
+              "id": "eight-channel",
+              "label": "8ch source audio",
+              "channels": 8,
+              "layout": "8 channels"
+            }
           ],
           "description": "Common FFV1/Matroska preservation audio.",
           "accuracy": "estimate",
@@ -673,10 +1145,30 @@
           "bitDepth": 24,
           "defaultConfigurationId": "eight-channel",
           "configurations": [
-            { "id": "stereo", "label": "2ch source audio", "channels": 2, "layout": "Stereo" },
-            { "id": "four-channel", "label": "4ch source audio", "channels": 4, "layout": "4 channels" },
-            { "id": "eight-channel", "label": "8 mono tracks", "channels": 8, "layout": "8 mono" },
-            { "id": "sixteen-channel", "label": "16 channels", "channels": 16, "layout": "16 channels" }
+            {
+              "id": "stereo",
+              "label": "2ch source audio",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "four-channel",
+              "label": "4ch source audio",
+              "channels": 4,
+              "layout": "4 channels"
+            },
+            {
+              "id": "eight-channel",
+              "label": "8 mono tracks",
+              "channels": 8,
+              "layout": "8 mono"
+            },
+            {
+              "id": "sixteen-channel",
+              "label": "16 channels",
+              "channels": 16,
+              "layout": "16 channels"
+            }
           ],
           "description": "FADGI/RDD 48 style archival MXF audio.",
           "accuracy": "estimate",
@@ -698,10 +1190,30 @@
           "bitDepth": 24,
           "defaultConfigurationId": "eight-channel",
           "configurations": [
-            { "id": "stereo", "label": "2ch source audio", "channels": 2, "layout": "Stereo" },
-            { "id": "four-channel", "label": "4ch source audio", "channels": 4, "layout": "4 channels" },
-            { "id": "eight-channel", "label": "8 mono tracks", "channels": 8, "layout": "8 mono" },
-            { "id": "sixteen-channel", "label": "16 channels", "channels": 16, "layout": "16 channels" }
+            {
+              "id": "stereo",
+              "label": "2ch source audio",
+              "channels": 2,
+              "layout": "Stereo"
+            },
+            {
+              "id": "four-channel",
+              "label": "4ch source audio",
+              "channels": 4,
+              "layout": "4 channels"
+            },
+            {
+              "id": "eight-channel",
+              "label": "8 mono tracks",
+              "channels": 8,
+              "layout": "8 mono"
+            },
+            {
+              "id": "sixteen-channel",
+              "label": "16 channels",
+              "channels": 16,
+              "layout": "16 channels"
+            }
           ],
           "description": "FADGI/RDD 48 style archival MXF audio.",
           "accuracy": "estimate",
@@ -725,8 +1237,20 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "four-channel-24bit",
           "configurations": [
-            { "id": "four-channel-16bit", "label": "4ch 16-bit", "channels": 4, "layout": "4 mono", "bitDepth": 16 },
-            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+            {
+              "id": "four-channel-16bit",
+              "label": "4ch 16-bit",
+              "channels": 4,
+              "layout": "4 mono",
+              "bitDepth": 16
+            },
+            {
+              "id": "four-channel-24bit",
+              "label": "4ch 24-bit",
+              "channels": 4,
+              "layout": "4 mono",
+              "bitDepth": 24
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -746,8 +1270,20 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "four-channel-24bit",
           "configurations": [
-            { "id": "four-channel-16bit", "label": "4ch 16-bit", "channels": 4, "layout": "4 mono", "bitDepth": 16 },
-            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+            {
+              "id": "four-channel-16bit",
+              "label": "4ch 16-bit",
+              "channels": 4,
+              "layout": "4 mono",
+              "bitDepth": 16
+            },
+            {
+              "id": "four-channel-24bit",
+              "label": "4ch 24-bit",
+              "channels": 4,
+              "layout": "4 mono",
+              "bitDepth": 24
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -768,7 +1304,12 @@
           "bitDepth": 24,
           "defaultConfigurationId": "four-channel",
           "configurations": [
-            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" }
+            {
+              "id": "four-channel",
+              "label": "4ch camera audio",
+              "channels": 4,
+              "layout": "4 mono"
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -789,10 +1330,30 @@
           "bitDepth": 24,
           "defaultConfigurationId": "eight-channel",
           "configurations": [
-            { "id": "two-channel", "label": "2 mono channels", "channels": 2, "layout": "2 mono" },
-            { "id": "four-channel", "label": "4 mono channels", "channels": 4, "layout": "4 mono" },
-            { "id": "eight-channel", "label": "8 mono channels", "channels": 8, "layout": "8 mono" },
-            { "id": "sixteen-channel", "label": "16 mono channels", "channels": 16, "layout": "16 mono" }
+            {
+              "id": "two-channel",
+              "label": "2 mono channels",
+              "channels": 2,
+              "layout": "2 mono"
+            },
+            {
+              "id": "four-channel",
+              "label": "4 mono channels",
+              "channels": 4,
+              "layout": "4 mono"
+            },
+            {
+              "id": "eight-channel",
+              "label": "8 mono channels",
+              "channels": 8,
+              "layout": "8 mono"
+            },
+            {
+              "id": "sixteen-channel",
+              "label": "16 mono channels",
+              "channels": 16,
+              "layout": "16 mono"
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -807,8 +1368,20 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "stereo-256",
           "configurations": [
-            { "id": "stereo-256", "label": "Stereo 256 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 256 },
-            { "id": "surround-5-1-640", "label": "5.1 640 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 640 }
+            {
+              "id": "stereo-256",
+              "label": "Stereo 256 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 256
+            },
+            {
+              "id": "surround-5-1-640",
+              "label": "5.1 640 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 640
+            }
           ],
           "accuracy": "estimate",
           "sourceUrls": [
@@ -830,9 +1403,24 @@
           "bitDepth": 24,
           "defaultConfigurationId": "eight-channel",
           "configurations": [
-            { "id": "four-channel", "label": "4 mono channels", "channels": 4, "layout": "4 mono" },
-            { "id": "eight-channel", "label": "8 mono channels", "channels": 8, "layout": "8 mono" },
-            { "id": "sixteen-channel", "label": "16 mono channels", "channels": 16, "layout": "16 mono" }
+            {
+              "id": "four-channel",
+              "label": "4 mono channels",
+              "channels": 4,
+              "layout": "4 mono"
+            },
+            {
+              "id": "eight-channel",
+              "label": "8 mono channels",
+              "channels": 8,
+              "layout": "8 mono"
+            },
+            {
+              "id": "sixteen-channel",
+              "label": "16 mono channels",
+              "channels": 16,
+              "layout": "16 mono"
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -852,8 +1440,20 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "stereo-256",
           "configurations": [
-            { "id": "stereo-256", "label": "Stereo 256 kbps", "channels": 2, "layout": "Stereo", "bitrateKbps": 256 },
-            { "id": "surround-5-1-640", "label": "5.1 640 kbps", "channels": 6, "layout": "5.1", "bitrateKbps": 640 }
+            {
+              "id": "stereo-256",
+              "label": "Stereo 256 kbps",
+              "channels": 2,
+              "layout": "Stereo",
+              "bitrateKbps": 256
+            },
+            {
+              "id": "surround-5-1-640",
+              "label": "5.1 640 kbps",
+              "channels": 6,
+              "layout": "5.1",
+              "bitrateKbps": 640
+            }
           ],
           "accuracy": "estimate",
           "sourceUrls": [
@@ -875,7 +1475,12 @@
           "bitDepth": 16,
           "defaultConfigurationId": "two-channel",
           "configurations": [
-            { "id": "two-channel", "label": "2ch", "channels": 2, "layout": "Stereo" }
+            {
+              "id": "two-channel",
+              "label": "2ch",
+              "channels": 2,
+              "layout": "Stereo"
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -896,7 +1501,12 @@
           "bitDepth": 16,
           "defaultConfigurationId": "two-channel",
           "configurations": [
-            { "id": "two-channel", "label": "2ch", "channels": 2, "layout": "Stereo" }
+            {
+              "id": "two-channel",
+              "label": "2ch",
+              "channels": 2,
+              "layout": "Stereo"
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -917,9 +1527,24 @@
           "bitDepth": 24,
           "defaultConfigurationId": "eight-channel",
           "configurations": [
-            { "id": "four-channel", "label": "4ch camera audio", "channels": 4, "layout": "4 mono" },
-            { "id": "eight-channel", "label": "8ch broadcast audio", "channels": 8, "layout": "8 mono" },
-            { "id": "sixteen-channel", "label": "16ch delivery profile", "channels": 16, "layout": "16 mono" }
+            {
+              "id": "four-channel",
+              "label": "4ch camera audio",
+              "channels": 4,
+              "layout": "4 mono"
+            },
+            {
+              "id": "eight-channel",
+              "label": "8ch broadcast audio",
+              "channels": 8,
+              "layout": "8 mono"
+            },
+            {
+              "id": "sixteen-channel",
+              "label": "16ch delivery profile",
+              "channels": 16,
+              "layout": "16 mono"
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -941,8 +1566,20 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "eight-channel-16bit",
           "configurations": [
-            { "id": "eight-channel-16bit", "label": "8ch 16-bit", "channels": 8, "layout": "8 mono", "bitDepth": 16 },
-            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+            {
+              "id": "eight-channel-16bit",
+              "label": "8ch 16-bit",
+              "channels": 8,
+              "layout": "8 mono",
+              "bitDepth": 16
+            },
+            {
+              "id": "four-channel-24bit",
+              "label": "4ch 24-bit",
+              "channels": 4,
+              "layout": "4 mono",
+              "bitDepth": 24
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -962,8 +1599,20 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "eight-channel-16bit",
           "configurations": [
-            { "id": "eight-channel-16bit", "label": "8ch 16-bit", "channels": 8, "layout": "8 mono", "bitDepth": 16 },
-            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+            {
+              "id": "eight-channel-16bit",
+              "label": "8ch 16-bit",
+              "channels": 8,
+              "layout": "8 mono",
+              "bitDepth": 16
+            },
+            {
+              "id": "four-channel-24bit",
+              "label": "4ch 24-bit",
+              "channels": 4,
+              "layout": "4 mono",
+              "bitDepth": 24
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -983,8 +1632,20 @@
           "sampleRateHz": 48000,
           "defaultConfigurationId": "eight-channel-16bit",
           "configurations": [
-            { "id": "eight-channel-16bit", "label": "8ch 16-bit", "channels": 8, "layout": "8 mono", "bitDepth": 16 },
-            { "id": "four-channel-24bit", "label": "4ch 24-bit", "channels": 4, "layout": "4 mono", "bitDepth": 24 }
+            {
+              "id": "eight-channel-16bit",
+              "label": "8ch 16-bit",
+              "channels": 8,
+              "layout": "8 mono",
+              "bitDepth": 16
+            },
+            {
+              "id": "four-channel-24bit",
+              "label": "4ch 24-bit",
+              "channels": 4,
+              "layout": "4 mono",
+              "bitDepth": 24
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [
@@ -1005,7 +1666,12 @@
           "bitDepth": 16,
           "defaultConfigurationId": "four-channel",
           "configurations": [
-            { "id": "four-channel", "label": "4ch", "channels": 4, "layout": "4 mono" }
+            {
+              "id": "four-channel",
+              "label": "4ch",
+              "channels": 4,
+              "layout": "4 mono"
+            }
           ],
           "accuracy": "spec",
           "sourceUrls": [

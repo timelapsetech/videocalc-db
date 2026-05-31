@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "description": "Shared calculator configurations referenced by streaming delivery options. Keeps identical ingest profiles in one place."
+  },
+  "templates": {
+    "avod-h264-hd": {
+      "category": "delivery",
+      "codec": "h264",
+      "variant": "High Profile",
+      "resolution": "1080p",
+      "frameRate": "23.98",
+      "audioEnabled": true,
+      "audioProfileId": "mp4-aac",
+      "audioConfigurationId": "stereo-192",
+      "videoBitrateOverrideMbps": 14
+    },
+    "svod-h264-mezzanine-30": {
+      "category": "delivery",
+      "codec": "h264",
+      "variant": "High Profile",
+      "resolution": "1080p",
+      "frameRate": "23.98",
+      "audioEnabled": true,
+      "audioProfileId": "mp4-aac",
+      "audioConfigurationId": "stereo-320",
+      "videoBitrateOverrideMbps": 30
+    },
+    "prores-hd-surround-51": {
+      "category": "professional",
+      "codec": "prores",
+      "variant": "ProRes 422 HQ",
+      "resolution": "1080p",
+      "frameRate": "23.98",
+      "audioEnabled": true,
+      "audioProfileId": "mov-lpcm-48k-24bit",
+      "audioConfigurationId": "surround-5-1"
+    },
+    "prores-hd-stereo": {
+      "category": "professional",
+      "codec": "prores",
+      "variant": "ProRes 422 HQ",
+      "resolution": "1080p",
+      "frameRate": "23.98",
+      "audioEnabled": true,
+      "audioProfileId": "mov-lpcm-48k-24bit",
+      "audioConfigurationId": "stereo"
+    },
+    "prores-uhd-surround-51": {
+      "category": "professional",
+      "codec": "prores",
+      "variant": "ProRes 422 HQ",
+      "resolution": "UHD",
+      "frameRate": "23.98",
+      "audioEnabled": true,
+      "audioProfileId": "mov-lpcm-48k-24bit",
+      "audioConfigurationId": "surround-5-1"
+    },
+    "imf-j2k-uhd-surround-51": {
+      "category": "broadcast",
+      "codec": "jpeg2000",
+      "variant": "J2K IMF 4K",
+      "resolution": "UHD",
+      "frameRate": "24",
+      "audioEnabled": true,
+      "audioProfileId": "dcp-imf-pcm-48k-24bit",
+      "audioConfigurationId": "surround-5-1"
+    },
+    "fast-hls-h264-1080p-6_5": {
+      "category": "delivery",
+      "codec": "h264",
+      "variant": "High Profile",
+      "resolution": "1080p",
+      "frameRate": "29.97",
+      "audioEnabled": true,
+      "audioProfileId": "mp4-aac",
+      "audioConfigurationId": "stereo-160",
+      "videoBitrateOverrideMbps": 6.5
+    },
+    "fast-hls-h264-1080p-6": {
+      "category": "delivery",
+      "codec": "h264",
+      "variant": "High Profile",
+      "resolution": "1080p",
+      "frameRate": "29.97",
+      "audioEnabled": true,
+      "audioProfileId": "mp4-aac",
+      "audioConfigurationId": "stereo-160",
+      "videoBitrateOverrideMbps": 6
+    },
+    "vertical-h264-1080p-18": {
+      "category": "delivery",
+      "codec": "h264",
+      "variant": "High Profile",
+      "resolution": "1080p",
+      "frameRate": "30",
+      "audioEnabled": true,
+      "audioProfileId": "mp4-aac",
+      "audioConfigurationId": "stereo-320",
+      "videoBitrateOverrideMbps": 18
+    }
+  }
+}

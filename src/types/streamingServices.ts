@@ -27,7 +27,9 @@ export interface StreamingDeliveryOption {
   specUrl: string;
   /** Override automatic spec-source classification for this link */
   specSourceType?: SpecSourceType;
-  calculator: StreamingDeliveryCalculator;
+  /** Reference to a shared calculator profile in data/streaming-calculator-templates.json */
+  calculatorTemplate?: string;
+  calculator?: StreamingDeliveryCalculator;
   ffmpegSupported: boolean;
   ffmpegNotes?: string;
 }
